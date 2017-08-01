@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maxim.core.mapper.ext.CouponSalesExtMapper">
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO VB_COUPON_SALES (BRANCH_CODE, ORDER_NO, ORDER_SEQ,
+        ITEM_SEQ, SUBITEM_SEQ, COUPON_SEQ,
+        RECALL, BUSINESS_DATE, EVENT_NO,
+        TRANS_TYPE, TRANS_DATETIME, "UID_CD",
+        STATION_ID, COUPON_CODE, COUPON_CDESC,
+        COUPON_EDESC, RANGE_REMARKS, COUPON_START_NO,
+        COUPON_END_NO, COUPON_QTY, REFUND,
+        VOID_CD, RESERVED, "STATUS",
+        LAST_UPDATE_TIME, ROWGUID)
+        <foreach collection="list" item="item" index="index" separator=" UNION ALL ">
+            SELECT
+            #{item.branchCode,jdbcType=VARCHAR},
+            #{item.orderNo,jdbcType=VARCHAR},
+            #{item.orderSeq,jdbcType=DECIMAL},
+            #{item.itemSeq,jdbcType=DECIMAL},
+            #{item.subitemSeq,jdbcType=DECIMAL},
+            #{item.couponSeq,jdbcType=DECIMAL},
+            #{item.recall,jdbcType=DECIMAL},
+            #{item.businessDate,jdbcType=TIMESTAMP},
+            #{item.eventNo,jdbcType=VARCHAR},
+            #{item.transType,jdbcType=VARCHAR},
+            #{item.transDatetime,jdbcType=TIMESTAMP},
+            #{item.uid,jdbcType=DECIMAL},
+            #{item.stationId,jdbcType=VARCHAR},
+            #{item.couponCode,jdbcType=VARCHAR},
+            #{item.couponCdesc,jdbcType=VARCHAR},
+            #{item.couponEdesc,jdbcType=VARCHAR},
+            #{item.rangeRemarks,jdbcType=VARCHAR},
+            #{item.couponStartNo,jdbcType=VARCHAR},
+            #{item.couponEndNo,jdbcType=VARCHAR},
+            #{item.couponQty,jdbcType=DECIMAL},
+            #{item.refund,jdbcType=CHAR},
+            #{item.voidVal,jdbcType=CHAR},
+            #{item.reserved,jdbcType=VARCHAR},
+            'C',
+            #{item.lastUpdateTime,jdbcType=TIMESTAMP},
+            #{item.rowguid,jdbcType=CHAR}
+            FROM DUAL
+        </foreach>
+    </insert>
+    <delete id="deleteBatch" parameterType="java.util.List">
+        DELETE FROM VB_COUPON_SALES WHERE ROWGUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.rowguid,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+</mapper>
