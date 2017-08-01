@@ -1,0 +1,32 @@
+IT bacherlor
+
+
+JAVA			-	IOC
+			-	AOP
+			-	Transaction less
+
+Performance		-	Compresss
+			-	Data - less
+			
+
+			-	Thid party usage 
+
+Database		-	MySQL / Oracle
+
+		
+Team :			-	5
+			
+
+Project:		-	SA
+			-	New Project Less
+			-	CR / Ehacement more to the user
+
+
+User Req.		-	Interview			
+			
+
+Testing / Quality	-	Process Control
+			-	QA team
+			
+
+

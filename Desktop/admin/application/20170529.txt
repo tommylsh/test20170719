@@ -1,0 +1,34 @@
+.net
+
+2 year java.
+
+data..
+anyalsisy data..
+report / compute..
+approval ...
+
+web / application /   ms - sql / databsae/
+computer fx / risk / 
+stock price 
+
+bcd /  
+
+web -   jdk 1.8....
+bootstrap. 
+
+MVC -    -> not fmailar
+SSO      -> ............
+
+store proc / function    (ms-sql)   less 
+nested query 
+
+SQL
+
+transaction : 
+parrel processing:	
+
+
+
+
+
+

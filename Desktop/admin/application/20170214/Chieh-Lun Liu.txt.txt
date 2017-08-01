@@ -1,0 +1,33 @@
+IT bacherlor
+
+
+JAVA			-	IOC
+			-	AOP
+			-	not famailar with Transaction
+
+
+Dataaccess		-	DAO
+Map / List		-	Usage
+Skill			-	Exception
+
+			-	Restfuk
+
+FE :			-	css / boostrap / 
+
+		
+Team :			-	4
+			
+Scrunm Master
+Reseach
+
+User Req.		-	Interview
+			-	Mockup ->  Open mind 
+			-	Confrim data model
+			-	Agile
+
+
+Testing / Quality	-	QA team
+			-	Logic Test
+			
+
+

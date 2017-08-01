@@ -1,0 +1,42 @@
+git clone --branch release-5.0-stable https://github.com/bugzilla/bugzilla C:\bugzilla
+
+ppm install CGI
+ppm install Digest-SHA
+ppm install TimeDate
+ppm install DateTime
+ppm install DateTime-TimeZone
+ppm install DBI
+ppm install Template-Toolkit
+ppm install Email-Sender
+ppm install Email-MIME
+ppm install URI
+ppm install List-MoreUtils
+ppm install Math-Random-ISAAC
+ppm install File-Slurp
+ppm install JSON-XS
+ppm install Win32
+ppm install Win32-API
+ppm install DateTime-TimeZone-Local-Win32
+
+
+
+3.5.2.1. Installing?
+Download the Apache HTTP Server as a .zip archive either from the Apache Lounge website or from the Apache Haus website.
+
+Unzip the archive into C:\Apache24. If you move it elsewhere, then you must edit several variables in httpd.conf, including ServerRoot and DocumentRoot.
+
+You must now edit the Apache configuration file C:\Apache24\conf\httpd.conf and do the following steps:
+
+Uncomment LoadModule cgi_module modules/mod_cgi.so at the beginning of the file to enable CGI support.
+Uncomment AddHandler cgi-script .cgi to register .cgi files as CGI scripts. For this handler to work, you must create a key in the Windows registry named HKEY_CLASSES_ROOT\.cgi\Shell\ExecCGI\Command with the default value pointing to the full path of perl.exe with a -T parameter. For example C:\Perl\bin\perl.exe -T if you use ActivePerl, or C:\Strawberry\perl\bin\perl.exe -T if you use Strawberry Perl.
+Add an Alias and a Directory for Bugzilla:
+Alias "/bugzilla/" "C:/bugzilla/"
+<Directory "C:/bugzilla">
+    ScriptInterpreterSource Registry-Strict
+    Options +ExecCGI +FollowSymLinks
+    DirectoryIndex index.cgi index.html
+    AllowOverride All
+    Require all granted
+</Directory>
+
+httpd.exe -k install

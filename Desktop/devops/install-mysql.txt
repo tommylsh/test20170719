@@ -1,0 +1,9 @@
+C:/Program Files/MySQL/MySQL Server 5.7
+
+bin\mysqld --defaults-file=my.ini --initialize-insecure
+
+"C:\Program Files\MySQL\MySQL Server 5.7\bin\mysqld" --console
+
+"C:\Program Files\MySQL\MySQL Server 5.7\bin\mysqladmin" -u root shutdown
+
+add path C:\Program Files\MySQL\MySQL Server 5.7\bin
