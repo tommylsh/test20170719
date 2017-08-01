@@ -1,0 +1,6 @@
+nohup /home/oracle/config/domains/standalone_domain/bin/startManagedWebLogic.sh osb_server1 > nul 2>&1 &
+nohup /home/oracle/config/domains/standalone_domain/bin/startManagedWebLogic.sh soa_server1 > nul 2>&1 &
+
+
+nohup /home/oracle/config/domains/base_domain/bin/startManagedWebLogic.sh edw_server_1 > nul 2>&1 &
+nohup /home/oracle/config/domains/base_domain/bin/startManagedWebLogic.sh app_server_1 > nul 2>&1 &

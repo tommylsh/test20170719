@@ -1,0 +1,80 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+	<p:submenu label="#{msg['cg']['setup']}" icon="ui-icon-check">
+
+		<p:menuitem value="#{msg['cg']['region']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/region/region-list.html" />
+
+		<p:menuitem value="#{msg['cg']['businessLine']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/businessline/businessline-list.html" />
+
+		<p:menuitem value="#{msg['cg']['subBusinessLine']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/subbusinessLine/sub-businessLine-list.html" />
+
+		<p:menuitem value="#{msg['cg']['channel']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/channel/channel-list.html" />
+
+		<p:menuitem value="#{msg['cg']['holiday']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/holiday/holiday-list.html" />
+
+		<p:menuitem value="#{msg['cg']['commonTemplate']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/template/common-template-list.html" />
+
+		<p:menuitem value="#{msg['cg']['fileFieldMapping']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/touchpoint/file-field-mapping-list.html" />
+
+	</p:submenu>
+
+	<p:submenu label="#{msg['cg']['notification']}" icon="ui-icon-check">
+
+		<p:menuitem value="#{msg['cg']['approveNotification']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/notification/notification-list.html" />
+
+		<p:menuitem value="#{msg['cg']['uploadNotificationSource']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/notification/notification-list.html" />
+
+		<p:menuitem value="#{msg['cg']['agentAndBroker']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/contact/contact-list.html" />
+
+		<p:menuitem value="#{msg['cg']['optOutList']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/optout/optout-list.html" />
+
+	</p:submenu>
+
+
+	<p:submenu label="#{msg['cg']['touchPoint']}" icon="ui-icon-check">
+
+		<p:menuitem value="#{msg['cg']['touchPoint']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/touchpoint/touch-point-list.html" />
+
+	</p:submenu>
+
+	<p:submenu label="#{msg['cg']['event']}" icon="ui-icon-check">
+
+		<p:menuitem value="#{msg['cg']['event']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/event/event-list.html" />
+
+	</p:submenu>
+
+	<p:submenu label="#{msg['cg']['status']}" icon="ui-icon-check">
+
+		<p:menuitem value="#{msg['cg']['notificationComponent']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/status/notification-component.html" />
+
+	</p:submenu>
+
+	<p:submenu label="#{msg['cg']['auditLog']}" icon="ui-icon-check">
+
+		<p:menuitem value="#{msg['cg']['auditLog']}"
+			url="#{FaceUtils.getContextPath()}/faces/notification/auditlog/audit-log-list.html" />
+
+	</p:submenu>
+
+
+</ui:composition>

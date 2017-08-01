@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:beans="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context
+	    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+	    http://www.springframework.org/schema/security
+	    http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+	<context:component-scan base-package="com.maxim.pos.common.web.security" />
+
+	<http pattern="/javax.faces.resource/**" security="none" />
+	<http pattern="/js/**" security="none" />
+	<http pattern="/images/**" security="none" />
+	<http pattern="/css/**" security="none" />
+	<http pattern="/resource/**" security="none" />
+	
+	<global-method-security secured-annotations="enabled" access-decision-manager-ref="accessDecisionManager"/>
+
+	<http use-expressions="true" entry-point-ref="entryPoint">
+		<access-denied-handler error-page="/spring/secure/accessDenied.jsp" />
+
+		<logout logout-url="/spring/secure/j_spring_security_logout"
+			logout-success-url="/spring/secure/login.jsp" delete-cookies="JSESSIONID" />
+		<remember-me />
+
+		<custom-filter ref="concurrencyFilter" position="CONCURRENT_SESSION_FILTER" />
+		<custom-filter ref="loginFilter" position="FORM_LOGIN_FILTER" />
+		<custom-filter ref="filterSecurityInterceptor" before="FILTER_SECURITY_INTERCEPTOR" />
+
+		<session-management
+			session-authentication-strategy-ref="sas" />
+	</http>
+
+	<!-- =================== concurrencyFilter ====================== -->
+	<beans:bean id="concurrencyFilter"
+		class="org.springframework.security.web.session.ConcurrentSessionFilter">
+		<beans:property name="sessionRegistry" ref="sessionRegistry" />
+		<beans:property name="expiredUrl"
+			value="/spring/secure/sessionExpired.jsp" />
+	</beans:bean>
+
+	<beans:bean id="sessionRegistry"
+		class="org.springframework.security.core.session.SessionRegistryImpl" />
+
+	<!-- =================== concurrencyFilter ====================== -->
+
+	<!-- =================== loginFilter ====================== -->
+	<beans:bean id="loginFilter"
+		class="com.maxim.pos.common.web.security.LoginAuthenticationFilter">
+
+		<beans:property name="filterProcessesUrl"
+			value="/spring/secure/j_spring_security_check" />
+		<beans:property name="authenticationSuccessHandler"
+			ref="authSuccessHandler" />
+		<beans:property name="authenticationFailureHandler"
+			ref="authFailHandler" />
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="sessionAuthenticationStrategy"
+			ref="sas" />
+		<beans:property name="userService" ref="userService" />
+		<beans:property name="messageSource" ref="messageSource" />
+	</beans:bean>
+
+	<beans:bean id="entryPoint"
+		class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+		<beans:property name="loginFormUrl" value="/spring/secure/login.jsp" />
+	</beans:bean>
+
+	<beans:bean id="authSuccessHandler"
+		class="org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler">
+		<beans:property name="defaultTargetUrl" value="/faces/index.faces" />
+	</beans:bean>
+
+	<beans:bean id="authFailHandler"
+		class="com.maxim.pos.common.web.security.AuthenticationFailureHandler">
+		<beans:property name="defaultFailureUrl" value="/spring/secure/login.jsp" />
+	</beans:bean>
+
+	<!-- =================== loginFilter ====================== -->
+
+	<beans:bean id="sas"
+		class="org.springframework.security.web.authentication.session.ConcurrentSessionControlStrategy">
+		<beans:constructor-arg name="sessionRegistry"
+			ref="sessionRegistry" />
+		<beans:property name="maximumSessions" value="10" />
+	</beans:bean>
+
+	<beans:bean id="filterSecurityInterceptor"
+		class="com.maxim.pos.common.web.security.FilterSecurityInterceptor">
+		<beans:property name="authenticationManager" ref="authenticationManager" />
+		<beans:property name="accessDecisionManager" ref="accessDecisionManager" />
+		<beans:property name="securityMetadataSource" ref="securityMetadataSource" />
+	</beans:bean>
+
+	<authentication-manager alias="authenticationManager">
+		<authentication-provider user-service-ref="userDetailsService">
+		</authentication-provider>
+	</authentication-manager>
+</beans:beans>

@@ -1,0 +1,69 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+	<composite:attribute name="dialogId" required="true" />
+	<composite:attribute name="dialogVar" required="true" />
+	<composite:attribute name="dialogFormId" required="true" />
+	<composite:attribute name="headerImage" default="/images/element16.png" />
+	<composite:attribute name="headerText"
+		default="#{msg['simple']['dialog']}" />
+	<composite:attribute name="columns" default="2" />
+	<composite:attribute name="columnClasses"
+		default="dialogCol1, dialogCol2" />
+	<composite:attribute name="show" required="true" />
+	<composite:attribute name="maximizable" default="false" />
+
+	<composite:attribute name="saveMethod" required="true"
+		method-signature="void action()" />
+	<composite:attribute name="update" required="true" />
+	<composite:attribute name="disabled" required="false" default="false" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<p:growl id="dialogGrowl" showDetail="true" />
+	<cc:simpleDialog id="sDialog" dialogId="#{cc.attrs.dialogId}"
+		headerText="#{cc.attrs.headerText}" columns="#{cc.attrs.columns}"
+		dialogVar="#{cc.attrs.dialogVar}" show="#{cc.attrs.show}"
+		columnClasses="#{cc.attrs.columnClasses}"
+		maximizable="#{cc.attrs.maximizable}">
+
+		<composite:insertChildren />
+
+		<p:spacer />
+		<h:panelGrid style=" text-align: right;">
+			<p:commandButton id="submitButton" value="#{msg['simple']['save']}"
+				action="#{cc.attrs.saveMethod}"
+				update=":#{cc.attrs.dialogFormId} #{cc.attrs.update}"
+				disabled="#{cc.attrs.disabled}"
+				oncomplete="handleLoginRequest(xhr, status, args)"
+				icon="ui-icon-save1">
+
+			</p:commandButton>
+		</h:panelGrid>
+
+	</cc:simpleDialog>
+
+	<script type="text/javascript">
+		function handleLoginRequest(xhr, status, args) {
+			var dialogWidget = #{cc.attrs.dialogVar};
+			alert(dialogWidget);
+			if (args.validationFailed) {
+				/* dialogWidget.jq.effect("shake", {
+					times : 3
+				}, 100); */
+				dialogWidget.show();
+			} else {
+				dialogWidget.hide();
+			}
+		}
+	</script>
+</composite:implementation>
+</html>

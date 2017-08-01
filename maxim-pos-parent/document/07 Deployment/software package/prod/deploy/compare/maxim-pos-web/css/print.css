@@ -1,0 +1,68 @@
+body {
+	text-align: center;
+	font-size: 13pt;
+}
+
+#printBtn {
+	font-size: 1.2em;
+	float: right;
+}
+
+.title-company {
+	font-size: 20pt;
+	text-decoration: underline;
+	padding: 5px;
+}
+
+.title-address {
+	font-size: 0.8em;
+	text-align: center;
+}
+
+.title-bill {
+	width: 100%;
+	text-align: center;
+	font-size: 14pt;
+	padding: 5px;
+}
+
+table.bill-item {
+	font-size: 1.1em;
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px #000 solid;
+	text-align: left;
+}
+
+table.bill-item tr td {
+	border-collapse: collapse;
+	border: 1px #000 solid;
+	text-align: center;
+	height: 1.5em;
+}
+
+table.bill-customer {
+	width: 100%;
+	font-size: 0.9em;
+}
+
+table.bill-footer {
+	width: 90%;
+}
+
+.bill-customer-col1 {
+	text-align: left;
+	width: 70%;
+}
+
+.bill-customer-col2 {
+	text-align: left;
+}
+
+.bill-footer-col {
+	width: 20;
+}
+
+.underline {
+	text-decoration: underline;
+}

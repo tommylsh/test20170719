@@ -1,0 +1,264 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/templates/main.xhtml">
+
+	<ui:define name="title">
+		<cc:titleText title="#{msg['security']['resourceManagement']}" />
+	</ui:define>
+
+	<ui:define name="content">
+
+		<style>
+<!--
+.panel-grid-col1 {
+	vertical-align: top;
+	width: 80px;
+}
+
+.panel-grid-col2 {
+	vertical-align: top;
+}
+
+.ui-treenode-label {
+	font-size: 1.2em !important;
+}
+
+.ui-icon-system {
+	background: url(#{request.contextPath}/images/security/system32.png)
+		no-repeat !important;
+	width: 32px;
+	height: 32px;
+}
+
+.ui-icon-folder-open {
+	background:
+		url(#{request.contextPath}/images/security/folder-open32.png)
+		no-repeat !important;
+	width: 32px;
+	height: 32px;
+}
+
+.ui-icon-folder-close {
+	background:
+		url(#{request.contextPath}/images/security/folder-close32.png)
+		no-repeat !important;
+	width: 32px;
+	height: 32px;
+}
+
+.ui-icon-link {
+	background: url(#{request.contextPath}/images/security/link32.png)
+		no-repeat !important;
+	width: 32px;
+	height: 32px;
+}
+-->
+</style>
+
+		<script>
+			function checkElementSelection() {
+				if (PF('resourceDataTableVar').selection.length == 0) {
+					PF('infoDialog').show();
+					return false;
+				} else {
+					return true;
+				}
+			}
+		</script>
+
+		<h:form id="resourceTreeForm">
+
+
+			<sec:authorize ifAnyGranted="CREATE_MENU,EDIT_MENU,DELETE_MENU">
+				<p:toolbar id="toolbar">
+					<p:toolbarGroup align="left">
+
+
+						<sec:authorize ifAnyGranted="CREATE_MENU">
+							<p:commandButton id="addFolderBtn"
+								value="#{msg['security']['addFolder']}"
+								disabled="#{resourceManagementController.selectedNode == null or resourceManagementController.selectedNode.type != 'SYSTEM'}"
+								process="@this"
+								action="#{resourceManagementController.addFolder}"
+								update=":resourceDialogForm"
+								oncomplete="PF('resourceDialogVar').show();" icon="ui-icon-add" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="CREATE_MENU">
+							<p:commandButton id="addLinkBtn"
+								value="#{msg['security']['addLink']}"
+								disabled="#{resourceManagementController.selectedNode == null or resourceManagementController.selectedNode.type != 'FOLDER'}"
+								process="@this" action="#{resourceManagementController.addLink}"
+								update=":resourceDialogForm"
+								oncomplete="PF('resourceDialogVar').show();" icon="ui-icon-add" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="CREATE_MENU">
+							<p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+								disabled="#{resourceManagementController.selectedNode == null}"
+								process="@this" action="#{resourceManagementController.edit}"
+								update=":resourceDialogForm"
+								oncomplete="PF('resourceDialogVar').show();" icon="ui-icon-edit" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="CREATE_MENU">
+							<p:commandButton id="deleteBtn"
+								value="#{msg['common']['delete']}"
+								disabled="#{resourceManagementController.selectedNode == null}"
+								process="@this" action="#{resourceManagementController.delete}"
+								update="resourceTree :primefaceMessages"
+								onclick="if (!confirm('Confirm Delete?')) return false;"
+								icon="ui-icon-delete" />
+						</sec:authorize>
+
+					</p:toolbarGroup>
+
+				</p:toolbar>
+			</sec:authorize>
+
+			<p:tree id="resourceTree" widgetVar="resourceTreeVar"
+				value="#{resourceManagementController.root}" var="node"
+				dynamic="true" selectionMode="single"
+				selection="#{resourceManagementController.selectedNode}"
+				style="margin-top: 5px; border: 1px solid #CCCCCC; width: 95%; ">
+
+				<sec:authorize ifAnyGranted="CREATE_MENU,EDIT_MENU,DELETE_MENU">
+					<p:ajax event="select" global="false"
+						listener="#{resourceManagementController.onNodeSelect}"
+						process="@this" update="@this,:resourceTreeForm:toolbar" />
+				</sec:authorize>
+				<p:ajax event="expand" global="true"
+					listener="#{resourceManagementController.onNodeExpand}"
+					process="@this" update="@this" />
+				<p:ajax event="collapse" global="true"
+					listener="#{resourceManagementController.onNoCollapse}"
+					process="@this" update=":resourceTreeForm:resourceTree" />
+
+				<p:treeNode type="SYSTEM" expandedIcon="ui-icon-system"
+					collapsedIcon="ui-icon-system">
+					<h:outputText value="#{node.name}" />
+				</p:treeNode>
+				<p:treeNode type="FOLDER" expandedIcon="ui-icon-folder-open"
+					collapsedIcon="ui-icon-folder-close">
+					<h:outputText value="#{node.name}"
+						style="#{node.enabled ? '' : 'background-color: #CCCCCC;'}" />
+				</p:treeNode>
+				<p:treeNode type="LINK" expandedIcon="ui-icon-link"
+					collapsedIcon="ui-icon-link">
+					<h:outputText value="#{node.name} - #{node.url}"
+						style="#{node.enabled ? '' : 'background-color: #CCCCCC;'}" />
+				</p:treeNode>
+			</p:tree>
+
+		</h:form>
+
+	</ui:define>
+
+
+	<ui:define name="dialog">
+		<h:form id="resourceDialogForm">
+			<p:dialog id="resourceDialog" widgetVar="resourceDialogVar"
+				modal="true" width="600" resizable="false">
+
+				<f:facet name="header">
+					<p:graphicImage value="/images/element16.png" />
+					<h:outputText value="#{msg['security']['folderDetail']}"
+						rendered="#{resourceManagementController.folderObject != null}" />
+					<h:outputText value="#{msg['security']['linkDetail']}"
+						rendered="#{resourceManagementController.linkObject != null}" />
+				</f:facet>
+
+				<h:panelGrid id="folderFormPanel" columns="2"
+					columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5"
+					style="width: 100%;"
+					rendered="#{resourceManagementController.selectedNode != null and resourceManagementController.folderObject != null}">
+
+					<h:outputLabel for="name" value="#{msg['security']['name']}" />
+					<p:inputText id="name"
+						value="#{resourceManagementController.folderObject.name}"
+						label="#{msg['security']['name']}" maxlength="100"
+						style="width: 95%" required="true" />
+
+					<h:outputLabel for="enabled" value="#{msg['security']['enabled']}" />
+					<p:selectBooleanCheckbox id="enabled"
+						value="#{resourceManagementController.folderObject.enabled}"
+						label="#{msg['security']['enabled']}" required="true" />
+
+					<p:spacer />
+					<h:panelGroup
+						style="width: 95%; display: inline-block; text-align: right;">
+						<p:commandButton id="submitButton"
+							value="#{msg['common']['save']}"
+							actionListener="#{resourceManagementController.saveFolder}"
+							update="@form :resourceTreeForm:resourceTree :primefaceMessages"
+							oncomplete="handleComplete(xhr, status, args)"
+							icon="ui-icon-save1" style=" margin-right: -7px;" />
+					</h:panelGroup>
+				</h:panelGrid>
+
+				<h:panelGrid id="linkFormPanel" columns="2"
+					columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5"
+					style="width: 100%;"
+					rendered="#{resourceManagementController.selectedNode != null and resourceManagementController.linkObject != null}">
+
+					<h:outputLabel for="linkName" value="#{msg['security']['name']}" />
+					<p:inputText id="linkName"
+						value="#{resourceManagementController.linkObject.name}"
+						label="#{msg['security']['name']}" maxlength="100"
+						style="width: 95%" required="true" />
+
+					<h:outputLabel for="url" value="#{msg['security']['url']}" />
+					<p:inputText id="url"
+						value="#{resourceManagementController.linkObject.url}"
+						label="#{msg['security']['url']}" maxlength="255"
+						style="width: 95%" required="true">
+					</p:inputText>
+
+					<h:outputLabel for="linkEnabled"
+						value="#{msg['security']['enabled']}" />
+					<p:selectBooleanCheckbox id="linkEnabled"
+						value="#{resourceManagementController.linkObject.enabled}"
+						label="#{msg['security']['enabled']}" required="true" />
+
+					<p:spacer />
+					<h:panelGroup
+						style="width: 95%; display: inline-block; text-align: right;">
+						<p:commandButton id="linkSubmitButton"
+							value="#{msg['common']['save']}"
+							actionListener="#{resourceManagementController.saveLink}"
+							update="@form :resourceTreeForm:resourceTree :primefaceMessages"
+							oncomplete="handleComplete(xhr, status, args)"
+							icon="ui-icon-save1" style=" margin-right: -7px;" />
+					</h:panelGroup>
+				</h:panelGrid>
+
+			</p:dialog>
+		</h:form>
+
+		<script type="text/javascript">
+			function handleComplete(xhr, status, args) {
+				if (args.validationFailed) {
+					jQuery('#resourceDialog').effect("shake", {
+						times : 3
+					}, 100);
+				} else {
+					PF('resourceDialogVar').hide();
+				}
+			}
+
+			$(document).bind("keyup", function(evt) {
+				if (27 == evt.keyCode) {
+					PF('resourceDialogVar').hide();
+				}
+			});
+		</script>
+
+	</ui:define>
+
+</ui:composition>

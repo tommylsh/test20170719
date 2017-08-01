@@ -1,0 +1,1350 @@
+
+----  Linked server : ITHKERPP01
+sp_addlinkedserver 'ITHKERPP01','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITHKERPP01','false',null,'maxims_dataexchange',<enter password here>
+go
+sp_serveroption 'ITHKERPP01','collation compatible','off'
+go
+sp_serveroption 'ITHKERPP01','data access','on'
+go
+sp_serveroption 'ITHKERPP01','rpc','on'
+go
+sp_serveroption 'ITHKERPP01','rpc out','on'
+go
+sp_serveroption 'ITHKERPP01','use remote collation','on'
+go
+sp_serveroption 'ITHKERPP01','collation name',null
+go
+sp_serveroption 'ITHKERPP01','connect timeout',0
+go
+sp_serveroption 'ITHKERPP01','query timeout','0'
+go
+
+-- Options for provider : SQLOLEDB
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','DynamicParameters','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','NestedQueries','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','LevelZeroOnly','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','AllowInProcess','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','NonTransactedUpdates','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','IndexAsAccessPath','REG_DWORD',1
+go
+
+----  Linked server : IT_11
+sp_addlinkedserver 'IT_11','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT_11','false',null,'foodrec',<enter password here>
+go
+sp_serveroption 'IT_11','collation compatible','off'
+go
+sp_serveroption 'IT_11','data access','on'
+go
+sp_serveroption 'IT_11','rpc','on'
+go
+sp_serveroption 'IT_11','rpc out','on'
+go
+sp_serveroption 'IT_11','use remote collation','off'
+go
+sp_serveroption 'IT_11','collation name',null
+go
+sp_serveroption 'IT_11','connect timeout',0
+go
+sp_serveroption 'IT_11','query timeout','0'
+go
+
+----  Linked server : GF_CONVERT
+sp_addlinkedserver 'GF_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\gf_convert.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'GF_CONVERT','false',null,'admin',<enter password here>
+go
+sp_serveroption 'GF_CONVERT','collation compatible','off'
+go
+sp_serveroption 'GF_CONVERT','data access','on'
+go
+sp_serveroption 'GF_CONVERT','rpc','off'
+go
+sp_serveroption 'GF_CONVERT','rpc out','off'
+go
+sp_serveroption 'GF_CONVERT','use remote collation','on'
+go
+sp_serveroption 'GF_CONVERT','collation name',null
+go
+sp_serveroption 'GF_CONVERT','connect timeout',0
+go
+sp_serveroption 'GF_CONVERT','query timeout','0'
+go
+
+-- Options for provider : Microsoft.Jet.OLEDB.4.0
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.Jet.OLEDB.4.0','DynamicParameters','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.Jet.OLEDB.4.0','NestedQueries','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.Jet.OLEDB.4.0','LevelZeroOnly','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.Jet.OLEDB.4.0','AllowInProcess','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.Jet.OLEDB.4.0','NonTransactedUpdates','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.Jet.OLEDB.4.0','IndexAsAccessPath','REG_DWORD',1
+go
+
+----  Linked server : IT50
+sp_addlinkedserver 'IT50','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT50','false',null,'euser',<enter password here>
+go
+sp_serveroption 'IT50','collation compatible','off'
+go
+sp_serveroption 'IT50','data access','on'
+go
+sp_serveroption 'IT50','rpc','on'
+go
+sp_serveroption 'IT50','rpc out','on'
+go
+sp_serveroption 'IT50','use remote collation','off'
+go
+sp_serveroption 'IT50','collation name',null
+go
+sp_serveroption 'IT50','connect timeout',0
+go
+sp_serveroption 'IT50','query timeout','0'
+go
+
+----  Linked server : EXCEL_CONVERT
+sp_addlinkedserver 'EXCEL_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\xconvert.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'EXCEL_CONVERT','false',null,'admin',<enter password here>
+go
+sp_serveroption 'EXCEL_CONVERT','collation compatible','off'
+go
+sp_serveroption 'EXCEL_CONVERT','data access','on'
+go
+sp_serveroption 'EXCEL_CONVERT','rpc','off'
+go
+sp_serveroption 'EXCEL_CONVERT','rpc out','off'
+go
+sp_serveroption 'EXCEL_CONVERT','use remote collation','on'
+go
+sp_serveroption 'EXCEL_CONVERT','collation name',null
+go
+sp_serveroption 'EXCEL_CONVERT','connect timeout',0
+go
+sp_serveroption 'EXCEL_CONVERT','query timeout','0'
+go
+
+----  Linked server : IT13
+sp_addlinkedserver 'IT13','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT13','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT13','collation compatible','off'
+go
+sp_serveroption 'IT13','data access','on'
+go
+sp_serveroption 'IT13','rpc','on'
+go
+sp_serveroption 'IT13','rpc out','on'
+go
+sp_serveroption 'IT13','use remote collation','off'
+go
+sp_serveroption 'IT13','collation name',null
+go
+sp_serveroption 'IT13','connect timeout',0
+go
+sp_serveroption 'IT13','query timeout','0'
+go
+
+----  Linked server : IT39
+sp_addlinkedserver 'IT39','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT39','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT39','collation compatible','off'
+go
+sp_serveroption 'IT39','data access','on'
+go
+sp_serveroption 'IT39','rpc','on'
+go
+sp_serveroption 'IT39','rpc out','on'
+go
+sp_serveroption 'IT39','use remote collation','off'
+go
+sp_serveroption 'IT39','collation name',null
+go
+sp_serveroption 'IT39','connect timeout',0
+go
+sp_serveroption 'IT39','query timeout','0'
+go
+
+----  Linked server : IT12
+sp_addlinkedserver 'IT12','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT12','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT12','collation compatible','off'
+go
+sp_serveroption 'IT12','data access','on'
+go
+sp_serveroption 'IT12','rpc','on'
+go
+sp_serveroption 'IT12','rpc out','on'
+go
+sp_serveroption 'IT12','use remote collation','off'
+go
+sp_serveroption 'IT12','collation name',null
+go
+sp_serveroption 'IT12','connect timeout',0
+go
+sp_serveroption 'IT12','query timeout','0'
+go
+
+----  Linked server : IT_IIS02
+sp_addlinkedserver 'IT_IIS02','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT_IIS02','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT_IIS02','collation compatible','off'
+go
+sp_serveroption 'IT_IIS02','data access','on'
+go
+sp_serveroption 'IT_IIS02','rpc','on'
+go
+sp_serveroption 'IT_IIS02','rpc out','on'
+go
+sp_serveroption 'IT_IIS02','use remote collation','off'
+go
+sp_serveroption 'IT_IIS02','collation name',null
+go
+sp_serveroption 'IT_IIS02','connect timeout',0
+go
+sp_serveroption 'IT_IIS02','query timeout','0'
+go
+
+----  Linked server : REORDER_XLS
+sp_addlinkedserver 'REORDER_XLS','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\outbox\contract\termindate.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'REORDER_XLS','false',null,null,<enter password here>
+go
+sp_addlinkedsrvlogin 'REORDER_XLS','false','sa','ADMIN',<enter password here>
+go
+sp_serveroption 'REORDER_XLS','collation compatible','off'
+go
+sp_serveroption 'REORDER_XLS','data access','on'
+go
+sp_serveroption 'REORDER_XLS','rpc','off'
+go
+sp_serveroption 'REORDER_XLS','rpc out','off'
+go
+sp_serveroption 'REORDER_XLS','use remote collation','on'
+go
+sp_serveroption 'REORDER_XLS','collation name',null
+go
+sp_serveroption 'REORDER_XLS','connect timeout',0
+go
+sp_serveroption 'REORDER_XLS','query timeout','0'
+go
+
+----  Linked server : SD_CONVERT
+sp_addlinkedserver 'SD_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\SD_CONVERT.XLS','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'SD_CONVERT','false',null,'admin',<enter password here>
+go
+sp_serveroption 'SD_CONVERT','collation compatible','off'
+go
+sp_serveroption 'SD_CONVERT','data access','on'
+go
+sp_serveroption 'SD_CONVERT','rpc','off'
+go
+sp_serveroption 'SD_CONVERT','rpc out','off'
+go
+sp_serveroption 'SD_CONVERT','use remote collation','on'
+go
+sp_serveroption 'SD_CONVERT','collation name',null
+go
+sp_serveroption 'SD_CONVERT','connect timeout',0
+go
+sp_serveroption 'SD_CONVERT','query timeout','0'
+go
+
+----  Linked server : ROUTE
+sp_addlinkedserver 'ROUTE','Jet 4.0','Microsoft.Jet.OLEDB.4.0','\\it06\uat\route.xls','','EXCEL 5.0',''
+go
+sp_addlinkedsrvlogin 'ROUTE','false',null,'admin',<enter password here>
+go
+sp_serveroption 'ROUTE','collation compatible','off'
+go
+sp_serveroption 'ROUTE','data access','on'
+go
+sp_serveroption 'ROUTE','rpc','off'
+go
+sp_serveroption 'ROUTE','rpc out','off'
+go
+sp_serveroption 'ROUTE','use remote collation','on'
+go
+sp_serveroption 'ROUTE','collation name',null
+go
+sp_serveroption 'ROUTE','connect timeout',0
+go
+sp_serveroption 'ROUTE','query timeout','0'
+go
+
+----  Linked server : IT28
+sp_addlinkedserver 'IT28','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT28','false',null,'sa',<enter password here>
+go
+sp_serveroption 'IT28','collation compatible','off'
+go
+sp_serveroption 'IT28','data access','on'
+go
+sp_serveroption 'IT28','rpc','on'
+go
+sp_serveroption 'IT28','rpc out','on'
+go
+sp_serveroption 'IT28','use remote collation','off'
+go
+sp_serveroption 'IT28','collation name',null
+go
+sp_serveroption 'IT28','connect timeout',0
+go
+sp_serveroption 'IT28','query timeout','0'
+go
+
+----  Linked server : EDI
+sp_addlinkedserver 'EDI','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\Delivery_note.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'EDI','false',null,'admin',<enter password here>
+go
+sp_serveroption 'EDI','collation compatible','off'
+go
+sp_serveroption 'EDI','data access','on'
+go
+sp_serveroption 'EDI','rpc','off'
+go
+sp_serveroption 'EDI','rpc out','off'
+go
+sp_serveroption 'EDI','use remote collation','on'
+go
+sp_serveroption 'EDI','collation name',null
+go
+sp_serveroption 'EDI','connect timeout',0
+go
+sp_serveroption 'EDI','query timeout','0'
+go
+
+----  Linked server : EDI_CONVERT
+sp_addlinkedserver 'EDI_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\EDI_CONVERT.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'EDI_CONVERT','false',null,'admin',<enter password here>
+go
+sp_serveroption 'EDI_CONVERT','collation compatible','off'
+go
+sp_serveroption 'EDI_CONVERT','data access','on'
+go
+sp_serveroption 'EDI_CONVERT','rpc','off'
+go
+sp_serveroption 'EDI_CONVERT','rpc out','off'
+go
+sp_serveroption 'EDI_CONVERT','use remote collation','on'
+go
+sp_serveroption 'EDI_CONVERT','collation name',null
+go
+sp_serveroption 'EDI_CONVERT','connect timeout',0
+go
+sp_serveroption 'EDI_CONVERT','query timeout','0'
+go
+
+----  Linked server : STOCKCOUNT_CONVERT
+sp_addlinkedserver 'STOCKCOUNT_CONVERT','JET 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\stockcount_convert.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'STOCKCOUNT_CONVERT','false',null,'admin',<enter password here>
+go
+sp_serveroption 'STOCKCOUNT_CONVERT','collation compatible','on'
+go
+sp_serveroption 'STOCKCOUNT_CONVERT','data access','on'
+go
+sp_serveroption 'STOCKCOUNT_CONVERT','rpc','off'
+go
+sp_serveroption 'STOCKCOUNT_CONVERT','rpc out','off'
+go
+sp_serveroption 'STOCKCOUNT_CONVERT','use remote collation','on'
+go
+sp_serveroption 'STOCKCOUNT_CONVERT','collation name',null
+go
+sp_serveroption 'STOCKCOUNT_CONVERT','connect timeout',0
+go
+sp_serveroption 'STOCKCOUNT_CONVERT','query timeout','0'
+go
+
+----  Linked server : FS_CONVERT
+sp_addlinkedserver 'FS_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\STARBUCKS_ORDER.xls','','EXCEL 5.0',''
+go
+sp_addlinkedsrvlogin 'FS_CONVERT','false',null,'admin',<enter password here>
+go
+sp_serveroption 'FS_CONVERT','collation compatible','off'
+go
+sp_serveroption 'FS_CONVERT','data access','on'
+go
+sp_serveroption 'FS_CONVERT','rpc','off'
+go
+sp_serveroption 'FS_CONVERT','rpc out','off'
+go
+sp_serveroption 'FS_CONVERT','use remote collation','on'
+go
+sp_serveroption 'FS_CONVERT','collation name',null
+go
+sp_serveroption 'FS_CONVERT','connect timeout',0
+go
+sp_serveroption 'FS_CONVERT','query timeout','0'
+go
+
+----  Linked server : LBX
+sp_addlinkedserver 'LBX','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\LBX.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'LBX','false',null,null,<enter password here>
+go
+sp_serveroption 'LBX','collation compatible','off'
+go
+sp_serveroption 'LBX','data access','on'
+go
+sp_serveroption 'LBX','rpc','off'
+go
+sp_serveroption 'LBX','rpc out','off'
+go
+sp_serveroption 'LBX','use remote collation','on'
+go
+sp_serveroption 'LBX','collation name',null
+go
+sp_serveroption 'LBX','connect timeout',0
+go
+sp_serveroption 'LBX','query timeout','0'
+go
+
+----  Linked server : SCHOOL
+sp_addlinkedserver 'SCHOOL','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\new_school.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'SCHOOL','false',null,'admin',<enter password here>
+go
+sp_serveroption 'SCHOOL','collation compatible','off'
+go
+sp_serveroption 'SCHOOL','data access','on'
+go
+sp_serveroption 'SCHOOL','rpc','off'
+go
+sp_serveroption 'SCHOOL','rpc out','off'
+go
+sp_serveroption 'SCHOOL','use remote collation','on'
+go
+sp_serveroption 'SCHOOL','collation name',null
+go
+sp_serveroption 'SCHOOL','connect timeout',0
+go
+sp_serveroption 'SCHOOL','query timeout','0'
+go
+
+----  Linked server : IT06
+sp_addlinkedserver 'IT06','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT06','false',null,'sa',<enter password here>
+go
+sp_serveroption 'IT06','collation compatible','off'
+go
+sp_serveroption 'IT06','data access','on'
+go
+sp_serveroption 'IT06','rpc','on'
+go
+sp_serveroption 'IT06','rpc out','on'
+go
+sp_serveroption 'IT06','use remote collation','off'
+go
+sp_serveroption 'IT06','collation name',null
+go
+sp_serveroption 'IT06','connect timeout',0
+go
+sp_serveroption 'IT06','query timeout','0'
+go
+
+----  Linked server : GENKI_CONVERT
+sp_addlinkedserver 'GENKI_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\GENKI_CONVERT.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'GENKI_CONVERT','false',null,'admin',<enter password here>
+go
+sp_serveroption 'GENKI_CONVERT','collation compatible','off'
+go
+sp_serveroption 'GENKI_CONVERT','data access','on'
+go
+sp_serveroption 'GENKI_CONVERT','rpc','off'
+go
+sp_serveroption 'GENKI_CONVERT','rpc out','off'
+go
+sp_serveroption 'GENKI_CONVERT','use remote collation','on'
+go
+sp_serveroption 'GENKI_CONVERT','collation name',null
+go
+sp_serveroption 'GENKI_CONVERT','connect timeout',0
+go
+sp_serveroption 'GENKI_CONVERT','query timeout','0'
+go
+
+----  Linked server : PO_CONVERT
+sp_addlinkedserver 'PO_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','\\it26\excel_convert\PO_CONVERT.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'PO_CONVERT','false',null,'admin',<enter password here>
+go
+sp_serveroption 'PO_CONVERT','collation compatible','off'
+go
+sp_serveroption 'PO_CONVERT','data access','on'
+go
+sp_serveroption 'PO_CONVERT','rpc','off'
+go
+sp_serveroption 'PO_CONVERT','rpc out','off'
+go
+sp_serveroption 'PO_CONVERT','use remote collation','on'
+go
+sp_serveroption 'PO_CONVERT','collation name',null
+go
+sp_serveroption 'PO_CONVERT','connect timeout',0
+go
+sp_serveroption 'PO_CONVERT','query timeout','0'
+go
+
+----  Linked server : TEMP
+sp_addlinkedserver 'TEMP','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:/excel_convert/supplier.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'TEMP','false',null,'admin',<enter password here>
+go
+sp_serveroption 'TEMP','collation compatible','off'
+go
+sp_serveroption 'TEMP','data access','on'
+go
+sp_serveroption 'TEMP','rpc','off'
+go
+sp_serveroption 'TEMP','rpc out','off'
+go
+sp_serveroption 'TEMP','use remote collation','on'
+go
+sp_serveroption 'TEMP','collation name',null
+go
+sp_serveroption 'TEMP','connect timeout',0
+go
+sp_serveroption 'TEMP','query timeout','0'
+go
+
+----  Linked server : IT19
+sp_addlinkedserver 'IT19','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT19','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT19','collation compatible','off'
+go
+sp_serveroption 'IT19','data access','on'
+go
+sp_serveroption 'IT19','rpc','on'
+go
+sp_serveroption 'IT19','rpc out','on'
+go
+sp_serveroption 'IT19','use remote collation','off'
+go
+sp_serveroption 'IT19','collation name',null
+go
+sp_serveroption 'IT19','connect timeout',0
+go
+sp_serveroption 'IT19','query timeout','0'
+go
+
+----  Linked server : HOTITEM
+sp_addlinkedserver 'HOTITEM','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\hotitem.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'HOTITEM','false',null,'admin',<enter password here>
+go
+sp_serveroption 'HOTITEM','collation compatible','off'
+go
+sp_serveroption 'HOTITEM','data access','on'
+go
+sp_serveroption 'HOTITEM','rpc','off'
+go
+sp_serveroption 'HOTITEM','rpc out','off'
+go
+sp_serveroption 'HOTITEM','use remote collation','on'
+go
+sp_serveroption 'HOTITEM','collation name',null
+go
+sp_serveroption 'HOTITEM','connect timeout',0
+go
+sp_serveroption 'HOTITEM','query timeout','0'
+go
+
+----  Linked server : IT18
+sp_addlinkedserver 'IT18','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT18','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT18','collation compatible','off'
+go
+sp_serveroption 'IT18','data access','on'
+go
+sp_serveroption 'IT18','rpc','on'
+go
+sp_serveroption 'IT18','rpc out','on'
+go
+sp_serveroption 'IT18','use remote collation','off'
+go
+sp_serveroption 'IT18','collation name',null
+go
+sp_serveroption 'IT18','connect timeout',0
+go
+sp_serveroption 'IT18','query timeout','0'
+go
+
+----  Linked server : CONTRACT_SCHEDULE
+sp_addlinkedserver 'CONTRACT_SCHEDULE','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\CONTRACT_SCHEDULE.xls','','EXCEL 5.0',''
+go
+sp_addlinkedsrvlogin 'CONTRACT_SCHEDULE','false',null,'Admin',<enter password here>
+go
+sp_serveroption 'CONTRACT_SCHEDULE','collation compatible','off'
+go
+sp_serveroption 'CONTRACT_SCHEDULE','data access','on'
+go
+sp_serveroption 'CONTRACT_SCHEDULE','rpc','off'
+go
+sp_serveroption 'CONTRACT_SCHEDULE','rpc out','off'
+go
+sp_serveroption 'CONTRACT_SCHEDULE','use remote collation','on'
+go
+sp_serveroption 'CONTRACT_SCHEDULE','collation name',null
+go
+sp_serveroption 'CONTRACT_SCHEDULE','connect timeout',0
+go
+sp_serveroption 'CONTRACT_SCHEDULE','query timeout','0'
+go
+
+----  Linked server : SB_CONVERT
+sp_addlinkedserver 'SB_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','\\it26\excel_convert\SB_CONVERT.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'SB_CONVERT','false',null,'Admin',<enter password here>
+go
+sp_serveroption 'SB_CONVERT','collation compatible','off'
+go
+sp_serveroption 'SB_CONVERT','data access','on'
+go
+sp_serveroption 'SB_CONVERT','rpc','off'
+go
+sp_serveroption 'SB_CONVERT','rpc out','off'
+go
+sp_serveroption 'SB_CONVERT','use remote collation','on'
+go
+sp_serveroption 'SB_CONVERT','collation name',null
+go
+sp_serveroption 'SB_CONVERT','connect timeout',0
+go
+sp_serveroption 'SB_CONVERT','query timeout','0'
+go
+
+----  Linked server : GP_CONVERT
+sp_addlinkedserver 'GP_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\gp_convert.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'GP_CONVERT','false',null,'Admin',<enter password here>
+go
+sp_serveroption 'GP_CONVERT','collation compatible','off'
+go
+sp_serveroption 'GP_CONVERT','data access','on'
+go
+sp_serveroption 'GP_CONVERT','rpc','off'
+go
+sp_serveroption 'GP_CONVERT','rpc out','off'
+go
+sp_serveroption 'GP_CONVERT','use remote collation','on'
+go
+sp_serveroption 'GP_CONVERT','collation name',null
+go
+sp_serveroption 'GP_CONVERT','connect timeout',0
+go
+sp_serveroption 'GP_CONVERT','query timeout','0'
+go
+
+----  Linked server : IT52
+sp_addlinkedserver 'IT52','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT52','false',null,'sa',<enter password here>
+go
+sp_serveroption 'IT52','collation compatible','off'
+go
+sp_serveroption 'IT52','data access','on'
+go
+sp_serveroption 'IT52','rpc','on'
+go
+sp_serveroption 'IT52','rpc out','on'
+go
+sp_serveroption 'IT52','use remote collation','off'
+go
+sp_serveroption 'IT52','collation name',null
+go
+sp_serveroption 'IT52','connect timeout',0
+go
+sp_serveroption 'IT52','query timeout','0'
+go
+
+----  Linked server : ITDEV
+sp_addlinkedserver 'ITDEV','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITDEV','false',null,'sa',<enter password here>
+go
+sp_serveroption 'ITDEV','collation compatible','off'
+go
+sp_serveroption 'ITDEV','data access','on'
+go
+sp_serveroption 'ITDEV','rpc','on'
+go
+sp_serveroption 'ITDEV','rpc out','on'
+go
+sp_serveroption 'ITDEV','use remote collation','on'
+go
+sp_serveroption 'ITDEV','collation name',null
+go
+sp_serveroption 'ITDEV','connect timeout',0
+go
+sp_serveroption 'ITDEV','query timeout','0'
+go
+
+----  Linked server : TEST
+sp_addlinkedserver 'TEST','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\MAX662748_200803.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'TEST','false',null,'admin',<enter password here>
+go
+sp_serveroption 'TEST','collation compatible','off'
+go
+sp_serveroption 'TEST','data access','on'
+go
+sp_serveroption 'TEST','rpc','off'
+go
+sp_serveroption 'TEST','rpc out','off'
+go
+sp_serveroption 'TEST','use remote collation','on'
+go
+sp_serveroption 'TEST','collation name',null
+go
+sp_serveroption 'TEST','connect timeout',0
+go
+sp_serveroption 'TEST','query timeout','0'
+go
+
+----  Linked server : IT51
+sp_addlinkedserver 'IT51','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT51','false',null,'sa',<enter password here>
+go
+sp_serveroption 'IT51','collation compatible','off'
+go
+sp_serveroption 'IT51','data access','on'
+go
+sp_serveroption 'IT51','rpc','on'
+go
+sp_serveroption 'IT51','rpc out','on'
+go
+sp_serveroption 'IT51','use remote collation','off'
+go
+sp_serveroption 'IT51','collation name',null
+go
+sp_serveroption 'IT51','connect timeout',0
+go
+sp_serveroption 'IT51','query timeout','0'
+go
+
+----  Linked server : SF_CONVERT
+sp_addlinkedserver 'SF_CONVERT','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\SF_CONVERT.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'SF_CONVERT','false',null,null,<enter password here>
+go
+sp_serveroption 'SF_CONVERT','collation compatible','off'
+go
+sp_serveroption 'SF_CONVERT','data access','on'
+go
+sp_serveroption 'SF_CONVERT','rpc','off'
+go
+sp_serveroption 'SF_CONVERT','rpc out','off'
+go
+sp_serveroption 'SF_CONVERT','use remote collation','on'
+go
+sp_serveroption 'SF_CONVERT','collation name',null
+go
+sp_serveroption 'SF_CONVERT','connect timeout',0
+go
+sp_serveroption 'SF_CONVERT','query timeout','0'
+go
+
+----  Linked server : FISH
+sp_addlinkedserver 'FISH','Jet 4.0','Microsoft.Jet.OLEDB.4.0','\\it26\excel_convert\test.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'FISH','false',null,'admin',<enter password here>
+go
+sp_serveroption 'FISH','collation compatible','off'
+go
+sp_serveroption 'FISH','data access','on'
+go
+sp_serveroption 'FISH','rpc','off'
+go
+sp_serveroption 'FISH','rpc out','off'
+go
+sp_serveroption 'FISH','use remote collation','on'
+go
+sp_serveroption 'FISH','collation name',null
+go
+sp_serveroption 'FISH','connect timeout',0
+go
+sp_serveroption 'FISH','query timeout','0'
+go
+
+----  Linked server : ITDEVTEST
+sp_addlinkedserver 'ITDEVTEST','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITDEVTEST','false',null,'itckw',<enter password here>
+go
+sp_serveroption 'ITDEVTEST','collation compatible','off'
+go
+sp_serveroption 'ITDEVTEST','data access','on'
+go
+sp_serveroption 'ITDEVTEST','rpc','off'
+go
+sp_serveroption 'ITDEVTEST','rpc out','off'
+go
+sp_serveroption 'ITDEVTEST','use remote collation','on'
+go
+sp_serveroption 'ITDEVTEST','collation name',null
+go
+sp_serveroption 'ITDEVTEST','connect timeout',0
+go
+sp_serveroption 'ITDEVTEST','query timeout','0'
+go
+
+----  Linked server : COS_EDI
+sp_addlinkedserver 'COS_EDI','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\COS_EDI.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'COS_EDI','false',null,'admin',<enter password here>
+go
+sp_serveroption 'COS_EDI','collation compatible','off'
+go
+sp_serveroption 'COS_EDI','data access','on'
+go
+sp_serveroption 'COS_EDI','rpc','off'
+go
+sp_serveroption 'COS_EDI','rpc out','off'
+go
+sp_serveroption 'COS_EDI','use remote collation','on'
+go
+sp_serveroption 'COS_EDI','collation name',null
+go
+sp_serveroption 'COS_EDI','connect timeout',0
+go
+sp_serveroption 'COS_EDI','query timeout','0'
+go
+
+----  Linked server : ACCOUNT_FAX
+sp_addlinkedserver 'ACCOUNT_FAX','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\ACCOUNT_FAX.XLS','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'ACCOUNT_FAX','false',null,'admin',<enter password here>
+go
+sp_serveroption 'ACCOUNT_FAX','collation compatible','off'
+go
+sp_serveroption 'ACCOUNT_FAX','data access','on'
+go
+sp_serveroption 'ACCOUNT_FAX','rpc','off'
+go
+sp_serveroption 'ACCOUNT_FAX','rpc out','off'
+go
+sp_serveroption 'ACCOUNT_FAX','use remote collation','on'
+go
+sp_serveroption 'ACCOUNT_FAX','collation name',null
+go
+sp_serveroption 'ACCOUNT_FAX','connect timeout',0
+go
+sp_serveroption 'ACCOUNT_FAX','query timeout','0'
+go
+
+----  Linked server : ITATTENDANCE
+sp_addlinkedserver 'ITATTENDANCE','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITATTENDANCE','false',null,'itckw',<enter password here>
+go
+sp_serveroption 'ITATTENDANCE','collation compatible','off'
+go
+sp_serveroption 'ITATTENDANCE','data access','on'
+go
+sp_serveroption 'ITATTENDANCE','rpc','on'
+go
+sp_serveroption 'ITATTENDANCE','rpc out','on'
+go
+sp_serveroption 'ITATTENDANCE','use remote collation','off'
+go
+sp_serveroption 'ITATTENDANCE','collation name',null
+go
+sp_serveroption 'ITATTENDANCE','connect timeout',0
+go
+sp_serveroption 'ITATTENDANCE','query timeout','0'
+go
+
+----  Linked server : ITVM-DEV
+sp_addlinkedserver 'ITVM-DEV','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITVM-DEV','false',null,'report_user',<enter password here>
+go
+sp_serveroption 'ITVM-DEV','collation compatible','off'
+go
+sp_serveroption 'ITVM-DEV','data access','on'
+go
+sp_serveroption 'ITVM-DEV','rpc','off'
+go
+sp_serveroption 'ITVM-DEV','rpc out','off'
+go
+sp_serveroption 'ITVM-DEV','use remote collation','on'
+go
+sp_serveroption 'ITVM-DEV','collation name',null
+go
+sp_serveroption 'ITVM-DEV','connect timeout',0
+go
+sp_serveroption 'ITVM-DEV','query timeout','0'
+go
+
+----  Linked server : ITERPTEST01
+sp_addlinkedserver 'ITERPTEST01','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITERPTEST01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'ITERPTEST01','collation compatible','off'
+go
+sp_serveroption 'ITERPTEST01','data access','on'
+go
+sp_serveroption 'ITERPTEST01','rpc','off'
+go
+sp_serveroption 'ITERPTEST01','rpc out','off'
+go
+sp_serveroption 'ITERPTEST01','use remote collation','on'
+go
+sp_serveroption 'ITERPTEST01','collation name',null
+go
+sp_serveroption 'ITERPTEST01','connect timeout',0
+go
+sp_serveroption 'ITERPTEST01','query timeout','0'
+go
+
+----  Linked server : IT08
+sp_addlinkedserver 'IT08','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT08','false',null,'report_user',<enter password here>
+go
+sp_serveroption 'IT08','collation compatible','off'
+go
+sp_serveroption 'IT08','data access','on'
+go
+sp_serveroption 'IT08','rpc','on'
+go
+sp_serveroption 'IT08','rpc out','on'
+go
+sp_serveroption 'IT08','use remote collation','on'
+go
+sp_serveroption 'IT08','collation name',null
+go
+sp_serveroption 'IT08','connect timeout',0
+go
+sp_serveroption 'IT08','query timeout','0'
+go
+
+----  Linked server : IT53
+sp_addlinkedserver 'IT53','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT53','false',null,'report_user',<enter password here>
+go
+sp_serveroption 'IT53','collation compatible','off'
+go
+sp_serveroption 'IT53','data access','on'
+go
+sp_serveroption 'IT53','rpc','off'
+go
+sp_serveroption 'IT53','rpc out','off'
+go
+sp_serveroption 'IT53','use remote collation','on'
+go
+sp_serveroption 'IT53','collation name',null
+go
+sp_serveroption 'IT53','connect timeout',0
+go
+sp_serveroption 'IT53','query timeout','0'
+go
+
+----  Linked server : MAXERP
+sp_addlinkedserver 'MAXERP','Oracle','MSDAORA','erpdb.maxims.com:1521/PROD','','',''
+go
+sp_addlinkedsrvlogin 'MAXERP','false',null,'apps',<enter password here>
+go
+sp_serveroption 'MAXERP','collation compatible','off'
+go
+sp_serveroption 'MAXERP','data access','on'
+go
+sp_serveroption 'MAXERP','rpc','on'
+go
+sp_serveroption 'MAXERP','rpc out','on'
+go
+sp_serveroption 'MAXERP','use remote collation','on'
+go
+sp_serveroption 'MAXERP','collation name',null
+go
+sp_serveroption 'MAXERP','connect timeout',0
+go
+sp_serveroption 'MAXERP','query timeout','0'
+go
+
+-- Options for provider : MSDAORA
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\MSDAORA','DynamicParameters','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\MSDAORA','NestedQueries','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\MSDAORA','LevelZeroOnly','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\MSDAORA','AllowInProcess','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\MSDAORA','NonTransactedUpdates','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\MSDAORA','IndexAsAccessPath','REG_DWORD',1
+go
+
+----  Linked server : MAXERP2
+sp_addlinkedserver 'MAXERP2','Oracle','OraOLEDB.Oracle','erpdb.maxims.com:1521/PROD','','',''
+go
+sp_addlinkedsrvlogin 'MAXERP2','false',null,'apps',<enter password here>
+go
+sp_serveroption 'MAXERP2','collation compatible','off'
+go
+sp_serveroption 'MAXERP2','data access','on'
+go
+sp_serveroption 'MAXERP2','rpc','on'
+go
+sp_serveroption 'MAXERP2','rpc out','on'
+go
+sp_serveroption 'MAXERP2','use remote collation','on'
+go
+sp_serveroption 'MAXERP2','collation name',null
+go
+sp_serveroption 'MAXERP2','connect timeout',0
+go
+sp_serveroption 'MAXERP2','query timeout','0'
+go
+
+-- Options for provider : OraOLEDB.Oracle
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\OraOLEDB.Oracle','DynamicParameters','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\OraOLEDB.Oracle','NestedQueries','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\OraOLEDB.Oracle','LevelZeroOnly','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\OraOLEDB.Oracle','AllowInProcess','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\OraOLEDB.Oracle','NonTransactedUpdates','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\OraOLEDB.Oracle','IndexAsAccessPath','REG_DWORD',1
+go
+
+----  Linked server : ITERP01
+sp_addlinkedserver 'ITERP01','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITERP01','false',null,'euser',<enter password here>
+go
+sp_serveroption 'ITERP01','collation compatible','off'
+go
+sp_serveroption 'ITERP01','data access','on'
+go
+sp_serveroption 'ITERP01','rpc','on'
+go
+sp_serveroption 'ITERP01','rpc out','on'
+go
+sp_serveroption 'ITERP01','use remote collation','on'
+go
+sp_serveroption 'ITERP01','collation name',null
+go
+sp_serveroption 'ITERP01','connect timeout',0
+go
+sp_serveroption 'ITERP01','query timeout','0'
+go
+
+----  Linked server : FISHFISH
+sp_addlinkedserver 'FISHFISH','Jet 4.0','Microsoft.Jet.OLEDB.4.0','\\it50\b2b\test2.xls','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'FISHFISH','false',null,null,<enter password here>
+go
+sp_serveroption 'FISHFISH','collation compatible','off'
+go
+sp_serveroption 'FISHFISH','data access','on'
+go
+sp_serveroption 'FISHFISH','rpc','off'
+go
+sp_serveroption 'FISHFISH','rpc out','off'
+go
+sp_serveroption 'FISHFISH','use remote collation','on'
+go
+sp_serveroption 'FISHFISH','collation name',null
+go
+sp_serveroption 'FISHFISH','connect timeout',0
+go
+sp_serveroption 'FISHFISH','query timeout','0'
+go
+
+----  Linked server : GXS_INH
+sp_addlinkedserver 'GXS_INH','Jet 4.0','Microsoft.Jet.OLEDB.4.0','\\it26\excel_convert','','Text',''
+go
+sp_addlinkedsrvlogin 'GXS_INH','false',null,null,<enter password here>
+go
+sp_serveroption 'GXS_INH','collation compatible','off'
+go
+sp_serveroption 'GXS_INH','data access','on'
+go
+sp_serveroption 'GXS_INH','rpc','off'
+go
+sp_serveroption 'GXS_INH','rpc out','off'
+go
+sp_serveroption 'GXS_INH','use remote collation','on'
+go
+sp_serveroption 'GXS_INH','collation name',null
+go
+sp_serveroption 'GXS_INH','connect timeout',0
+go
+sp_serveroption 'GXS_INH','query timeout','0'
+go
+
+----  Linked server : IT25
+sp_addlinkedserver 'IT25','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT25','false',null,'euser',<enter password here>
+go
+sp_serveroption 'IT25','collation compatible','off'
+go
+sp_serveroption 'IT25','data access','on'
+go
+sp_serveroption 'IT25','rpc','off'
+go
+sp_serveroption 'IT25','rpc out','off'
+go
+sp_serveroption 'IT25','use remote collation','on'
+go
+sp_serveroption 'IT25','collation name',null
+go
+sp_serveroption 'IT25','connect timeout',0
+go
+sp_serveroption 'IT25','query timeout','0'
+go
+
+----  Linked server : COS_DOU
+sp_addlinkedserver 'COS_DOU','Microsoft.ACE.OLEDB.12.0','Microsoft.ACE.OLEDB.12.0','d:\excel_convert\cos_dou.xls','','Excel 12.0',''
+go
+sp_addlinkedsrvlogin 'COS_DOU','false',null,'admin',<enter password here>
+go
+sp_serveroption 'COS_DOU','collation compatible','off'
+go
+sp_serveroption 'COS_DOU','data access','on'
+go
+sp_serveroption 'COS_DOU','rpc','off'
+go
+sp_serveroption 'COS_DOU','rpc out','off'
+go
+sp_serveroption 'COS_DOU','use remote collation','on'
+go
+sp_serveroption 'COS_DOU','collation name',null
+go
+sp_serveroption 'COS_DOU','connect timeout',10
+go
+sp_serveroption 'COS_DOU','query timeout','10'
+go
+
+-- Options for provider : Microsoft.ACE.OLEDB.12.0
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.ACE.OLEDB.12.0','DynamicParameters','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.ACE.OLEDB.12.0','NestedQueries','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.ACE.OLEDB.12.0','LevelZeroOnly','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.ACE.OLEDB.12.0','AllowInProcess','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.ACE.OLEDB.12.0','NonTransactedUpdates','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\Microsoft.ACE.OLEDB.12.0','IndexAsAccessPath','REG_DWORD',1
+go
+
+----  Linked server : IT45
+sp_addlinkedserver 'IT45','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT45','false',null,'report_user',<enter password here>
+go
+sp_serveroption 'IT45','collation compatible','off'
+go
+sp_serveroption 'IT45','data access','on'
+go
+sp_serveroption 'IT45','rpc','on'
+go
+sp_serveroption 'IT45','rpc out','on'
+go
+sp_serveroption 'IT45','use remote collation','on'
+go
+sp_serveroption 'IT45','collation name',null
+go
+sp_serveroption 'IT45','connect timeout',0
+go
+sp_serveroption 'IT45','query timeout','0'
+go
+
+----  Linked server : SETTING_EXCEL
+sp_addlinkedserver 'SETTING_EXCEL','Jet 4.0','Microsoft.Jet.OLEDB.4.0','D:\excel_convert\EXCEL_UPLOAD.XLS','','Excel 5.0',''
+go
+sp_addlinkedsrvlogin 'SETTING_EXCEL','false',null,'admin',<enter password here>
+go
+sp_serveroption 'SETTING_EXCEL','collation compatible','off'
+go
+sp_serveroption 'SETTING_EXCEL','data access','on'
+go
+sp_serveroption 'SETTING_EXCEL','rpc','off'
+go
+sp_serveroption 'SETTING_EXCEL','rpc out','off'
+go
+sp_serveroption 'SETTING_EXCEL','use remote collation','on'
+go
+sp_serveroption 'SETTING_EXCEL','collation name',null
+go
+sp_serveroption 'SETTING_EXCEL','connect timeout',0
+go
+sp_serveroption 'SETTING_EXCEL','query timeout','0'
+go
+
+----  Linked server : OMR
+sp_addlinkedserver 'OMR','Jet 4.0','Microsoft.Jet.OLEDB.4.0','d:\excel_convert\','','Text',''
+go
+sp_addlinkedsrvlogin 'OMR','false',null,null,<enter password here>
+go
+sp_serveroption 'OMR','collation compatible','off'
+go
+sp_serveroption 'OMR','data access','on'
+go
+sp_serveroption 'OMR','rpc','off'
+go
+sp_serveroption 'OMR','rpc out','off'
+go
+sp_serveroption 'OMR','use remote collation','on'
+go
+sp_serveroption 'OMR','collation name',null
+go
+sp_serveroption 'OMR','connect timeout',0
+go
+sp_serveroption 'OMR','query timeout','0'
+go
+
+----  Linked server : ITESSSVR01
+sp_addlinkedserver 'ITESSSVR01','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITESSSVR01','false',null,'report_user',<enter password here>
+go
+sp_serveroption 'ITESSSVR01','collation compatible','off'
+go
+sp_serveroption 'ITESSSVR01','data access','on'
+go
+sp_serveroption 'ITESSSVR01','rpc','on'
+go
+sp_serveroption 'ITESSSVR01','rpc out','on'
+go
+sp_serveroption 'ITESSSVR01','use remote collation','off'
+go
+sp_serveroption 'ITESSSVR01','collation name',null
+go
+sp_serveroption 'ITESSSVR01','connect timeout',0
+go
+sp_serveroption 'ITESSSVR01','query timeout','0'
+go
+
+----  Linked server : ITDLFDB01
+sp_addlinkedserver 'ITDLFDB01','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITDLFDB01','false',null,'factory_user',<enter password here>
+go
+sp_serveroption 'ITDLFDB01','collation compatible','off'
+go
+sp_serveroption 'ITDLFDB01','data access','on'
+go
+sp_serveroption 'ITDLFDB01','rpc','on'
+go
+sp_serveroption 'ITDLFDB01','rpc out','on'
+go
+sp_serveroption 'ITDLFDB01','use remote collation','off'
+go
+sp_serveroption 'ITDLFDB01','collation name',null
+go
+sp_serveroption 'ITDLFDB01','connect timeout',0
+go
+sp_serveroption 'ITDLFDB01','query timeout','0'
+go
+
+----  Linked server : PMSSQLCLUSTER\FACTORYII
+sp_addlinkedserver 'PMSSQLCLUSTER\FACTORYII','SQL Server'
+go
+sp_addlinkedsrvlogin 'PMSSQLCLUSTER\FACTORYII','false',null,'COS_To_AX',<enter password here>
+go
+sp_serveroption 'PMSSQLCLUSTER\FACTORYII','collation compatible','off'
+go
+sp_serveroption 'PMSSQLCLUSTER\FACTORYII','data access','on'
+go
+sp_serveroption 'PMSSQLCLUSTER\FACTORYII','rpc','on'
+go
+sp_serveroption 'PMSSQLCLUSTER\FACTORYII','rpc out','on'
+go
+sp_serveroption 'PMSSQLCLUSTER\FACTORYII','use remote collation','on'
+go
+sp_serveroption 'PMSSQLCLUSTER\FACTORYII','collation name',null
+go
+sp_serveroption 'PMSSQLCLUSTER\FACTORYII','connect timeout',0
+go
+sp_serveroption 'PMSSQLCLUSTER\FACTORYII','query timeout','0'
+go
+
+----  Linked server : ITMFPDEV01
+sp_addlinkedserver 'ITMFPDEV01','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITMFPDEV01','false',null,'WebOrder',<enter password here>
+go
+sp_serveroption 'ITMFPDEV01','collation compatible','off'
+go
+sp_serveroption 'ITMFPDEV01','data access','on'
+go
+sp_serveroption 'ITMFPDEV01','rpc','on'
+go
+sp_serveroption 'ITMFPDEV01','rpc out','on'
+go
+sp_serveroption 'ITMFPDEV01','use remote collation','on'
+go
+sp_serveroption 'ITMFPDEV01','collation name',null
+go
+sp_serveroption 'ITMFPDEV01','connect timeout',0
+go
+sp_serveroption 'ITMFPDEV01','query timeout','0'
+go
+
+----  Linked server : COS_DOU_TEMP
+sp_addlinkedserver 'COS_DOU_TEMP','','Microsoft.ACE.OLEDB.12.0','d\excel_convert\cos_dou_bk.xls','','',''
+go
+sp_addlinkedsrvlogin 'COS_DOU_TEMP','false',null,'admin',<enter password here>
+go
+sp_addlinkedsrvlogin 'COS_DOU_TEMP','true','sa',null,<enter password here>
+go
+sp_serveroption 'COS_DOU_TEMP','collation compatible','off'
+go
+sp_serveroption 'COS_DOU_TEMP','data access','on'
+go
+sp_serveroption 'COS_DOU_TEMP','rpc','off'
+go
+sp_serveroption 'COS_DOU_TEMP','rpc out','off'
+go
+sp_serveroption 'COS_DOU_TEMP','use remote collation','on'
+go
+sp_serveroption 'COS_DOU_TEMP','collation name',null
+go
+sp_serveroption 'COS_DOU_TEMP','connect timeout',5
+go
+sp_serveroption 'COS_DOU_TEMP','query timeout','5'
+go

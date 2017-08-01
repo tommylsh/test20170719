@@ -1,0 +1,20 @@
+dbid   name                                                                                                                             
+------ -------------------------------------------------------------------------------------------------------------------------------- 
+1      master
+2      tempdb
+3      model
+4      msdb
+5      pubs
+6      Northwind
+7      maximdb
+8      warehouse
+9      purdb
+10     excel_convert
+11     purdbiis
+12     factory
+13     caterer
+14     sales
+15     Audit_System
+
+(15 row(s) affected)
+

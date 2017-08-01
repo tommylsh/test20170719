@@ -1,0 +1,5 @@
+cd /tmp
+put maxim-pos-web.war
+put maxim-rest.war
+chmod 775 maxim-pos-web.war
+quit 

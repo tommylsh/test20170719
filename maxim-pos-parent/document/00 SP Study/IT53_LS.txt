@@ -1,0 +1,6592 @@
+
+----  Linked server : IT51
+sp_addlinkedserver 'IT51','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT51','false',null,'sa',<enter password here>
+go
+sp_serveroption 'IT51','collation compatible','off'
+go
+sp_serveroption 'IT51','data access','on'
+go
+sp_serveroption 'IT51','rpc','on'
+go
+sp_serveroption 'IT51','rpc out','on'
+go
+sp_serveroption 'IT51','use remote collation','on'
+go
+sp_serveroption 'IT51','collation name',null
+go
+sp_serveroption 'IT51','connect timeout',0
+go
+sp_serveroption 'IT51','query timeout','0'
+go
+
+-- Options for provider : SQLOLEDB
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','DynamicParameters','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','NestedQueries','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','LevelZeroOnly','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','AllowInProcess','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','NonTransactedUpdates','REG_DWORD',1
+go
+exec master..xp_regwrite 'HKEY_LOCAL_MACHINE','SOFTWARE\Microsoft\MSSQLServer\Providers\SQLOLEDB','IndexAsAccessPath','REG_DWORD',1
+go
+
+----  Linked server : M2202
+sp_addlinkedserver 'M2202','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2202','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2202','collation compatible','off'
+go
+sp_serveroption 'M2202','data access','on'
+go
+sp_serveroption 'M2202','rpc','on'
+go
+sp_serveroption 'M2202','rpc out','on'
+go
+sp_serveroption 'M2202','use remote collation','off'
+go
+sp_serveroption 'M2202','collation name',null
+go
+sp_serveroption 'M2202','connect timeout',0
+go
+sp_serveroption 'M2202','query timeout','0'
+go
+
+----  Linked server : M5008
+sp_addlinkedserver 'M5008','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5008','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5008','collation compatible','off'
+go
+sp_serveroption 'M5008','data access','on'
+go
+sp_serveroption 'M5008','rpc','on'
+go
+sp_serveroption 'M5008','rpc out','on'
+go
+sp_serveroption 'M5008','use remote collation','off'
+go
+sp_serveroption 'M5008','collation name',null
+go
+sp_serveroption 'M5008','connect timeout',0
+go
+sp_serveroption 'M5008','query timeout','0'
+go
+
+----  Linked server : M2206
+sp_addlinkedserver 'M2206','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2206','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2206','collation compatible','off'
+go
+sp_serveroption 'M2206','data access','on'
+go
+sp_serveroption 'M2206','rpc','on'
+go
+sp_serveroption 'M2206','rpc out','on'
+go
+sp_serveroption 'M2206','use remote collation','off'
+go
+sp_serveroption 'M2206','collation name',null
+go
+sp_serveroption 'M2206','connect timeout',0
+go
+sp_serveroption 'M2206','query timeout','0'
+go
+
+----  Linked server : M2853_01
+sp_addlinkedserver 'M2853_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2853_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2853_01','collation compatible','off'
+go
+sp_serveroption 'M2853_01','data access','on'
+go
+sp_serveroption 'M2853_01','rpc','on'
+go
+sp_serveroption 'M2853_01','rpc out','on'
+go
+sp_serveroption 'M2853_01','use remote collation','off'
+go
+sp_serveroption 'M2853_01','collation name',null
+go
+sp_serveroption 'M2853_01','connect timeout',0
+go
+sp_serveroption 'M2853_01','query timeout','0'
+go
+
+----  Linked server : ACCHKSERVICEDB
+sp_addlinkedserver 'ACCHKSERVICEDB','SQL Server'
+go
+sp_addlinkedsrvlogin 'ACCHKSERVICEDB','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'ACCHKSERVICEDB','collation compatible','on'
+go
+sp_serveroption 'ACCHKSERVICEDB','data access','on'
+go
+sp_serveroption 'ACCHKSERVICEDB','rpc','on'
+go
+sp_serveroption 'ACCHKSERVICEDB','rpc out','on'
+go
+sp_serveroption 'ACCHKSERVICEDB','use remote collation','on'
+go
+sp_serveroption 'ACCHKSERVICEDB','collation name',null
+go
+sp_serveroption 'ACCHKSERVICEDB','connect timeout',0
+go
+sp_serveroption 'ACCHKSERVICEDB','query timeout','0'
+go
+
+----  Linked server : M2216
+sp_addlinkedserver 'M2216','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2216','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2216','collation compatible','off'
+go
+sp_serveroption 'M2216','data access','on'
+go
+sp_serveroption 'M2216','rpc','on'
+go
+sp_serveroption 'M2216','rpc out','on'
+go
+sp_serveroption 'M2216','use remote collation','off'
+go
+sp_serveroption 'M2216','collation name',null
+go
+sp_serveroption 'M2216','connect timeout',0
+go
+sp_serveroption 'M2216','query timeout','0'
+go
+
+----  Linked server : M5326
+sp_addlinkedserver 'M5326','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5326','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5326','collation compatible','off'
+go
+sp_serveroption 'M5326','data access','on'
+go
+sp_serveroption 'M5326','rpc','on'
+go
+sp_serveroption 'M5326','rpc out','on'
+go
+sp_serveroption 'M5326','use remote collation','off'
+go
+sp_serveroption 'M5326','collation name',null
+go
+sp_serveroption 'M5326','connect timeout',0
+go
+sp_serveroption 'M5326','query timeout','0'
+go
+
+----  Linked server : M2220
+sp_addlinkedserver 'M2220','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2220','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2220','collation compatible','off'
+go
+sp_serveroption 'M2220','data access','on'
+go
+sp_serveroption 'M2220','rpc','on'
+go
+sp_serveroption 'M2220','rpc out','on'
+go
+sp_serveroption 'M2220','use remote collation','off'
+go
+sp_serveroption 'M2220','collation name',null
+go
+sp_serveroption 'M2220','connect timeout',0
+go
+sp_serveroption 'M2220','query timeout','0'
+go
+
+----  Linked server : IT56
+sp_addlinkedserver 'IT56','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT56','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT56','collation compatible','off'
+go
+sp_serveroption 'IT56','data access','on'
+go
+sp_serveroption 'IT56','rpc','on'
+go
+sp_serveroption 'IT56','rpc out','on'
+go
+sp_serveroption 'IT56','use remote collation','off'
+go
+sp_serveroption 'IT56','collation name',null
+go
+sp_serveroption 'IT56','connect timeout',0
+go
+sp_serveroption 'IT56','query timeout','0'
+go
+
+----  Linked server : M2222
+sp_addlinkedserver 'M2222','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2222','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2222','collation compatible','off'
+go
+sp_serveroption 'M2222','data access','on'
+go
+sp_serveroption 'M2222','rpc','on'
+go
+sp_serveroption 'M2222','rpc out','on'
+go
+sp_serveroption 'M2222','use remote collation','off'
+go
+sp_serveroption 'M2222','collation name',null
+go
+sp_serveroption 'M2222','connect timeout',0
+go
+sp_serveroption 'M2222','query timeout','0'
+go
+
+----  Linked server : M5329
+sp_addlinkedserver 'M5329','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5329','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5329','collation compatible','off'
+go
+sp_serveroption 'M5329','data access','on'
+go
+sp_serveroption 'M5329','rpc','on'
+go
+sp_serveroption 'M5329','rpc out','on'
+go
+sp_serveroption 'M5329','use remote collation','off'
+go
+sp_serveroption 'M5329','collation name',null
+go
+sp_serveroption 'M5329','connect timeout',0
+go
+sp_serveroption 'M5329','query timeout','0'
+go
+
+----  Linked server : M2224
+sp_addlinkedserver 'M2224','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2224','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2224','collation compatible','off'
+go
+sp_serveroption 'M2224','data access','on'
+go
+sp_serveroption 'M2224','rpc','on'
+go
+sp_serveroption 'M2224','rpc out','on'
+go
+sp_serveroption 'M2224','use remote collation','off'
+go
+sp_serveroption 'M2224','collation name',null
+go
+sp_serveroption 'M2224','connect timeout',0
+go
+sp_serveroption 'M2224','query timeout','0'
+go
+
+----  Linked server : ITQV-VM
+sp_addlinkedserver 'ITQV-VM','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITQV-VM','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'ITQV-VM','collation compatible','off'
+go
+sp_serveroption 'ITQV-VM','data access','on'
+go
+sp_serveroption 'ITQV-VM','rpc','on'
+go
+sp_serveroption 'ITQV-VM','rpc out','on'
+go
+sp_serveroption 'ITQV-VM','use remote collation','on'
+go
+sp_serveroption 'ITQV-VM','collation name',null
+go
+sp_serveroption 'ITQV-VM','connect timeout',0
+go
+sp_serveroption 'ITQV-VM','query timeout','0'
+go
+
+----  Linked server : M2226
+sp_addlinkedserver 'M2226','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2226','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2226','collation compatible','off'
+go
+sp_serveroption 'M2226','data access','on'
+go
+sp_serveroption 'M2226','rpc','on'
+go
+sp_serveroption 'M2226','rpc out','on'
+go
+sp_serveroption 'M2226','use remote collation','off'
+go
+sp_serveroption 'M2226','collation name',null
+go
+sp_serveroption 'M2226','connect timeout',0
+go
+sp_serveroption 'M2226','query timeout','0'
+go
+
+----  Linked server : M2227
+sp_addlinkedserver 'M2227','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2227','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2227','collation compatible','off'
+go
+sp_serveroption 'M2227','data access','on'
+go
+sp_serveroption 'M2227','rpc','on'
+go
+sp_serveroption 'M2227','rpc out','on'
+go
+sp_serveroption 'M2227','use remote collation','off'
+go
+sp_serveroption 'M2227','collation name',null
+go
+sp_serveroption 'M2227','connect timeout',0
+go
+sp_serveroption 'M2227','query timeout','0'
+go
+
+----  Linked server : M2228
+sp_addlinkedserver 'M2228','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2228','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2228','collation compatible','off'
+go
+sp_serveroption 'M2228','data access','on'
+go
+sp_serveroption 'M2228','rpc','on'
+go
+sp_serveroption 'M2228','rpc out','on'
+go
+sp_serveroption 'M2228','use remote collation','off'
+go
+sp_serveroption 'M2228','collation name',null
+go
+sp_serveroption 'M2228','connect timeout',0
+go
+sp_serveroption 'M2228','query timeout','0'
+go
+
+----  Linked server : M2863
+sp_addlinkedserver 'M2863','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2863','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2863','collation compatible','off'
+go
+sp_serveroption 'M2863','data access','on'
+go
+sp_serveroption 'M2863','rpc','on'
+go
+sp_serveroption 'M2863','rpc out','on'
+go
+sp_serveroption 'M2863','use remote collation','off'
+go
+sp_serveroption 'M2863','collation name',null
+go
+sp_serveroption 'M2863','connect timeout',0
+go
+sp_serveroption 'M2863','query timeout','0'
+go
+
+----  Linked server : M2228_03
+sp_addlinkedserver 'M2228_03','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2228_03','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2228_03','collation compatible','off'
+go
+sp_serveroption 'M2228_03','data access','on'
+go
+sp_serveroption 'M2228_03','rpc','on'
+go
+sp_serveroption 'M2228_03','rpc out','on'
+go
+sp_serveroption 'M2228_03','use remote collation','off'
+go
+sp_serveroption 'M2228_03','collation name',null
+go
+sp_serveroption 'M2228_03','connect timeout',0
+go
+sp_serveroption 'M2228_03','query timeout','0'
+go
+
+----  Linked server : M2229
+sp_addlinkedserver 'M2229','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2229','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2229','collation compatible','off'
+go
+sp_serveroption 'M2229','data access','on'
+go
+sp_serveroption 'M2229','rpc','on'
+go
+sp_serveroption 'M2229','rpc out','on'
+go
+sp_serveroption 'M2229','use remote collation','off'
+go
+sp_serveroption 'M2229','collation name',null
+go
+sp_serveroption 'M2229','connect timeout',0
+go
+sp_serveroption 'M2229','query timeout','0'
+go
+
+----  Linked server : M5212
+sp_addlinkedserver 'M5212','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5212','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5212','collation compatible','off'
+go
+sp_serveroption 'M5212','data access','on'
+go
+sp_serveroption 'M5212','rpc','on'
+go
+sp_serveroption 'M5212','rpc out','on'
+go
+sp_serveroption 'M5212','use remote collation','off'
+go
+sp_serveroption 'M5212','collation name',null
+go
+sp_serveroption 'M5212','connect timeout',0
+go
+sp_serveroption 'M5212','query timeout','0'
+go
+
+----  Linked server : M2233
+sp_addlinkedserver 'M2233','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2233','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2233','collation compatible','off'
+go
+sp_serveroption 'M2233','data access','on'
+go
+sp_serveroption 'M2233','rpc','on'
+go
+sp_serveroption 'M2233','rpc out','on'
+go
+sp_serveroption 'M2233','use remote collation','off'
+go
+sp_serveroption 'M2233','collation name',null
+go
+sp_serveroption 'M2233','connect timeout',0
+go
+sp_serveroption 'M2233','query timeout','0'
+go
+
+----  Linked server : M5074
+sp_addlinkedserver 'M5074','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5074','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5074','collation compatible','off'
+go
+sp_serveroption 'M5074','data access','on'
+go
+sp_serveroption 'M5074','rpc','on'
+go
+sp_serveroption 'M5074','rpc out','on'
+go
+sp_serveroption 'M5074','use remote collation','off'
+go
+sp_serveroption 'M5074','collation name',null
+go
+sp_serveroption 'M5074','connect timeout',0
+go
+sp_serveroption 'M5074','query timeout','0'
+go
+
+----  Linked server : M2862
+sp_addlinkedserver 'M2862','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2862','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2862','collation compatible','off'
+go
+sp_serveroption 'M2862','data access','on'
+go
+sp_serveroption 'M2862','rpc','on'
+go
+sp_serveroption 'M2862','rpc out','on'
+go
+sp_serveroption 'M2862','use remote collation','off'
+go
+sp_serveroption 'M2862','collation name',null
+go
+sp_serveroption 'M2862','connect timeout',0
+go
+sp_serveroption 'M2862','query timeout','0'
+go
+
+----  Linked server : M2240
+sp_addlinkedserver 'M2240','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2240','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2240','collation compatible','off'
+go
+sp_serveroption 'M2240','data access','on'
+go
+sp_serveroption 'M2240','rpc','on'
+go
+sp_serveroption 'M2240','rpc out','on'
+go
+sp_serveroption 'M2240','use remote collation','off'
+go
+sp_serveroption 'M2240','collation name',null
+go
+sp_serveroption 'M2240','connect timeout',0
+go
+sp_serveroption 'M2240','query timeout','0'
+go
+
+----  Linked server : M2241
+sp_addlinkedserver 'M2241','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2241','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2241','collation compatible','off'
+go
+sp_serveroption 'M2241','data access','on'
+go
+sp_serveroption 'M2241','rpc','on'
+go
+sp_serveroption 'M2241','rpc out','on'
+go
+sp_serveroption 'M2241','use remote collation','off'
+go
+sp_serveroption 'M2241','collation name',null
+go
+sp_serveroption 'M2241','connect timeout',0
+go
+sp_serveroption 'M2241','query timeout','0'
+go
+
+----  Linked server : M2244
+sp_addlinkedserver 'M2244','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2244','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2244','collation compatible','off'
+go
+sp_serveroption 'M2244','data access','on'
+go
+sp_serveroption 'M2244','rpc','on'
+go
+sp_serveroption 'M2244','rpc out','on'
+go
+sp_serveroption 'M2244','use remote collation','off'
+go
+sp_serveroption 'M2244','collation name',null
+go
+sp_serveroption 'M2244','connect timeout',0
+go
+sp_serveroption 'M2244','query timeout','0'
+go
+
+----  Linked server : M2309
+sp_addlinkedserver 'M2309','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2309','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'M2309','collation compatible','off'
+go
+sp_serveroption 'M2309','data access','on'
+go
+sp_serveroption 'M2309','rpc','on'
+go
+sp_serveroption 'M2309','rpc out','on'
+go
+sp_serveroption 'M2309','use remote collation','off'
+go
+sp_serveroption 'M2309','collation name',null
+go
+sp_serveroption 'M2309','connect timeout',0
+go
+sp_serveroption 'M2309','query timeout','0'
+go
+
+----  Linked server : M2247
+sp_addlinkedserver 'M2247','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2247','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2247','collation compatible','off'
+go
+sp_serveroption 'M2247','data access','on'
+go
+sp_serveroption 'M2247','rpc','on'
+go
+sp_serveroption 'M2247','rpc out','on'
+go
+sp_serveroption 'M2247','use remote collation','off'
+go
+sp_serveroption 'M2247','collation name',null
+go
+sp_serveroption 'M2247','connect timeout',0
+go
+sp_serveroption 'M2247','query timeout','0'
+go
+
+----  Linked server : M2250
+sp_addlinkedserver 'M2250','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2250','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2250','collation compatible','off'
+go
+sp_serveroption 'M2250','data access','on'
+go
+sp_serveroption 'M2250','rpc','on'
+go
+sp_serveroption 'M2250','rpc out','on'
+go
+sp_serveroption 'M2250','use remote collation','off'
+go
+sp_serveroption 'M2250','collation name',null
+go
+sp_serveroption 'M2250','connect timeout',0
+go
+sp_serveroption 'M2250','query timeout','0'
+go
+
+----  Linked server : M5080
+sp_addlinkedserver 'M5080','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5080','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5080','collation compatible','off'
+go
+sp_serveroption 'M5080','data access','on'
+go
+sp_serveroption 'M5080','rpc','on'
+go
+sp_serveroption 'M5080','rpc out','on'
+go
+sp_serveroption 'M5080','use remote collation','off'
+go
+sp_serveroption 'M5080','collation name',null
+go
+sp_serveroption 'M5080','connect timeout',0
+go
+sp_serveroption 'M5080','query timeout','0'
+go
+
+----  Linked server : M2252
+sp_addlinkedserver 'M2252','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2252','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2252','collation compatible','off'
+go
+sp_serveroption 'M2252','data access','on'
+go
+sp_serveroption 'M2252','rpc','on'
+go
+sp_serveroption 'M2252','rpc out','on'
+go
+sp_serveroption 'M2252','use remote collation','off'
+go
+sp_serveroption 'M2252','collation name',null
+go
+sp_serveroption 'M2252','connect timeout',0
+go
+sp_serveroption 'M2252','query timeout','0'
+go
+
+----  Linked server : M2838_01
+sp_addlinkedserver 'M2838_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2838_01','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'M2838_01','collation compatible','off'
+go
+sp_serveroption 'M2838_01','data access','on'
+go
+sp_serveroption 'M2838_01','rpc','on'
+go
+sp_serveroption 'M2838_01','rpc out','on'
+go
+sp_serveroption 'M2838_01','use remote collation','off'
+go
+sp_serveroption 'M2838_01','collation name',null
+go
+sp_serveroption 'M2838_01','connect timeout',0
+go
+sp_serveroption 'M2838_01','query timeout','0'
+go
+
+----  Linked server : M2255
+sp_addlinkedserver 'M2255','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2255','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2255','collation compatible','off'
+go
+sp_serveroption 'M2255','data access','on'
+go
+sp_serveroption 'M2255','rpc','on'
+go
+sp_serveroption 'M2255','rpc out','on'
+go
+sp_serveroption 'M2255','use remote collation','off'
+go
+sp_serveroption 'M2255','collation name',null
+go
+sp_serveroption 'M2255','connect timeout',0
+go
+sp_serveroption 'M2255','query timeout','0'
+go
+
+----  Linked server : M2256
+sp_addlinkedserver 'M2256','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2256','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2256','collation compatible','off'
+go
+sp_serveroption 'M2256','data access','on'
+go
+sp_serveroption 'M2256','rpc','on'
+go
+sp_serveroption 'M2256','rpc out','on'
+go
+sp_serveroption 'M2256','use remote collation','off'
+go
+sp_serveroption 'M2256','collation name',null
+go
+sp_serveroption 'M2256','connect timeout',0
+go
+sp_serveroption 'M2256','query timeout','0'
+go
+
+----  Linked server : M2338
+sp_addlinkedserver 'M2338','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2338','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2338','collation compatible','off'
+go
+sp_serveroption 'M2338','data access','on'
+go
+sp_serveroption 'M2338','rpc','on'
+go
+sp_serveroption 'M2338','rpc out','on'
+go
+sp_serveroption 'M2338','use remote collation','off'
+go
+sp_serveroption 'M2338','collation name',null
+go
+sp_serveroption 'M2338','connect timeout',0
+go
+sp_serveroption 'M2338','query timeout','0'
+go
+
+----  Linked server : M2829_01
+sp_addlinkedserver 'M2829_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2829_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2829_01','collation compatible','off'
+go
+sp_serveroption 'M2829_01','data access','on'
+go
+sp_serveroption 'M2829_01','rpc','on'
+go
+sp_serveroption 'M2829_01','rpc out','on'
+go
+sp_serveroption 'M2829_01','use remote collation','off'
+go
+sp_serveroption 'M2829_01','collation name',null
+go
+sp_serveroption 'M2829_01','connect timeout',0
+go
+sp_serveroption 'M2829_01','query timeout','0'
+go
+
+----  Linked server : M2848
+sp_addlinkedserver 'M2848','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2848','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2848','collation compatible','off'
+go
+sp_serveroption 'M2848','data access','on'
+go
+sp_serveroption 'M2848','rpc','on'
+go
+sp_serveroption 'M2848','rpc out','on'
+go
+sp_serveroption 'M2848','use remote collation','off'
+go
+sp_serveroption 'M2848','collation name',null
+go
+sp_serveroption 'M2848','connect timeout',0
+go
+sp_serveroption 'M2848','query timeout','0'
+go
+
+----  Linked server : M2265
+sp_addlinkedserver 'M2265','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2265','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2265','collation compatible','off'
+go
+sp_serveroption 'M2265','data access','on'
+go
+sp_serveroption 'M2265','rpc','on'
+go
+sp_serveroption 'M2265','rpc out','on'
+go
+sp_serveroption 'M2265','use remote collation','off'
+go
+sp_serveroption 'M2265','collation name',null
+go
+sp_serveroption 'M2265','connect timeout',0
+go
+sp_serveroption 'M2265','query timeout','0'
+go
+
+----  Linked server : ITOCTOPUSGW
+sp_addlinkedserver 'ITOCTOPUSGW','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITOCTOPUSGW','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'ITOCTOPUSGW','collation compatible','off'
+go
+sp_serveroption 'ITOCTOPUSGW','data access','on'
+go
+sp_serveroption 'ITOCTOPUSGW','rpc','on'
+go
+sp_serveroption 'ITOCTOPUSGW','rpc out','on'
+go
+sp_serveroption 'ITOCTOPUSGW','use remote collation','off'
+go
+sp_serveroption 'ITOCTOPUSGW','collation name',null
+go
+sp_serveroption 'ITOCTOPUSGW','connect timeout',0
+go
+sp_serveroption 'ITOCTOPUSGW','query timeout','0'
+go
+
+----  Linked server : M2266
+sp_addlinkedserver 'M2266','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2266','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2266','collation compatible','off'
+go
+sp_serveroption 'M2266','data access','on'
+go
+sp_serveroption 'M2266','rpc','on'
+go
+sp_serveroption 'M2266','rpc out','on'
+go
+sp_serveroption 'M2266','use remote collation','off'
+go
+sp_serveroption 'M2266','collation name',null
+go
+sp_serveroption 'M2266','connect timeout',0
+go
+sp_serveroption 'M2266','query timeout','0'
+go
+
+----  Linked server : M2267
+sp_addlinkedserver 'M2267','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2267','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2267','collation compatible','off'
+go
+sp_serveroption 'M2267','data access','on'
+go
+sp_serveroption 'M2267','rpc','on'
+go
+sp_serveroption 'M2267','rpc out','on'
+go
+sp_serveroption 'M2267','use remote collation','off'
+go
+sp_serveroption 'M2267','collation name',null
+go
+sp_serveroption 'M2267','connect timeout',0
+go
+sp_serveroption 'M2267','query timeout','0'
+go
+
+----  Linked server : M2268
+sp_addlinkedserver 'M2268','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2268','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2268','collation compatible','off'
+go
+sp_serveroption 'M2268','data access','on'
+go
+sp_serveroption 'M2268','rpc','on'
+go
+sp_serveroption 'M2268','rpc out','on'
+go
+sp_serveroption 'M2268','use remote collation','off'
+go
+sp_serveroption 'M2268','collation name',null
+go
+sp_serveroption 'M2268','connect timeout',0
+go
+sp_serveroption 'M2268','query timeout','0'
+go
+
+----  Linked server : M5164
+sp_addlinkedserver 'M5164','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5164','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5164','collation compatible','off'
+go
+sp_serveroption 'M5164','data access','on'
+go
+sp_serveroption 'M5164','rpc','on'
+go
+sp_serveroption 'M5164','rpc out','on'
+go
+sp_serveroption 'M5164','use remote collation','off'
+go
+sp_serveroption 'M5164','collation name',null
+go
+sp_serveroption 'M5164','connect timeout',0
+go
+sp_serveroption 'M5164','query timeout','0'
+go
+
+----  Linked server : M2271
+sp_addlinkedserver 'M2271','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2271','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2271','collation compatible','off'
+go
+sp_serveroption 'M2271','data access','on'
+go
+sp_serveroption 'M2271','rpc','on'
+go
+sp_serveroption 'M2271','rpc out','on'
+go
+sp_serveroption 'M2271','use remote collation','off'
+go
+sp_serveroption 'M2271','collation name',null
+go
+sp_serveroption 'M2271','connect timeout',0
+go
+sp_serveroption 'M2271','query timeout','0'
+go
+
+----  Linked server : M5876
+sp_addlinkedserver 'M5876','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5876','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5876','collation compatible','off'
+go
+sp_serveroption 'M5876','data access','on'
+go
+sp_serveroption 'M5876','rpc','on'
+go
+sp_serveroption 'M5876','rpc out','on'
+go
+sp_serveroption 'M5876','use remote collation','off'
+go
+sp_serveroption 'M5876','collation name',null
+go
+sp_serveroption 'M5876','connect timeout',0
+go
+sp_serveroption 'M5876','query timeout','0'
+go
+
+----  Linked server : M5075
+sp_addlinkedserver 'M5075','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5075','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5075','collation compatible','off'
+go
+sp_serveroption 'M5075','data access','on'
+go
+sp_serveroption 'M5075','rpc','on'
+go
+sp_serveroption 'M5075','rpc out','on'
+go
+sp_serveroption 'M5075','use remote collation','off'
+go
+sp_serveroption 'M5075','collation name',null
+go
+sp_serveroption 'M5075','connect timeout',0
+go
+sp_serveroption 'M5075','query timeout','0'
+go
+
+----  Linked server : M2354
+sp_addlinkedserver 'M2354','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2354','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2354','collation compatible','off'
+go
+sp_serveroption 'M2354','data access','on'
+go
+sp_serveroption 'M2354','rpc','on'
+go
+sp_serveroption 'M2354','rpc out','on'
+go
+sp_serveroption 'M2354','use remote collation','off'
+go
+sp_serveroption 'M2354','collation name',null
+go
+sp_serveroption 'M2354','connect timeout',0
+go
+sp_serveroption 'M2354','query timeout','0'
+go
+
+----  Linked server : M2282
+sp_addlinkedserver 'M2282','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2282','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2282','collation compatible','off'
+go
+sp_serveroption 'M2282','data access','on'
+go
+sp_serveroption 'M2282','rpc','on'
+go
+sp_serveroption 'M2282','rpc out','on'
+go
+sp_serveroption 'M2282','use remote collation','off'
+go
+sp_serveroption 'M2282','collation name',null
+go
+sp_serveroption 'M2282','connect timeout',0
+go
+sp_serveroption 'M2282','query timeout','0'
+go
+
+----  Linked server : M5009
+sp_addlinkedserver 'M5009','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5009','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5009','collation compatible','off'
+go
+sp_serveroption 'M5009','data access','on'
+go
+sp_serveroption 'M5009','rpc','on'
+go
+sp_serveroption 'M5009','rpc out','on'
+go
+sp_serveroption 'M5009','use remote collation','off'
+go
+sp_serveroption 'M5009','collation name',null
+go
+sp_serveroption 'M5009','connect timeout',0
+go
+sp_serveroption 'M5009','query timeout','0'
+go
+
+----  Linked server : M2291
+sp_addlinkedserver 'M2291','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2291','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2291','collation compatible','off'
+go
+sp_serveroption 'M2291','data access','on'
+go
+sp_serveroption 'M2291','rpc','on'
+go
+sp_serveroption 'M2291','rpc out','on'
+go
+sp_serveroption 'M2291','use remote collation','off'
+go
+sp_serveroption 'M2291','collation name',null
+go
+sp_serveroption 'M2291','connect timeout',0
+go
+sp_serveroption 'M2291','query timeout','0'
+go
+
+----  Linked server : M2786
+sp_addlinkedserver 'M2786','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2786','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2786','collation compatible','off'
+go
+sp_serveroption 'M2786','data access','on'
+go
+sp_serveroption 'M2786','rpc','on'
+go
+sp_serveroption 'M2786','rpc out','on'
+go
+sp_serveroption 'M2786','use remote collation','off'
+go
+sp_serveroption 'M2786','collation name',null
+go
+sp_serveroption 'M2786','connect timeout',0
+go
+sp_serveroption 'M2786','query timeout','0'
+go
+
+----  Linked server : M5301_01
+sp_addlinkedserver 'M5301_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5301_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5301_01','collation compatible','off'
+go
+sp_serveroption 'M5301_01','data access','on'
+go
+sp_serveroption 'M5301_01','rpc','on'
+go
+sp_serveroption 'M5301_01','rpc out','on'
+go
+sp_serveroption 'M5301_01','use remote collation','off'
+go
+sp_serveroption 'M5301_01','collation name',null
+go
+sp_serveroption 'M5301_01','connect timeout',0
+go
+sp_serveroption 'M5301_01','query timeout','0'
+go
+
+----  Linked server : IT19
+sp_addlinkedserver 'IT19','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT19','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT19','collation compatible','off'
+go
+sp_serveroption 'IT19','data access','on'
+go
+sp_serveroption 'IT19','rpc','on'
+go
+sp_serveroption 'IT19','rpc out','on'
+go
+sp_serveroption 'IT19','use remote collation','on'
+go
+sp_serveroption 'IT19','collation name',null
+go
+sp_serveroption 'IT19','connect timeout',0
+go
+sp_serveroption 'IT19','query timeout','0'
+go
+
+----  Linked server : ITHINGL
+sp_addlinkedserver 'ITHINGL','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITHINGL','false',null,'sa',<enter password here>
+go
+sp_serveroption 'ITHINGL','collation compatible','off'
+go
+sp_serveroption 'ITHINGL','data access','on'
+go
+sp_serveroption 'ITHINGL','rpc','on'
+go
+sp_serveroption 'ITHINGL','rpc out','on'
+go
+sp_serveroption 'ITHINGL','use remote collation','off'
+go
+sp_serveroption 'ITHINGL','collation name',null
+go
+sp_serveroption 'ITHINGL','connect timeout',0
+go
+sp_serveroption 'ITHINGL','query timeout','0'
+go
+
+----  Linked server : M5077
+sp_addlinkedserver 'M5077','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5077','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5077','collation compatible','off'
+go
+sp_serveroption 'M5077','data access','on'
+go
+sp_serveroption 'M5077','rpc','on'
+go
+sp_serveroption 'M5077','rpc out','on'
+go
+sp_serveroption 'M5077','use remote collation','off'
+go
+sp_serveroption 'M5077','collation name',null
+go
+sp_serveroption 'M5077','connect timeout',0
+go
+sp_serveroption 'M5077','query timeout','0'
+go
+
+----  Linked server : M5852
+sp_addlinkedserver 'M5852','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5852','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5852','collation compatible','off'
+go
+sp_serveroption 'M5852','data access','on'
+go
+sp_serveroption 'M5852','rpc','on'
+go
+sp_serveroption 'M5852','rpc out','on'
+go
+sp_serveroption 'M5852','use remote collation','off'
+go
+sp_serveroption 'M5852','collation name',null
+go
+sp_serveroption 'M5852','connect timeout',0
+go
+sp_serveroption 'M5852','query timeout','0'
+go
+
+----  Linked server : M2864_01
+sp_addlinkedserver 'M2864_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2864_01','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'M2864_01','collation compatible','off'
+go
+sp_serveroption 'M2864_01','data access','on'
+go
+sp_serveroption 'M2864_01','rpc','on'
+go
+sp_serveroption 'M2864_01','rpc out','on'
+go
+sp_serveroption 'M2864_01','use remote collation','off'
+go
+sp_serveroption 'M2864_01','collation name',null
+go
+sp_serveroption 'M2864_01','connect timeout',0
+go
+sp_serveroption 'M2864_01','query timeout','0'
+go
+
+----  Linked server : M2298_01
+sp_addlinkedserver 'M2298_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2298_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2298_01','collation compatible','off'
+go
+sp_serveroption 'M2298_01','data access','on'
+go
+sp_serveroption 'M2298_01','rpc','on'
+go
+sp_serveroption 'M2298_01','rpc out','on'
+go
+sp_serveroption 'M2298_01','use remote collation','off'
+go
+sp_serveroption 'M2298_01','collation name',null
+go
+sp_serveroption 'M2298_01','connect timeout',0
+go
+sp_serveroption 'M2298_01','query timeout','0'
+go
+
+----  Linked server : M2301
+sp_addlinkedserver 'M2301','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2301','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2301','collation compatible','off'
+go
+sp_serveroption 'M2301','data access','on'
+go
+sp_serveroption 'M2301','rpc','on'
+go
+sp_serveroption 'M2301','rpc out','on'
+go
+sp_serveroption 'M2301','use remote collation','off'
+go
+sp_serveroption 'M2301','collation name',null
+go
+sp_serveroption 'M2301','connect timeout',0
+go
+sp_serveroption 'M2301','query timeout','0'
+go
+
+----  Linked server : M2860_01
+sp_addlinkedserver 'M2860_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2860_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2860_01','collation compatible','off'
+go
+sp_serveroption 'M2860_01','data access','on'
+go
+sp_serveroption 'M2860_01','rpc','on'
+go
+sp_serveroption 'M2860_01','rpc out','on'
+go
+sp_serveroption 'M2860_01','use remote collation','off'
+go
+sp_serveroption 'M2860_01','collation name',null
+go
+sp_serveroption 'M2860_01','connect timeout',0
+go
+sp_serveroption 'M2860_01','query timeout','0'
+go
+
+----  Linked server : M2306
+sp_addlinkedserver 'M2306','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2306','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2306','collation compatible','off'
+go
+sp_serveroption 'M2306','data access','on'
+go
+sp_serveroption 'M2306','rpc','on'
+go
+sp_serveroption 'M2306','rpc out','on'
+go
+sp_serveroption 'M2306','use remote collation','off'
+go
+sp_serveroption 'M2306','collation name',null
+go
+sp_serveroption 'M2306','connect timeout',0
+go
+sp_serveroption 'M2306','query timeout','0'
+go
+
+----  Linked server : M2307
+sp_addlinkedserver 'M2307','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2307','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2307','collation compatible','off'
+go
+sp_serveroption 'M2307','data access','on'
+go
+sp_serveroption 'M2307','rpc','on'
+go
+sp_serveroption 'M2307','rpc out','on'
+go
+sp_serveroption 'M2307','use remote collation','off'
+go
+sp_serveroption 'M2307','collation name',null
+go
+sp_serveroption 'M2307','connect timeout',0
+go
+sp_serveroption 'M2307','query timeout','0'
+go
+
+----  Linked server : M2307_01
+sp_addlinkedserver 'M2307_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2307_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2307_01','collation compatible','off'
+go
+sp_serveroption 'M2307_01','data access','on'
+go
+sp_serveroption 'M2307_01','rpc','on'
+go
+sp_serveroption 'M2307_01','rpc out','on'
+go
+sp_serveroption 'M2307_01','use remote collation','off'
+go
+sp_serveroption 'M2307_01','collation name',null
+go
+sp_serveroption 'M2307_01','connect timeout',0
+go
+sp_serveroption 'M2307_01','query timeout','0'
+go
+
+----  Linked server : M2855
+sp_addlinkedserver 'M2855','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2855','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'M2855','collation compatible','off'
+go
+sp_serveroption 'M2855','data access','on'
+go
+sp_serveroption 'M2855','rpc','on'
+go
+sp_serveroption 'M2855','rpc out','on'
+go
+sp_serveroption 'M2855','use remote collation','off'
+go
+sp_serveroption 'M2855','collation name',null
+go
+sp_serveroption 'M2855','connect timeout',0
+go
+sp_serveroption 'M2855','query timeout','0'
+go
+
+----  Linked server : M2861_01
+sp_addlinkedserver 'M2861_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2861_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2861_01','collation compatible','off'
+go
+sp_serveroption 'M2861_01','data access','on'
+go
+sp_serveroption 'M2861_01','rpc','on'
+go
+sp_serveroption 'M2861_01','rpc out','on'
+go
+sp_serveroption 'M2861_01','use remote collation','off'
+go
+sp_serveroption 'M2861_01','collation name',null
+go
+sp_serveroption 'M2861_01','connect timeout',0
+go
+sp_serveroption 'M2861_01','query timeout','0'
+go
+
+----  Linked server : M5318
+sp_addlinkedserver 'M5318','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5318','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5318','collation compatible','off'
+go
+sp_serveroption 'M5318','data access','on'
+go
+sp_serveroption 'M5318','rpc','on'
+go
+sp_serveroption 'M5318','rpc out','on'
+go
+sp_serveroption 'M5318','use remote collation','off'
+go
+sp_serveroption 'M5318','collation name',null
+go
+sp_serveroption 'M5318','connect timeout',0
+go
+sp_serveroption 'M5318','query timeout','0'
+go
+
+----  Linked server : IT53U
+sp_addlinkedserver 'IT53U','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT53U','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT53U','collation compatible','off'
+go
+sp_serveroption 'IT53U','data access','on'
+go
+sp_serveroption 'IT53U','rpc','on'
+go
+sp_serveroption 'IT53U','rpc out','on'
+go
+sp_serveroption 'IT53U','use remote collation','off'
+go
+sp_serveroption 'IT53U','collation name',null
+go
+sp_serveroption 'IT53U','connect timeout',0
+go
+sp_serveroption 'IT53U','query timeout','0'
+go
+
+----  Linked server : M2271_01
+sp_addlinkedserver 'M2271_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2271_01','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'M2271_01','collation compatible','off'
+go
+sp_serveroption 'M2271_01','data access','on'
+go
+sp_serveroption 'M2271_01','rpc','on'
+go
+sp_serveroption 'M2271_01','rpc out','on'
+go
+sp_serveroption 'M2271_01','use remote collation','off'
+go
+sp_serveroption 'M2271_01','collation name',null
+go
+sp_serveroption 'M2271_01','connect timeout',0
+go
+sp_serveroption 'M2271_01','query timeout','0'
+go
+
+----  Linked server : M2313
+sp_addlinkedserver 'M2313','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2313','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2313','collation compatible','off'
+go
+sp_serveroption 'M2313','data access','on'
+go
+sp_serveroption 'M2313','rpc','on'
+go
+sp_serveroption 'M2313','rpc out','on'
+go
+sp_serveroption 'M2313','use remote collation','off'
+go
+sp_serveroption 'M2313','collation name',null
+go
+sp_serveroption 'M2313','connect timeout',0
+go
+sp_serveroption 'M2313','query timeout','0'
+go
+
+----  Linked server : M2315
+sp_addlinkedserver 'M2315','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2315','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2315','collation compatible','off'
+go
+sp_serveroption 'M2315','data access','on'
+go
+sp_serveroption 'M2315','rpc','on'
+go
+sp_serveroption 'M2315','rpc out','on'
+go
+sp_serveroption 'M2315','use remote collation','off'
+go
+sp_serveroption 'M2315','collation name',null
+go
+sp_serveroption 'M2315','connect timeout',0
+go
+sp_serveroption 'M2315','query timeout','0'
+go
+
+----  Linked server : M5408
+sp_addlinkedserver 'M5408','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5408','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5408','collation compatible','off'
+go
+sp_serveroption 'M5408','data access','on'
+go
+sp_serveroption 'M5408','rpc','on'
+go
+sp_serveroption 'M5408','rpc out','on'
+go
+sp_serveroption 'M5408','use remote collation','off'
+go
+sp_serveroption 'M5408','collation name',null
+go
+sp_serveroption 'M5408','connect timeout',0
+go
+sp_serveroption 'M5408','query timeout','0'
+go
+
+----  Linked server : M2317
+sp_addlinkedserver 'M2317','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2317','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2317','collation compatible','off'
+go
+sp_serveroption 'M2317','data access','on'
+go
+sp_serveroption 'M2317','rpc','on'
+go
+sp_serveroption 'M2317','rpc out','on'
+go
+sp_serveroption 'M2317','use remote collation','off'
+go
+sp_serveroption 'M2317','collation name',null
+go
+sp_serveroption 'M2317','connect timeout',0
+go
+sp_serveroption 'M2317','query timeout','0'
+go
+
+----  Linked server : M2318
+sp_addlinkedserver 'M2318','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2318','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2318','collation compatible','off'
+go
+sp_serveroption 'M2318','data access','on'
+go
+sp_serveroption 'M2318','rpc','on'
+go
+sp_serveroption 'M2318','rpc out','on'
+go
+sp_serveroption 'M2318','use remote collation','off'
+go
+sp_serveroption 'M2318','collation name',null
+go
+sp_serveroption 'M2318','connect timeout',0
+go
+sp_serveroption 'M2318','query timeout','0'
+go
+
+----  Linked server : M2321
+sp_addlinkedserver 'M2321','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2321','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2321','collation compatible','off'
+go
+sp_serveroption 'M2321','data access','on'
+go
+sp_serveroption 'M2321','rpc','on'
+go
+sp_serveroption 'M2321','rpc out','on'
+go
+sp_serveroption 'M2321','use remote collation','off'
+go
+sp_serveroption 'M2321','collation name',null
+go
+sp_serveroption 'M2321','connect timeout',0
+go
+sp_serveroption 'M2321','query timeout','0'
+go
+
+----  Linked server : M2952_01
+sp_addlinkedserver 'M2952_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2952_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2952_01','collation compatible','off'
+go
+sp_serveroption 'M2952_01','data access','on'
+go
+sp_serveroption 'M2952_01','rpc','on'
+go
+sp_serveroption 'M2952_01','rpc out','on'
+go
+sp_serveroption 'M2952_01','use remote collation','off'
+go
+sp_serveroption 'M2952_01','collation name',null
+go
+sp_serveroption 'M2952_01','connect timeout',0
+go
+sp_serveroption 'M2952_01','query timeout','0'
+go
+
+----  Linked server : M8202
+sp_addlinkedserver 'M8202','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8202','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8202','collation compatible','off'
+go
+sp_serveroption 'M8202','data access','on'
+go
+sp_serveroption 'M8202','rpc','on'
+go
+sp_serveroption 'M8202','rpc out','on'
+go
+sp_serveroption 'M8202','use remote collation','off'
+go
+sp_serveroption 'M8202','collation name',null
+go
+sp_serveroption 'M8202','connect timeout',0
+go
+sp_serveroption 'M8202','query timeout','0'
+go
+
+----  Linked server : M5159
+sp_addlinkedserver 'M5159','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5159','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5159','collation compatible','off'
+go
+sp_serveroption 'M5159','data access','on'
+go
+sp_serveroption 'M5159','rpc','on'
+go
+sp_serveroption 'M5159','rpc out','on'
+go
+sp_serveroption 'M5159','use remote collation','off'
+go
+sp_serveroption 'M5159','collation name',null
+go
+sp_serveroption 'M5159','connect timeout',0
+go
+sp_serveroption 'M5159','query timeout','0'
+go
+
+----  Linked server : M5251
+sp_addlinkedserver 'M5251','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5251','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5251','collation compatible','off'
+go
+sp_serveroption 'M5251','data access','on'
+go
+sp_serveroption 'M5251','rpc','on'
+go
+sp_serveroption 'M5251','rpc out','on'
+go
+sp_serveroption 'M5251','use remote collation','off'
+go
+sp_serveroption 'M5251','collation name',null
+go
+sp_serveroption 'M5251','connect timeout',0
+go
+sp_serveroption 'M5251','query timeout','0'
+go
+
+----  Linked server : M1284
+sp_addlinkedserver 'M1284','SQL Server'
+go
+sp_addlinkedsrvlogin 'M1284','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M1284','collation compatible','off'
+go
+sp_serveroption 'M1284','data access','on'
+go
+sp_serveroption 'M1284','rpc','on'
+go
+sp_serveroption 'M1284','rpc out','on'
+go
+sp_serveroption 'M1284','use remote collation','off'
+go
+sp_serveroption 'M1284','collation name',null
+go
+sp_serveroption 'M1284','connect timeout',0
+go
+sp_serveroption 'M1284','query timeout','0'
+go
+
+----  Linked server : M2847_01
+sp_addlinkedserver 'M2847_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2847_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2847_01','collation compatible','off'
+go
+sp_serveroption 'M2847_01','data access','on'
+go
+sp_serveroption 'M2847_01','rpc','on'
+go
+sp_serveroption 'M2847_01','rpc out','on'
+go
+sp_serveroption 'M2847_01','use remote collation','off'
+go
+sp_serveroption 'M2847_01','collation name',null
+go
+sp_serveroption 'M2847_01','connect timeout',0
+go
+sp_serveroption 'M2847_01','query timeout','0'
+go
+
+----  Linked server : M1296
+sp_addlinkedserver 'M1296','SQL Server'
+go
+sp_addlinkedsrvlogin 'M1296','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M1296','collation compatible','off'
+go
+sp_serveroption 'M1296','data access','on'
+go
+sp_serveroption 'M1296','rpc','on'
+go
+sp_serveroption 'M1296','rpc out','on'
+go
+sp_serveroption 'M1296','use remote collation','off'
+go
+sp_serveroption 'M1296','collation name',null
+go
+sp_serveroption 'M1296','connect timeout',0
+go
+sp_serveroption 'M1296','query timeout','0'
+go
+
+----  Linked server : M5415
+sp_addlinkedserver 'M5415','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5415','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5415','collation compatible','off'
+go
+sp_serveroption 'M5415','data access','on'
+go
+sp_serveroption 'M5415','rpc','on'
+go
+sp_serveroption 'M5415','rpc out','on'
+go
+sp_serveroption 'M5415','use remote collation','off'
+go
+sp_serveroption 'M5415','collation name',null
+go
+sp_serveroption 'M5415','connect timeout',0
+go
+sp_serveroption 'M5415','query timeout','0'
+go
+
+----  Linked server : M1282
+sp_addlinkedserver 'M1282','SQL Server'
+go
+sp_addlinkedsrvlogin 'M1282','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M1282','collation compatible','off'
+go
+sp_serveroption 'M1282','data access','on'
+go
+sp_serveroption 'M1282','rpc','on'
+go
+sp_serveroption 'M1282','rpc out','on'
+go
+sp_serveroption 'M1282','use remote collation','off'
+go
+sp_serveroption 'M1282','collation name',null
+go
+sp_serveroption 'M1282','connect timeout',0
+go
+sp_serveroption 'M1282','query timeout','0'
+go
+
+----  Linked server : M2847
+sp_addlinkedserver 'M2847','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2847','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2847','collation compatible','off'
+go
+sp_serveroption 'M2847','data access','on'
+go
+sp_serveroption 'M2847','rpc','on'
+go
+sp_serveroption 'M2847','rpc out','on'
+go
+sp_serveroption 'M2847','use remote collation','off'
+go
+sp_serveroption 'M2847','collation name',null
+go
+sp_serveroption 'M2847','connect timeout',0
+go
+sp_serveroption 'M2847','query timeout','0'
+go
+
+----  Linked server : M2834_09
+sp_addlinkedserver 'M2834_09','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2834_09','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2834_09','collation compatible','off'
+go
+sp_serveroption 'M2834_09','data access','on'
+go
+sp_serveroption 'M2834_09','rpc','on'
+go
+sp_serveroption 'M2834_09','rpc out','on'
+go
+sp_serveroption 'M2834_09','use remote collation','off'
+go
+sp_serveroption 'M2834_09','collation name',null
+go
+sp_serveroption 'M2834_09','connect timeout',0
+go
+sp_serveroption 'M2834_09','query timeout','0'
+go
+
+----  Linked server : M1297
+sp_addlinkedserver 'M1297','SQL Server'
+go
+sp_addlinkedsrvlogin 'M1297','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M1297','collation compatible','off'
+go
+sp_serveroption 'M1297','data access','on'
+go
+sp_serveroption 'M1297','rpc','on'
+go
+sp_serveroption 'M1297','rpc out','on'
+go
+sp_serveroption 'M1297','use remote collation','off'
+go
+sp_serveroption 'M1297','collation name',null
+go
+sp_serveroption 'M1297','connect timeout',0
+go
+sp_serveroption 'M1297','query timeout','0'
+go
+
+----  Linked server : M2838
+sp_addlinkedserver 'M2838','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2838','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2838','collation compatible','off'
+go
+sp_serveroption 'M2838','data access','on'
+go
+sp_serveroption 'M2838','rpc','on'
+go
+sp_serveroption 'M2838','rpc out','on'
+go
+sp_serveroption 'M2838','use remote collation','off'
+go
+sp_serveroption 'M2838','collation name',null
+go
+sp_serveroption 'M2838','connect timeout',0
+go
+sp_serveroption 'M2838','query timeout','0'
+go
+
+----  Linked server : M5007
+sp_addlinkedserver 'M5007','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5007','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5007','collation compatible','off'
+go
+sp_serveroption 'M5007','data access','on'
+go
+sp_serveroption 'M5007','rpc','on'
+go
+sp_serveroption 'M5007','rpc out','on'
+go
+sp_serveroption 'M5007','use remote collation','off'
+go
+sp_serveroption 'M5007','collation name',null
+go
+sp_serveroption 'M5007','connect timeout',0
+go
+sp_serveroption 'M5007','query timeout','0'
+go
+
+----  Linked server : M2802
+sp_addlinkedserver 'M2802','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2802','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2802','collation compatible','off'
+go
+sp_serveroption 'M2802','data access','on'
+go
+sp_serveroption 'M2802','rpc','on'
+go
+sp_serveroption 'M2802','rpc out','on'
+go
+sp_serveroption 'M2802','use remote collation','off'
+go
+sp_serveroption 'M2802','collation name',null
+go
+sp_serveroption 'M2802','connect timeout',0
+go
+sp_serveroption 'M2802','query timeout','0'
+go
+
+----  Linked server : M2802_01
+sp_addlinkedserver 'M2802_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2802_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2802_01','collation compatible','off'
+go
+sp_serveroption 'M2802_01','data access','on'
+go
+sp_serveroption 'M2802_01','rpc','on'
+go
+sp_serveroption 'M2802_01','rpc out','on'
+go
+sp_serveroption 'M2802_01','use remote collation','off'
+go
+sp_serveroption 'M2802_01','collation name',null
+go
+sp_serveroption 'M2802_01','connect timeout',0
+go
+sp_serveroption 'M2802_01','query timeout','0'
+go
+
+----  Linked server : M2803
+sp_addlinkedserver 'M2803','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2803','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2803','collation compatible','off'
+go
+sp_serveroption 'M2803','data access','on'
+go
+sp_serveroption 'M2803','rpc','on'
+go
+sp_serveroption 'M2803','rpc out','on'
+go
+sp_serveroption 'M2803','use remote collation','off'
+go
+sp_serveroption 'M2803','collation name',null
+go
+sp_serveroption 'M2803','connect timeout',0
+go
+sp_serveroption 'M2803','query timeout','0'
+go
+
+----  Linked server : M2804
+sp_addlinkedserver 'M2804','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2804','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2804','collation compatible','off'
+go
+sp_serveroption 'M2804','data access','on'
+go
+sp_serveroption 'M2804','rpc','on'
+go
+sp_serveroption 'M2804','rpc out','on'
+go
+sp_serveroption 'M2804','use remote collation','off'
+go
+sp_serveroption 'M2804','collation name',null
+go
+sp_serveroption 'M2804','connect timeout',0
+go
+sp_serveroption 'M2804','query timeout','0'
+go
+
+----  Linked server : M2806
+sp_addlinkedserver 'M2806','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2806','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2806','collation compatible','off'
+go
+sp_serveroption 'M2806','data access','on'
+go
+sp_serveroption 'M2806','rpc','on'
+go
+sp_serveroption 'M2806','rpc out','on'
+go
+sp_serveroption 'M2806','use remote collation','off'
+go
+sp_serveroption 'M2806','collation name',null
+go
+sp_serveroption 'M2806','connect timeout',0
+go
+sp_serveroption 'M2806','query timeout','0'
+go
+
+----  Linked server : M2807
+sp_addlinkedserver 'M2807','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2807','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2807','collation compatible','off'
+go
+sp_serveroption 'M2807','data access','on'
+go
+sp_serveroption 'M2807','rpc','on'
+go
+sp_serveroption 'M2807','rpc out','on'
+go
+sp_serveroption 'M2807','use remote collation','off'
+go
+sp_serveroption 'M2807','collation name',null
+go
+sp_serveroption 'M2807','connect timeout',0
+go
+sp_serveroption 'M2807','query timeout','0'
+go
+
+----  Linked server : 10.10.20.52
+sp_addlinkedserver '10.10.20.52','SQL Server'
+go
+sp_addlinkedsrvlogin '10.10.20.52','false',null,'ncr_dbo ',<enter password here>
+go
+sp_serveroption '10.10.20.52','collation compatible','off'
+go
+sp_serveroption '10.10.20.52','data access','on'
+go
+sp_serveroption '10.10.20.52','rpc','on'
+go
+sp_serveroption '10.10.20.52','rpc out','on'
+go
+sp_serveroption '10.10.20.52','use remote collation','off'
+go
+sp_serveroption '10.10.20.52','collation name',null
+go
+sp_serveroption '10.10.20.52','connect timeout',0
+go
+sp_serveroption '10.10.20.52','query timeout','0'
+go
+
+----  Linked server : M5176
+sp_addlinkedserver 'M5176','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5176','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5176','collation compatible','off'
+go
+sp_serveroption 'M5176','data access','on'
+go
+sp_serveroption 'M5176','rpc','on'
+go
+sp_serveroption 'M5176','rpc out','on'
+go
+sp_serveroption 'M5176','use remote collation','off'
+go
+sp_serveroption 'M5176','collation name',null
+go
+sp_serveroption 'M5176','connect timeout',0
+go
+sp_serveroption 'M5176','query timeout','0'
+go
+
+----  Linked server : M2812
+sp_addlinkedserver 'M2812','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2812','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2812','collation compatible','off'
+go
+sp_serveroption 'M2812','data access','on'
+go
+sp_serveroption 'M2812','rpc','on'
+go
+sp_serveroption 'M2812','rpc out','on'
+go
+sp_serveroption 'M2812','use remote collation','off'
+go
+sp_serveroption 'M2812','collation name',null
+go
+sp_serveroption 'M2812','connect timeout',0
+go
+sp_serveroption 'M2812','query timeout','0'
+go
+
+----  Linked server : M5328
+sp_addlinkedserver 'M5328','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5328','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5328','collation compatible','off'
+go
+sp_serveroption 'M5328','data access','on'
+go
+sp_serveroption 'M5328','rpc','on'
+go
+sp_serveroption 'M5328','rpc out','on'
+go
+sp_serveroption 'M5328','use remote collation','off'
+go
+sp_serveroption 'M5328','collation name',null
+go
+sp_serveroption 'M5328','connect timeout',0
+go
+sp_serveroption 'M5328','query timeout','0'
+go
+
+----  Linked server : M5317
+sp_addlinkedserver 'M5317','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5317','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5317','collation compatible','off'
+go
+sp_serveroption 'M5317','data access','on'
+go
+sp_serveroption 'M5317','rpc','on'
+go
+sp_serveroption 'M5317','rpc out','on'
+go
+sp_serveroption 'M5317','use remote collation','off'
+go
+sp_serveroption 'M5317','collation name',null
+go
+sp_serveroption 'M5317','connect timeout',0
+go
+sp_serveroption 'M5317','query timeout','0'
+go
+
+----  Linked server : M2827
+sp_addlinkedserver 'M2827','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2827','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2827','collation compatible','off'
+go
+sp_serveroption 'M2827','data access','on'
+go
+sp_serveroption 'M2827','rpc','on'
+go
+sp_serveroption 'M2827','rpc out','on'
+go
+sp_serveroption 'M2827','use remote collation','off'
+go
+sp_serveroption 'M2827','collation name',null
+go
+sp_serveroption 'M2827','connect timeout',0
+go
+sp_serveroption 'M2827','query timeout','0'
+go
+
+----  Linked server : M2828
+sp_addlinkedserver 'M2828','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2828','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2828','collation compatible','off'
+go
+sp_serveroption 'M2828','data access','on'
+go
+sp_serveroption 'M2828','rpc','on'
+go
+sp_serveroption 'M2828','rpc out','on'
+go
+sp_serveroption 'M2828','use remote collation','off'
+go
+sp_serveroption 'M2828','collation name',null
+go
+sp_serveroption 'M2828','connect timeout',0
+go
+sp_serveroption 'M2828','query timeout','0'
+go
+
+----  Linked server : M2829
+sp_addlinkedserver 'M2829','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2829','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2829','collation compatible','off'
+go
+sp_serveroption 'M2829','data access','on'
+go
+sp_serveroption 'M2829','rpc','on'
+go
+sp_serveroption 'M2829','rpc out','on'
+go
+sp_serveroption 'M2829','use remote collation','off'
+go
+sp_serveroption 'M2829','collation name',null
+go
+sp_serveroption 'M2829','connect timeout',0
+go
+sp_serveroption 'M2829','query timeout','0'
+go
+
+----  Linked server : M2834
+sp_addlinkedserver 'M2834','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2834','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2834','collation compatible','off'
+go
+sp_serveroption 'M2834','data access','on'
+go
+sp_serveroption 'M2834','rpc','on'
+go
+sp_serveroption 'M2834','rpc out','on'
+go
+sp_serveroption 'M2834','use remote collation','off'
+go
+sp_serveroption 'M2834','collation name',null
+go
+sp_serveroption 'M2834','connect timeout',0
+go
+sp_serveroption 'M2834','query timeout','0'
+go
+
+----  Linked server : M2842
+sp_addlinkedserver 'M2842','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2842','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2842','collation compatible','off'
+go
+sp_serveroption 'M2842','data access','on'
+go
+sp_serveroption 'M2842','rpc','on'
+go
+sp_serveroption 'M2842','rpc out','on'
+go
+sp_serveroption 'M2842','use remote collation','off'
+go
+sp_serveroption 'M2842','collation name',null
+go
+sp_serveroption 'M2842','connect timeout',0
+go
+sp_serveroption 'M2842','query timeout','0'
+go
+
+----  Linked server : M2844
+sp_addlinkedserver 'M2844','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2844','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2844','collation compatible','off'
+go
+sp_serveroption 'M2844','data access','on'
+go
+sp_serveroption 'M2844','rpc','on'
+go
+sp_serveroption 'M2844','rpc out','on'
+go
+sp_serveroption 'M2844','use remote collation','off'
+go
+sp_serveroption 'M2844','collation name',null
+go
+sp_serveroption 'M2844','connect timeout',0
+go
+sp_serveroption 'M2844','query timeout','0'
+go
+
+----  Linked server : M2845
+sp_addlinkedserver 'M2845','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2845','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2845','collation compatible','off'
+go
+sp_serveroption 'M2845','data access','on'
+go
+sp_serveroption 'M2845','rpc','on'
+go
+sp_serveroption 'M2845','rpc out','on'
+go
+sp_serveroption 'M2845','use remote collation','off'
+go
+sp_serveroption 'M2845','collation name',null
+go
+sp_serveroption 'M2845','connect timeout',0
+go
+sp_serveroption 'M2845','query timeout','0'
+go
+
+----  Linked server : M2845_01
+sp_addlinkedserver 'M2845_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2845_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2845_01','collation compatible','off'
+go
+sp_serveroption 'M2845_01','data access','on'
+go
+sp_serveroption 'M2845_01','rpc','on'
+go
+sp_serveroption 'M2845_01','rpc out','on'
+go
+sp_serveroption 'M2845_01','use remote collation','off'
+go
+sp_serveroption 'M2845_01','collation name',null
+go
+sp_serveroption 'M2845_01','connect timeout',0
+go
+sp_serveroption 'M2845_01','query timeout','0'
+go
+
+----  Linked server : M5801
+sp_addlinkedserver 'M5801','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5801','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5801','collation compatible','off'
+go
+sp_serveroption 'M5801','data access','on'
+go
+sp_serveroption 'M5801','rpc','on'
+go
+sp_serveroption 'M5801','rpc out','on'
+go
+sp_serveroption 'M5801','use remote collation','off'
+go
+sp_serveroption 'M5801','collation name',null
+go
+sp_serveroption 'M5801','connect timeout',0
+go
+sp_serveroption 'M5801','query timeout','0'
+go
+
+----  Linked server : M2221
+sp_addlinkedserver 'M2221','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2221','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2221','collation compatible','off'
+go
+sp_serveroption 'M2221','data access','on'
+go
+sp_serveroption 'M2221','rpc','on'
+go
+sp_serveroption 'M2221','rpc out','on'
+go
+sp_serveroption 'M2221','use remote collation','off'
+go
+sp_serveroption 'M2221','collation name',null
+go
+sp_serveroption 'M2221','connect timeout',0
+go
+sp_serveroption 'M2221','query timeout','0'
+go
+
+----  Linked server : M2901
+sp_addlinkedserver 'M2901','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2901','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2901','collation compatible','off'
+go
+sp_serveroption 'M2901','data access','on'
+go
+sp_serveroption 'M2901','rpc','on'
+go
+sp_serveroption 'M2901','rpc out','on'
+go
+sp_serveroption 'M2901','use remote collation','off'
+go
+sp_serveroption 'M2901','collation name',null
+go
+sp_serveroption 'M2901','connect timeout',0
+go
+sp_serveroption 'M2901','query timeout','0'
+go
+
+----  Linked server : M5416
+sp_addlinkedserver 'M5416','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5416','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5416','collation compatible','off'
+go
+sp_serveroption 'M5416','data access','on'
+go
+sp_serveroption 'M5416','rpc','on'
+go
+sp_serveroption 'M5416','rpc out','on'
+go
+sp_serveroption 'M5416','use remote collation','off'
+go
+sp_serveroption 'M5416','collation name',null
+go
+sp_serveroption 'M5416','connect timeout',0
+go
+sp_serveroption 'M5416','query timeout','0'
+go
+
+----  Linked server : M5327
+sp_addlinkedserver 'M5327','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5327','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5327','collation compatible','off'
+go
+sp_serveroption 'M5327','data access','on'
+go
+sp_serveroption 'M5327','rpc','on'
+go
+sp_serveroption 'M5327','rpc out','on'
+go
+sp_serveroption 'M5327','use remote collation','off'
+go
+sp_serveroption 'M5327','collation name',null
+go
+sp_serveroption 'M5327','connect timeout',0
+go
+sp_serveroption 'M5327','query timeout','0'
+go
+
+----  Linked server : M2343
+sp_addlinkedserver 'M2343','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2343','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2343','collation compatible','off'
+go
+sp_serveroption 'M2343','data access','on'
+go
+sp_serveroption 'M2343','rpc','on'
+go
+sp_serveroption 'M2343','rpc out','on'
+go
+sp_serveroption 'M2343','use remote collation','off'
+go
+sp_serveroption 'M2343','collation name',null
+go
+sp_serveroption 'M2343','connect timeout',0
+go
+sp_serveroption 'M2343','query timeout','0'
+go
+
+----  Linked server : M8106
+sp_addlinkedserver 'M8106','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8106','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8106','collation compatible','off'
+go
+sp_serveroption 'M8106','data access','on'
+go
+sp_serveroption 'M8106','rpc','on'
+go
+sp_serveroption 'M8106','rpc out','on'
+go
+sp_serveroption 'M8106','use remote collation','off'
+go
+sp_serveroption 'M8106','collation name',null
+go
+sp_serveroption 'M8106','connect timeout',0
+go
+sp_serveroption 'M8106','query timeout','0'
+go
+
+----  Linked server : M5073
+sp_addlinkedserver 'M5073','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5073','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5073','collation compatible','off'
+go
+sp_serveroption 'M5073','data access','on'
+go
+sp_serveroption 'M5073','rpc','on'
+go
+sp_serveroption 'M5073','rpc out','on'
+go
+sp_serveroption 'M5073','use remote collation','off'
+go
+sp_serveroption 'M5073','collation name',null
+go
+sp_serveroption 'M5073','connect timeout',0
+go
+sp_serveroption 'M5073','query timeout','0'
+go
+
+----  Linked server : 10.10.26.33
+sp_addlinkedserver '10.10.26.33','SQL Server'
+go
+sp_addlinkedsrvlogin '10.10.26.33','false',null,'sa',<enter password here>
+go
+sp_serveroption '10.10.26.33','collation compatible','off'
+go
+sp_serveroption '10.10.26.33','data access','on'
+go
+sp_serveroption '10.10.26.33','rpc','on'
+go
+sp_serveroption '10.10.26.33','rpc out','on'
+go
+sp_serveroption '10.10.26.33','use remote collation','off'
+go
+sp_serveroption '10.10.26.33','collation name',null
+go
+sp_serveroption '10.10.26.33','connect timeout',0
+go
+sp_serveroption '10.10.26.33','query timeout','0'
+go
+
+----  Linked server : M5078
+sp_addlinkedserver 'M5078','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5078','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5078','collation compatible','off'
+go
+sp_serveroption 'M5078','data access','on'
+go
+sp_serveroption 'M5078','rpc','on'
+go
+sp_serveroption 'M5078','rpc out','on'
+go
+sp_serveroption 'M5078','use remote collation','off'
+go
+sp_serveroption 'M5078','collation name',null
+go
+sp_serveroption 'M5078','connect timeout',0
+go
+sp_serveroption 'M5078','query timeout','0'
+go
+
+----  Linked server : M5071
+sp_addlinkedserver 'M5071','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5071','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5071','collation compatible','off'
+go
+sp_serveroption 'M5071','data access','on'
+go
+sp_serveroption 'M5071','rpc','on'
+go
+sp_serveroption 'M5071','rpc out','on'
+go
+sp_serveroption 'M5071','use remote collation','off'
+go
+sp_serveroption 'M5071','collation name',null
+go
+sp_serveroption 'M5071','connect timeout',0
+go
+sp_serveroption 'M5071','query timeout','0'
+go
+
+----  Linked server : ITHK51P01
+sp_addlinkedserver 'ITHK51P01','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITHK51P01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'ITHK51P01','collation compatible','off'
+go
+sp_serveroption 'ITHK51P01','data access','on'
+go
+sp_serveroption 'ITHK51P01','rpc','on'
+go
+sp_serveroption 'ITHK51P01','rpc out','on'
+go
+sp_serveroption 'ITHK51P01','use remote collation','off'
+go
+sp_serveroption 'ITHK51P01','collation name',null
+go
+sp_serveroption 'ITHK51P01','connect timeout',0
+go
+sp_serveroption 'ITHK51P01','query timeout','0'
+go
+
+----  Linked server : M5324
+sp_addlinkedserver 'M5324','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5324','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5324','collation compatible','off'
+go
+sp_serveroption 'M5324','data access','on'
+go
+sp_serveroption 'M5324','rpc','on'
+go
+sp_serveroption 'M5324','rpc out','on'
+go
+sp_serveroption 'M5324','use remote collation','off'
+go
+sp_serveroption 'M5324','collation name',null
+go
+sp_serveroption 'M5324','connect timeout',0
+go
+sp_serveroption 'M5324','query timeout','0'
+go
+
+----  Linked server : M2816_01
+sp_addlinkedserver 'M2816_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2816_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2816_01','collation compatible','off'
+go
+sp_serveroption 'M2816_01','data access','on'
+go
+sp_serveroption 'M2816_01','rpc','on'
+go
+sp_serveroption 'M2816_01','rpc out','on'
+go
+sp_serveroption 'M2816_01','use remote collation','off'
+go
+sp_serveroption 'M2816_01','collation name',null
+go
+sp_serveroption 'M2816_01','connect timeout',0
+go
+sp_serveroption 'M2816_01','query timeout','0'
+go
+
+----  Linked server : M2953_01
+sp_addlinkedserver 'M2953_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2953_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2953_01','collation compatible','off'
+go
+sp_serveroption 'M2953_01','data access','on'
+go
+sp_serveroption 'M2953_01','rpc','on'
+go
+sp_serveroption 'M2953_01','rpc out','on'
+go
+sp_serveroption 'M2953_01','use remote collation','off'
+go
+sp_serveroption 'M2953_01','collation name',null
+go
+sp_serveroption 'M2953_01','connect timeout',0
+go
+sp_serveroption 'M2953_01','query timeout','0'
+go
+
+----  Linked server : M2721_01
+sp_addlinkedserver 'M2721_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2721_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2721_01','collation compatible','off'
+go
+sp_serveroption 'M2721_01','data access','on'
+go
+sp_serveroption 'M2721_01','rpc','on'
+go
+sp_serveroption 'M2721_01','rpc out','on'
+go
+sp_serveroption 'M2721_01','use remote collation','off'
+go
+sp_serveroption 'M2721_01','collation name',null
+go
+sp_serveroption 'M2721_01','connect timeout',0
+go
+sp_serveroption 'M2721_01','query timeout','0'
+go
+
+----  Linked server : M2865
+sp_addlinkedserver 'M2865','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2865','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2865','collation compatible','off'
+go
+sp_serveroption 'M2865','data access','on'
+go
+sp_serveroption 'M2865','rpc','on'
+go
+sp_serveroption 'M2865','rpc out','on'
+go
+sp_serveroption 'M2865','use remote collation','off'
+go
+sp_serveroption 'M2865','collation name',null
+go
+sp_serveroption 'M2865','connect timeout',0
+go
+sp_serveroption 'M2865','query timeout','0'
+go
+
+----  Linked server : M8331
+sp_addlinkedserver 'M8331','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8331','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8331','collation compatible','off'
+go
+sp_serveroption 'M8331','data access','on'
+go
+sp_serveroption 'M8331','rpc','on'
+go
+sp_serveroption 'M8331','rpc out','on'
+go
+sp_serveroption 'M8331','use remote collation','off'
+go
+sp_serveroption 'M8331','collation name',null
+go
+sp_serveroption 'M8331','connect timeout',0
+go
+sp_serveroption 'M8331','query timeout','0'
+go
+
+----  Linked server : M2941
+sp_addlinkedserver 'M2941','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2941','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2941','collation compatible','off'
+go
+sp_serveroption 'M2941','data access','on'
+go
+sp_serveroption 'M2941','rpc','on'
+go
+sp_serveroption 'M2941','rpc out','on'
+go
+sp_serveroption 'M2941','use remote collation','off'
+go
+sp_serveroption 'M2941','collation name',null
+go
+sp_serveroption 'M2941','connect timeout',0
+go
+sp_serveroption 'M2941','query timeout','0'
+go
+
+----  Linked server : M2942
+sp_addlinkedserver 'M2942','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2942','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2942','collation compatible','off'
+go
+sp_serveroption 'M2942','data access','on'
+go
+sp_serveroption 'M2942','rpc','on'
+go
+sp_serveroption 'M2942','rpc out','on'
+go
+sp_serveroption 'M2942','use remote collation','off'
+go
+sp_serveroption 'M2942','collation name',null
+go
+sp_serveroption 'M2942','connect timeout',0
+go
+sp_serveroption 'M2942','query timeout','0'
+go
+
+----  Linked server : M2945
+sp_addlinkedserver 'M2945','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2945','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2945','collation compatible','off'
+go
+sp_serveroption 'M2945','data access','on'
+go
+sp_serveroption 'M2945','rpc','on'
+go
+sp_serveroption 'M2945','rpc out','on'
+go
+sp_serveroption 'M2945','use remote collation','off'
+go
+sp_serveroption 'M2945','collation name',null
+go
+sp_serveroption 'M2945','connect timeout',0
+go
+sp_serveroption 'M2945','query timeout','0'
+go
+
+----  Linked server : M2895
+sp_addlinkedserver 'M2895','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2895','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2895','collation compatible','off'
+go
+sp_serveroption 'M2895','data access','on'
+go
+sp_serveroption 'M2895','rpc','on'
+go
+sp_serveroption 'M2895','rpc out','on'
+go
+sp_serveroption 'M2895','use remote collation','off'
+go
+sp_serveroption 'M2895','collation name',null
+go
+sp_serveroption 'M2895','connect timeout',0
+go
+sp_serveroption 'M2895','query timeout','0'
+go
+
+----  Linked server : M2895_01
+sp_addlinkedserver 'M2895_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2895_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2895_01','collation compatible','off'
+go
+sp_serveroption 'M2895_01','data access','on'
+go
+sp_serveroption 'M2895_01','rpc','on'
+go
+sp_serveroption 'M2895_01','rpc out','on'
+go
+sp_serveroption 'M2895_01','use remote collation','off'
+go
+sp_serveroption 'M2895_01','collation name',null
+go
+sp_serveroption 'M2895_01','connect timeout',0
+go
+sp_serveroption 'M2895_01','query timeout','0'
+go
+
+----  Linked server : M2896
+sp_addlinkedserver 'M2896','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2896','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2896','collation compatible','off'
+go
+sp_serveroption 'M2896','data access','on'
+go
+sp_serveroption 'M2896','rpc','on'
+go
+sp_serveroption 'M2896','rpc out','on'
+go
+sp_serveroption 'M2896','use remote collation','off'
+go
+sp_serveroption 'M2896','collation name',null
+go
+sp_serveroption 'M2896','connect timeout',0
+go
+sp_serveroption 'M2896','query timeout','0'
+go
+
+----  Linked server : M2898
+sp_addlinkedserver 'M2898','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2898','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2898','collation compatible','off'
+go
+sp_serveroption 'M2898','data access','on'
+go
+sp_serveroption 'M2898','rpc','on'
+go
+sp_serveroption 'M2898','rpc out','on'
+go
+sp_serveroption 'M2898','use remote collation','off'
+go
+sp_serveroption 'M2898','collation name',null
+go
+sp_serveroption 'M2898','connect timeout',0
+go
+sp_serveroption 'M2898','query timeout','0'
+go
+
+----  Linked server : M2899_01
+sp_addlinkedserver 'M2899_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2899_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2899_01','collation compatible','off'
+go
+sp_serveroption 'M2899_01','data access','on'
+go
+sp_serveroption 'M2899_01','rpc','on'
+go
+sp_serveroption 'M2899_01','rpc out','on'
+go
+sp_serveroption 'M2899_01','use remote collation','off'
+go
+sp_serveroption 'M2899_01','collation name',null
+go
+sp_serveroption 'M2899_01','connect timeout',0
+go
+sp_serveroption 'M2899_01','query timeout','0'
+go
+
+----  Linked server : M2899_03
+sp_addlinkedserver 'M2899_03','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2899_03','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2899_03','collation compatible','off'
+go
+sp_serveroption 'M2899_03','data access','on'
+go
+sp_serveroption 'M2899_03','rpc','on'
+go
+sp_serveroption 'M2899_03','rpc out','on'
+go
+sp_serveroption 'M2899_03','use remote collation','off'
+go
+sp_serveroption 'M2899_03','collation name',null
+go
+sp_serveroption 'M2899_03','connect timeout',0
+go
+sp_serveroption 'M2899_03','query timeout','0'
+go
+
+----  Linked server : M2899_05
+sp_addlinkedserver 'M2899_05','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2899_05','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2899_05','collation compatible','off'
+go
+sp_serveroption 'M2899_05','data access','on'
+go
+sp_serveroption 'M2899_05','rpc','on'
+go
+sp_serveroption 'M2899_05','rpc out','on'
+go
+sp_serveroption 'M2899_05','use remote collation','off'
+go
+sp_serveroption 'M2899_05','collation name',null
+go
+sp_serveroption 'M2899_05','connect timeout',0
+go
+sp_serveroption 'M2899_05','query timeout','0'
+go
+
+----  Linked server : M2602
+sp_addlinkedserver 'M2602','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2602','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2602','collation compatible','off'
+go
+sp_serveroption 'M2602','data access','on'
+go
+sp_serveroption 'M2602','rpc','on'
+go
+sp_serveroption 'M2602','rpc out','on'
+go
+sp_serveroption 'M2602','use remote collation','off'
+go
+sp_serveroption 'M2602','collation name',null
+go
+sp_serveroption 'M2602','connect timeout',0
+go
+sp_serveroption 'M2602','query timeout','0'
+go
+
+----  Linked server : M2921
+sp_addlinkedserver 'M2921','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2921','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2921','collation compatible','off'
+go
+sp_serveroption 'M2921','data access','on'
+go
+sp_serveroption 'M2921','rpc','on'
+go
+sp_serveroption 'M2921','rpc out','on'
+go
+sp_serveroption 'M2921','use remote collation','off'
+go
+sp_serveroption 'M2921','collation name',null
+go
+sp_serveroption 'M2921','connect timeout',0
+go
+sp_serveroption 'M2921','query timeout','0'
+go
+
+----  Linked server : M2922
+sp_addlinkedserver 'M2922','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2922','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2922','collation compatible','off'
+go
+sp_serveroption 'M2922','data access','on'
+go
+sp_serveroption 'M2922','rpc','on'
+go
+sp_serveroption 'M2922','rpc out','on'
+go
+sp_serveroption 'M2922','use remote collation','off'
+go
+sp_serveroption 'M2922','collation name',null
+go
+sp_serveroption 'M2922','connect timeout',0
+go
+sp_serveroption 'M2922','query timeout','0'
+go
+
+----  Linked server : 10.86.82.106
+sp_addlinkedserver '10.86.82.106','SQL Server'
+go
+sp_addlinkedsrvlogin '10.86.82.106','false',null,'itsupport',<enter password here>
+go
+sp_serveroption '10.86.82.106','collation compatible','off'
+go
+sp_serveroption '10.86.82.106','data access','on'
+go
+sp_serveroption '10.86.82.106','rpc','on'
+go
+sp_serveroption '10.86.82.106','rpc out','on'
+go
+sp_serveroption '10.86.82.106','use remote collation','off'
+go
+sp_serveroption '10.86.82.106','collation name',null
+go
+sp_serveroption '10.86.82.106','connect timeout',0
+go
+sp_serveroption '10.86.82.106','query timeout','0'
+go
+
+----  Linked server : M2941_03
+sp_addlinkedserver 'M2941_03','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2941_03','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2941_03','collation compatible','off'
+go
+sp_serveroption 'M2941_03','data access','on'
+go
+sp_serveroption 'M2941_03','rpc','on'
+go
+sp_serveroption 'M2941_03','rpc out','on'
+go
+sp_serveroption 'M2941_03','use remote collation','off'
+go
+sp_serveroption 'M2941_03','collation name',null
+go
+sp_serveroption 'M2941_03','connect timeout',0
+go
+sp_serveroption 'M2941_03','query timeout','0'
+go
+
+----  Linked server : M5162
+sp_addlinkedserver 'M5162','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5162','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5162','collation compatible','off'
+go
+sp_serveroption 'M5162','data access','on'
+go
+sp_serveroption 'M5162','rpc','on'
+go
+sp_serveroption 'M5162','rpc out','on'
+go
+sp_serveroption 'M5162','use remote collation','off'
+go
+sp_serveroption 'M5162','collation name',null
+go
+sp_serveroption 'M5162','connect timeout',0
+go
+sp_serveroption 'M5162','query timeout','0'
+go
+
+----  Linked server : M2946
+sp_addlinkedserver 'M2946','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2946','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2946','collation compatible','off'
+go
+sp_serveroption 'M2946','data access','on'
+go
+sp_serveroption 'M2946','rpc','on'
+go
+sp_serveroption 'M2946','rpc out','on'
+go
+sp_serveroption 'M2946','use remote collation','off'
+go
+sp_serveroption 'M2946','collation name',null
+go
+sp_serveroption 'M2946','connect timeout',0
+go
+sp_serveroption 'M2946','query timeout','0'
+go
+
+----  Linked server : M5131
+sp_addlinkedserver 'M5131','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5131','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5131','collation compatible','off'
+go
+sp_serveroption 'M5131','data access','on'
+go
+sp_serveroption 'M5131','rpc','on'
+go
+sp_serveroption 'M5131','rpc out','on'
+go
+sp_serveroption 'M5131','use remote collation','off'
+go
+sp_serveroption 'M5131','collation name',null
+go
+sp_serveroption 'M5131','connect timeout',0
+go
+sp_serveroption 'M5131','query timeout','0'
+go
+
+----  Linked server : M2359
+sp_addlinkedserver 'M2359','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2359','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2359','collation compatible','off'
+go
+sp_serveroption 'M2359','data access','on'
+go
+sp_serveroption 'M2359','rpc','on'
+go
+sp_serveroption 'M2359','rpc out','on'
+go
+sp_serveroption 'M2359','use remote collation','off'
+go
+sp_serveroption 'M2359','collation name',null
+go
+sp_serveroption 'M2359','connect timeout',0
+go
+sp_serveroption 'M2359','query timeout','0'
+go
+
+----  Linked server : M5079
+sp_addlinkedserver 'M5079','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5079','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5079','collation compatible','off'
+go
+sp_serveroption 'M5079','data access','on'
+go
+sp_serveroption 'M5079','rpc','on'
+go
+sp_serveroption 'M5079','rpc out','on'
+go
+sp_serveroption 'M5079','use remote collation','off'
+go
+sp_serveroption 'M5079','collation name',null
+go
+sp_serveroption 'M5079','connect timeout',0
+go
+sp_serveroption 'M5079','query timeout','0'
+go
+
+----  Linked server : M5853
+sp_addlinkedserver 'M5853','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5853','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5853','collation compatible','off'
+go
+sp_serveroption 'M5853','data access','on'
+go
+sp_serveroption 'M5853','rpc','on'
+go
+sp_serveroption 'M5853','rpc out','on'
+go
+sp_serveroption 'M5853','use remote collation','off'
+go
+sp_serveroption 'M5853','collation name',null
+go
+sp_serveroption 'M5853','connect timeout',0
+go
+sp_serveroption 'M5853','query timeout','0'
+go
+
+----  Linked server : M5252
+sp_addlinkedserver 'M5252','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5252','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5252','collation compatible','off'
+go
+sp_serveroption 'M5252','data access','on'
+go
+sp_serveroption 'M5252','rpc','on'
+go
+sp_serveroption 'M5252','rpc out','on'
+go
+sp_serveroption 'M5252','use remote collation','off'
+go
+sp_serveroption 'M5252','collation name',null
+go
+sp_serveroption 'M5252','connect timeout',0
+go
+sp_serveroption 'M5252','query timeout','0'
+go
+
+----  Linked server : M5253
+sp_addlinkedserver 'M5253','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5253','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5253','collation compatible','off'
+go
+sp_serveroption 'M5253','data access','on'
+go
+sp_serveroption 'M5253','rpc','on'
+go
+sp_serveroption 'M5253','rpc out','on'
+go
+sp_serveroption 'M5253','use remote collation','off'
+go
+sp_serveroption 'M5253','collation name',null
+go
+sp_serveroption 'M5253','connect timeout',0
+go
+sp_serveroption 'M5253','query timeout','0'
+go
+
+----  Linked server : M5404
+sp_addlinkedserver 'M5404','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5404','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5404','collation compatible','off'
+go
+sp_serveroption 'M5404','data access','on'
+go
+sp_serveroption 'M5404','rpc','on'
+go
+sp_serveroption 'M5404','rpc out','on'
+go
+sp_serveroption 'M5404','use remote collation','off'
+go
+sp_serveroption 'M5404','collation name',null
+go
+sp_serveroption 'M5404','connect timeout',0
+go
+sp_serveroption 'M5404','query timeout','0'
+go
+
+----  Linked server : M5336
+sp_addlinkedserver 'M5336','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5336','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5336','collation compatible','off'
+go
+sp_serveroption 'M5336','data access','on'
+go
+sp_serveroption 'M5336','rpc','on'
+go
+sp_serveroption 'M5336','rpc out','on'
+go
+sp_serveroption 'M5336','use remote collation','off'
+go
+sp_serveroption 'M5336','collation name',null
+go
+sp_serveroption 'M5336','connect timeout',0
+go
+sp_serveroption 'M5336','query timeout','0'
+go
+
+----  Linked server : M1322
+sp_addlinkedserver 'M1322','SQL Server'
+go
+sp_addlinkedsrvlogin 'M1322','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M1322','collation compatible','off'
+go
+sp_serveroption 'M1322','data access','on'
+go
+sp_serveroption 'M1322','rpc','on'
+go
+sp_serveroption 'M1322','rpc out','on'
+go
+sp_serveroption 'M1322','use remote collation','off'
+go
+sp_serveroption 'M1322','collation name',null
+go
+sp_serveroption 'M1322','connect timeout',0
+go
+sp_serveroption 'M1322','query timeout','0'
+go
+
+----  Linked server : M2811_01
+sp_addlinkedserver 'M2811_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2811_01','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'M2811_01','collation compatible','off'
+go
+sp_serveroption 'M2811_01','data access','on'
+go
+sp_serveroption 'M2811_01','rpc','on'
+go
+sp_serveroption 'M2811_01','rpc out','on'
+go
+sp_serveroption 'M2811_01','use remote collation','off'
+go
+sp_serveroption 'M2811_01','collation name',null
+go
+sp_serveroption 'M2811_01','connect timeout',0
+go
+sp_serveroption 'M2811_01','query timeout','0'
+go
+
+----  Linked server : M5081
+sp_addlinkedserver 'M5081','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5081','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5081','collation compatible','off'
+go
+sp_serveroption 'M5081','data access','on'
+go
+sp_serveroption 'M5081','rpc','on'
+go
+sp_serveroption 'M5081','rpc out','on'
+go
+sp_serveroption 'M5081','use remote collation','off'
+go
+sp_serveroption 'M5081','collation name',null
+go
+sp_serveroption 'M5081','connect timeout',0
+go
+sp_serveroption 'M5081','query timeout','0'
+go
+
+----  Linked server : M5163
+sp_addlinkedserver 'M5163','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5163','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5163','collation compatible','off'
+go
+sp_serveroption 'M5163','data access','on'
+go
+sp_serveroption 'M5163','rpc','on'
+go
+sp_serveroption 'M5163','rpc out','on'
+go
+sp_serveroption 'M5163','use remote collation','off'
+go
+sp_serveroption 'M5163','collation name',null
+go
+sp_serveroption 'M5163','connect timeout',0
+go
+sp_serveroption 'M5163','query timeout','0'
+go
+
+----  Linked server : M2361
+sp_addlinkedserver 'M2361','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2361','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2361','collation compatible','off'
+go
+sp_serveroption 'M2361','data access','on'
+go
+sp_serveroption 'M2361','rpc','on'
+go
+sp_serveroption 'M2361','rpc out','on'
+go
+sp_serveroption 'M2361','use remote collation','off'
+go
+sp_serveroption 'M2361','collation name',null
+go
+sp_serveroption 'M2361','connect timeout',0
+go
+sp_serveroption 'M2361','query timeout','0'
+go
+
+----  Linked server : M2362
+sp_addlinkedserver 'M2362','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2362','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2362','collation compatible','off'
+go
+sp_serveroption 'M2362','data access','on'
+go
+sp_serveroption 'M2362','rpc','on'
+go
+sp_serveroption 'M2362','rpc out','on'
+go
+sp_serveroption 'M2362','use remote collation','off'
+go
+sp_serveroption 'M2362','collation name',null
+go
+sp_serveroption 'M2362','connect timeout',0
+go
+sp_serveroption 'M2362','query timeout','0'
+go
+
+----  Linked server : M5903
+sp_addlinkedserver 'M5903','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5903','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5903','collation compatible','off'
+go
+sp_serveroption 'M5903','data access','on'
+go
+sp_serveroption 'M5903','rpc','on'
+go
+sp_serveroption 'M5903','rpc out','on'
+go
+sp_serveroption 'M5903','use remote collation','off'
+go
+sp_serveroption 'M5903','collation name',null
+go
+sp_serveroption 'M5903','connect timeout',0
+go
+sp_serveroption 'M5903','query timeout','0'
+go
+
+----  Linked server : M5157
+sp_addlinkedserver 'M5157','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5157','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5157','collation compatible','off'
+go
+sp_serveroption 'M5157','data access','on'
+go
+sp_serveroption 'M5157','rpc','on'
+go
+sp_serveroption 'M5157','rpc out','on'
+go
+sp_serveroption 'M5157','use remote collation','off'
+go
+sp_serveroption 'M5157','collation name',null
+go
+sp_serveroption 'M5157','connect timeout',0
+go
+sp_serveroption 'M5157','query timeout','0'
+go
+
+----  Linked server : IT18
+sp_addlinkedserver 'IT18','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT18','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT18','collation compatible','off'
+go
+sp_serveroption 'IT18','data access','on'
+go
+sp_serveroption 'IT18','rpc','on'
+go
+sp_serveroption 'IT18','rpc out','on'
+go
+sp_serveroption 'IT18','use remote collation','on'
+go
+sp_serveroption 'IT18','collation name',null
+go
+sp_serveroption 'IT18','connect timeout',0
+go
+sp_serveroption 'IT18','query timeout','0'
+go
+
+----  Linked server : IT50
+sp_addlinkedserver 'IT50','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT50','false',null,'euser',<enter password here>
+go
+sp_serveroption 'IT50','collation compatible','off'
+go
+sp_serveroption 'IT50','data access','on'
+go
+sp_serveroption 'IT50','rpc','on'
+go
+sp_serveroption 'IT50','rpc out','on'
+go
+sp_serveroption 'IT50','use remote collation','on'
+go
+sp_serveroption 'IT50','collation name',null
+go
+sp_serveroption 'IT50','connect timeout',0
+go
+sp_serveroption 'IT50','query timeout','0'
+go
+
+----  Linked server : IT13
+sp_addlinkedserver 'IT13','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT13','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT13','collation compatible','off'
+go
+sp_serveroption 'IT13','data access','on'
+go
+sp_serveroption 'IT13','rpc','on'
+go
+sp_serveroption 'IT13','rpc out','on'
+go
+sp_serveroption 'IT13','use remote collation','on'
+go
+sp_serveroption 'IT13','collation name',null
+go
+sp_serveroption 'IT13','connect timeout',0
+go
+sp_serveroption 'IT13','query timeout','0'
+go
+
+----  Linked server : IT12
+sp_addlinkedserver 'IT12','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT12','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT12','collation compatible','off'
+go
+sp_serveroption 'IT12','data access','on'
+go
+sp_serveroption 'IT12','rpc','on'
+go
+sp_serveroption 'IT12','rpc out','on'
+go
+sp_serveroption 'IT12','use remote collation','on'
+go
+sp_serveroption 'IT12','collation name',null
+go
+sp_serveroption 'IT12','connect timeout',0
+go
+sp_serveroption 'IT12','query timeout','0'
+go
+
+----  Linked server : IT28
+sp_addlinkedserver 'IT28','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT28','false',null,'sa',<enter password here>
+go
+sp_serveroption 'IT28','collation compatible','off'
+go
+sp_serveroption 'IT28','data access','on'
+go
+sp_serveroption 'IT28','rpc','on'
+go
+sp_serveroption 'IT28','rpc out','on'
+go
+sp_serveroption 'IT28','use remote collation','on'
+go
+sp_serveroption 'IT28','collation name',null
+go
+sp_serveroption 'IT28','connect timeout',0
+go
+sp_serveroption 'IT28','query timeout','0'
+go
+
+----  Linked server : IT27
+sp_addlinkedserver 'IT27','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT27','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT27','collation compatible','off'
+go
+sp_serveroption 'IT27','data access','on'
+go
+sp_serveroption 'IT27','rpc','on'
+go
+sp_serveroption 'IT27','rpc out','on'
+go
+sp_serveroption 'IT27','use remote collation','on'
+go
+sp_serveroption 'IT27','collation name',null
+go
+sp_serveroption 'IT27','connect timeout',0
+go
+sp_serveroption 'IT27','query timeout','0'
+go
+
+----  Linked server : IT26
+sp_addlinkedserver 'IT26','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT26','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'IT26','collation compatible','off'
+go
+sp_serveroption 'IT26','data access','on'
+go
+sp_serveroption 'IT26','rpc','on'
+go
+sp_serveroption 'IT26','rpc out','on'
+go
+sp_serveroption 'IT26','use remote collation','on'
+go
+sp_serveroption 'IT26','collation name',null
+go
+sp_serveroption 'IT26','connect timeout',0
+go
+sp_serveroption 'IT26','query timeout','0'
+go
+
+----  Linked server : IT52
+sp_addlinkedserver 'IT52','SQL Server'
+go
+sp_addlinkedsrvlogin 'IT52','false',null,'sa',<enter password here>
+go
+sp_serveroption 'IT52','collation compatible','off'
+go
+sp_serveroption 'IT52','data access','on'
+go
+sp_serveroption 'IT52','rpc','on'
+go
+sp_serveroption 'IT52','rpc out','on'
+go
+sp_serveroption 'IT52','use remote collation','off'
+go
+sp_serveroption 'IT52','collation name',null
+go
+sp_serveroption 'IT52','connect timeout',0
+go
+sp_serveroption 'IT52','query timeout','0'
+go
+
+----  Linked server : M2320
+sp_addlinkedserver 'M2320','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2320','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2320','collation compatible','off'
+go
+sp_serveroption 'M2320','data access','on'
+go
+sp_serveroption 'M2320','rpc','on'
+go
+sp_serveroption 'M2320','rpc out','on'
+go
+sp_serveroption 'M2320','use remote collation','off'
+go
+sp_serveroption 'M2320','collation name',null
+go
+sp_serveroption 'M2320','connect timeout',0
+go
+sp_serveroption 'M2320','query timeout','0'
+go
+
+----  Linked server : M5330
+sp_addlinkedserver 'M5330','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5330','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5330','collation compatible','off'
+go
+sp_serveroption 'M5330','data access','on'
+go
+sp_serveroption 'M5330','rpc','on'
+go
+sp_serveroption 'M5330','rpc out','on'
+go
+sp_serveroption 'M5330','use remote collation','off'
+go
+sp_serveroption 'M5330','collation name',null
+go
+sp_serveroption 'M5330','connect timeout',0
+go
+sp_serveroption 'M5330','query timeout','0'
+go
+
+----  Linked server : M2323
+sp_addlinkedserver 'M2323','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2323','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2323','collation compatible','off'
+go
+sp_serveroption 'M2323','data access','on'
+go
+sp_serveroption 'M2323','rpc','on'
+go
+sp_serveroption 'M2323','rpc out','on'
+go
+sp_serveroption 'M2323','use remote collation','off'
+go
+sp_serveroption 'M2323','collation name',null
+go
+sp_serveroption 'M2323','connect timeout',0
+go
+sp_serveroption 'M2323','query timeout','0'
+go
+
+----  Linked server : M2949
+sp_addlinkedserver 'M2949','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2949','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2949','collation compatible','off'
+go
+sp_serveroption 'M2949','data access','on'
+go
+sp_serveroption 'M2949','rpc','on'
+go
+sp_serveroption 'M2949','rpc out','on'
+go
+sp_serveroption 'M2949','use remote collation','off'
+go
+sp_serveroption 'M2949','collation name',null
+go
+sp_serveroption 'M2949','connect timeout',0
+go
+sp_serveroption 'M2949','query timeout','0'
+go
+
+----  Linked server : M2319
+sp_addlinkedserver 'M2319','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2319','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2319','collation compatible','off'
+go
+sp_serveroption 'M2319','data access','on'
+go
+sp_serveroption 'M2319','rpc','on'
+go
+sp_serveroption 'M2319','rpc out','on'
+go
+sp_serveroption 'M2319','use remote collation','off'
+go
+sp_serveroption 'M2319','collation name',null
+go
+sp_serveroption 'M2319','connect timeout',0
+go
+sp_serveroption 'M2319','query timeout','0'
+go
+
+----  Linked server : M2326
+sp_addlinkedserver 'M2326','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2326','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2326','collation compatible','off'
+go
+sp_serveroption 'M2326','data access','on'
+go
+sp_serveroption 'M2326','rpc','on'
+go
+sp_serveroption 'M2326','rpc out','on'
+go
+sp_serveroption 'M2326','use remote collation','off'
+go
+sp_serveroption 'M2326','collation name',null
+go
+sp_serveroption 'M2326','connect timeout',0
+go
+sp_serveroption 'M2326','query timeout','0'
+go
+
+----  Linked server : M8107
+sp_addlinkedserver 'M8107','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8107','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8107','collation compatible','off'
+go
+sp_serveroption 'M8107','data access','on'
+go
+sp_serveroption 'M8107','rpc','on'
+go
+sp_serveroption 'M8107','rpc out','on'
+go
+sp_serveroption 'M8107','use remote collation','off'
+go
+sp_serveroption 'M8107','collation name',null
+go
+sp_serveroption 'M8107','connect timeout',0
+go
+sp_serveroption 'M8107','query timeout','0'
+go
+
+----  Linked server : M2329
+sp_addlinkedserver 'M2329','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2329','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2329','collation compatible','off'
+go
+sp_serveroption 'M2329','data access','on'
+go
+sp_serveroption 'M2329','rpc','on'
+go
+sp_serveroption 'M2329','rpc out','on'
+go
+sp_serveroption 'M2329','use remote collation','off'
+go
+sp_serveroption 'M2329','collation name',null
+go
+sp_serveroption 'M2329','connect timeout',0
+go
+sp_serveroption 'M2329','query timeout','0'
+go
+
+----  Linked server : M2886
+sp_addlinkedserver 'M2886','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2886','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2886','collation compatible','off'
+go
+sp_serveroption 'M2886','data access','on'
+go
+sp_serveroption 'M2886','rpc','on'
+go
+sp_serveroption 'M2886','rpc out','on'
+go
+sp_serveroption 'M2886','use remote collation','off'
+go
+sp_serveroption 'M2886','collation name',null
+go
+sp_serveroption 'M2886','connect timeout',0
+go
+sp_serveroption 'M2886','query timeout','0'
+go
+
+----  Linked server : M2887_01
+sp_addlinkedserver 'M2887_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2887_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2887_01','collation compatible','off'
+go
+sp_serveroption 'M2887_01','data access','on'
+go
+sp_serveroption 'M2887_01','rpc','on'
+go
+sp_serveroption 'M2887_01','rpc out','on'
+go
+sp_serveroption 'M2887_01','use remote collation','off'
+go
+sp_serveroption 'M2887_01','collation name',null
+go
+sp_serveroption 'M2887_01','connect timeout',0
+go
+sp_serveroption 'M2887_01','query timeout','0'
+go
+
+----  Linked server : M2707_01
+sp_addlinkedserver 'M2707_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2707_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2707_01','collation compatible','off'
+go
+sp_serveroption 'M2707_01','data access','on'
+go
+sp_serveroption 'M2707_01','rpc','on'
+go
+sp_serveroption 'M2707_01','rpc out','on'
+go
+sp_serveroption 'M2707_01','use remote collation','off'
+go
+sp_serveroption 'M2707_01','collation name',null
+go
+sp_serveroption 'M2707_01','connect timeout',0
+go
+sp_serveroption 'M2707_01','query timeout','0'
+go
+
+----  Linked server : M2330
+sp_addlinkedserver 'M2330','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2330','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2330','collation compatible','off'
+go
+sp_serveroption 'M2330','data access','on'
+go
+sp_serveroption 'M2330','rpc','on'
+go
+sp_serveroption 'M2330','rpc out','on'
+go
+sp_serveroption 'M2330','use remote collation','off'
+go
+sp_serveroption 'M2330','collation name',null
+go
+sp_serveroption 'M2330','connect timeout',0
+go
+sp_serveroption 'M2330','query timeout','0'
+go
+
+----  Linked server : M2951
+sp_addlinkedserver 'M2951','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2951','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2951','collation compatible','off'
+go
+sp_serveroption 'M2951','data access','on'
+go
+sp_serveroption 'M2951','rpc','on'
+go
+sp_serveroption 'M2951','rpc out','on'
+go
+sp_serveroption 'M2951','use remote collation','off'
+go
+sp_serveroption 'M2951','collation name',null
+go
+sp_serveroption 'M2951','connect timeout',0
+go
+sp_serveroption 'M2951','query timeout','0'
+go
+
+----  Linked server : M2331
+sp_addlinkedserver 'M2331','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2331','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2331','collation compatible','off'
+go
+sp_serveroption 'M2331','data access','on'
+go
+sp_serveroption 'M2331','rpc','on'
+go
+sp_serveroption 'M2331','rpc out','on'
+go
+sp_serveroption 'M2331','use remote collation','off'
+go
+sp_serveroption 'M2331','collation name',null
+go
+sp_serveroption 'M2331','connect timeout',0
+go
+sp_serveroption 'M2331','query timeout','0'
+go
+
+----  Linked server : M2332
+sp_addlinkedserver 'M2332','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2332','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2332','collation compatible','off'
+go
+sp_serveroption 'M2332','data access','on'
+go
+sp_serveroption 'M2332','rpc','on'
+go
+sp_serveroption 'M2332','rpc out','on'
+go
+sp_serveroption 'M2332','use remote collation','off'
+go
+sp_serveroption 'M2332','collation name',null
+go
+sp_serveroption 'M2332','connect timeout',0
+go
+sp_serveroption 'M2332','query timeout','0'
+go
+
+----  Linked server : M8008
+sp_addlinkedserver 'M8008','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8008','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8008','collation compatible','off'
+go
+sp_serveroption 'M8008','data access','on'
+go
+sp_serveroption 'M8008','rpc','on'
+go
+sp_serveroption 'M8008','rpc out','on'
+go
+sp_serveroption 'M8008','use remote collation','off'
+go
+sp_serveroption 'M8008','collation name',null
+go
+sp_serveroption 'M8008','connect timeout',0
+go
+sp_serveroption 'M8008','query timeout','0'
+go
+
+----  Linked server : M8010
+sp_addlinkedserver 'M8010','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8010','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8010','collation compatible','off'
+go
+sp_serveroption 'M8010','data access','on'
+go
+sp_serveroption 'M8010','rpc','on'
+go
+sp_serveroption 'M8010','rpc out','on'
+go
+sp_serveroption 'M8010','use remote collation','off'
+go
+sp_serveroption 'M8010','collation name',null
+go
+sp_serveroption 'M8010','connect timeout',0
+go
+sp_serveroption 'M8010','query timeout','0'
+go
+
+----  Linked server : M2899
+sp_addlinkedserver 'M2899','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2899','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2899','collation compatible','off'
+go
+sp_serveroption 'M2899','data access','on'
+go
+sp_serveroption 'M2899','rpc','on'
+go
+sp_serveroption 'M2899','rpc out','on'
+go
+sp_serveroption 'M2899','use remote collation','off'
+go
+sp_serveroption 'M2899','collation name',null
+go
+sp_serveroption 'M2899','connect timeout',0
+go
+sp_serveroption 'M2899','query timeout','0'
+go
+
+----  Linked server : M2336
+sp_addlinkedserver 'M2336','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2336','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2336','collation compatible','off'
+go
+sp_serveroption 'M2336','data access','on'
+go
+sp_serveroption 'M2336','rpc','on'
+go
+sp_serveroption 'M2336','rpc out','on'
+go
+sp_serveroption 'M2336','use remote collation','off'
+go
+sp_serveroption 'M2336','collation name',null
+go
+sp_serveroption 'M2336','connect timeout',0
+go
+sp_serveroption 'M2336','query timeout','0'
+go
+
+----  Linked server : M2339
+sp_addlinkedserver 'M2339','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2339','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2339','collation compatible','off'
+go
+sp_serveroption 'M2339','data access','on'
+go
+sp_serveroption 'M2339','rpc','on'
+go
+sp_serveroption 'M2339','rpc out','on'
+go
+sp_serveroption 'M2339','use remote collation','off'
+go
+sp_serveroption 'M2339','collation name',null
+go
+sp_serveroption 'M2339','connect timeout',0
+go
+sp_serveroption 'M2339','query timeout','0'
+go
+
+----  Linked server : M2337
+sp_addlinkedserver 'M2337','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2337','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2337','collation compatible','off'
+go
+sp_serveroption 'M2337','data access','on'
+go
+sp_serveroption 'M2337','rpc','on'
+go
+sp_serveroption 'M2337','rpc out','on'
+go
+sp_serveroption 'M2337','use remote collation','off'
+go
+sp_serveroption 'M2337','collation name',null
+go
+sp_serveroption 'M2337','connect timeout',0
+go
+sp_serveroption 'M2337','query timeout','0'
+go
+
+----  Linked server : M2340
+sp_addlinkedserver 'M2340','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2340','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2340','collation compatible','off'
+go
+sp_serveroption 'M2340','data access','on'
+go
+sp_serveroption 'M2340','rpc','on'
+go
+sp_serveroption 'M2340','rpc out','on'
+go
+sp_serveroption 'M2340','use remote collation','off'
+go
+sp_serveroption 'M2340','collation name',null
+go
+sp_serveroption 'M2340','connect timeout',0
+go
+sp_serveroption 'M2340','query timeout','0'
+go
+
+----  Linked server : M2333
+sp_addlinkedserver 'M2333','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2333','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2333','collation compatible','off'
+go
+sp_serveroption 'M2333','data access','on'
+go
+sp_serveroption 'M2333','rpc','on'
+go
+sp_serveroption 'M2333','rpc out','on'
+go
+sp_serveroption 'M2333','use remote collation','off'
+go
+sp_serveroption 'M2333','collation name',null
+go
+sp_serveroption 'M2333','connect timeout',0
+go
+sp_serveroption 'M2333','query timeout','0'
+go
+
+----  Linked server : M2881
+sp_addlinkedserver 'M2881','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2881','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2881','collation compatible','off'
+go
+sp_serveroption 'M2881','data access','on'
+go
+sp_serveroption 'M2881','rpc','on'
+go
+sp_serveroption 'M2881','rpc out','on'
+go
+sp_serveroption 'M2881','use remote collation','off'
+go
+sp_serveroption 'M2881','collation name',null
+go
+sp_serveroption 'M2881','connect timeout',0
+go
+sp_serveroption 'M2881','query timeout','0'
+go
+
+----  Linked server : M5072
+sp_addlinkedserver 'M5072','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5072','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5072','collation compatible','off'
+go
+sp_serveroption 'M5072','data access','on'
+go
+sp_serveroption 'M5072','rpc','on'
+go
+sp_serveroption 'M5072','rpc out','on'
+go
+sp_serveroption 'M5072','use remote collation','off'
+go
+sp_serveroption 'M5072','collation name',null
+go
+sp_serveroption 'M5072','connect timeout',0
+go
+sp_serveroption 'M5072','query timeout','0'
+go
+
+----  Linked server : M2341
+sp_addlinkedserver 'M2341','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2341','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2341','collation compatible','off'
+go
+sp_serveroption 'M2341','data access','on'
+go
+sp_serveroption 'M2341','rpc','on'
+go
+sp_serveroption 'M2341','rpc out','on'
+go
+sp_serveroption 'M2341','use remote collation','off'
+go
+sp_serveroption 'M2341','collation name',null
+go
+sp_serveroption 'M2341','connect timeout',0
+go
+sp_serveroption 'M2341','query timeout','0'
+go
+
+----  Linked server : M2833
+sp_addlinkedserver 'M2833','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2833','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2833','collation compatible','off'
+go
+sp_serveroption 'M2833','data access','on'
+go
+sp_serveroption 'M2833','rpc','on'
+go
+sp_serveroption 'M2833','rpc out','on'
+go
+sp_serveroption 'M2833','use remote collation','off'
+go
+sp_serveroption 'M2833','collation name',null
+go
+sp_serveroption 'M2833','connect timeout',0
+go
+sp_serveroption 'M2833','query timeout','0'
+go
+
+----  Linked server : M2367
+sp_addlinkedserver 'M2367','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2367','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2367','collation compatible','off'
+go
+sp_serveroption 'M2367','data access','on'
+go
+sp_serveroption 'M2367','rpc','on'
+go
+sp_serveroption 'M2367','rpc out','on'
+go
+sp_serveroption 'M2367','use remote collation','off'
+go
+sp_serveroption 'M2367','collation name',null
+go
+sp_serveroption 'M2367','connect timeout',0
+go
+sp_serveroption 'M2367','query timeout','0'
+go
+
+----  Linked server : M2291_07
+sp_addlinkedserver 'M2291_07','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2291_07','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2291_07','collation compatible','off'
+go
+sp_serveroption 'M2291_07','data access','on'
+go
+sp_serveroption 'M2291_07','rpc','on'
+go
+sp_serveroption 'M2291_07','rpc out','on'
+go
+sp_serveroption 'M2291_07','use remote collation','off'
+go
+sp_serveroption 'M2291_07','collation name',null
+go
+sp_serveroption 'M2291_07','connect timeout',0
+go
+sp_serveroption 'M2291_07','query timeout','0'
+go
+
+----  Linked server : M2951_01
+sp_addlinkedserver 'M2951_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2951_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2951_01','collation compatible','off'
+go
+sp_serveroption 'M2951_01','data access','on'
+go
+sp_serveroption 'M2951_01','rpc','on'
+go
+sp_serveroption 'M2951_01','rpc out','on'
+go
+sp_serveroption 'M2951_01','use remote collation','off'
+go
+sp_serveroption 'M2951_01','collation name',null
+go
+sp_serveroption 'M2951_01','connect timeout',0
+go
+sp_serveroption 'M2951_01','query timeout','0'
+go
+
+----  Linked server : M2830
+sp_addlinkedserver 'M2830','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2830','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2830','collation compatible','off'
+go
+sp_serveroption 'M2830','data access','on'
+go
+sp_serveroption 'M2830','rpc','on'
+go
+sp_serveroption 'M2830','rpc out','on'
+go
+sp_serveroption 'M2830','use remote collation','off'
+go
+sp_serveroption 'M2830','collation name',null
+go
+sp_serveroption 'M2830','connect timeout',0
+go
+sp_serveroption 'M2830','query timeout','0'
+go
+
+----  Linked server : M5210
+sp_addlinkedserver 'M5210','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5210','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5210','collation compatible','off'
+go
+sp_serveroption 'M5210','data access','on'
+go
+sp_serveroption 'M5210','rpc','on'
+go
+sp_serveroption 'M5210','rpc out','on'
+go
+sp_serveroption 'M5210','use remote collation','off'
+go
+sp_serveroption 'M5210','collation name',null
+go
+sp_serveroption 'M5210','connect timeout',0
+go
+sp_serveroption 'M5210','query timeout','0'
+go
+
+----  Linked server : ITAROPOSDB
+sp_addlinkedserver 'ITAROPOSDB','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITAROPOSDB','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'ITAROPOSDB','collation compatible','off'
+go
+sp_serveroption 'ITAROPOSDB','data access','on'
+go
+sp_serveroption 'ITAROPOSDB','rpc','on'
+go
+sp_serveroption 'ITAROPOSDB','rpc out','on'
+go
+sp_serveroption 'ITAROPOSDB','use remote collation','on'
+go
+sp_serveroption 'ITAROPOSDB','collation name',null
+go
+sp_serveroption 'ITAROPOSDB','connect timeout',0
+go
+sp_serveroption 'ITAROPOSDB','query timeout','0'
+go
+
+----  Linked server : M2892_01
+sp_addlinkedserver 'M2892_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2892_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2892_01','collation compatible','off'
+go
+sp_serveroption 'M2892_01','data access','on'
+go
+sp_serveroption 'M2892_01','rpc','on'
+go
+sp_serveroption 'M2892_01','rpc out','on'
+go
+sp_serveroption 'M2892_01','use remote collation','off'
+go
+sp_serveroption 'M2892_01','collation name',null
+go
+sp_serveroption 'M2892_01','connect timeout',0
+go
+sp_serveroption 'M2892_01','query timeout','0'
+go
+
+----  Linked server : M2882
+sp_addlinkedserver 'M2882','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2882','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2882','collation compatible','off'
+go
+sp_serveroption 'M2882','data access','on'
+go
+sp_serveroption 'M2882','rpc','on'
+go
+sp_serveroption 'M2882','rpc out','on'
+go
+sp_serveroption 'M2882','use remote collation','off'
+go
+sp_serveroption 'M2882','collation name',null
+go
+sp_serveroption 'M2882','connect timeout',0
+go
+sp_serveroption 'M2882','query timeout','0'
+go
+
+----  Linked server : M2603
+sp_addlinkedserver 'M2603','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2603','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2603','collation compatible','off'
+go
+sp_serveroption 'M2603','data access','on'
+go
+sp_serveroption 'M2603','rpc','on'
+go
+sp_serveroption 'M2603','rpc out','on'
+go
+sp_serveroption 'M2603','use remote collation','off'
+go
+sp_serveroption 'M2603','collation name',null
+go
+sp_serveroption 'M2603','connect timeout',0
+go
+sp_serveroption 'M2603','query timeout','0'
+go
+
+----  Linked server : M8104
+sp_addlinkedserver 'M8104','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8104','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8104','collation compatible','off'
+go
+sp_serveroption 'M8104','data access','on'
+go
+sp_serveroption 'M8104','rpc','on'
+go
+sp_serveroption 'M8104','rpc out','on'
+go
+sp_serveroption 'M8104','use remote collation','off'
+go
+sp_serveroption 'M8104','collation name',null
+go
+sp_serveroption 'M8104','connect timeout',0
+go
+sp_serveroption 'M8104','query timeout','0'
+go
+
+----  Linked server : M2605
+sp_addlinkedserver 'M2605','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2605','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2605','collation compatible','off'
+go
+sp_serveroption 'M2605','data access','on'
+go
+sp_serveroption 'M2605','rpc','on'
+go
+sp_serveroption 'M2605','rpc out','on'
+go
+sp_serveroption 'M2605','use remote collation','off'
+go
+sp_serveroption 'M2605','collation name',null
+go
+sp_serveroption 'M2605','connect timeout',0
+go
+sp_serveroption 'M2605','query timeout','0'
+go
+
+----  Linked server : M2850
+sp_addlinkedserver 'M2850','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2850','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2850','collation compatible','off'
+go
+sp_serveroption 'M2850','data access','on'
+go
+sp_serveroption 'M2850','rpc','on'
+go
+sp_serveroption 'M2850','rpc out','on'
+go
+sp_serveroption 'M2850','use remote collation','off'
+go
+sp_serveroption 'M2850','collation name',null
+go
+sp_serveroption 'M2850','connect timeout',0
+go
+sp_serveroption 'M2850','query timeout','0'
+go
+
+----  Linked server : M2606
+sp_addlinkedserver 'M2606','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2606','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2606','collation compatible','off'
+go
+sp_serveroption 'M2606','data access','on'
+go
+sp_serveroption 'M2606','rpc','on'
+go
+sp_serveroption 'M2606','rpc out','on'
+go
+sp_serveroption 'M2606','use remote collation','off'
+go
+sp_serveroption 'M2606','collation name',null
+go
+sp_serveroption 'M2606','connect timeout',0
+go
+sp_serveroption 'M2606','query timeout','0'
+go
+
+----  Linked server : M2607
+sp_addlinkedserver 'M2607','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2607','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2607','collation compatible','off'
+go
+sp_serveroption 'M2607','data access','on'
+go
+sp_serveroption 'M2607','rpc','on'
+go
+sp_serveroption 'M2607','rpc out','on'
+go
+sp_serveroption 'M2607','use remote collation','off'
+go
+sp_serveroption 'M2607','collation name',null
+go
+sp_serveroption 'M2607','connect timeout',0
+go
+sp_serveroption 'M2607','query timeout','0'
+go
+
+----  Linked server : M5304_01
+sp_addlinkedserver 'M5304_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5304_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5304_01','collation compatible','off'
+go
+sp_serveroption 'M5304_01','data access','on'
+go
+sp_serveroption 'M5304_01','rpc','on'
+go
+sp_serveroption 'M5304_01','rpc out','on'
+go
+sp_serveroption 'M5304_01','use remote collation','off'
+go
+sp_serveroption 'M5304_01','collation name',null
+go
+sp_serveroption 'M5304_01','connect timeout',0
+go
+sp_serveroption 'M5304_01','query timeout','0'
+go
+
+----  Linked server : M5305_01
+sp_addlinkedserver 'M5305_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5305_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5305_01','collation compatible','off'
+go
+sp_serveroption 'M5305_01','data access','on'
+go
+sp_serveroption 'M5305_01','rpc','on'
+go
+sp_serveroption 'M5305_01','rpc out','on'
+go
+sp_serveroption 'M5305_01','use remote collation','off'
+go
+sp_serveroption 'M5305_01','collation name',null
+go
+sp_serveroption 'M5305_01','connect timeout',0
+go
+sp_serveroption 'M5305_01','query timeout','0'
+go
+
+----  Linked server : M2954_01
+sp_addlinkedserver 'M2954_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2954_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2954_01','collation compatible','off'
+go
+sp_serveroption 'M2954_01','data access','on'
+go
+sp_serveroption 'M2954_01','rpc','on'
+go
+sp_serveroption 'M2954_01','rpc out','on'
+go
+sp_serveroption 'M2954_01','use remote collation','off'
+go
+sp_serveroption 'M2954_01','collation name',null
+go
+sp_serveroption 'M2954_01','connect timeout',0
+go
+sp_serveroption 'M2954_01','query timeout','0'
+go
+
+----  Linked server : M5307_01
+sp_addlinkedserver 'M5307_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5307_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5307_01','collation compatible','off'
+go
+sp_serveroption 'M5307_01','data access','on'
+go
+sp_serveroption 'M5307_01','rpc','on'
+go
+sp_serveroption 'M5307_01','rpc out','on'
+go
+sp_serveroption 'M5307_01','use remote collation','off'
+go
+sp_serveroption 'M5307_01','collation name',null
+go
+sp_serveroption 'M5307_01','connect timeout',0
+go
+sp_serveroption 'M5307_01','query timeout','0'
+go
+
+----  Linked server : M5217
+sp_addlinkedserver 'M5217','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5217','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5217','collation compatible','off'
+go
+sp_serveroption 'M5217','data access','on'
+go
+sp_serveroption 'M5217','rpc','on'
+go
+sp_serveroption 'M5217','rpc out','on'
+go
+sp_serveroption 'M5217','use remote collation','off'
+go
+sp_serveroption 'M5217','collation name',null
+go
+sp_serveroption 'M5217','connect timeout',0
+go
+sp_serveroption 'M5217','query timeout','0'
+go
+
+----  Linked server : M2832
+sp_addlinkedserver 'M2832','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2832','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2832','collation compatible','off'
+go
+sp_serveroption 'M2832','data access','on'
+go
+sp_serveroption 'M2832','rpc','on'
+go
+sp_serveroption 'M2832','rpc out','on'
+go
+sp_serveroption 'M2832','use remote collation','off'
+go
+sp_serveroption 'M2832','collation name',null
+go
+sp_serveroption 'M2832','connect timeout',0
+go
+sp_serveroption 'M2832','query timeout','0'
+go
+
+----  Linked server : M2853
+sp_addlinkedserver 'M2853','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2853','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2853','collation compatible','off'
+go
+sp_serveroption 'M2853','data access','on'
+go
+sp_serveroption 'M2853','rpc','on'
+go
+sp_serveroption 'M2853','rpc out','on'
+go
+sp_serveroption 'M2853','use remote collation','off'
+go
+sp_serveroption 'M2853','collation name',null
+go
+sp_serveroption 'M2853','connect timeout',0
+go
+sp_serveroption 'M2853','query timeout','0'
+go
+
+----  Linked server : M2856
+sp_addlinkedserver 'M2856','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2856','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2856','collation compatible','off'
+go
+sp_serveroption 'M2856','data access','on'
+go
+sp_serveroption 'M2856','rpc','on'
+go
+sp_serveroption 'M2856','rpc out','on'
+go
+sp_serveroption 'M2856','use remote collation','off'
+go
+sp_serveroption 'M2856','collation name',null
+go
+sp_serveroption 'M2856','connect timeout',0
+go
+sp_serveroption 'M2856','query timeout','0'
+go
+
+----  Linked server : M2352
+sp_addlinkedserver 'M2352','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2352','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2352','collation compatible','off'
+go
+sp_serveroption 'M2352','data access','on'
+go
+sp_serveroption 'M2352','rpc','on'
+go
+sp_serveroption 'M2352','rpc out','on'
+go
+sp_serveroption 'M2352','use remote collation','off'
+go
+sp_serveroption 'M2352','collation name',null
+go
+sp_serveroption 'M2352','connect timeout',0
+go
+sp_serveroption 'M2352','query timeout','0'
+go
+
+----  Linked server : M5161
+sp_addlinkedserver 'M5161','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5161','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5161','collation compatible','off'
+go
+sp_serveroption 'M5161','data access','on'
+go
+sp_serveroption 'M5161','rpc','on'
+go
+sp_serveroption 'M5161','rpc out','on'
+go
+sp_serveroption 'M5161','use remote collation','off'
+go
+sp_serveroption 'M5161','collation name',null
+go
+sp_serveroption 'M5161','connect timeout',0
+go
+sp_serveroption 'M5161','query timeout','0'
+go
+
+----  Linked server : M2224_04
+sp_addlinkedserver 'M2224_04','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2224_04','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'M2224_04','collation compatible','off'
+go
+sp_serveroption 'M2224_04','data access','on'
+go
+sp_serveroption 'M2224_04','rpc','on'
+go
+sp_serveroption 'M2224_04','rpc out','on'
+go
+sp_serveroption 'M2224_04','use remote collation','off'
+go
+sp_serveroption 'M2224_04','collation name',null
+go
+sp_serveroption 'M2224_04','connect timeout',0
+go
+sp_serveroption 'M2224_04','query timeout','0'
+go
+
+----  Linked server : M5167
+sp_addlinkedserver 'M5167','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5167','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5167','collation compatible','off'
+go
+sp_serveroption 'M5167','data access','on'
+go
+sp_serveroption 'M5167','rpc','on'
+go
+sp_serveroption 'M5167','rpc out','on'
+go
+sp_serveroption 'M5167','use remote collation','off'
+go
+sp_serveroption 'M5167','collation name',null
+go
+sp_serveroption 'M5167','connect timeout',0
+go
+sp_serveroption 'M5167','query timeout','0'
+go
+
+----  Linked server : M8007
+sp_addlinkedserver 'M8007','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8007','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8007','collation compatible','off'
+go
+sp_serveroption 'M8007','data access','on'
+go
+sp_serveroption 'M8007','rpc','on'
+go
+sp_serveroption 'M8007','rpc out','on'
+go
+sp_serveroption 'M8007','use remote collation','off'
+go
+sp_serveroption 'M8007','collation name',null
+go
+sp_serveroption 'M8007','connect timeout',0
+go
+sp_serveroption 'M8007','query timeout','0'
+go
+
+----  Linked server : M5209
+sp_addlinkedserver 'M5209','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5209','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5209','collation compatible','off'
+go
+sp_serveroption 'M5209','data access','on'
+go
+sp_serveroption 'M5209','rpc','on'
+go
+sp_serveroption 'M5209','rpc out','on'
+go
+sp_serveroption 'M5209','use remote collation','off'
+go
+sp_serveroption 'M5209','collation name',null
+go
+sp_serveroption 'M5209','connect timeout',0
+go
+sp_serveroption 'M5209','query timeout','0'
+go
+
+----  Linked server : M5309_01
+sp_addlinkedserver 'M5309_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5309_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5309_01','collation compatible','off'
+go
+sp_serveroption 'M5309_01','data access','on'
+go
+sp_serveroption 'M5309_01','rpc','on'
+go
+sp_serveroption 'M5309_01','rpc out','on'
+go
+sp_serveroption 'M5309_01','use remote collation','off'
+go
+sp_serveroption 'M5309_01','collation name',null
+go
+sp_serveroption 'M5309_01','connect timeout',0
+go
+sp_serveroption 'M5309_01','query timeout','0'
+go
+
+----  Linked server : M2955_01
+sp_addlinkedserver 'M2955_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2955_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2955_01','collation compatible','off'
+go
+sp_serveroption 'M2955_01','data access','on'
+go
+sp_serveroption 'M2955_01','rpc','on'
+go
+sp_serveroption 'M2955_01','rpc out','on'
+go
+sp_serveroption 'M2955_01','use remote collation','off'
+go
+sp_serveroption 'M2955_01','collation name',null
+go
+sp_serveroption 'M2955_01','connect timeout',0
+go
+sp_serveroption 'M2955_01','query timeout','0'
+go
+
+----  Linked server : M2956_01
+sp_addlinkedserver 'M2956_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2956_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2956_01','collation compatible','off'
+go
+sp_serveroption 'M2956_01','data access','on'
+go
+sp_serveroption 'M2956_01','rpc','on'
+go
+sp_serveroption 'M2956_01','rpc out','on'
+go
+sp_serveroption 'M2956_01','use remote collation','off'
+go
+sp_serveroption 'M2956_01','collation name',null
+go
+sp_serveroption 'M2956_01','connect timeout',0
+go
+sp_serveroption 'M2956_01','query timeout','0'
+go
+
+----  Linked server : M2957
+sp_addlinkedserver 'M2957','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2957','false',null,'itsupport',<enter password here>
+go
+sp_serveroption 'M2957','collation compatible','off'
+go
+sp_serveroption 'M2957','data access','on'
+go
+sp_serveroption 'M2957','rpc','on'
+go
+sp_serveroption 'M2957','rpc out','on'
+go
+sp_serveroption 'M2957','use remote collation','off'
+go
+sp_serveroption 'M2957','collation name',null
+go
+sp_serveroption 'M2957','connect timeout',0
+go
+sp_serveroption 'M2957','query timeout','0'
+go
+
+----  Linked server : M5156
+sp_addlinkedserver 'M5156','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5156','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5156','collation compatible','off'
+go
+sp_serveroption 'M5156','data access','on'
+go
+sp_serveroption 'M5156','rpc','on'
+go
+sp_serveroption 'M5156','rpc out','on'
+go
+sp_serveroption 'M5156','use remote collation','off'
+go
+sp_serveroption 'M5156','collation name',null
+go
+sp_serveroption 'M5156','connect timeout',0
+go
+sp_serveroption 'M5156','query timeout','0'
+go
+
+----  Linked server : M5084
+sp_addlinkedserver 'M5084','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5084','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5084','collation compatible','off'
+go
+sp_serveroption 'M5084','data access','on'
+go
+sp_serveroption 'M5084','rpc','on'
+go
+sp_serveroption 'M5084','rpc out','on'
+go
+sp_serveroption 'M5084','use remote collation','off'
+go
+sp_serveroption 'M5084','collation name',null
+go
+sp_serveroption 'M5084','connect timeout',0
+go
+sp_serveroption 'M5084','query timeout','0'
+go
+
+----  Linked server : M5309
+sp_addlinkedserver 'M5309','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5309','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5309','collation compatible','off'
+go
+sp_serveroption 'M5309','data access','on'
+go
+sp_serveroption 'M5309','rpc','on'
+go
+sp_serveroption 'M5309','rpc out','on'
+go
+sp_serveroption 'M5309','use remote collation','off'
+go
+sp_serveroption 'M5309','collation name',null
+go
+sp_serveroption 'M5309','connect timeout',0
+go
+sp_serveroption 'M5309','query timeout','0'
+go
+
+----  Linked server : M5313
+sp_addlinkedserver 'M5313','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5313','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5313','collation compatible','off'
+go
+sp_serveroption 'M5313','data access','on'
+go
+sp_serveroption 'M5313','rpc','on'
+go
+sp_serveroption 'M5313','rpc out','on'
+go
+sp_serveroption 'M5313','use remote collation','off'
+go
+sp_serveroption 'M5313','collation name',null
+go
+sp_serveroption 'M5313','connect timeout',0
+go
+sp_serveroption 'M5313','query timeout','0'
+go
+
+----  Linked server : M5169
+sp_addlinkedserver 'M5169','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5169','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5169','collation compatible','off'
+go
+sp_serveroption 'M5169','data access','on'
+go
+sp_serveroption 'M5169','rpc','on'
+go
+sp_serveroption 'M5169','rpc out','on'
+go
+sp_serveroption 'M5169','use remote collation','off'
+go
+sp_serveroption 'M5169','collation name',null
+go
+sp_serveroption 'M5169','connect timeout',0
+go
+sp_serveroption 'M5169','query timeout','0'
+go
+
+----  Linked server : M5214
+sp_addlinkedserver 'M5214','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5214','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5214','collation compatible','off'
+go
+sp_serveroption 'M5214','data access','on'
+go
+sp_serveroption 'M5214','rpc','on'
+go
+sp_serveroption 'M5214','rpc out','on'
+go
+sp_serveroption 'M5214','use remote collation','off'
+go
+sp_serveroption 'M5214','collation name',null
+go
+sp_serveroption 'M5214','connect timeout',0
+go
+sp_serveroption 'M5214','query timeout','0'
+go
+
+----  Linked server : M2922_01
+sp_addlinkedserver 'M2922_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2922_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2922_01','collation compatible','off'
+go
+sp_serveroption 'M2922_01','data access','on'
+go
+sp_serveroption 'M2922_01','rpc','on'
+go
+sp_serveroption 'M2922_01','rpc out','on'
+go
+sp_serveroption 'M2922_01','use remote collation','off'
+go
+sp_serveroption 'M2922_01','collation name',null
+go
+sp_serveroption 'M2922_01','connect timeout',0
+go
+sp_serveroption 'M2922_01','query timeout','0'
+go
+
+----  Linked server : M5312
+sp_addlinkedserver 'M5312','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5312','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5312','collation compatible','off'
+go
+sp_serveroption 'M5312','data access','on'
+go
+sp_serveroption 'M5312','rpc','on'
+go
+sp_serveroption 'M5312','rpc out','on'
+go
+sp_serveroption 'M5312','use remote collation','off'
+go
+sp_serveroption 'M5312','collation name',null
+go
+sp_serveroption 'M5312','connect timeout',0
+go
+sp_serveroption 'M5312','query timeout','0'
+go
+
+----  Linked server : M8201
+sp_addlinkedserver 'M8201','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8201','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8201','collation compatible','off'
+go
+sp_serveroption 'M8201','data access','on'
+go
+sp_serveroption 'M8201','rpc','on'
+go
+sp_serveroption 'M8201','rpc out','on'
+go
+sp_serveroption 'M8201','use remote collation','off'
+go
+sp_serveroption 'M8201','collation name',null
+go
+sp_serveroption 'M8201','connect timeout',0
+go
+sp_serveroption 'M8201','query timeout','0'
+go
+
+----  Linked server : M5402
+sp_addlinkedserver 'M5402','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5402','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5402','collation compatible','off'
+go
+sp_serveroption 'M5402','data access','on'
+go
+sp_serveroption 'M5402','rpc','on'
+go
+sp_serveroption 'M5402','rpc out','on'
+go
+sp_serveroption 'M5402','use remote collation','off'
+go
+sp_serveroption 'M5402','collation name',null
+go
+sp_serveroption 'M5402','connect timeout',0
+go
+sp_serveroption 'M5402','query timeout','0'
+go
+
+----  Linked server : M5254
+sp_addlinkedserver 'M5254','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5254','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5254','collation compatible','off'
+go
+sp_serveroption 'M5254','data access','on'
+go
+sp_serveroption 'M5254','rpc','on'
+go
+sp_serveroption 'M5254','rpc out','on'
+go
+sp_serveroption 'M5254','use remote collation','off'
+go
+sp_serveroption 'M5254','collation name',null
+go
+sp_serveroption 'M5254','connect timeout',0
+go
+sp_serveroption 'M5254','query timeout','0'
+go
+
+----  Linked server : M5403
+sp_addlinkedserver 'M5403','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5403','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5403','collation compatible','off'
+go
+sp_serveroption 'M5403','data access','on'
+go
+sp_serveroption 'M5403','rpc','off'
+go
+sp_serveroption 'M5403','rpc out','off'
+go
+sp_serveroption 'M5403','use remote collation','on'
+go
+sp_serveroption 'M5403','collation name',null
+go
+sp_serveroption 'M5403','connect timeout',0
+go
+sp_serveroption 'M5403','query timeout','0'
+go
+
+----  Linked server : M8103
+sp_addlinkedserver 'M8103','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8103','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8103','collation compatible','off'
+go
+sp_serveroption 'M8103','data access','on'
+go
+sp_serveroption 'M8103','rpc','off'
+go
+sp_serveroption 'M8103','rpc out','off'
+go
+sp_serveroption 'M8103','use remote collation','on'
+go
+sp_serveroption 'M8103','collation name',null
+go
+sp_serveroption 'M8103','connect timeout',0
+go
+sp_serveroption 'M8103','query timeout','0'
+go
+
+----  Linked server : M5170
+sp_addlinkedserver 'M5170','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5170','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5170','collation compatible','off'
+go
+sp_serveroption 'M5170','data access','on'
+go
+sp_serveroption 'M5170','rpc','off'
+go
+sp_serveroption 'M5170','rpc out','off'
+go
+sp_serveroption 'M5170','use remote collation','on'
+go
+sp_serveroption 'M5170','collation name',null
+go
+sp_serveroption 'M5170','connect timeout',0
+go
+sp_serveroption 'M5170','query timeout','0'
+go
+
+----  Linked server : M5013
+sp_addlinkedserver 'M5013','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5013','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5013','collation compatible','off'
+go
+sp_serveroption 'M5013','data access','on'
+go
+sp_serveroption 'M5013','rpc','on'
+go
+sp_serveroption 'M5013','rpc out','on'
+go
+sp_serveroption 'M5013','use remote collation','off'
+go
+sp_serveroption 'M5013','collation name',null
+go
+sp_serveroption 'M5013','connect timeout',0
+go
+sp_serveroption 'M5013','query timeout','0'
+go
+
+----  Linked server : M8011
+sp_addlinkedserver 'M8011','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8011','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8011','collation compatible','off'
+go
+sp_serveroption 'M8011','data access','on'
+go
+sp_serveroption 'M8011','rpc','on'
+go
+sp_serveroption 'M8011','rpc out','on'
+go
+sp_serveroption 'M8011','use remote collation','off'
+go
+sp_serveroption 'M8011','collation name',null
+go
+sp_serveroption 'M8011','connect timeout',0
+go
+sp_serveroption 'M8011','query timeout','0'
+go
+
+----  Linked server : M5215
+sp_addlinkedserver 'M5215','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5215','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5215','collation compatible','off'
+go
+sp_serveroption 'M5215','data access','on'
+go
+sp_serveroption 'M5215','rpc','on'
+go
+sp_serveroption 'M5215','rpc out','on'
+go
+sp_serveroption 'M5215','use remote collation','off'
+go
+sp_serveroption 'M5215','collation name',null
+go
+sp_serveroption 'M5215','connect timeout',0
+go
+sp_serveroption 'M5215','query timeout','0'
+go
+
+----  Linked server : M5082
+sp_addlinkedserver 'M5082','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5082','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5082','collation compatible','off'
+go
+sp_serveroption 'M5082','data access','on'
+go
+sp_serveroption 'M5082','rpc','on'
+go
+sp_serveroption 'M5082','rpc out','on'
+go
+sp_serveroption 'M5082','use remote collation','off'
+go
+sp_serveroption 'M5082','collation name',null
+go
+sp_serveroption 'M5082','connect timeout',0
+go
+sp_serveroption 'M5082','query timeout','0'
+go
+
+----  Linked server : M2374
+sp_addlinkedserver 'M2374','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2374','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2374','collation compatible','off'
+go
+sp_serveroption 'M2374','data access','on'
+go
+sp_serveroption 'M2374','rpc','on'
+go
+sp_serveroption 'M2374','rpc out','on'
+go
+sp_serveroption 'M2374','use remote collation','off'
+go
+sp_serveroption 'M2374','collation name',null
+go
+sp_serveroption 'M2374','connect timeout',0
+go
+sp_serveroption 'M2374','query timeout','0'
+go
+
+----  Linked server : M2925_01
+sp_addlinkedserver 'M2925_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2925_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2925_01','collation compatible','off'
+go
+sp_serveroption 'M2925_01','data access','on'
+go
+sp_serveroption 'M2925_01','rpc','on'
+go
+sp_serveroption 'M2925_01','rpc out','on'
+go
+sp_serveroption 'M2925_01','use remote collation','off'
+go
+sp_serveroption 'M2925_01','collation name',null
+go
+sp_serveroption 'M2925_01','connect timeout',0
+go
+sp_serveroption 'M2925_01','query timeout','0'
+go
+
+----  Linked server : M2926_01
+sp_addlinkedserver 'M2926_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2926_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2926_01','collation compatible','off'
+go
+sp_serveroption 'M2926_01','data access','on'
+go
+sp_serveroption 'M2926_01','rpc','on'
+go
+sp_serveroption 'M2926_01','rpc out','on'
+go
+sp_serveroption 'M2926_01','use remote collation','off'
+go
+sp_serveroption 'M2926_01','collation name',null
+go
+sp_serveroption 'M2926_01','connect timeout',0
+go
+sp_serveroption 'M2926_01','query timeout','0'
+go
+
+----  Linked server : M2369
+sp_addlinkedserver 'M2369','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2369','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2369','collation compatible','off'
+go
+sp_serveroption 'M2369','data access','on'
+go
+sp_serveroption 'M2369','rpc','on'
+go
+sp_serveroption 'M2369','rpc out','on'
+go
+sp_serveroption 'M2369','use remote collation','off'
+go
+sp_serveroption 'M2369','collation name',null
+go
+sp_serveroption 'M2369','connect timeout',0
+go
+sp_serveroption 'M2369','query timeout','0'
+go
+
+----  Linked server : M2935_01
+sp_addlinkedserver 'M2935_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2935_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2935_01','collation compatible','off'
+go
+sp_serveroption 'M2935_01','data access','on'
+go
+sp_serveroption 'M2935_01','rpc','on'
+go
+sp_serveroption 'M2935_01','rpc out','on'
+go
+sp_serveroption 'M2935_01','use remote collation','off'
+go
+sp_serveroption 'M2935_01','collation name',null
+go
+sp_serveroption 'M2935_01','connect timeout',0
+go
+sp_serveroption 'M2935_01','query timeout','0'
+go
+
+----  Linked server : M8204
+sp_addlinkedserver 'M8204','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8204','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8204','collation compatible','off'
+go
+sp_serveroption 'M8204','data access','on'
+go
+sp_serveroption 'M8204','rpc','on'
+go
+sp_serveroption 'M8204','rpc out','on'
+go
+sp_serveroption 'M8204','use remote collation','off'
+go
+sp_serveroption 'M8204','collation name',null
+go
+sp_serveroption 'M8204','connect timeout',0
+go
+sp_serveroption 'M8204','query timeout','0'
+go
+
+----  Linked server : M5333
+sp_addlinkedserver 'M5333','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5333','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5333','collation compatible','off'
+go
+sp_serveroption 'M5333','data access','on'
+go
+sp_serveroption 'M5333','rpc','on'
+go
+sp_serveroption 'M5333','rpc out','on'
+go
+sp_serveroption 'M5333','use remote collation','off'
+go
+sp_serveroption 'M5333','collation name',null
+go
+sp_serveroption 'M5333','connect timeout',0
+go
+sp_serveroption 'M5333','query timeout','0'
+go
+
+----  Linked server : M2859
+sp_addlinkedserver 'M2859','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2859','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2859','collation compatible','off'
+go
+sp_serveroption 'M2859','data access','on'
+go
+sp_serveroption 'M2859','rpc','on'
+go
+sp_serveroption 'M2859','rpc out','on'
+go
+sp_serveroption 'M2859','use remote collation','off'
+go
+sp_serveroption 'M2859','collation name',null
+go
+sp_serveroption 'M2859','connect timeout',0
+go
+sp_serveroption 'M2859','query timeout','0'
+go
+
+----  Linked server : M5314
+sp_addlinkedserver 'M5314','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5314','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5314','collation compatible','off'
+go
+sp_serveroption 'M5314','data access','on'
+go
+sp_serveroption 'M5314','rpc','on'
+go
+sp_serveroption 'M5314','rpc out','on'
+go
+sp_serveroption 'M5314','use remote collation','off'
+go
+sp_serveroption 'M5314','collation name',null
+go
+sp_serveroption 'M5314','connect timeout',0
+go
+sp_serveroption 'M5314','query timeout','0'
+go
+
+----  Linked server : M2375
+sp_addlinkedserver 'M2375','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2375','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2375','collation compatible','off'
+go
+sp_serveroption 'M2375','data access','on'
+go
+sp_serveroption 'M2375','rpc','on'
+go
+sp_serveroption 'M2375','rpc out','on'
+go
+sp_serveroption 'M2375','use remote collation','off'
+go
+sp_serveroption 'M2375','collation name',null
+go
+sp_serveroption 'M2375','connect timeout',0
+go
+sp_serveroption 'M2375','query timeout','0'
+go
+
+----  Linked server : M5331
+sp_addlinkedserver 'M5331','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5331','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5331','collation compatible','off'
+go
+sp_serveroption 'M5331','data access','on'
+go
+sp_serveroption 'M5331','rpc','on'
+go
+sp_serveroption 'M5331','rpc out','on'
+go
+sp_serveroption 'M5331','use remote collation','off'
+go
+sp_serveroption 'M5331','collation name',null
+go
+sp_serveroption 'M5331','connect timeout',0
+go
+sp_serveroption 'M5331','query timeout','0'
+go
+
+----  Linked server : M2858
+sp_addlinkedserver 'M2858','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2858','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2858','collation compatible','off'
+go
+sp_serveroption 'M2858','data access','on'
+go
+sp_serveroption 'M2858','rpc','on'
+go
+sp_serveroption 'M2858','rpc out','on'
+go
+sp_serveroption 'M2858','use remote collation','off'
+go
+sp_serveroption 'M2858','collation name',null
+go
+sp_serveroption 'M2858','connect timeout',0
+go
+sp_serveroption 'M2858','query timeout','0'
+go
+
+----  Linked server : M2939_01
+sp_addlinkedserver 'M2939_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2939_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2939_01','collation compatible','off'
+go
+sp_serveroption 'M2939_01','data access','on'
+go
+sp_serveroption 'M2939_01','rpc','on'
+go
+sp_serveroption 'M2939_01','rpc out','on'
+go
+sp_serveroption 'M2939_01','use remote collation','off'
+go
+sp_serveroption 'M2939_01','collation name',null
+go
+sp_serveroption 'M2939_01','connect timeout',0
+go
+sp_serveroption 'M2939_01','query timeout','0'
+go
+
+----  Linked server : JCRSQL01
+sp_addlinkedserver 'JCRSQL01','SQL Server'
+go
+sp_addlinkedsrvlogin 'JCRSQL01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'JCRSQL01','collation compatible','off'
+go
+sp_serveroption 'JCRSQL01','data access','on'
+go
+sp_serveroption 'JCRSQL01','rpc','on'
+go
+sp_serveroption 'JCRSQL01','rpc out','on'
+go
+sp_serveroption 'JCRSQL01','use remote collation','off'
+go
+sp_serveroption 'JCRSQL01','collation name',null
+go
+sp_serveroption 'JCRSQL01','connect timeout',0
+go
+sp_serveroption 'JCRSQL01','query timeout','0'
+go
+
+----  Linked server : M2365
+sp_addlinkedserver 'M2365','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2365','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2365','collation compatible','off'
+go
+sp_serveroption 'M2365','data access','on'
+go
+sp_serveroption 'M2365','rpc','on'
+go
+sp_serveroption 'M2365','rpc out','on'
+go
+sp_serveroption 'M2365','use remote collation','off'
+go
+sp_serveroption 'M2365','collation name',null
+go
+sp_serveroption 'M2365','connect timeout',0
+go
+sp_serveroption 'M2365','query timeout','0'
+go
+
+----  Linked server : M8102
+sp_addlinkedserver 'M8102','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8102','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8102','collation compatible','off'
+go
+sp_serveroption 'M8102','data access','on'
+go
+sp_serveroption 'M8102','rpc','on'
+go
+sp_serveroption 'M8102','rpc out','on'
+go
+sp_serveroption 'M8102','use remote collation','off'
+go
+sp_serveroption 'M8102','collation name',null
+go
+sp_serveroption 'M8102','connect timeout',0
+go
+sp_serveroption 'M8102','query timeout','0'
+go
+
+----  Linked server : M5401
+sp_addlinkedserver 'M5401','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5401','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5401','collation compatible','off'
+go
+sp_serveroption 'M5401','data access','on'
+go
+sp_serveroption 'M5401','rpc','on'
+go
+sp_serveroption 'M5401','rpc out','on'
+go
+sp_serveroption 'M5401','use remote collation','off'
+go
+sp_serveroption 'M5401','collation name',null
+go
+sp_serveroption 'M5401','connect timeout',0
+go
+sp_serveroption 'M5401','query timeout','0'
+go
+
+----  Linked server : M2872_01
+sp_addlinkedserver 'M2872_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2872_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2872_01','collation compatible','off'
+go
+sp_serveroption 'M2872_01','data access','on'
+go
+sp_serveroption 'M2872_01','rpc','on'
+go
+sp_serveroption 'M2872_01','rpc out','on'
+go
+sp_serveroption 'M2872_01','use remote collation','off'
+go
+sp_serveroption 'M2872_01','collation name',null
+go
+sp_serveroption 'M2872_01','connect timeout',0
+go
+sp_serveroption 'M2872_01','query timeout','0'
+go
+
+----  Linked server : M5320
+sp_addlinkedserver 'M5320','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5320','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5320','collation compatible','off'
+go
+sp_serveroption 'M5320','data access','on'
+go
+sp_serveroption 'M5320','rpc','on'
+go
+sp_serveroption 'M5320','rpc out','on'
+go
+sp_serveroption 'M5320','use remote collation','off'
+go
+sp_serveroption 'M5320','collation name',null
+go
+sp_serveroption 'M5320','connect timeout',0
+go
+sp_serveroption 'M5320','query timeout','0'
+go
+
+----  Linked server : M5319
+sp_addlinkedserver 'M5319','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5319','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5319','collation compatible','off'
+go
+sp_serveroption 'M5319','data access','on'
+go
+sp_serveroption 'M5319','rpc','on'
+go
+sp_serveroption 'M5319','rpc out','on'
+go
+sp_serveroption 'M5319','use remote collation','off'
+go
+sp_serveroption 'M5319','collation name',null
+go
+sp_serveroption 'M5319','connect timeout',0
+go
+sp_serveroption 'M5319','query timeout','0'
+go
+
+----  Linked server : M5405
+sp_addlinkedserver 'M5405','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5405','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5405','collation compatible','off'
+go
+sp_serveroption 'M5405','data access','on'
+go
+sp_serveroption 'M5405','rpc','on'
+go
+sp_serveroption 'M5405','rpc out','on'
+go
+sp_serveroption 'M5405','use remote collation','off'
+go
+sp_serveroption 'M5405','collation name',null
+go
+sp_serveroption 'M5405','connect timeout',0
+go
+sp_serveroption 'M5405','query timeout','0'
+go
+
+----  Linked server : M2360
+sp_addlinkedserver 'M2360','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2360','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2360','collation compatible','off'
+go
+sp_serveroption 'M2360','data access','on'
+go
+sp_serveroption 'M2360','rpc','on'
+go
+sp_serveroption 'M2360','rpc out','on'
+go
+sp_serveroption 'M2360','use remote collation','off'
+go
+sp_serveroption 'M2360','collation name',null
+go
+sp_serveroption 'M2360','connect timeout',0
+go
+sp_serveroption 'M2360','query timeout','0'
+go
+
+----  Linked server : M5322
+sp_addlinkedserver 'M5322','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5322','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5322','collation compatible','off'
+go
+sp_serveroption 'M5322','data access','on'
+go
+sp_serveroption 'M5322','rpc','on'
+go
+sp_serveroption 'M5322','rpc out','on'
+go
+sp_serveroption 'M5322','use remote collation','off'
+go
+sp_serveroption 'M5322','collation name',null
+go
+sp_serveroption 'M5322','connect timeout',0
+go
+sp_serveroption 'M5322','query timeout','0'
+go
+
+----  Linked server : M5173
+sp_addlinkedserver 'M5173','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5173','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5173','collation compatible','off'
+go
+sp_serveroption 'M5173','data access','on'
+go
+sp_serveroption 'M5173','rpc','on'
+go
+sp_serveroption 'M5173','rpc out','on'
+go
+sp_serveroption 'M5173','use remote collation','off'
+go
+sp_serveroption 'M5173','collation name',null
+go
+sp_serveroption 'M5173','connect timeout',0
+go
+sp_serveroption 'M5173','query timeout','0'
+go
+
+----  Linked server : M5174
+sp_addlinkedserver 'M5174','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5174','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5174','collation compatible','off'
+go
+sp_serveroption 'M5174','data access','on'
+go
+sp_serveroption 'M5174','rpc','on'
+go
+sp_serveroption 'M5174','rpc out','on'
+go
+sp_serveroption 'M5174','use remote collation','off'
+go
+sp_serveroption 'M5174','collation name',null
+go
+sp_serveroption 'M5174','connect timeout',0
+go
+sp_serveroption 'M5174','query timeout','0'
+go
+
+----  Linked server : M5211
+sp_addlinkedserver 'M5211','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5211','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5211','collation compatible','off'
+go
+sp_serveroption 'M5211','data access','on'
+go
+sp_serveroption 'M5211','rpc','on'
+go
+sp_serveroption 'M5211','rpc out','on'
+go
+sp_serveroption 'M5211','use remote collation','off'
+go
+sp_serveroption 'M5211','collation name',null
+go
+sp_serveroption 'M5211','connect timeout',0
+go
+sp_serveroption 'M5211','query timeout','0'
+go
+
+----  Linked server : M2397_01
+sp_addlinkedserver 'M2397_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2397_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2397_01','collation compatible','off'
+go
+sp_serveroption 'M2397_01','data access','on'
+go
+sp_serveroption 'M2397_01','rpc','on'
+go
+sp_serveroption 'M2397_01','rpc out','on'
+go
+sp_serveroption 'M2397_01','use remote collation','off'
+go
+sp_serveroption 'M2397_01','collation name',null
+go
+sp_serveroption 'M2397_01','connect timeout',0
+go
+sp_serveroption 'M2397_01','query timeout','0'
+go
+
+----  Linked server : M5316
+sp_addlinkedserver 'M5316','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5316','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5316','collation compatible','off'
+go
+sp_serveroption 'M5316','data access','on'
+go
+sp_serveroption 'M5316','rpc','on'
+go
+sp_serveroption 'M5316','rpc out','on'
+go
+sp_serveroption 'M5316','use remote collation','off'
+go
+sp_serveroption 'M5316','collation name',null
+go
+sp_serveroption 'M5316','connect timeout',0
+go
+sp_serveroption 'M5316','query timeout','0'
+go
+
+----  Linked server : M5323
+sp_addlinkedserver 'M5323','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5323','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5323','collation compatible','off'
+go
+sp_serveroption 'M5323','data access','on'
+go
+sp_serveroption 'M5323','rpc','on'
+go
+sp_serveroption 'M5323','rpc out','on'
+go
+sp_serveroption 'M5323','use remote collation','off'
+go
+sp_serveroption 'M5323','collation name',null
+go
+sp_serveroption 'M5323','connect timeout',0
+go
+sp_serveroption 'M5323','query timeout','0'
+go
+
+----  Linked server : M2958
+sp_addlinkedserver 'M2958','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2958','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2958','collation compatible','off'
+go
+sp_serveroption 'M2958','data access','on'
+go
+sp_serveroption 'M2958','rpc','on'
+go
+sp_serveroption 'M2958','rpc out','on'
+go
+sp_serveroption 'M2958','use remote collation','off'
+go
+sp_serveroption 'M2958','collation name',null
+go
+sp_serveroption 'M2958','connect timeout',0
+go
+sp_serveroption 'M2958','query timeout','0'
+go
+
+----  Linked server : M5085
+sp_addlinkedserver 'M5085','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5085','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5085','collation compatible','off'
+go
+sp_serveroption 'M5085','data access','on'
+go
+sp_serveroption 'M5085','rpc','on'
+go
+sp_serveroption 'M5085','rpc out','on'
+go
+sp_serveroption 'M5085','use remote collation','off'
+go
+sp_serveroption 'M5085','collation name',null
+go
+sp_serveroption 'M5085','connect timeout',0
+go
+sp_serveroption 'M5085','query timeout','0'
+go
+
+----  Linked server : M2370
+sp_addlinkedserver 'M2370','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2370','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2370','collation compatible','off'
+go
+sp_serveroption 'M2370','data access','on'
+go
+sp_serveroption 'M2370','rpc','on'
+go
+sp_serveroption 'M2370','rpc out','on'
+go
+sp_serveroption 'M2370','use remote collation','off'
+go
+sp_serveroption 'M2370','collation name',null
+go
+sp_serveroption 'M2370','connect timeout',0
+go
+sp_serveroption 'M2370','query timeout','0'
+go
+
+----  Linked server : ITHKERPP01
+sp_addlinkedserver 'ITHKERPP01','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITHKERPP01','false',null,'repl_user',<enter password here>
+go
+sp_serveroption 'ITHKERPP01','collation compatible','off'
+go
+sp_serveroption 'ITHKERPP01','data access','on'
+go
+sp_serveroption 'ITHKERPP01','rpc','on'
+go
+sp_serveroption 'ITHKERPP01','rpc out','on'
+go
+sp_serveroption 'ITHKERPP01','use remote collation','on'
+go
+sp_serveroption 'ITHKERPP01','collation name',null
+go
+sp_serveroption 'ITHKERPP01','connect timeout',0
+go
+sp_serveroption 'ITHKERPP01','query timeout','0'
+go
+
+----  Linked server : M5005
+sp_addlinkedserver 'M5005','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5005','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5005','collation compatible','off'
+go
+sp_serveroption 'M5005','data access','on'
+go
+sp_serveroption 'M5005','rpc','on'
+go
+sp_serveroption 'M5005','rpc out','on'
+go
+sp_serveroption 'M5005','use remote collation','off'
+go
+sp_serveroption 'M5005','collation name',null
+go
+sp_serveroption 'M5005','connect timeout',0
+go
+sp_serveroption 'M5005','query timeout','0'
+go
+
+----  Linked server : M2371
+sp_addlinkedserver 'M2371','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2371','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2371','collation compatible','off'
+go
+sp_serveroption 'M2371','data access','on'
+go
+sp_serveroption 'M2371','rpc','on'
+go
+sp_serveroption 'M2371','rpc out','on'
+go
+sp_serveroption 'M2371','use remote collation','off'
+go
+sp_serveroption 'M2371','collation name',null
+go
+sp_serveroption 'M2371','connect timeout',0
+go
+sp_serveroption 'M2371','query timeout','0'
+go
+
+----  Linked server : M5802
+sp_addlinkedserver 'M5802','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5802','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5802','collation compatible','off'
+go
+sp_serveroption 'M5802','data access','on'
+go
+sp_serveroption 'M5802','rpc','on'
+go
+sp_serveroption 'M5802','rpc out','on'
+go
+sp_serveroption 'M5802','use remote collation','off'
+go
+sp_serveroption 'M5802','collation name',null
+go
+sp_serveroption 'M5802','connect timeout',0
+go
+sp_serveroption 'M5802','query timeout','0'
+go
+
+----  Linked server : M8105
+sp_addlinkedserver 'M8105','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8105','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8105','collation compatible','off'
+go
+sp_serveroption 'M8105','data access','on'
+go
+sp_serveroption 'M8105','rpc','on'
+go
+sp_serveroption 'M8105','rpc out','on'
+go
+sp_serveroption 'M8105','use remote collation','off'
+go
+sp_serveroption 'M8105','collation name',null
+go
+sp_serveroption 'M8105','connect timeout',0
+go
+sp_serveroption 'M8105','query timeout','0'
+go
+
+----  Linked server : M8351
+sp_addlinkedserver 'M8351','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8351','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8351','collation compatible','off'
+go
+sp_serveroption 'M8351','data access','on'
+go
+sp_serveroption 'M8351','rpc','on'
+go
+sp_serveroption 'M8351','rpc out','on'
+go
+sp_serveroption 'M8351','use remote collation','off'
+go
+sp_serveroption 'M8351','collation name',null
+go
+sp_serveroption 'M8351','connect timeout',0
+go
+sp_serveroption 'M8351','query timeout','0'
+go
+
+----  Linked server : M2372
+sp_addlinkedserver 'M2372','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2372','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2372','collation compatible','off'
+go
+sp_serveroption 'M2372','data access','on'
+go
+sp_serveroption 'M2372','rpc','on'
+go
+sp_serveroption 'M2372','rpc out','on'
+go
+sp_serveroption 'M2372','use remote collation','off'
+go
+sp_serveroption 'M2372','collation name',null
+go
+sp_serveroption 'M2372','connect timeout',0
+go
+sp_serveroption 'M2372','query timeout','0'
+go
+
+----  Linked server : M2723_01
+sp_addlinkedserver 'M2723_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2723_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2723_01','collation compatible','off'
+go
+sp_serveroption 'M2723_01','data access','on'
+go
+sp_serveroption 'M2723_01','rpc','on'
+go
+sp_serveroption 'M2723_01','rpc out','on'
+go
+sp_serveroption 'M2723_01','use remote collation','off'
+go
+sp_serveroption 'M2723_01','collation name',null
+go
+sp_serveroption 'M2723_01','connect timeout',0
+go
+sp_serveroption 'M2723_01','query timeout','0'
+go
+
+----  Linked server : M2959
+sp_addlinkedserver 'M2959','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2959','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2959','collation compatible','off'
+go
+sp_serveroption 'M2959','data access','on'
+go
+sp_serveroption 'M2959','rpc','off'
+go
+sp_serveroption 'M2959','rpc out','off'
+go
+sp_serveroption 'M2959','use remote collation','on'
+go
+sp_serveroption 'M2959','collation name',null
+go
+sp_serveroption 'M2959','connect timeout',0
+go
+sp_serveroption 'M2959','query timeout','0'
+go
+
+----  Linked server : M8302
+sp_addlinkedserver 'M8302','SQL Server'
+go
+sp_addlinkedsrvlogin 'M8302','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M8302','collation compatible','off'
+go
+sp_serveroption 'M8302','data access','on'
+go
+sp_serveroption 'M8302','rpc','on'
+go
+sp_serveroption 'M8302','rpc out','on'
+go
+sp_serveroption 'M8302','use remote collation','off'
+go
+sp_serveroption 'M8302','collation name',null
+go
+sp_serveroption 'M8302','connect timeout',0
+go
+sp_serveroption 'M8302','query timeout','0'
+go
+
+----  Linked server : M5851
+sp_addlinkedserver 'M5851','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5851','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5851','collation compatible','off'
+go
+sp_serveroption 'M5851','data access','on'
+go
+sp_serveroption 'M5851','rpc','on'
+go
+sp_serveroption 'M5851','rpc out','on'
+go
+sp_serveroption 'M5851','use remote collation','off'
+go
+sp_serveroption 'M5851','collation name',null
+go
+sp_serveroption 'M5851','connect timeout',0
+go
+sp_serveroption 'M5851','query timeout','0'
+go
+
+----  Linked server : M5006
+sp_addlinkedserver 'M5006','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5006','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5006','collation compatible','off'
+go
+sp_serveroption 'M5006','data access','on'
+go
+sp_serveroption 'M5006','rpc','on'
+go
+sp_serveroption 'M5006','rpc out','on'
+go
+sp_serveroption 'M5006','use remote collation','off'
+go
+sp_serveroption 'M5006','collation name',null
+go
+sp_serveroption 'M5006','connect timeout',0
+go
+sp_serveroption 'M5006','query timeout','0'
+go
+
+----  Linked server : M1201
+sp_addlinkedserver 'M1201','SQL Server'
+go
+sp_addlinkedsrvlogin 'M1201','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M1201','collation compatible','off'
+go
+sp_serveroption 'M1201','data access','on'
+go
+sp_serveroption 'M1201','rpc','on'
+go
+sp_serveroption 'M1201','rpc out','on'
+go
+sp_serveroption 'M1201','use remote collation','off'
+go
+sp_serveroption 'M1201','collation name',null
+go
+sp_serveroption 'M1201','connect timeout',0
+go
+sp_serveroption 'M1201','query timeout','0'
+go
+
+----  Linked server : M1202
+sp_addlinkedserver 'M1202','SQL Server'
+go
+sp_addlinkedsrvlogin 'M1202','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M1202','collation compatible','off'
+go
+sp_serveroption 'M1202','data access','on'
+go
+sp_serveroption 'M1202','rpc','on'
+go
+sp_serveroption 'M1202','rpc out','on'
+go
+sp_serveroption 'M1202','use remote collation','off'
+go
+sp_serveroption 'M1202','collation name',null
+go
+sp_serveroption 'M1202','connect timeout',0
+go
+sp_serveroption 'M1202','query timeout','0'
+go
+
+----  Linked server : M2373
+sp_addlinkedserver 'M2373','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2373','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2373','collation compatible','off'
+go
+sp_serveroption 'M2373','data access','on'
+go
+sp_serveroption 'M2373','rpc','on'
+go
+sp_serveroption 'M2373','rpc out','on'
+go
+sp_serveroption 'M2373','use remote collation','off'
+go
+sp_serveroption 'M2373','collation name',null
+go
+sp_serveroption 'M2373','connect timeout',0
+go
+sp_serveroption 'M2373','query timeout','0'
+go
+
+----  Linked server : M2958_01
+sp_addlinkedserver 'M2958_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2958_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2958_01','collation compatible','off'
+go
+sp_serveroption 'M2958_01','data access','on'
+go
+sp_serveroption 'M2958_01','rpc','on'
+go
+sp_serveroption 'M2958_01','rpc out','on'
+go
+sp_serveroption 'M2958_01','use remote collation','on'
+go
+sp_serveroption 'M2958_01','collation name',null
+go
+sp_serveroption 'M2958_01','connect timeout',0
+go
+sp_serveroption 'M2958_01','query timeout','0'
+go
+
+----  Linked server : ITDEV
+sp_addlinkedserver 'ITDEV','SQL Server'
+go
+sp_addlinkedsrvlogin 'ITDEV','false',null,'sa',<enter password here>
+go
+sp_serveroption 'ITDEV','collation compatible','off'
+go
+sp_serveroption 'ITDEV','data access','on'
+go
+sp_serveroption 'ITDEV','rpc','on'
+go
+sp_serveroption 'ITDEV','rpc out','on'
+go
+sp_serveroption 'ITDEV','use remote collation','off'
+go
+sp_serveroption 'ITDEV','collation name',null
+go
+sp_serveroption 'ITDEV','connect timeout',0
+go
+sp_serveroption 'ITDEV','query timeout','0'
+go
+
+----  Linked server : M2363
+sp_addlinkedserver 'M2363','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2363','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2363','collation compatible','off'
+go
+sp_serveroption 'M2363','data access','on'
+go
+sp_serveroption 'M2363','rpc','on'
+go
+sp_serveroption 'M2363','rpc out','on'
+go
+sp_serveroption 'M2363','use remote collation','off'
+go
+sp_serveroption 'M2363','collation name',null
+go
+sp_serveroption 'M2363','connect timeout',0
+go
+sp_serveroption 'M2363','query timeout','0'
+go
+
+----  Linked server : M5245
+sp_addlinkedserver 'M5245','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5245','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5245','collation compatible','off'
+go
+sp_serveroption 'M5245','data access','on'
+go
+sp_serveroption 'M5245','rpc','on'
+go
+sp_serveroption 'M5245','rpc out','on'
+go
+sp_serveroption 'M5245','use remote collation','off'
+go
+sp_serveroption 'M5245','collation name',null
+go
+sp_serveroption 'M5245','connect timeout',0
+go
+sp_serveroption 'M5245','query timeout','0'
+go
+
+----  Linked server : M5337
+sp_addlinkedserver 'M5337','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5337','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5337','collation compatible','off'
+go
+sp_serveroption 'M5337','data access','on'
+go
+sp_serveroption 'M5337','rpc','on'
+go
+sp_serveroption 'M5337','rpc out','on'
+go
+sp_serveroption 'M5337','use remote collation','off'
+go
+sp_serveroption 'M5337','collation name',null
+go
+sp_serveroption 'M5337','connect timeout',0
+go
+sp_serveroption 'M5337','query timeout','0'
+go
+
+----  Linked server : M5334
+sp_addlinkedserver 'M5334','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5334','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5334','collation compatible','off'
+go
+sp_serveroption 'M5334','data access','on'
+go
+sp_serveroption 'M5334','rpc','on'
+go
+sp_serveroption 'M5334','rpc out','on'
+go
+sp_serveroption 'M5334','use remote collation','off'
+go
+sp_serveroption 'M5334','collation name',null
+go
+sp_serveroption 'M5334','connect timeout',0
+go
+sp_serveroption 'M5334','query timeout','0'
+go
+
+----  Linked server : M5335
+sp_addlinkedserver 'M5335','SQL Server'
+go
+sp_addlinkedsrvlogin 'M5335','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M5335','collation compatible','off'
+go
+sp_serveroption 'M5335','data access','on'
+go
+sp_serveroption 'M5335','rpc','on'
+go
+sp_serveroption 'M5335','rpc out','on'
+go
+sp_serveroption 'M5335','use remote collation','off'
+go
+sp_serveroption 'M5335','collation name',null
+go
+sp_serveroption 'M5335','connect timeout',0
+go
+sp_serveroption 'M5335','query timeout','0'
+go
+
+----  Linked server : M2963_01
+sp_addlinkedserver 'M2963_01','SQL Server'
+go
+sp_addlinkedsrvlogin 'M2963_01','false',null,'sa',<enter password here>
+go
+sp_serveroption 'M2963_01','collation compatible','off'
+go
+sp_serveroption 'M2963_01','data access','on'
+go
+sp_serveroption 'M2963_01','rpc','on'
+go
+sp_serveroption 'M2963_01','rpc out','on'
+go
+sp_serveroption 'M2963_01','use remote collation','off'
+go
+sp_serveroption 'M2963_01','collation name',null
+go
+sp_serveroption 'M2963_01','connect timeout',0
+go
+sp_serveroption 'M2963_01','query timeout','0'
+go

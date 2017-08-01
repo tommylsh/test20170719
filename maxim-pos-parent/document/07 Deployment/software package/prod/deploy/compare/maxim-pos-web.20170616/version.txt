@@ -1,0 +1,8 @@
+Maxim Sales service
+
+Amendment History
+Version Name                    Modified on  Comment
+------- ----------------------  -----------  ----------------------------------------
+1.0.0	Leung Shiu Hong Tommy   6 Jun, 2017  Version 1.0.0
+1.0.3	Leung Shiu Hong Tommy   8 Jun, 2017  Version 1.0.3
+

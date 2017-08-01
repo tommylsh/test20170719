@@ -1,0 +1,39 @@
+@CHARSET "UTF-8";
+
+body {
+    margin: 0;
+    font-family: Verdana, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 18px;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label[class*="col-"] {
+    padding-top: 5px;
+    padding-right: 0 !important;
+    margin-bottom: 5px;
+}
+
+.control-label.control-label-required:before {
+    content: "*";
+    color: red;
+    font-size: 12px;
+    position: relative;
+    /*top: 2px;
+    right: 2px;*/
+}
+
+.icon-arrow {
+    float: right !important;
+}
+.icon-arrow:before {
+    content: "\f103";
+}
+a.collapsed .icon-arrow:before {
+    content: "\f102";
+}

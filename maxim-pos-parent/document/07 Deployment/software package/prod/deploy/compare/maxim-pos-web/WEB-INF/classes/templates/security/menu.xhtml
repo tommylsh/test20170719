@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:sec="http://www.springframework.org/security/tags">
+
+		<p:submenu label="#{msg['security']['security']}" icon="ui-icon-check">
+
+			<p:menuitem value="#{msg['security']['systemManagement']}"
+				url="#{FaceUtils.getContextPath()}/faces/security/system/system-list.html" />
+
+			<p:menuitem value="#{msg['security']['resourceManagement']}"
+				url="#{FaceUtils.getContextPath()}/faces/security/system/resource-list.html" />
+
+			<p:menuitem value="#{msg['security']['permissionManagement']}"
+				url="#{FaceUtils.getContextPath()}/faces/security/permission/permission-list.html" />
+
+			<p:menuitem value="#{msg['security']['userManagement']}"
+				url="#{FaceUtils.getContextPath()}/faces/security/user/user-list.html" />
+
+			<p:menuitem value="#{msg['security']['roleManagement']}"
+				url="#{FaceUtils.getContextPath()}/faces/security/role/role-list.html" />
+		</p:submenu>
+
+		<p:submenu
+			label="#{msg['security']['user']} : #{userDetailsService.getUserName()}"
+			icon="ui-icon-check" style="text-align: right;">
+
+			<p:menuitem value="#{msg['security']['changePassword']}"
+				url="#{FaceUtils.getContextPath()}/faces/secure/common/change-password.html" />
+
+			<p:menuitem value="#{msg['security']['logout']}"
+				url="#{FaceUtils.getContextPath()}/spring/secure/j_spring_security_logout" />
+		</p:submenu>
+
+</ui:composition>
+

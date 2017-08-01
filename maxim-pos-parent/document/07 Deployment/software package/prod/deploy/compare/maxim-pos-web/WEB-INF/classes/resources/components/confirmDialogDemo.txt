@@ -1,0 +1,15 @@
+<p:growl id="messages" showDetail="true" />
+
+			<p:confirmDialog id="confirmDialog" header="#{msg['simple']['info']}"
+				message="#{msg['bmcs']['confirmDeployTechnology']}" severity="alert"
+				widgetVar="confirmationVar">
+
+				<p:commandButton value="#{msg['simple']['yes']}" id="confirmButton"
+					action="#{deployManagementDetailController.deployTechnology}"
+					oncomplete="confirmationVar.hide()"
+					update=":deployForm:technologyTable messages" />
+
+				<p:commandButton value="#{msg['simple']['no']}"
+					onclick="confirmationVar.hide()" type="button" />
+
+			</p:confirmDialog>

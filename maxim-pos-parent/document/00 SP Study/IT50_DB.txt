@@ -1,0 +1,27 @@
+dbid   name                                                                                                                             
+------ -------------------------------------------------------------------------------------------------------------------------------- 
+1      master
+2      tempdb
+3      model
+4      msdb
+5      pubs
+6      Northwind
+7      e_application
+8      security
+9      maximdb
+10     inventory
+11     it
+12     timeclock
+13     attendance
+14     teleform
+15     helpdesk
+16     sales
+17     iguard_tp
+18     iguard_lk
+19     hopos
+20     attendance_new
+21     onhouse_inquiry
+22     LST
+
+(22 row(s) affected)
+

@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+	<composite:attribute name="dialogId" required="true" />
+	<composite:attribute name="dialogVar" required="true" />
+	<composite:attribute name="headerImage" default="/images/element16.png" />
+	<composite:attribute name="headerText"
+		default="#{msg['simple']['dialog']}" />
+	<composite:attribute name="columns" default="2" />
+	<composite:attribute name="columnClasses"
+		default="dialogCol1, dialogCol2" />
+	<composite:attribute name="show" required="true" />
+	<composite:attribute name="maximizable" default="false" />
+
+
+</composite:interface>
+
+<composite:implementation>
+
+	<style>
+<!--
+.dialogCol1 {
+	vertical-align: middle;
+	width: 60px;
+}
+
+.dialogCol2 {
+	vertical-align: top;
+}
+-->
+</style>
+
+	<p:dialog id="#{cc.attrs.dialogId}" modal="true"
+		widgetVar="#{cc.attrs.dialogVar}"
+		maximizable="#{cc.attrs.maximizable}">
+
+		<f:facet name="header">
+			<p:graphicImage value="#{cc.attrs.headerImage}" />
+			<h:outputText value="#{cc.attrs.headerText}" />
+		</f:facet>
+
+		<h:panelGrid style="width: 100%; margin-bottom:10px"
+			columns="#{cc.attrs.columns}"
+			columnClasses="#{cc.attrs.columnClasses}" cellpadding="5"
+			rendered="#{cc.attrs.show}">
+
+			<composite:insertChildren />
+
+		</h:panelGrid>
+
+	</p:dialog>
+
+</composite:implementation>
+</html>

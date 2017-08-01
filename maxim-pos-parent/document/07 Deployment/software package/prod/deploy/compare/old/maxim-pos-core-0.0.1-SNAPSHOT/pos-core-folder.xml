@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+ ">
+
+	<util:map id="masterFolderConfiguration" 
+	map-class="java.util.HashMap"
+	key-type="java.lang.String"
+    value-type="com.maxim.pos.common.entity.BranchInfo">
+				<entry key="FILE_MIDPOS" value-ref="midposInfo"/>
+				<entry key="FILE_POINTSOFT" value-ref="pointsoftInfo"/>
+	</util:map>
+	
+	<util:map id="masterFolderFilter" 
+	map-class="java.util.HashMap"
+	key-type="java.lang.String"
+    value-type="java.lang.String">
+				<entry key="FILE_MIDPOS" value=""/>
+				<entry key="FILE_POINTSOFT" value=""/>
+	</util:map>
+
+	<bean id="midposInfo" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.20.30.166"/>
+		<property name="clientDB" value="export/{BRANCH_CODE}"/>
+		<property name="user" value="poll"/>
+		<property name="password" value="poll12345"/>
+		<property name="enable" value="true"/>
+	</bean>
+	
+	<bean id="pointsoftInfo" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.20.30.166"/>
+		<property name="clientDB" value="export"/>
+		<property name="user" value="poll"/>
+		<property name="password" value="poll12345"/>
+		<property name="enable" value="true"/>
+	</bean>
+	
+	
+	<util:map id="filecopySourceFolderConfiguration" 
+	map-class="java.util.HashMap"
+	key-type="java.lang.String"
+    value-type="com.maxim.pos.common.entity.BranchInfo">
+				<entry key="OCT_JCR" value-ref="octJcrPathInfo"/>
+				<entry key="OCT_AROME" value-ref="octAromePathInfo"/>
+				<entry key="OCT_OTHER" value-ref="octOtherPathInfo"/>
+	</util:map>
+
+
+	<util:map id="filecopyTargetTemplateConfiguration" 
+	map-class="java.util.HashMap"
+	key-type="java.lang.String"
+    value-type="java.util.ArrayList">
+    <!-- 
+				<entry key="OCT_JCR" value-ref="octJcrTarget"/>
+				<entry key="OCT_AROME" value-ref="octAromeTarget"/>
+				<entry key="OCT_OTHER" value-ref="octOtherTarget"/>
+	-->
+	</util:map>
+	
+
+	
+	<util:map id="filecopyTargetFolderConfiguration" 
+	map-class="java.util.HashMap"
+	key-type="java.lang.String"
+    value-type="java.util.ArrayList">
+				<entry key="OCT_JCR" value-ref="octJcrTarget"/>
+				<entry key="OCT_AROME" value-ref="octAromeTarget"/>
+				<entry key="OCT_OTHER" value-ref="octOtherTarget"/>
+	</util:map>
+	
+	<util:map id="filecopyTargetBranchConfiguration" 
+	map-class="java.util.HashMap"
+	key-type="java.lang.String"
+    value-type="java.util.ArrayList">
+				<entry key="OCT_JCR" value-ref="octJcrBranchList"/>
+				<entry key="OCT_AROME" value-ref="octAromeBranchList"/>
+				<entry key="OCT_OTHER" value-ref="octOtherBranchList"/>
+	</util:map>
+	
+	<bean id="octJcrPathInfo" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.10.20.57"/>
+		<property name="clientDB" value="octopus/Download"/>
+		<property name="user" value="maxims\itoctopus"/>
+		<property name="password" value="octopus"/>
+		<property name="enable" value="true"/>
+	</bean>
+	
+	<bean id="octJcrTarget" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <ref bean="oct1Target1" />
+            <ref bean="oct1Target2" />                
+        </list>
+    </constructor-arg>
+	</bean>
+	<bean id="octJcrBranchList" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <ref bean="oct1Branch1" />
+            <ref bean="oct1Branch2" />                
+        </list>
+    </constructor-arg>
+	</bean>
+
+	
+	<bean id="oct1Target1" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.20.30.166"/>
+		<property name="clientDB" value="export/octopus/{BRANCH_CODE}"/>
+		<property name="user" value="poll"/>
+		<property name="password" value="poll12345"/>
+		<property name="enable" value="true"/>
+	</bean>
+	
+	<bean id="oct1Target2" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.20.30.166"/>
+		<property name="clientDB" value="export/octopus/{BRANCH_CODE}"/>
+		<property name="user" value="poll"/>
+		<property name="password" value="poll12345"/>
+		<property name="enable" value="true"/>
+	</bean>
+				
+	<bean id="oct1Branch1" class="com.maxim.pos.common.entity.BranchMaster">
+		<property name="branchCode" value="1234"/>
+		<property name="branchType" value="CAK"/>
+	</bean>
+	<bean id="oct1Branch2" class="com.maxim.pos.common.entity.BranchMaster">
+		<property name="branchCode" value="1235"/>
+		<property name="branchType" value="CAK"/>
+	</bean>
+	
+
+	
+	<bean id="octAromePathInfo" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.10.20.57"/>
+		<property name="clientDB" value="pointsoft/octopus/Download"/>
+		<property name="user" value="maxims\itoctopus"/>
+		<property name="password" value="octopus"/>
+		<property name="enable" value="true"/>
+	</bean>
+
+	<bean id="octAromeTarget" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <ref bean="oct2Target1" />
+            <ref bean="oct2Target2" />                
+        </list>
+    </constructor-arg>
+	</bean>
+	<bean id="octAromeBranchList" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <ref bean="oct2Branch1" />
+            <ref bean="oct2Branch2" />                
+        </list>
+    </constructor-arg>
+	</bean>	
+	
+	<bean id="oct2Target1" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.20.30.166"/>
+		<property name="clientDB" value="export/octopus/{BRANCH_CODE}"/>
+		<property name="user" value="poll"/>
+		<property name="password" value="poll12345"/>
+		<property name="enable" value="true"/>
+	</bean>
+	
+	<bean id="oct2Target2" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.20.30.166"/>
+		<property name="clientDB" value="export/octopus/{BRANCH_CODE}"/>
+		<property name="user" value="poll"/>
+		<property name="password" value="poll12345"/>
+		<property name="enable" value="true"/>
+	</bean>	
+	
+	
+	<bean id="oct2Branch1" class="com.maxim.pos.common.entity.BranchMaster">
+		<property name="branchCode" value="1236"/>
+		<property name="branchType" value="CAK"/>
+	</bean>
+	<bean id="oct2Branch2" class="com.maxim.pos.common.entity.BranchMaster">
+		<property name="branchCode" value="1237"/>
+		<property name="branchType" value="CAK"/>
+	</bean>
+		
+		
+	<bean id="octOtherPathInfo" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.10.20.43"/>
+		<property name="clientDB" value="ftp_cake/Octopus/download"/>
+		<property name="user" value="maxims\itoctopus"/>
+		<property name="password" value="octopus"/>
+		<property name="enable" value="true"/>
+	</bean>
+	
+	<bean id="octOtherTarget" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <ref bean="oct3Target1" />
+            <ref bean="oct3Target2" />                
+        </list>
+    </constructor-arg>
+	</bean>
+	<bean id="octOtherBranchList" class="java.util.ArrayList">
+    <constructor-arg>
+        <list>
+            <ref bean="oct3Branch1" />
+            <ref bean="oct3Branch2" />                
+        </list>
+    </constructor-arg>
+	</bean>	
+	<bean id="oct3Target1" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.20.30.166"/>
+		<property name="clientDB" value="export/octopus/{BRANCH_CODE}"/>
+		<property name="user" value="poll"/>
+		<property name="password" value="poll12345"/>
+		<property name="enable" value="true"/>
+	</bean>
+	
+	<bean id="oct3Target2" class="com.maxim.pos.common.entity.BranchInfo">
+		<property name="clientHost" value="10.20.30.166"/>
+		<property name="clientDB" value="export/octopus/{BRANCH_CODE}"/>
+		<property name="user" value="poll"/>
+		<property name="password" value="poll12345"/>
+		<property name="enable" value="true"/>
+	</bean>			
+
+
+	<bean id="oct3Branch1" class="com.maxim.pos.common.entity.BranchMaster">
+		<property name="branchCode" value="1238"/>
+		<property name="branchType" value="CAK"/>
+	</bean>
+	<bean id="oct3Branch2" class="com.maxim.pos.common.entity.BranchMaster">
+		<property name="branchCode" value="1239"/>
+		<property name="branchType" value="CAK"/>
+	</bean>
+
+</beans>

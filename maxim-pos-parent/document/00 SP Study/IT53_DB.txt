@@ -1,0 +1,16 @@
+dbid   name                                                                                                                             
+------ -------------------------------------------------------------------------------------------------------------------------------- 
+1      master
+2      tempdb
+3      model
+4      msdb
+5      pubs
+6      Northwind
+7      common
+8      hopos
+9      maximdb
+10     arome_old_data
+11     hopos_it53
+
+(11 row(s) affected)
+

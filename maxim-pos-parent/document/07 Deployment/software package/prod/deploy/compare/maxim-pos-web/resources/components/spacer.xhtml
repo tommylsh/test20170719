@@ -1,0 +1,18 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+	<composite:attribute name="height" required="false" default="8"/>
+
+</composite:interface>
+
+<composite:implementation>
+
+	<h:outputText style="display: block; height: #{cc.attrs.height}px;"/>
+	
+</composite:implementation>
+</html>

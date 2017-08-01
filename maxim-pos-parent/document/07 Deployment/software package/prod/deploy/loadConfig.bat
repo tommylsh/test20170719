@@ -1,0 +1,7 @@
+@echo off
+SET CONFIG_FILE_NAME=%~1
+SET CONFIG_SECITON=%2
+
+IF "%CONFIG_SECITON%"=="" SET CONFIG_SECITON=GENERAL
+
+FOR /F "delims=.= tokens=1,2*" %%a IN (%CONFIG_FILE_NAME%) DO IF "%CONFIG_SECITON%"=="%%a" SET %%b=%%c

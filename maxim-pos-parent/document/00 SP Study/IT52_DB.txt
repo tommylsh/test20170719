@@ -1,0 +1,18 @@
+dbid   name                                                                                                                             
+------ -------------------------------------------------------------------------------------------------------------------------------- 
+1      master
+2      tempdb
+3      model
+4      msdb
+5      pubs
+6      Northwind
+7      hopos_test
+8      common
+9      sqlnexus
+15     hopos_backup
+23     maximdb
+24     SUN_PRC_Convert
+27     hopos
+
+(13 row(s) affected)
+
