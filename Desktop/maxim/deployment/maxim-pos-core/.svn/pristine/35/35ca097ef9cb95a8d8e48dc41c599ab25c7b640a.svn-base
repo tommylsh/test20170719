@@ -1,0 +1,15 @@
+package com.maxim.pos.sales.service;
+
+import com.maxim.pos.common.entity.BranchScheme;
+
+import java.sql.SQLException;
+
+/**
+ * Created by Joy on 2017/3/24.
+ */
+public interface MasterMonitoringService {
+
+    public boolean AssertMonitoring(BranchScheme branchScheme);
+
+    public boolean updateStatus(BranchScheme branchScheme);
+}

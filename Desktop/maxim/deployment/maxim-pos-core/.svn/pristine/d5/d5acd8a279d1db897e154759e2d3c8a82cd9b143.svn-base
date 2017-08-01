@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+ ">
+
+	<util:map id="reportExportConfiguration" 
+	map-class="java.util.HashMap"
+	key-type="java.lang.String"
+    value-type="com.maxim.pos.report.data.ReportGroupConfig">
+				<entry key="DAYEND_REPORT" value-ref="dayEndReportGroup"/>
+				<!--  
+				<entry key="ERROR_REPORT" value-ref="DayEndReportGroup"/>
+				<entry key="AAA_REPORT" value-ref="DayEndReportGroup"/>
+				-->
+	</util:map>
+
+	
+	<bean id="dayEndReportGroup" class="com.maxim.pos.report.data.ReportGroupConfig">
+		<property name="reportGroupName" value="Day End Reports"/>
+		<property name="parameters">
+		  <list>
+		    <value>businessDate</value>
+		  </list>
+		</property>
+		<property name="reportList">
+			<list>
+				<ref bean="errorCountReportConfig" />
+				<ref bean="convertMonitorReportConfig" />
+				<ref bean="errorClientReportConfig" />
+				<ref bean="errorLogReportConfig" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Dayend Report Config Bean -->
+	
+	<bean id="errorCountReportConfig" class="com.maxim.pos.report.data.ReportConfig">
+		<property name="reportTitle" value="Error Count Report"/>
+        <property name="fileName" value="errorCountReportConfig"/>
+        <property name="fileType" value="xlsx"/>
+        <property name="queryType" value="sql"/>
+        <property name="query">
+			<value> 
+				<![CDATA[
+					select BRANCH_TYPE,sum(FAIL_COUNT) AS FAIL_COUNT
+					FROM
+					(
+					select PBM.BRANCH_TYPE, PBM.BRANCH_CODE,PBS1.POLL_BRANCH_MASTER_ID ,PBS1.POLL_BRANCH_SCHEME_ID,
+					1 - (
+					select count(distinct  1) from dbo.POLL_EOD_CONTROL PEC 
+					where BUSINESS_DATE = :businessDate
+					and PEC.BRANCH_CODE  = PBM.BRANCH_CODE )AS FAIL_COUNT
+					from dbo.POLL_BRANCH_SCHEME PBS1 
+					left join dbo.POLL_BRANCH_SCHEME PBS2 
+					on PBS2.DIRECTION = 'STG_TO_EDW' and PBS2.POLL_SCHEME_TYPE = 'SALES_EOD'
+                    and PBS2.IS_ENABLED ='1' and PBS2.POLL_BRANCH_INFO_ID  = PBS1.POLL_BRANCH_INFO_ID
+                    join dbo.POLL_BRANCH_INFO PBI     
+                    on PBI.POLL_BRANCH_INFO_ID = PBS1.POLL_BRANCH_INFO_ID
+                    and ENABLE='1' 
+                    join dbo.POLL_BRANCH_MASTER PBM        
+                    on PBM.POLL_BRANCH_MASTER_ID = PBS1.POLL_BRANCH_MASTER_ID   
+					where  PBS1.IS_ENABLED ='1'
+					and PBS1.DIRECTION = 'POS_TO_STG' and PBS1.POLL_SCHEME_TYPE = 'SALES_EOD' 					
+					) AS FS 
+					group by BRANCH_TYPE
+				]]>
+			</value>
+			<!--
+					select BRANCH_CODE ,BRANCH_ENAME,FAIL_COUNT
+					FROM
+					(
+					select POLL_BRANCH_MASTER_ID ,POLL_BRANCH_SCHEME_ID,
+					1 - (
+					select count(distinct  1) from   dbo.TASK_JOB_LOG TJL where TJL.POLL_SCHEME_TYPE = 'SALES_EOD'
+					and  CONVERT(date, TJL.CREATE_TIME  ) = :businessDate
+					and  TJL.POLL_SCHEME_ID  = PBS2.POLL_BRANCH_SCHEME_ID 
+					and TJL.STATUS ='COMPLETE' )AS FAIL_COUNT
+					from dbo.POLL_BRANCH_SCHEME PBS2 
+					where PBS2.DIRECTION = 'POS_TO_STG' and PBS2.POLL_SCHEME_TYPE = 'SALES_EOD' 
+					) AS FS 
+					join dbo.POLL_BRANCH_MASTER PBM on PBM.POLL_BRANCH_MASTER_ID = FS.POLL_BRANCH_MASTER_ID
+			-->				
+        </property>
+        <property name="colunmMap">
+	        <map>
+					<entry key="Type" value="BRANCH_TYPE"/>
+					<entry key="Fail Count" value="FAIL_COUNT"/>
+	        </map>
+        </property>	
+    </bean>
+
+	<bean id="convertMonitorReportConfig" class="com.maxim.pos.report.data.ReportConfig">
+		<property name="reportTitle" value="Convert Monitor Report"/>
+		<property name="fileName" value="convertMonitorReportConfig.xlsx"/>
+		<property name="fileType" value="xlsx"/>
+        <property name="queryType" value="method"/>
+        <property name="targetBeanId" value="reportService"/>
+        <property name="targetMethod" value="getConvertMonitorReportConfig"/>
+        <property name="colunmMap">
+	        <map>
+					<entry key="Type" value="branchType"/>
+					<entry key="Time" value="time"/>
+					<entry key="Converted" value="converted"/>
+					<entry key="Expected" value="expected"/>
+	        </map>
+        </property>
+	</bean>
+	
+	<bean id="errorClientReportConfig" class="com.maxim.pos.report.data.ReportConfig">
+		<property name="reportTitle" value="Error Client Report"/>
+        <property name="fileName" value="errorClientReportConfig"/>
+        <property name="fileType" value="xlsx"/>
+        <property name="queryType" value="sql"/>
+        <property name="query">
+			<value> 
+				<![CDATA[
+					SELECT TASK_JOB_LOG_ID , TASK_JOB_EXECEPTION_DETAIL_ID, CREATE_TIME, 
+       						SOURCE , DESTINATION, convert(varchar(8000),EXCEPTION_CONTENT) AS EXCEPTION_CONTENT
+					FROM dbo.TASK_JOB_EXECEPTION_DETAIL
+					WHERE CONVERT(date, CREATE_TIME  ) = :businessDate
+				]]>
+			</value>
+        </property>
+        <property name="colunmMap">
+	        <map>
+					<entry key="Task ID" value="TASK_JOB_LOG_ID"/>
+					<entry key="Exception ID" value="TASK_JOB_EXECEPTION_DETAIL_ID"/>
+					<entry key="Create Time" value="CREATE_TIME"/>
+					<entry key="Souce" value="SOURCE"/>
+					<entry key="Destination" value="DESTINATION"/>
+					<entry key="Exception" value="EXCEPTION_CONTENT"/>
+	        </map>
+        </property>	
+	</bean>
+	
+	<bean id="errorClientReportConfig2" class="com.maxim.pos.report.data.ReportConfig">
+		<property name="reportTitle" value="Error Client Report 2"/>
+        <property name="fileName" value="errorClientReportConfig 2"/>
+        <property name="fileType" value="xlsx"/>
+        <property name="queryType" value="sql"/>
+        <property name="query">
+			<value>  
+				<![CDATA[
+					Select t from TaskJobExceptionDetail t where CONVERT(date, CREATE_TIME  ) = :businessDate
+				]]>
+			</value>
+        </property>
+        <property name="colunmMap">
+	        <map>
+					<entry key="Exception ID" value="id"/>
+					<entry key="Create Time" value="createTime"/>
+					<entry key="Souce" value="source"/>
+					<entry key="Destination" value="destination"/>
+					<entry key="Exception" value="exceptionContent"/>
+	        </map>
+        </property>	
+    </bean>
+	
+	<bean id="errorLogReportConfig" class="com.maxim.pos.report.data.ReportConfig">
+		<property name="reportTitle" value="Error Log Report"/>
+        <property name="fileName" value="errorLogReport"/>
+        <property name="fileType" value="xlsx"/>
+        <property name="queryType" value="sql"/>
+        <property name="query">
+			<value> 
+				<![CDATA[
+					select PBM.BRANCH_TYPE, PBM.BRANCH_CODE, PBM.BRANCH_ENAME ,PBM.BRANCH_CNAME, PBI.CLIENT_DB,
+					CONVERT(varchar(16) , DAYEND.LAST_UPDATE_TIME, 120 ) DAY_END,
+					(select count(distinct  1) from dbo.POLL_EOD_CONTROL PEC 
+					where BUSINESS_DATE = :businessDate
+					and PEC.BRANCH_CODE  = PBM.BRANCH_CODE ) * 100 AS COMPLETE
+					from dbo.POLL_BRANCH_SCHEME PBS1 
+					left join dbo.POLL_BRANCH_SCHEME PBS2 
+					on PBS2.DIRECTION = 'STG_TO_EDW' and PBS2.POLL_SCHEME_TYPE = 'SALES_EOD'
+                    and PBS2.IS_ENABLED ='1' and PBS2.POLL_BRANCH_INFO_ID  = PBS1.POLL_BRANCH_INFO_ID     
+                    join dbo.POLL_BRANCH_INFO PBI     
+                    on PBI.POLL_BRANCH_INFO_ID = PBS1.POLL_BRANCH_INFO_ID
+                    and ENABLE='1' 
+                    join dbo.POLL_BRANCH_MASTER PBM        
+                    on PBM.POLL_BRANCH_MASTER_ID = PBS1.POLL_BRANCH_MASTER_ID
+                    LEFT JOIN (SELECT
+					MAX(LAST_UPDATE_TIME) LAST_UPDATE_TIME,
+					BRANCH_CODE
+					FROM
+					POLL_EOD_CONTROL
+					GROUP BY
+					BRANCH_CODE) DAYEND ON DAYEND.BRANCH_CODE=PBM.BRANCH_CODE
+					where  PBS1.IS_ENABLED ='1'
+					and PBS1.DIRECTION = 'POS_TO_STG' and PBS1.POLL_SCHEME_TYPE = 'SALES_EOD' 					
+				]]>
+			</value>
+        </property>
+        <property name="colunmMap">
+	        <map>
+					<entry key="Type " value="BRANCH_TYPE"/>
+					<entry key="Branch" value="BRANCH_CODE"/>
+					<entry key="English Name" value="BRANCH_ENAME"/>
+					<entry key="Chinese Name" value="BRANCH_CNAME"/>
+					<entry key="Day end" value="DAY_END"/>
+					<entry key="Client Server" value="CLIENT_DB"/>
+					<entry key="Complete" value="COMPLETE"/>
+	        </map>
+        </property>	
+        <!-- property name="queryType" value="hql"/>
+        <property name="query">
+			<value> 
+				<![CDATA[
+					 select e from User e
+				]]>
+			</value>
+        </property>
+        <property name="colunmMap">
+	        <map>
+					<entry key="user_id" value="userId"/>
+					<entry key="user_name" value="userName"/>
+					<entry key="create_time" value="createTime"/>
+	        </map>
+        </property-->
+	</bean>
+
+	<bean id="errorLogReportConfig2" class="com.maxim.pos.report.data.ReportConfig">
+		<property name="reportTitle" value="Error Log Report"/>
+        <property name="fileName" value="errorLogReport2"/>
+        <property name="fileType" value="xlsx"/>
+        <property name="queryType" value="hql"/>
+        <property name="query">
+			<value> 
+				<![CDATA[
+					 select new map(e.userId as userId, e.userName as userName, e.createTime as createTime) 
+					 from User e
+				]]>
+			</value>
+        </property>
+	</bean>
+
+
+</beans>

@@ -1,0 +1,60 @@
+package com.maxim.pos.common.web.faces.controller;
+
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.service.PollBranchSchemeService;
+import com.maxim.pos.common.value.ApplicationSettingQueryCriteria;
+import com.maxim.pos.common.web.faces.datamodel.ApplicationSettingDataModelQuery;
+import com.maxim.pos.common.web.faces.datamodel.BranchSchemeDataModelQuery;
+import com.maxim.pos.common.web.security.UserDetailsService;
+import com.maxim.web.faces.annotation.OperationMessage;
+import com.maxim.web.faces.model.GenericEntityLazyDataModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import java.io.Serializable;
+
+@Controller
+@Scope("viewScope")
+public class BranchSchemeController implements Serializable {
+
+    private static final long serialVersionUID = 5713922123896848121L;
+
+    @Autowired
+    private PollBranchSchemeService pollBranchSchemeService;
+
+    private GenericEntityLazyDataModel dataModel;
+    private BranchScheme branchScheme;
+
+    public void add() {
+        branchScheme = new BranchScheme();
+    }
+
+    @OperationMessage(type = OperationMessage.OperationType.UPDATE, operationName = "Save Branch Scheme")
+    public void save() {
+        Auditer.audit(branchScheme, UserDetailsService.getUser());
+        pollBranchSchemeService.savePollBranchScheme(branchScheme);
+    }
+
+    public GenericEntityLazyDataModel getDataModel() {
+        if (dataModel == null) {
+            ApplicationSettingQueryCriteria criteria = new ApplicationSettingQueryCriteria();
+            dataModel = new GenericEntityLazyDataModel(new BranchSchemeDataModelQuery(pollBranchSchemeService, criteria));
+        }
+        return dataModel;
+    }
+
+    public void setDataModel(GenericEntityLazyDataModel dataModel) {
+        this.dataModel = dataModel;
+    }
+
+    public BranchScheme getBranchScheme() {
+        return branchScheme;
+    }
+
+    public void setBranchScheme(BranchScheme branchScheme) {
+        this.branchScheme = branchScheme;
+    }
+}

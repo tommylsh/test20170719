@@ -1,0 +1,17 @@
+#Created by JInto - www.guh-software.de
+#Tue Feb 14 14:29:37 CST 2017
+connection.driver_class=com.microsoft.sqlserver.jdbc.SQLServerDriver
+connection.initialSize=50
+connection.maxActive=1000
+connection.minActive=50
+connection.password=avkc6hUYhDsW3bszfpJcew\=\=
+#SIT Environment
+connection.url=jdbc\:sqlserver\://10.10.31.73\:1433;DatabaseName\=esb_sit;SelectMethod\=Cursor
+connection.username=esb_sit
+#DEV Environment
+#connection.url=jdbc\:sqlserver\://enlightening-it.eatuo.com\:61807;DatabaseName\=esb_sit;SelectMethod\=Cursor
+#connection.username=sa
+hibernate.dialect=org.hibernate.dialect.SQLServerDialect
+#hibernate.format_sql=true
+hibernate.hbm2ddl.auto=update
+hibernate.show_sql=true

@@ -1,0 +1,223 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:cc="http://java.sun.com/jsf/composite/components"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="/templates/main.xhtml">
+
+    <ui:define name="title">
+        <cc:titleText title="#{msg['pos']['schemeScheduleJob']}"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <style>
+            .schemeScheduleJobDataTable table tbody td {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+        </style>
+
+        <script>
+            function checkElementSelection() {
+                if (PF('schemeScheduleJobDataTableVar').selection.length == 0) {
+                    PF('infoDialog').show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+
+        <h:form id="schemeScheduleJobDataTableForm">
+
+            <p:panel header="#{msg['common']['search']}" style="width: 100%;">
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <h:outputLabel for="name" value="#{msg['pos']['jobName']}"/>
+                            <p:inputText id="name"
+                                         value="#{schemeScheduleJobController.dataModel.dataModelQuery.criteria.keyword}"
+                                         label="#{msg['common']['name']}" maxlength="100"
+                                         style="width: 164px;"/>
+
+                            <p:commandButton id="searchButton"
+                                             value="#{msg['common']['search']}"
+                                             update="schemeScheduleJobDataTable" icon="ui-icon-search1"
+                                             style=" margin-left: 10px;"/>
+                        </div>
+                    </div>
+
+                </div>
+            </p:panel>
+
+            <cc:spacer/>
+
+            <p:toolbar id="toolbar">
+                <p:toolbarGroup align="left">
+
+                    <p:commandButton id="addBtn" value="#{msg['common']['add']}"
+                                     process="@this" action="#{schemeScheduleJobController.add}"
+                                     update=":schemeScheduleJobDialogForm"
+                                     oncomplete="PF('schemeScheduleJobDialogVar').show();"
+                                     icon="ui-icon-add"/>
+
+                    <p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+                                     process="@form"
+                                     update=":schemeScheduleJobDialogForm"
+                                     oncomplete="PF('schemeScheduleJobDialogVar').show();" icon="ui-icon-edit"
+                                     onclick="if (!checkDatatableSelection('schemeScheduleJobDataTableVar')) return false;"/>
+
+                    <p:commandButton id="deleteBtn"
+                                     value="#{msg['common']['delete']}" process="@form"
+                                     action="#{schemeScheduleJobController.delete}"
+                                     update=":schemeScheduleJobDataTableForm:schemeScheduleJobDataTable"
+                                     icon="ui-icon-delete"
+                                     onclick="if (!confirmDeleteDatatableRecord('schemeScheduleJobDataTableVar')) return false;"
+                                     rendered="#{commonController.loginUser.isAdmin()}"/>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <cc:spacer height="3"/>
+
+            <p:dataTable id="schemeScheduleJobDataTable" styleClass="schemeScheduleJobDataTable"
+                         widgetVar="schemeScheduleJobDataTableVar" var="element"
+                         value="#{schemeScheduleJobController.dataModel}"
+                         selection="#{schemeScheduleJobController.schemeScheduleJob}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                         emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+
+                <f:facet name="header">
+                    <p:graphicImage value="/images/record16.png"/>
+                    <h:outputText value="#{msg['pos']['schemeScheduleJob']}"/>
+                </f:facet>
+
+                <p:column selectionMode="single" style="width:16px; text-align:center"/>
+
+                <p:column headerText="#{msg['pos']['jobName']}">
+                    <h:outputText value="#{element.jobName}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['jobDesc']}">
+                    <h:outputText value="#{element.jobDesc}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['jobGroup']}">
+                    <h:outputText value="#{element.jobGroup}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['pollSchemeType']}">
+                    <h:outputText value="#{element.pollSchemeType}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['direction']}">
+                    <h:outputText value="#{element.pollSchemeDirection}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['enable']}">
+                    <h:outputText value="#{element.enable}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['cronExpression']}">
+                    <h:outputText value="#{element.cronExpression}"/>
+                </p:column>
+            </p:dataTable>
+
+        </h:form>
+
+    </ui:define>
+
+    <ui:define name="dialog">
+        <p:dialog id="schemeScheduleJobDialog"
+                  widgetVar="schemeScheduleJobDialogVar" modal="true" width="600"
+                  resizable="false">
+            <f:facet name="header">
+                <p:graphicImage value="/images/element16.png"/>
+                <h:outputText value="#{msg['pos']['schemeScheduleJob']} #{msg['pos']['detail']}"/>
+            </f:facet>
+            <h:form id="schemeScheduleJobDialogForm">
+
+                <h:panelGrid id="formPanel" columns="2"
+                             columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5" style="width: 100%;"
+                             rendered="#{schemeScheduleJobController.schemeScheduleJob != null}">
+
+                    <h:outputLabel for="jobName" value="#{msg['pos']['jobName']}"/>
+                    <p:inputText id="jobName" value="#{schemeScheduleJobController.schemeScheduleJob.jobName}"
+                                 label="#{msg['pos']['jobName']}" maxlength="100" style="width: 95%" required="true"
+                                 disabled="#{schemeScheduleJobController.schemeScheduleJob.id != null and !commonController.loginUser.isAdmin()}"/>
+
+                    <h:outputLabel for="jobDesc" value="#{msg['pos']['jobDesc']}"/>
+                    <p:inputTextarea id="jobDesc" value="#{schemeScheduleJobController.schemeScheduleJob.jobDesc}"
+                                     rows="5" cols="58" maxlength="200" autoResize="true"/>
+
+                    <h:outputLabel for="jobGroup" value="#{msg['pos']['jobGroup']}"/>
+                    <p:inputText id="jobGroup" value="#{schemeScheduleJobController.schemeScheduleJob.jobGroup}"
+                                 label="#{msg['pos']['jobGroup']}" maxlength="500" style="width: 95%"/>
+
+                    <h:outputLabel for="pollSchemeType" value="#{msg['pos']['pollSchemeType']}"/>
+                    <p:selectOneListbox id="pollSchemeType" value="#{schemeScheduleJobController.schemeScheduleJob.pollSchemeType}"
+                                        style="width: 95%" required="true">
+                        <f:selectItem itemLabel="SALES_REALTIME" itemValue="SALES_REALTIME"/>
+                        <f:selectItem itemLabel="SALES_EOD" itemValue="SALES_EOD"/>
+                        <f:selectItem itemLabel="MASTER" itemValue="MASTER"/>
+                    </p:selectOneListbox>
+
+                    <h:outputLabel for="direction" value="#{msg['pos']['direction']}"/>
+                    <p:selectOneListbox id="direction" value="#{schemeScheduleJobController.schemeScheduleJob.pollSchemeDirection}"
+                                        style="width: 95%" required="true">
+                        <f:selectItem itemLabel="POS_TO_STG" itemValue="POS_TO_STG"/>
+                        <f:selectItem itemLabel="STG_TO_EDW" itemValue="STG_TO_EDW"/>
+                        <f:selectItem itemLabel="MST_TO_STG" itemValue="MST_TO_STG"/>
+                        <f:selectItem itemLabel="EDW_TO_STG" itemValue="EDW_TO_STG"/>
+                        <f:selectItem itemLabel="STG_TO_POS" itemValue="STG_TO_POS"/>
+                    </p:selectOneListbox>
+
+                    <h:outputLabel for="enable" value="#{msg['pos']['enable']}"/>
+                    <p:inputSwitch id="enable" value="#{schemeScheduleJobController.schemeScheduleJob.enable}" />
+
+                    <h:outputLabel for="cronExpression" value="#{msg['pos']['cronExpression']}"/>
+                    <p:inputText id="cronExpression" value="#{schemeScheduleJobController.schemeScheduleJob.cronExpression}"
+                                 label="#{msg['pos']['cronExpression']}" maxlength="500" style="width: 95%"/>
+
+                    <p:spacer/>
+                    <h:panelGroup style="width: 95%; display: inline-block; text-align: right;">
+                        <p:commandButton id="submitButton" value="#{msg['common']['save']}"
+                                         actionListener="#{schemeScheduleJobController.save}"
+                                         update="@form :schemeScheduleJobDataTableForm :primefaceMessages"
+                                         oncomplete="handleComplete(xhr, status, args)"
+                                         icon="ui-icon-save1" style=" margin-right: -7px;"/>
+                    </h:panelGroup>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <script type="text/javascript">
+            function handleComplete(xhr, status, args) {
+
+                if (args.validationFailed) {
+                    PF('schemeScheduleJobDialogVar').jq.effect("shake", {
+                        times: 3
+                    }, 100);
+
+                } else {
+                    PF('schemeScheduleJobDialogVar').hide();
+                }
+            }
+
+            $(document).bind("keyup", function (evt) {
+                if (27 == evt.keyCode) {
+                    PF('schemeScheduleJobDialogVar').hide();
+                }
+            });
+        </script>
+
+    </ui:define>
+
+</ui:composition>

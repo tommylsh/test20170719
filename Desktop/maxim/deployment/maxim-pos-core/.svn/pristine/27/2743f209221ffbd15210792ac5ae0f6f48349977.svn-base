@@ -1,0 +1,143 @@
+package com.maxim.pos.common.persistence;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.maxim.dao.HibernateEntityDAO;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.enumeration.TaskProcessStatus;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+
+@Repository("taskJobLog")
+public class TaskJobLogDao extends HibernateEntityDAO<TaskJobLog, Long> {
+
+    public static final String HQL_findTaskJobLogByCriteria = "findTaskJobLogByCriteria";
+    public static final String HQL_findLatestTaskJobLog = "findLatestTaskJobLog";
+    public static final String SQL_findLatestTaskJobLogWithLock = "findLatestTaskJobLogWithLock";
+    public static final String SQL_purgeTaskJobLog = "purgeTaskJobLog";
+    public static final String SQL_updatePendingTaskJobLog = "updatePendingTaskJobLog";
+
+    @Autowired
+    private NamedParameterJdbcTemplate jdbcTemplate;
+
+
+    public List<TaskJobLog> findTaskJobLogByCriteria(CommonCriteria criteria) {
+        if (criteria == null) {
+//            return getList(new PosDaoCmd(HQL_findTaskJobLogByCriteria), TaskJobLog.class);
+            return super.getEntityListByQueryKey(HQL_findTaskJobLogByCriteria);
+        }
+    	Map<String, Object> transBeanToMap = BeanUtil.transBeanToMap(criteria);
+//        PosDaoCmd cmd = new PosDaoCmd(HQL_findTaskJobLogByCriteria, BeanUtil.transBeanToMap(criteria));
+//        return super.getEntityListByQueryKey(HQL_findTaskJobLogByCriteria, criteria.getStartFrom(),
+//                criteria.getMaxResult() == 0 ? Integer.MAX_VALUE : criteria.getMaxResult());
+        return super.getEntityListByQueryKey(HQL_findTaskJobLogByCriteria,transBeanToMap);
+//        return getList(cmd, TaskJobLog.class, criteria.getStartFrom(),
+//                criteria.getMaxResult() == 0 ? Integer.MAX_VALUE : criteria.getMaxResult());
+    }
+
+//    public TaskJobLog findLatestTaskJobLog(Direction direction, Long branchSchemeId, PollSchemeType pollSchemeType,
+//            Long schemeScheduleJobId) {
+
+    public TaskJobLog findLatestTaskJobLog(Direction direction, Long branchSchemeId, PollSchemeType pollSchemeType,
+    		String branchCode) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("direction", direction);
+        paramMap.put("branchSchemeId", branchSchemeId);
+        paramMap.put("pollSchemeType", pollSchemeType);
+//        paramMap.put("schemeScheduleJobId", schemeScheduleJobId);
+        paramMap.put("branchCode", branchCode);
+//        PosDaoCmd cmd = new PosDaoCmd(HQL_findLatestTaskJobLog, paramMap);
+
+        List<TaskJobLog> results = super.getEntityListByQueryKey(HQL_findLatestTaskJobLog, paramMap, 0, 1);
+        
+        if (results.size() == 1) {
+            return results.get(0);
+        }
+
+        return null;
+    }
+    
+	public int purgeTaskJobLog(Direction direction, Long branchSchemeId, PollSchemeType pollSchemeType,
+    		String branchCode, TaskProcessStatus status) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("direction", direction.toString());
+        paramMap.put("branchSchemeId", branchSchemeId);
+        paramMap.put("pollSchemeType", pollSchemeType.toString());
+        paramMap.put("branchCode", branchCode);
+        paramMap.put("status", status.name());
+
+        String sql = processTemplate(SQL_purgeTaskJobLog, paramMap);
+//		LogUtils.printLog("{} branch purgeTaskJobLog {}",
+//				branchCode, sql);
+		
+		return jdbcTemplate.update(sql, paramMap);
+    }
+	
+	public int updatePendingTaskJobLog(Direction direction, Long branchSchemeId, PollSchemeType pollSchemeType,
+    		String branchCode) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("direction", direction.toString());
+        paramMap.put("branchSchemeId", branchSchemeId);
+        paramMap.put("pollSchemeType", pollSchemeType.toString());
+        paramMap.put("branchCode", branchCode);
+
+        String sql = processTemplate(SQL_updatePendingTaskJobLog, paramMap);
+//		LogUtils.printLog("{} branch updatePendingTaskJobLog {}",
+//				branchCode, sql);
+		
+		return jdbcTemplate.update(sql, paramMap);
+    }
+	
+	public TaskJobLog findLatestTaskJobLogForLock(Direction direction, Long branchSchemeId, PollSchemeType pollSchemeType,
+    		String branchCode) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("direction", direction.toString());
+        paramMap.put("branchSchemeId", branchSchemeId);
+        paramMap.put("pollSchemeType", pollSchemeType.toString());
+//        paramMap.put("schemeScheduleJobId", schemeScheduleJobId);
+        paramMap.put("branchCode", branchCode);
+//        PosDaoCmd cmd = new PosDaoCmd(HQL_findLatestTaskJobLog, paramMap);
+
+        String sql = processTemplate(SQL_findLatestTaskJobLogWithLock, paramMap);
+//		LogUtils.printLog("{} branch code find Latest {}",
+//				branchCode, sql);
+//		NamedParameterJdbcTemplate jdbc = new NamedParameterJdbcTemplate(dataSource);
+        try
+        {
+			Long id = jdbcTemplate.queryForObject(sql, paramMap, Long.class);
+//			LogUtils.printLog("{} branch code find Latest ID {}",
+//					branchCode, id);
+			if (id != null)
+			{
+				return super.findByKey(id);
+			}
+        }catch (EmptyResultDataAccessException e)
+        {
+            return null;    	
+        }
+			
+
+        return null;
+    }
+
+
+
+    public Long getTaskJobLogCountByCriteria(CommonCriteria criteria) {
+        criteria.setQueryRecord(false);
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+//        PosDaoCmd cmd = new PosDaoCmd(HQL_findTaskJobLogByCriteria, paramMap);
+//        return getSingle(cmd, Long.class);
+        return (Long) getSingleByQueryKey(HQL_findTaskJobLogByCriteria, paramMap);
+    }
+
+
+}

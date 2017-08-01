@@ -1,0 +1,15 @@
+Staging:
+
+HKGAAGD01L
+10.10.31.73
+esb_sit
+P@ssw0rd
+
+
+POS
+10.104.17.66
+
+esb_sit
+P@ssw0rd
+
+

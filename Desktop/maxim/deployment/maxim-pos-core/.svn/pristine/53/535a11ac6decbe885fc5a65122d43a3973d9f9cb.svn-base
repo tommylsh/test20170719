@@ -1,0 +1,89 @@
+package com.maxim.pos.common.service;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeScheduleJob;
+import com.maxim.pos.common.entity.TaskJobExceptionDetail;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.entity.TaskJobLogDetail;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.persistence.TaskJobLogDao;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.value.CommonCriteria;
+
+@Transactional
+@Service("taskJobLogService")
+public class TaskJobLogServiceImpl implements TaskJobLogService {
+
+    @Autowired
+    private TaskJobLogDao taskJobLogDao;
+    @Autowired
+    private ApplicationSettingService applicationSettingService;
+
+    @Override
+    public List<TaskJobLog> findTaskJobLogByCriteria(CommonCriteria criteria) {
+        return taskJobLogDao.findTaskJobLogByCriteria(criteria);
+    }
+
+    @Override
+    public TaskJobLog findLatestTaskJobLog(BranchScheme branchScheme) {
+        Assert.notNull(branchScheme, "'branchScheme' can't be null.");
+
+        Direction direction = branchScheme.getDirection();
+        Long branchSchemeId = branchScheme.getId();
+        PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+        Assert.notNull(direction, "'direction' can't be null.");
+        Assert.notNull(branchSchemeId, "'branchSchemeId' can't be null.");
+        Assert.notNull(pollSchemeType, "'pollSchemeType' can't be null.");
+
+//        SchemeScheduleJob schemeScheduleJob = branchScheme.getSchemeScheduleJob();
+        String branchCode = branchScheme.getBranchMaster().getBranchCode();
+//        Assert.notNull(schemeScheduleJob, "'schemeScheduleJob' can't be null.");
+//        Long schemeScheduleJobId = schemeScheduleJob.getId();
+//        Assert.notNull(schemeScheduleJobId, "'schemeScheduleJobId' can't be null.");
+        return taskJobLogDao.findLatestTaskJobLog(direction, branchSchemeId, pollSchemeType, branchCode);
+//        return taskJobLogDao.findLatestTaskJobLog(direction, branchSchemeId, pollSchemeType, schemeScheduleJob==null?null:schemeScheduleJob.getId());
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+    public TaskJobLog addOrUpdateTaskJobLog(TaskJobLog taskJobLog) {
+        Assert.notNull(taskJobLog, "'taskJobLog' can't be null.");
+        Auditer.audit(taskJobLog);
+        taskJobLog=  (TaskJobLog) taskJobLogDao.save(taskJobLog);
+        return taskJobLog;
+        
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+    public TaskJobLogDetail addOrUpdateTaskJobLogDetail(TaskJobLogDetail taskJobLogDetail) {
+        Assert.notNull(taskJobLogDetail, "'taskJobLogDetail' can't be null.");
+        Auditer.audit(taskJobLogDetail);
+        return (TaskJobLogDetail) taskJobLogDao.save(taskJobLogDetail);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+    public TaskJobExceptionDetail addOrUpdateTaskJobExceptionDetail(TaskJobExceptionDetail taskJobExceptionDetail) {
+        Assert.notNull(taskJobExceptionDetail, "'taskJobExceptionDetail' can't be null.");
+        Auditer.audit(taskJobExceptionDetail);
+        return (TaskJobExceptionDetail) taskJobLogDao.save(taskJobExceptionDetail);
+    }
+
+    @Override
+    public Long getTaskJobLogCountByCriteria(CommonCriteria criteria) {
+        return taskJobLogDao.getTaskJobLogCountByCriteria(criteria);
+    }
+
+}

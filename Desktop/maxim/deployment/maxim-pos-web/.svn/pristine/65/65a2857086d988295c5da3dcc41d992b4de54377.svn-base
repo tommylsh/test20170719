@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wls:weblogic-web-app xmlns:wls="http://www.bea.com/ns/weblogic/90"
+                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                      xsi:schemaLocation="http://www.bea.com/ns/weblogic/90
+    http://www.bea.com/ns/weblogic/920/weblogic-web-app.xsd 
+    http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/ejb-jar_2_1.xsd">
+
+    <wls:weblogic-version>12.1.3</wls:weblogic-version>
+    <wls:context-root>maxim-pos-web</wls:context-root>
+
+    <wls:container-descriptor>
+        <wls:prefer-application-packages>
+            <wls:package-name>javax.faces.*</wls:package-name>
+            <wls:package-name>com.sun.faces.*</wls:package-name>
+            <wls:package-name>com.bea.faces.*</wls:package-name>
+            <wls:package-name>javassist.*</wls:package-name>
+            <wls:package-name>org.slf4j.*</wls:package-name>
+        </wls:prefer-application-packages>
+
+        <wls:prefer-application-resources>
+            <wls:resource-name>javax.faces.*</wls:resource-name>
+            <wls:resource-name>com.sun.faces.*</wls:resource-name>
+            <wls:resource-name>com.bea.faces.*</wls:resource-name>
+            <wls:resource-name>META-INF/services/javax.servlet.ServletContainerInitializer</wls:resource-name>
+            <wls:resource-name>org/slf4j/impl/StaticLoggerBinder.class</wls:resource-name>
+        </wls:prefer-application-resources>
+    </wls:container-descriptor>
+
+    <wls:container-descriptor>
+        <wls:prefer-web-inf-classes>true</wls:prefer-web-inf-classes>
+        <wls:show-archived-real-path-enabled>true</wls:show-archived-real-path-enabled>
+    </wls:container-descriptor>
+</wls:weblogic-web-app>

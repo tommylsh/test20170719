@@ -1,0 +1,7 @@
+package com.maxim.pos.sales.persistence;
+
+import com.maxim.dao.HibernateDAO;
+
+public class BranchSchemeDao extends HibernateDAO {
+
+}

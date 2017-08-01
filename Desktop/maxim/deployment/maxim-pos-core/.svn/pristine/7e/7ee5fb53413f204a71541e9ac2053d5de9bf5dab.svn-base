@@ -1,0 +1,664 @@
+package com.maxim.pos.sales.service;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.charset.Charset;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
+import javassist.NotFoundException;
+
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.SchemeTableColumn;
+import com.maxim.pos.common.entity.TaskJobExceptionDetail;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.entity.TaskJobLogDetail;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.LatestJobInd;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.enumeration.TaskProcessStatus;
+import com.maxim.pos.common.service.ApplicationSettingService;
+import com.maxim.pos.common.service.FtpService;
+import com.maxim.pos.common.service.PollBranchSchemeService;
+import com.maxim.pos.common.service.PollSchemeInfoService;
+import com.maxim.pos.common.service.ProcessStgToPosService;
+import com.maxim.pos.common.service.SpringBeanUtil;
+import com.maxim.pos.common.service.TaskJobLogService;
+import com.maxim.pos.common.util.JDBCUtils;
+import com.maxim.pos.common.util.JavaDBFUtils;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.util.PollThreadPoolExecutor;
+import com.maxim.pos.common.util.PosClientUtils;
+import com.maxim.pos.common.util.SQLStmtUtils;
+import com.maxim.util.CsvWriter;
+
+@Service("masterService")
+@Transactional
+public class MasterServiceImpl implements MasterService {
+
+    private static PollThreadPoolExecutor pool;
+    private static final String BRANCH_EXECUTE_THREADPOOL_SIZE = "BRANCH_EXECUTE_THREADPOOL_SIZE";
+
+    @Autowired
+    private PollSchemeInfoService pollSchemeInfoService;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private FtpService ftpService;
+
+    @Autowired
+    private TaskJobLogService taskJobLogService;
+
+	@Autowired
+	private ApplicationSettingService applicationSettingService;
+	
+	@Autowired
+	private PollBranchSchemeService pollBranchSchemeService;
+
+    @PostConstruct
+    public void init() throws Exception {
+        ApplicationSetting applicationSetting = applicationSettingService
+                .findApplicationSettingByCode(BRANCH_EXECUTE_THREADPOOL_SIZE);
+        int poolSize = 100;
+        if (applicationSetting != null) {
+            String pool = applicationSetting.getCodeValue();
+            try {
+                poolSize = Integer.parseInt(pool);
+            } catch (Exception e) {
+                LogUtils.printException("SalesServiceImpl init...", e);
+            }
+        }
+        pool =  new PollThreadPoolExecutor(poolSize, poolSize, 60,
+                TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+    }
+    
+    @Override
+    public String processStagingToPos(BranchScheme branchScheme, Logger logger) {
+        ClientType clientType = branchScheme.getBranchInfo().getClientType();
+
+        String result = null;
+        TaskJobLog taskLog = createTaskJobLog(branchScheme);
+		if (taskLog == null) {
+			LogUtils.printLog(logger, "BranchScheme {}=={} PROGRESS ING...", branchScheme.getId(),
+					branchScheme.getBranchMaster().getBranchCode());
+			return "";
+		}
+        switch (clientType) {
+            case SQLPOS:
+        	try {
+				result = stagingSQLToPos(branchScheme, taskLog, logger);
+			} catch (SQLException e) {
+//				createJobExceptionDetail(taskLog, "", "", e);
+				insertTaskJobLog(taskLog);
+				throw new RuntimeException(e);
+			}
+            break;
+        case ORACLE:
+            break;
+        case CSV:
+        case TEXT:
+        	try {
+				result = writeFileByClienType(branchScheme, taskLog, logger);
+			} catch (SQLException e) {
+				createJobExceptionDetail(taskLog, "", "", e);
+				insertTaskJobLog(taskLog);
+				throw new RuntimeException(e);
+			}
+            break;
+        case DBF:
+        	result = writerDBFFile(branchScheme, taskLog, logger);
+        	break;
+        default:
+            LogUtils.printLog("Unsupported Client Type");
+            createJobExceptionDetail(taskLog, "", "", new RuntimeException());
+			insertTaskJobLog(taskLog);
+            break;
+        }
+        return result;
+    }
+
+	@Override
+    public String processMasterServerToStaging(BranchScheme branchScheme, Logger logger){
+		
+        TaskJobLog taskLog = createTaskJobLog(branchScheme);
+        String result;
+    	try {
+			 result = masterSQLToStaging(branchScheme, taskLog, logger);
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+
+        ProcessStgToPosService processStgToPosService = SpringBeanUtil.context.getBean(ProcessStgToPosService.class);
+       // 这里需要获得需要处理的 Branchscheme
+        BranchScheme branchSchemeToPos = pollBranchSchemeService.getBranchScheme(branchScheme.getPollSchemeType(),
+				Direction.STG_TO_POS, null, branchScheme.getBranchMaster().getBranchCode());
+        if(branchSchemeToPos==null){
+            LogUtils.printLog(logger,"Master to POS Branch Scheme not found  scheme type:{},Direction={},ClientType={},BranchCode={}"
+                    ,branchScheme.getPollSchemeType(),
+                    Direction.STG_TO_POS,
+                    ClientType.SQLPOS,
+                    branchScheme.getBranchMaster().getBranchCode());
+            return result;
+        }
+
+        if(!branchSchemeToPos.isEnabled()){
+            LogUtils.printLog(logger,"Branch Scheme not Enable  scheme type:{},Direction={},ClientType={},BranchCode={}"
+                    ,branchSchemeToPos.getPollSchemeType(),
+                    Direction.STG_TO_POS,
+                    ClientType.SQLPOS,
+                    branchSchemeToPos.getBranchMaster().getBranchCode());
+            return result;
+        }
+        if (ClientType.SQLPOS.equals(branchSchemeToPos.getBranchInfo().getClientType())) {
+        	branchSchemeToPos = pollBranchSchemeService.getBranchScheme(branchScheme.getPollSchemeType(),
+    				Direction.STG_TO_POS,ClientType.SQLPOS, branchScheme.getBranchMaster().getBranchCode());
+        } else if (ClientType.CSV.equals(branchSchemeToPos.getBranchInfo().getClientType())) {
+        	branchSchemeToPos = pollBranchSchemeService.getBranchScheme(branchScheme.getPollSchemeType(),
+    				Direction.STG_TO_POS,ClientType.CSV, branchScheme.getBranchMaster().getBranchCode());
+        } else if (ClientType.DBF.equals(branchSchemeToPos.getBranchInfo().getClientType())) {
+        	branchSchemeToPos = pollBranchSchemeService.getBranchScheme(branchScheme.getPollSchemeType(),
+    				Direction.STG_TO_POS,ClientType.DBF, branchScheme.getBranchMaster().getBranchCode());
+        }
+        processStgToPosService.setBranchScheme(branchSchemeToPos);
+        processStgToPosService.setTaskJobLog(taskLog);
+        processStgToPosService.setLogger(logger);
+//        processStgToPosService.run();
+        pool.execute(processStgToPosService);
+
+        return result;
+    }
+
+    private String stagingSQLToPos(BranchScheme branchScheme, TaskJobLog taskJobLog, Logger logger) throws SQLException {
+        String result = null;
+        // 源數據庫的信息
+        BranchInfo branchInfo = branchScheme.getBranchInfo();
+    	PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+        List<SchemeInfo> schemeInfoList = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(pollSchemeType,
+                branchScheme.getBranchInfo().getClientType());
+
+        LogUtils.printLog(logger, "schemeInfoList.size: {}", schemeInfoList.size());
+        try(Connection toDS = applicationSettingService.getJDBCConection(branchInfo,true)) {
+        	Connection fromDS = applicationSettingService.getCurrentJDBCConnection();
+	        if (schemeInfoList.size() > 0) {
+	            for (SchemeInfo schemeInfo : schemeInfoList) {
+	
+	                LogUtils.printLog(logger, "schemeInfo.id: {}", schemeInfo.getId());
+	
+	                // 源表與目標表
+	                String fromTable = schemeInfo.getSource();
+	                String toTable = schemeInfo.getDestination();
+	
+	                    try {
+	                    	int rs = 0;
+	                    	String selectSQL = MessageFormat.format("SELECT count(*) as ss FROM {0} {1}", schemeInfo.getSource(),
+	                				SQLStmtUtils.getCriteriaString(new String[]{"branch_code = '"+branchScheme.getBranchMaster().getBranchCode()+"'","status <> 'C'"}));
+	                        List<Map<String, Object>> execCliectQuery = PosClientUtils.execCliectQuery(fromDS, selectSQL, false);
+	                        Object obj = execCliectQuery.get(0).get("ss");
+	                        if(Integer.parseInt(obj.toString())>0){
+		                        if (schemeInfo.isConsistentStructure()) {
+		                        	toDS.setAutoCommit(false);
+		                        	rs = JDBCUtils.StructureConsistentbulkCopy(fromDS, toDS, schemeInfo, new String[]{"branch_code = '"+branchScheme.getBranchMaster().getBranchCode()+"'","status <> 'C'"});
+		                        	toDS.commit();
+		                        	toDS.setAutoCommit(true);
+		                        } else {
+		                        	toDS.setAutoCommit(false);
+		                        	rs = JDBCUtils.bulkCopyFromSQLConn(fromDS, toDS, schemeInfo, null, null, new String[]{"branch_code = '"+branchScheme.getBranchMaster().getBranchCode()+"'","status <> 'C'"});
+		                        	toDS.commit();
+		                        	toDS.setAutoCommit(true);
+		                        }
+	                        } else {
+	                        	continue;
+	                        }
+	                        String fromSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable);
+	                        PosClientUtils.updateTable(fromDS, fromSql, false);
+	                        String toSql = SQLStmtUtils.getUpdateSqlByStatus(toTable);
+	                        PosClientUtils.updateTable(toDS, toSql, false);
+	                        createJobLogDetail(taskJobLog, fromTable, toTable, rs, 0);
+	                        
+	                        result = pollSchemeType +":" + branchScheme.getDirection() +" process success!";
+	                    } catch (Exception e) {
+	                        LogUtils.printException(logger, "Task execte exception:", e);
+	                       
+	                        result = pollSchemeType +":" + branchScheme.getDirection() +" process failed!";
+	                        
+	                        try{
+	                            if(toDS!=null){
+	                            	toDS.rollback();
+	                            	toDS.setAutoCommit(true);
+	                            }
+	                         }catch(SQLException e1){
+	                        	 LogUtils.printException(logger, "transaction rollback exception:", e1);
+	                         }
+	                        createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+	        				insertTaskJobLog(taskJobLog);
+	                    }
+	            }
+	            
+	        } else {
+	            LogUtils.printLog(logger, "data is null");
+	        }
+        } catch(Exception e) {
+        	LogUtils.printException(logger, "get connection is null");
+            createJobExceptionDetail(taskJobLog, "", "", e);
+        }
+        insertTaskJobLog(taskJobLog);
+        return result;
+    }
+    
+    private String masterSQLToStaging(BranchScheme branchScheme, TaskJobLog taskJobLog,  Logger logger) throws SQLException {
+        String result = null;
+        // 源數據庫的信息
+        BranchInfo branchInfo = branchScheme.getBranchInfo();
+    	PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+        List<SchemeInfo> schemeInfoList = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(pollSchemeType,
+                branchScheme.getBranchInfo().getClientType());
+
+        LogUtils.printLog(logger, "schemeInfoList.size: {}", schemeInfoList.size());
+        try(Connection fromDS = applicationSettingService.getJDBCConection(branchInfo,true)) {
+        	Connection toDS = applicationSettingService.getCurrentJDBCConnection();
+	        if (schemeInfoList.size() > 0) {
+	            for (SchemeInfo schemeInfo : schemeInfoList) {
+	
+	                LogUtils.printLog(logger, "schemeInfo.id: {}", schemeInfo.getId());
+	
+	                // 源表與目標表
+	                String fromTable = schemeInfo.getSource();
+	                String toTable = schemeInfo.getDestination();
+	
+	                    try {
+	                    	int rs = 0;
+	                    	String selectSQL = MessageFormat.format("SELECT count(*) as ss FROM {0} {1}", schemeInfo.getSource(),
+	                				SQLStmtUtils.getCriteriaString(new String[]{"branch_code = '"+branchScheme.getBranchMaster().getBranchCode()+"'","status <> 'C'"}));
+	                        List<Map<String, Object>> execCliectQuery = PosClientUtils.execCliectQuery(fromDS, selectSQL, false);
+	                        Object obj = execCliectQuery.get(0).get("ss");
+	                        if(Integer.parseInt(obj.toString())>0){
+		                        if (schemeInfo.isConsistentStructure()) {
+		                        	toDS.setAutoCommit(false);
+		                        	rs = JDBCUtils.StructureConsistentbulkCopy(fromDS, toDS, schemeInfo, new String[]{"branch_code = '"+branchScheme.getBranchMaster().getBranchCode()+"'","status <> 'C'"});
+		                        	toDS.commit();
+		                        	toDS.setAutoCommit(true);
+		                        } else {
+		                        	toDS.setAutoCommit(false);
+		                        	rs = JDBCUtils.bulkCopyFromSQLConn(fromDS, toDS, schemeInfo, null, null, new String[]{"branch_code = '"+branchScheme.getBranchMaster().getBranchCode()+"'","status <> 'C'"});
+		                        	toDS.commit();
+		                        	toDS.setAutoCommit(true);
+		                        }
+	                        } else {
+	                        	continue;
+	                        }
+	                        String fromSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable);
+	                        PosClientUtils.updateTable(fromDS, fromSql, false);
+	                        createJobLogDetail(taskJobLog, fromTable, toTable, rs, 0);
+	                        
+	                        result = pollSchemeType +":" + branchScheme.getDirection() +" process success!";
+	                    } catch (Exception e) {
+	                        LogUtils.printException(logger, "Task execte exception:", e);
+	                       
+	                        result = pollSchemeType +":" + branchScheme.getDirection() +" process failed!";
+	                        
+	                        try{
+	                            if(toDS!=null){
+	                            	toDS.rollback();
+	                            	toDS.setAutoCommit(true);
+	                            }
+	                         }catch(SQLException e1){
+	                        	 LogUtils.printException(logger, "transaction rollback exception:", e1);
+	                         }
+	                        createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+	        				insertTaskJobLog(taskJobLog);
+	                    }
+	            }
+	            
+	        } else {
+	            LogUtils.printLog(logger, "data is null");
+	        }
+        } catch(Exception e) {
+        	LogUtils.printException(logger, "get connection is null");
+            createJobExceptionDetail(taskJobLog, "", "", e);
+        }
+        insertTaskJobLog(taskJobLog);
+        return result;
+    }
+
+    private String writeFileByClienType(BranchScheme branchScheme, TaskJobLog taskJobLog, Logger logger) throws SQLException {
+    	String result = null;
+    	
+    	ClientType clientType = branchScheme.getBranchInfo().getClientType();
+    	PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+        List<SchemeInfo> schemeInfoList = pollSchemeInfoService
+                .findSchemeInfoBySchemeTypeAndClientType(pollSchemeType, clientType);
+
+        LogUtils.printLog(logger, "schemeInfoList.size: {}", schemeInfoList.size());
+        Connection connection = applicationSettingService.getCurrentJDBCConnection();
+        if (schemeInfoList.size() > 0) {
+            String tmpDir = System.getProperty("java.io.tmpdir");
+            for (SchemeInfo schemeInfo : schemeInfoList) {
+
+                LogUtils.printLog(logger, "schemeInfo.id: {}", schemeInfo.getId());
+
+                List<SchemeTableColumn> tableColumnList = schemeInfo.getSchemeTableColumns();
+
+                if (tableColumnList.size() > 0) {
+                    List<Map<String, Object>> sourceListData = new ArrayList<Map<String, Object>>();
+
+                    List<String> fromColumnList = new ArrayList<String>();
+                    StringBuffer sqlBuffer = new StringBuffer();
+                    // 源表與目標表
+                    String fromTable = schemeInfo.getSource();
+                    String toTable = schemeInfo.getDestination();
+                    String delimiter = null;
+                    if(clientType.equals(ClientType.CSV)) {
+                    	delimiter = schemeInfo.getDelimiter();	
+                    }
+
+                    sqlBuffer.append("select ");
+
+                    for (int i = 0; i < tableColumnList.size(); i++) {
+                        String fromColumn = tableColumnList.get(i).getFromColumn();
+                        fromColumnList.add(fromColumn);
+                        if (i == tableColumnList.size() - 1) {
+                            sqlBuffer.append(fromColumn);
+                        } else {
+                            sqlBuffer.append(fromColumn + ",");
+                        }
+                    }
+                    sqlBuffer.append(" from " + fromTable);
+                    LogUtils.printLog(logger, "sql: {}", sqlBuffer.toString());
+                    // 連接數據庫查詢,得到一個sourceListData
+                    try {
+                    	String fromSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable);
+                        PosClientUtils.updateTable(connection, fromSql, false);
+                        sourceListData = PosClientUtils.execCliectQuery(connection, sqlBuffer.toString(), false);
+
+                        if (!sourceListData.isEmpty()) {
+                            String filePath = tmpDir + toTable + clientType.getFileExt();
+                            
+                            // save file to local path
+                            saveFile(fromColumnList, sourceListData, filePath, clientType, delimiter);
+
+                            // upload files to ftp path
+                            boolean uploadFile = ftpService.uploadFile(branchScheme.getBranchInfo(), branchScheme.getBranchInfo().getClientDB(),
+                                    new File(filePath));
+
+                            LogUtils.printLog(logger, "uploadFile: {}, result: {} ", filePath, uploadFile);
+
+                            createJobLogDetail(taskJobLog, fromTable, toTable, 0, 0);
+                            
+                            result = pollSchemeType +":" + branchScheme.getDirection() +" process success!";
+                        }
+
+                    } catch (SQLException e) {
+                        LogUtils.printException(logger, "Task execte exception:", e);
+                        
+                        result = pollSchemeType +":" + branchScheme.getDirection() +" process failed!";
+
+                        createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+                        insertTaskJobLog(taskJobLog);
+                    }
+                } else {
+                    LogUtils.printLog(logger, "columns is empty");
+                }
+            }
+
+        } else {
+            LogUtils.printLog(logger, "data is null");
+        }
+        insertTaskJobLog(taskJobLog);
+        return result;
+    }
+
+    private void saveFile(List<String> fromColumnList, List<Map<String, Object>> sourceListData, String fileName,
+            ClientType clientType, String delimiter) {
+        if (clientType.equals(ClientType.CSV)) {
+            writeCsvFile(fromColumnList, sourceListData, fileName,delimiter);
+        } else if (clientType.equals(ClientType.TEXT)) {
+            writeTextFile(fromColumnList, sourceListData, fileName);
+        } else {
+            try {
+    			throw new NotFoundException("clientType is not found : " + clientType);
+    		} catch (NotFoundException e) {
+    			e.printStackTrace();
+    		}
+        }
+    }
+
+    private void writeTextFile(List<String> fromColumnList, List<Map<String, Object>> sourceListData, String fileName) {
+        BufferedWriter bw = null;
+        try {
+            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(fileName), JDBCUtils.DEFAULT_CSV_ENCODING)); //UTF-16
+//            for (String column : fromColumnList) {
+//                bw.write(column + "\t");
+//            }
+//            bw.newLine();
+//            for (Map<String, Object> map : sourceListData) {
+//                Collection<Object> list = map.values();
+//                for (Object object : list) {
+//                    bw.write(object.toString() + "\t");
+//                }
+//                bw.newLine();
+//            }
+            for (Map<String, Object> map : sourceListData) {
+                for (String column : fromColumnList) {
+            		if(map.containsKey(column)){
+            			bw.write(map.get(column).toString()+"\t");
+            		}
+                }
+                bw.newLine();
+			}
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void writeCsvFile(List<String> fromColumnList, List<Map<String, Object>> sourceListData, String fileName, String delimiter) {
+        FileOutputStream output = null;
+        char temp = 0;
+        if (delimiter.isEmpty()) {
+        	temp = ",".toCharArray()[0];
+        } else if (delimiter.equals("\t")) {
+        	temp = '\t';
+        }
+        	
+        try {
+            output = new FileOutputStream(fileName);
+
+//            output.write(new byte[] { (byte) 0xEF, (byte) 0xBB, (byte) 0xBF });
+            CsvWriter csvWriter = new CsvWriter(output, temp, Charset.forName(JDBCUtils.DEFAULT_CSV_ENCODING));//JDBCUtils.DEFAULT_CSV_ENCODING
+//            for (String column : fromColumnList) {
+//                csvWriter.write(column);
+//            }
+//            csvWriter.endRecord();
+        	for (Map<String, Object> map : sourceListData) {
+                for (String column : fromColumnList) {
+            		if(map.containsKey(column)){
+            			csvWriter.write(map.get(column).toString());
+            		}
+                }
+                csvWriter.endRecord();
+			}
+            csvWriter.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String writerDBFFile(BranchScheme branchScheme, TaskJobLog taskJobLog, Logger logger) {
+    	String result = null;
+    	
+    	ClientType clientType = branchScheme.getBranchInfo().getClientType();
+    	PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+        List<SchemeInfo> schemeInfoList = pollSchemeInfoService
+                .findSchemeInfoBySchemeTypeAndClientType(pollSchemeType, clientType);
+
+        LogUtils.printLog(logger, "schemeInfoList.size: {}", schemeInfoList.size());
+
+        if (schemeInfoList.size() > 0) {
+            String tmpDir = System.getProperty("java.io.tmpdir");
+            Connection fromDS = applicationSettingService.getCurrentJDBCConnection();
+            for (SchemeInfo schemeInfo : schemeInfoList) {
+
+                LogUtils.printLog(logger, "schemeInfo.id: {}", schemeInfo.getId());
+
+                List<SchemeTableColumn> tableColumnList = schemeInfo.getSchemeTableColumns();
+
+                if (tableColumnList.size() > 0) {
+
+                    // 源表與目標表
+                    String fromTable = schemeInfo.getSource();
+                    String toTable = schemeInfo.getDestination();
+
+                    // 連接數據庫查詢,得到一個sourceListData
+                    try {
+                        String filePath = JavaDBFUtils.getFilePathByScheme(tmpDir, branchScheme.getBranchMaster().getBranchCode(), fromTable, new Date());
+                        String subFilePath = filePath.substring(0,filePath.lastIndexOf("\\"));
+                        File file = new File(subFilePath);
+                        if(!file.exists()){
+                        	file.mkdirs();
+                        }
+                        // save file to local path
+						JavaDBFUtils.bulkCopyFromSQLToDBF(fromDS, filePath, fromTable, toTable, tableColumnList, null, null);
+                        // upload files to ftp path
+                        boolean uploadFile = ftpService.uploadFile(branchScheme.getBranchInfo(), branchScheme.getBranchInfo().getClientDB(),
+                                new File(filePath));
+                        String fromSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable);
+                        PosClientUtils.updateTable(fromDS, fromSql, false);
+                        LogUtils.printLog(logger, "uploadFile: {}, result: {} ", filePath, uploadFile);
+
+                        createJobLogDetail(taskJobLog, fromTable, toTable, 0, 0);
+                        
+                        result = pollSchemeType +":" + branchScheme.getDirection() +" process success!";
+
+                    } catch (SQLException e) {
+                        LogUtils.printException(logger, "Task execte exception:", e);
+
+                        result = pollSchemeType +":" + branchScheme.getDirection() +" process failed!";
+                        
+                        createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+                        insertTaskJobLog(taskJobLog);
+                    } catch (IOException e) {
+                    	 LogUtils.printException(logger, "bulkCopyFromSQLToDBF execte exception:", e);
+                         createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+                         insertTaskJobLog(taskJobLog);
+					}
+                } else {
+                    LogUtils.printLog(logger, "columns is empty");
+                }
+            }
+        } else {
+            LogUtils.printLog(logger, "data is null");
+        }
+        insertTaskJobLog(taskJobLog);
+        return result;
+	}
+    
+    private void insertTaskJobLog(TaskJobLog taskJobLog) {
+        if (TaskProcessStatus.PROGRESS.equals(taskJobLog.getStatus())) {
+            taskJobLog.setStatus(TaskProcessStatus.COMPLETE);
+        }
+        taskJobLog.setEndTime(new Date());
+        taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+    }
+
+    private void createJobExceptionDetail(TaskJobLog taskJobLog, String fromTable, String toTable, Exception e) {
+    	taskJobLog.setStatus(TaskProcessStatus.FAILED);
+		TaskJobExceptionDetail taskJobExceptionDetail = new TaskJobExceptionDetail();
+		taskJobExceptionDetail.setSource(fromTable);
+		taskJobExceptionDetail.setDestination(toTable);
+		taskJobExceptionDetail.setExceptionContent(LogUtils.getStackTrace(e));
+		taskJobExceptionDetail.setTaskJobLog(taskJobLog);
+		Auditer.audit(taskJobExceptionDetail);
+
+		taskJobLogService.addOrUpdateTaskJobExceptionDetail(taskJobExceptionDetail);
+
+
+//        if (taskJobLog.getTaskJobExceptionDetails() == null) {
+//            taskJobLog.setTaskJobExceptionDetails(new TreeSet<TaskJobExceptionDetail>());
+//        }
+//
+//        taskJobLog.getTaskJobExceptionDetails().add(taskJobExceptionDetail);
+    }
+
+    private void createJobLogDetail(TaskJobLog taskJobLog, String fromTable, String toTable, int rs, int row) {
+    	TaskJobLogDetail taskJobLogDetail = new TaskJobLogDetail();
+		taskJobLogDetail.setTaskJobLog(taskJobLog);
+		taskJobLogDetail.setSource(fromTable);
+		taskJobLogDetail.setDestination(toTable);
+		taskJobLogDetail.setNumOfRecDelete(row);
+		taskJobLogDetail.setNumOfRecProcessed(null);
+		taskJobLogDetail.setNumOfRecInsert(rs);
+		taskJobLogDetail.setNumOfRecUpdate(rs);
+		Auditer.audit(taskJobLogDetail);
+
+//		if (taskJobLog.getTaskJobLogDetails() == null) {
+//			taskJobLog.setTaskJobLogDetails(new TreeSet<TaskJobLogDetail>());
+//		}
+
+		taskJobLogService.addOrUpdateTaskJobLogDetail(taskJobLogDetail);
+		// taskJobLog.getTaskJobLogDetails().add(taskJobLogDetail);
+    }
+
+    private TaskJobLog createTaskJobLog(BranchScheme branchScheme) {
+    	TaskJobLog taskJobLog = taskJobLogService.findLatestTaskJobLog(branchScheme);
+		if (taskJobLog != null) {
+			if (taskJobLog.getStatus() == TaskProcessStatus.PROGRESS) {
+				return null;
+			}
+			taskJobLog.setLastestJobInd(LatestJobInd.N);
+			Auditer.audit(taskJobLog);
+			taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+		}
+
+		TaskJobLog taskLog = new TaskJobLog();
+		taskLog.setLastestJobInd(LatestJobInd.Y);
+		taskLog.setStatus(TaskProcessStatus.PROGRESS);
+		taskLog.setStartTime(new Date());
+        taskLog.setBranchCode(branchScheme.getBranchMaster().getBranchCode());
+        taskLog.setPollSchemeName(branchScheme.getPollSchemeName());
+		Auditer.audit(taskLog);
+		taskLog.setSchemeScheduleJob(branchScheme.getSchemeScheduleJob());
+		taskLog.setPollSchemeID(branchScheme.getId());
+		taskLog.setDirection(branchScheme.getDirection());
+		taskLog.setPollSchemeType(branchScheme.getPollSchemeType());
+		taskLog = taskJobLogService.addOrUpdateTaskJobLog(taskLog);
+
+		return taskLog;
+    }
+
+}

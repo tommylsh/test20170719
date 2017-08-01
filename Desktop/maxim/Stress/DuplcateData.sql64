@@ -1,0 +1,13 @@
+
+
+dbo.hist_check_logs
+
+
+select branch_code ,business_date    ,order_no   ,event_no             ,trans_type ,order_seq ,trans_datetime          ,uid          
+,station_id ,table_id ,nop   ,gross_amt             ,total_qty    ,pmt_no     ,disc_off_rate ,deduct_amt            ,net_amt               
+serv_chg_amt          ,disc_serv_chg ,gst_amt               ,grand_total           ,deposit               ,remain                
+,close_datetime          ,close_uid    ,close_station_id ,recall ,refund ,void ,void_datetime           ,void_uid     ,void_station_id 
+,org_order_no ,auth_uid     ,void_reason ,print_times ,remark_type ,remarks              ,pending reserved             ,status last_update_time        ,rowguid                              
+from dbo.hist_orders
+
+

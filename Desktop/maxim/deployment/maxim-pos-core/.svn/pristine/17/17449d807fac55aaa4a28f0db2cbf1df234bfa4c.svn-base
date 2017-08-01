@@ -1,0 +1,122 @@
+package com.maxim.pos.sales.service;
+
+import com.maxim.enums.MediaType;
+import com.maxim.enums.RequestMethod;
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.enumeration.SalesRealTimeTable;
+import com.maxim.pos.common.service.ApplicationSettingService;
+import com.maxim.pos.common.service.PollSchemeInfoService;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.sales.persistence.RealTimeDao;
+import com.maxim.rest.ResponseData;
+import com.maxim.util.HttpUtils;
+import com.maxim.util.JsonUtils;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Transactional
+@Service("realTimeService")
+public class RealTimeServiceImpl implements RealTimeService {
+
+    @Autowired
+    private RealTimeDao realTimeDao;
+
+    @Autowired
+    private ApplicationSettingService applicationSettingService;
+
+    @Autowired
+    private PollSchemeInfoService pollSchemeInfoService;
+
+    @Override
+    public void processStgRealTimeDataToEdw(String branchCode, Logger logger) {
+        processStgRealTimeDataToEdw(branchCode, Calendar.getInstance().getTime(), logger);
+    }
+
+    @Override
+    public void processStgRealTimeDataToEdw(String branchCode, Date businessDate, Logger logger) {
+        Assert.hasText(branchCode);
+        Assert.notNull(businessDate);
+
+        SchemeInfo ordersSchemeInfo = getSchemeInfo(SalesRealTimeTable.ORDERS);
+        List<Map<String, Object>> ordersList = realTimeDao.getRealTimeDataList(ordersSchemeInfo, branchCode, businessDate);
+
+        SchemeInfo ordersPaySchemeInfo = getSchemeInfo(SalesRealTimeTable.ORDERS_PAY);
+        List<Map<String, Object>> ordersPayList = realTimeDao.getRealTimeDataList(ordersPaySchemeInfo, branchCode, businessDate);
+
+        SchemeInfo ordersExtraSchemeInfo = getSchemeInfo(SalesRealTimeTable.ORDERS_EXTRA);
+        List<Map<String, Object>> ordersExtraList = realTimeDao.getRealTimeDataList(ordersExtraSchemeInfo, branchCode, businessDate);
+
+        if (ordersPayList.isEmpty() && ordersList.isEmpty() && ordersExtraList.isEmpty()) {
+            return;
+        }
+
+        if (!ordersList.isEmpty()) {
+            realTimeDao.updateStatus(ordersSchemeInfo.getSource(), branchCode, businessDate);
+        }
+
+        if (!ordersPayList.isEmpty()) {
+            realTimeDao.updateStatus(ordersPaySchemeInfo.getSource(), branchCode, businessDate);
+        }
+
+        if (!ordersExtraList.isEmpty()) {
+            realTimeDao.updateStatus(ordersExtraSchemeInfo.getSource(), branchCode, businessDate);
+        }
+
+        ApplicationSetting applicationSetting = applicationSettingService.findApplicationSettingByCode("REAL_TIME_RS");
+        if (applicationSetting == null || StringUtils.isBlank(applicationSetting.getCodeValue())) {
+            throw new RuntimeException("Can't get the value of 'ORDER_REST_API' from application settings, please contact the administrator.");
+        }
+
+        try {
+
+            Map<String, Object> params = new HashMap<>();
+            params.put("ordersList", ordersList);
+            params.put("ordersPayList", ordersPayList);
+            params.put("ordersExtraList", ordersExtraList);
+
+            String json = HttpUtils.request(RequestMethod.POST, applicationSetting.getCodeValue(), JsonUtils.toJson(params), MediaType.APPLICATION_JSON);
+            ResponseData responseData = JsonUtils.fromJson(json, ResponseData.class);
+            if (!responseData.isSuccess()) {
+                LogUtils.printLog(logger, "Request {} success but process failed: {}", applicationSetting.getCodeValue(), responseData.getMessage());
+                throw new RuntimeException("Request " + applicationSetting.getCodeValue() + " success but process failed: " + responseData.getMessage());
+            }
+        } catch (IOException e) {
+            LogUtils.printException(logger, "Request " + applicationSetting.getCodeValue() + " failed.", e);
+            throw new RuntimeException("Request " + applicationSetting.getCodeValue() + " failed.", e);
+        }
+    }
+
+    private SchemeInfo getSchemeInfo(SalesRealTimeTable salesRealTimeTable) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("pollSchemeType", PollSchemeType.SALES_REALTIME);
+        paramMap.put("clientType", ClientType.ORACLE);
+        paramMap.put("destination", salesRealTimeTable.getTableName());
+
+        List<SchemeInfo> schemeInfoList = pollSchemeInfoService.findSchemeInfo(paramMap);
+        if (schemeInfoList.size() < 1) {
+            throw new RuntimeException("Can't get the records which destination=" + salesRealTimeTable.getTableName());
+        }
+        if (schemeInfoList.size() > 1) {
+            throw new RuntimeException("Get multi records which destination="
+                    + salesRealTimeTable.getTableName() + " and clientType=" + ClientType.ORACLE
+                    + ", please check the configuration of table 'POLL_SCHEME_INFO' is correct.");
+        }
+        return schemeInfoList.get(0);
+    }
+
+
+}

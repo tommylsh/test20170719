@@ -1,0 +1,46 @@
+package test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.maxim.pos.security.entity.Folder;
+import com.maxim.pos.security.enumeration.ResourceType;
+
+import org.junit.Assert;
+import org.junit.Test;
+
+public class EqualsTest {
+
+    @Test
+    public void test1() {
+        List<Folder> folders_1 = new ArrayList<Folder>();
+        for (int i = 1; i <= 2; i++) {
+            Folder folder = new Folder();
+            folder.setType(ResourceType.FOLDER);
+            folder.setId((long)i);
+            folder.setName("Folder" + i);
+            folders_1.add(folder);
+        }
+        
+        System.out.println(folders_1);
+        
+        List<Folder> folders_2 = new ArrayList<Folder>();
+        for (int i = 2; i >= 1; i--) {
+//        for (int i = 1; i <= 2; i++) {  
+            Folder folder = new Folder();
+            folder.setType(ResourceType.FOLDER);
+            folder.setId((long)i);
+            folder.setName("Folder" + i);
+            folders_2.add(folder);
+        }
+        
+        System.out.println(folders_2);
+        
+//        Assert.assertTrue(folders_1.equals(folders_2));
+        
+        System.out.println(folders_1.removeAll(folders_2));
+        System.out.println(folders_1);
+        
+    }
+    
+}

@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/task 
+       http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:component-scan base-package="com.maxim.dao" />
+	<context:component-scan base-package="com.maxim.pos.*.persistence" />
+	<context:component-scan base-package="com.maxim.pos.*.service" />
+	<context:component-scan base-package="com.maxim.pos.*.config" />
+	
+	<import resource="pos-core-report.xml" />
+	<import resource="pos-core-folder.xml" />
+
+	<!-- enable component scanning -->
+	<bean
+		class="com.maxim.pos.common.config.EncryptablePropertyPlaceholderConfigurer">
+		<property name="order" value="10"/>
+		<property name="locations">
+			<list>
+				<value>classpath*:jdbc.properties</value>
+				<value>classpath*:pos-config.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="ignoreResourceNotFound" value="true"/>
+	</bean>
+	<bean
+		class="com.maxim.pos.common.config.EncryptablePropertyPlaceholderConfigurer">
+		<property name="order" value="8"/>
+		<property name="locations">
+			<list>
+				<value>classpath*:server-jdbc.properties</value>
+				<value>classpath*:server-key.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="ignoreResourceNotFound" value="true"/>
+	</bean>
+
+
+	<bean
+		class="com.maxim.pos.common.config.EncryptablePropertyPlaceholderConfigurer">
+		<property name="order" value="5"/>
+		<property name="locations">
+			<list>
+				<value>file:/repos/config/server-jdbc.properties</value>
+				<value>file:/repos/config/server-key.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="ignoreResourceNotFound" value="true"/>
+	</bean>
+
+	<bean
+		class="com.maxim.pos.common.config.EncryptablePropertyPlaceholderConfigurer">
+		<property name="order" value="2"/>
+		<property name="locations">
+			<list>
+				<value>file:/./config/server-jdbc.properties</value>
+				<value>file:/./config/server-key.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="ignoreResourceNotFound" value="true"/>
+	</bean>
+
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${connection.driver_class}" />
+		<property name="jdbcUrl" value="${connection.url}" />
+		<property name="user" value="${connection.username}" />
+		<property name="password" value="${connection.password}" />
+		<property name="minPoolSize" value="${connection.minActive}" />
+		<property name="maxPoolSize" value="${connection.maxActive}" />
+		<property name="initialPoolSize" value="${connection.initialSize}" />
+		<property name="maxIdleTime" value="0" />
+		<property name="acquireIncrement" value="0" />
+		<property name="acquireRetryAttempts" value="30" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+
+	<bean id="baseEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		abstract="true">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}
+				</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}
+				</prop>
+				<prop key="hibernate.format_sql">
+					${hibernate.format_sql}
+				</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="masterDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${master.driver_class}" />
+		<property name="jdbcUrl" value="${master.url}" />
+		<property name="user" value="${master.username}" />
+		<property name="password" value="${master.password}" />
+		<property name="minPoolSize" value="${master.minActive}" />
+		<property name="maxPoolSize" value="${master.maxActive}" />
+		<property name="initialPoolSize" value="${master.initialSize}" />
+		<property name="maxIdleTime" value="0" />
+		<property name="acquireIncrement" value="0" />
+		<property name="acquireRetryAttempts" value="30" />
+	</bean>
+
+
+	<bean id="masterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="masterDataSource"/>
+	</bean>
+	
+	
+	<!-- bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean"/>
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean-->
+	<!-- define the EntityManagerFactory -->
+	<bean id="entityManagerFactory" parent="baseEntityManagerFactory">
+		<property name="packagesToScan" value="com.maxim" />
+	</bean>
+
+	<!-- transactionManager -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<!-- @Transactional Support -->
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
+
+	<bean id="urlWrapper" class="com.maxim.util.URLWrapper">
+		<constructor-arg type="java.net.URL" value="classpath:pos-core-query.xml" />
+	</bean>
+
+	<!-- AspectJ Annotation Support -->
+	<aop:aspectj-autoproxy />
+
+	<bean id="mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+		<property name="mappingFiles" value="classpath:pos-dozer-mapping.xml" />
+	</bean>
+	<bean id="beanMapper" class="com.maxim.util.BeanMapper">
+		<constructor-arg type="org.dozer.Mapper" ref="mapper" />
+	</bean>
+
+	<task:annotation-driven executor="taskExecutor" />
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />
+	</bean>
+	
+	<bean id="messageSource" class="com.maxim.i18n.MessageSource">
+		<property name="basenames">
+			<list>
+				<value>common</value>
+				<value>POS</value>
+				<value>POS_Exception</value>
+				<value>Security</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="schedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean" />
+		
+	<bean id="mailSenderAddress" class="java.lang.String">
+		<constructor-arg index="0" type="java.lang.String" value="${mailSender.username}"/>
+	</bean>
+		
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		 <property name="host" value="${mailSender.host}" />
+		 <property name="port" value="${mailSender.port}" />
+		 <property name="username" ref="mailSenderAddress" />
+		 <property name="password" value="${mailSender.password}" />
+		 <property name="javaMailProperties">
+		  <props>
+		   <prop key="mail.debug">true</prop> 
+		   <prop key="mail.smtp.auth">true</prop>
+		   <prop key="mail.smtp.starttls.enable">true</prop>
+		   <prop key="mail.mime.charset">UTF-8</prop>
+		   <prop key="mail.transport.protocol">smtp</prop>
+		  </props>
+		 </property>
+	</bean>
+	
+	<!-- bean class="com.maxim.pos.common.config.LocalConfiguration"/-->
+	<bean id="systemPrincipal" class="com.maxim.pos.security.entity.User">
+		 <property name="userId" value="${system.userId}" />	
+		 <property name="userName" value="${system.userId}" />	
+	</bean>
+	
+	<bean id="systemAudit" class="org.springframework.beans.factory.config.MethodInvokingBean">
+    	<property name="staticMethod" value="com.maxim.pos.common.Auditer.setSystemPrincipal" />
+        <property name="arguments"  ref="systemPrincipal"/>
+	</bean>
+
+</beans>

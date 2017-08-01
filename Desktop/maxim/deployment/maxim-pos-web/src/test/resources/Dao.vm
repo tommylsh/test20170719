@@ -1,0 +1,36 @@
+#parse ("macro.vm")
+package com.maxim.pos.core.persistence;
+
+import com.maxim.dao.HibernateDAO;
+import ${entityClassName};
+import com.maxim.pos.common.persistence.PosDaoCmd;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+
+@Repository("#toLowerCase(${entitySimpleName})Dao")
+public class ${entitySimpleName}Dao extends HibernateDAO {
+
+    public static final String HQL_find${entitySimpleName}ByCriteria = "find${entitySimpleName}ByCriteria";
+
+    public ${entitySimpleName} getById(Long id) {
+        return getSingle(${entitySimpleName}.class, id);
+    }
+
+    public List<${entitySimpleName}> find${entitySimpleName}ByCriteria(CommonCriteria criteria) {
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_find${entitySimpleName}ByCriteria, paramMap);
+        return (List<${entitySimpleName}>) getPaginatedListByCriteriaAndType(cmd, paramMap, ${entitySimpleName}.class);
+    }
+
+    public Long get${entitySimpleName}CountByCriteria(CommonCriteria criteria) {
+        criteria.setQueryRecord(false);
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_find${entitySimpleName}ByCriteria, paramMap);
+        return getSingle(cmd, Long.class);
+    }
+
+}

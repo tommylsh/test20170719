@@ -1,0 +1,49 @@
+package com.maxim.pos.sales.service;
+
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.pos.sales.persistence.BranchInfoDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Transactional
+@Service(BranchInfoService.BEAN_NAME)
+public class BranchInfoServiceImpl implements BranchInfoService {
+
+    @Autowired
+    private BranchInfoDao branchInfoDao;
+
+    @Override
+    public void save(BranchInfo branchInfo) {
+        if (branchInfo == null) {
+        throw new RuntimeException("[Validation failed] - this argument [branchInfo] is required; it must not be null");
+        }
+        branchInfoDao.save(branchInfo);
+    }
+
+    @Override
+    public void delete(Long branchInfoId) {
+        if (branchInfoId == null) {
+            throw new RuntimeException("[Validation failed] - this argument [branchInfoId] is required; it must not be null");
+        }
+        BranchInfo scheduleJob = branchInfoDao.getById(branchInfoId);
+        if (scheduleJob == null) {
+            throw new RuntimeException("The record which branchInfoId=" + branchInfoId + " is not exist.");
+        }
+        branchInfoDao.delete(scheduleJob);
+    }
+
+    @Override
+    public List<BranchInfo> findBranchInfoByCriteria(CommonCriteria criteria) {
+        return branchInfoDao.findBranchInfoByCriteria(criteria);
+    }
+    
+    @Override
+    public Long getBranchInfoCountByCriteria(CommonCriteria criteria) {
+        return branchInfoDao.getBranchInfoCountByCriteria(criteria);
+    }
+
+}

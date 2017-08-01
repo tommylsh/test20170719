@@ -1,0 +1,190 @@
+select * from dbo.POLL_EOD_CONTROL where branch_code ='3701' 
+and business_date = '2017-04-11'
+
+delete from dbo.POLL_EOD_CONTROL where branch_code ='3701' and business_date = '2017-04-11'
+
+select * from dbo.TASK_JOB_LOG where branch_code ='3701' 
+select * from dbo.POLL_BRANCH_INFO 
+
+select * from currency
+
+select * from payment
+
+
+select * from dbo.TASK_JOB_LOG where branch_code ='5217'  and poll_scheme_type='SALES_EOD'
+and create_time >'2017-05-08 08:00:00'
+order by create_time
+
+
+select * from dbo.TASK_JOB_LOG_DETAIL
+where task_job_log_id in
+(
+383601,
+383614,
+386855
+)
+order by create_time
+
+
+select * from dbo.POLL_SCHEME_INFO where client_type='SQLPOS'
+and poll_scheme_type='SALES_REALTIME'
+
+
+select * from dbo.POLL_SCHEME_INFO where client_type='SQLPOS'
+and poll_scheme_type='SALES_EODS'
+
+ select * from  dbo.POLL_BRANCH_INFO
+ 
+ select * from dbo.POLL_EOD_CONTROL
+ 
+ 
+ SELECT * FROM payment p (NOLOCK) 
+    		where  p.branch_code = '3763' 
+             and (p.cury_no = '000' or ( exists (select 1 from currency c where p.cury_no = c.cury_no and p.branch_code = c.branch_code 
+             and c.base_cury = '1' and c.reserved <> 'DEL' ))) 
+             and p.reserved <> 'DEL' 
+ 
+ 
+     select * from dbo.payment 
+     where branch_code='3763'
+     
+     
+     SELECT
+        branch_code, business_date, station_id, pay_code, cury_no, 
+    SUM( tender * case when refund = '0' then 1 when refund = '1' then -1 else 0 end),
+    SUM( tender * case when refund = '0' then 1 when refund = '1' then -1 else 0 end),
+        exch_rate,
+    SUM( pay_amt * case when refund = '0' then 1 when refund = '1' then -1 else 0 end),
+    SUM( pay_amt * case when refund = '0' then 1 when refund = '1' then -1 else 0 end),
+    SUM( pay_qty * case when refund = '0' then 1 when refund = '1' then -1 else 0 end),
+        '', ' ', GETDATE() , NEWID()
+FROM hist_orders_pay  WHERE recall = 0  AND void = '0'
+and  branch_code ='3763'
+GROUP BY branch_code, business_date, station_id, pay_code, cury_no, exch_rate
+     
+     select * from hist_orders_pay where branch_code ='3763' and  business_date='2017-04-07' and  pay_code='0001' and station_id='0001'
+     select * from hist_orders_pay where order_no = 0100183316
+     select * from hist_orders where order_no = 0100183316
+     select * from hist_paysum where branch_code ='3763' 
+     select * from hist_possystem where branch_code ='3763' 
+     select * from hist_payfig where branch_code ='3763' 
+     
+     
+     
+     select * from hist_paysum where branch_code ='4692' ;
+          select * from hist_possystem where branch_code ='4692' ;
+               select * from hist_orders_pay where branch_code ='4692' ;
+               select * from hist_possystem where branch_code ='4692' 
+       select * from hist_orders where branch_code ='4692'
+       
+       
+       
+     update hist_orders_pay set business_date = b.business_date   
+     from hist_orders_pay a, hist_orders b  
+     where a.branch_code = b.branch_code  
+     and a.order_no = b.order_no  and a.recall = b.recall  
+     AND a.branch_code = '3763'  AND a.business_date = '2017-04-07'  AND b.business_date > '2017-04-05' and b.business_date <= '2017-04-07'
+     
+     
+     
+      
+        SELECT business_date, cury_no, pay_code, 
+    		 ISNULL(SUM( (tender + tips) * case when refund = '0' then 1 when refund = '1' then -1 else 0 end), 0) as amt, 
+    		 ISNULL(SUM( (pay_amt + change) * case when refund = '0' then 1 when refund = '1' then -1 else 0 end), 0) as local_amt, 
+    		 ISNULL(SUM(change * case when refund = '0' then -1 when refund = '1' then 1 else 0 end), 0) as change
+    		 FROM hist_orders_pay (NOLOCK) 
+    		 WHERE recall = 0 AND void = '0' 
+    		 AND branch_code = '3763'
+    		 AND business_date = '2017-04-06' 
+    		 GROUP BY business_date, cury_no, 	pay_code
+     
+     select * from hist_possystem where  branch_code = '3763'
+       and business_date = '2017-04-06'     
+     select * from hist_orders where  branch_code = '4692'
+       and business_date = '2017-04-06'
+     
+     select * from HIST_PAYFIG where  branch_code = '3763'
+       and business_date = '2017-04-07'
+       AND type like 'B%' and void = 0 
+     
+     select * from HIST_PAYFIG where  branch_code = '4692'
+       and business_date = '2017-04-06'
+       AND type like 'B%' and void = 0 
+
+     delete from dbo.POLL_EOD_CONTROL where branch_code = '3763' and business_date = '2017-04-07'
+ 
+     delete from dbo.POLL_EOD_CONTROL where branch_code = '4692' and business_date = '2017-04-07'
+ 
+
+     
+     update hist_orders 
+     set business_date = '2017-04-07'       
+     where  branch_code = '3763'
+       and business_date = '2017-04-06'       
+            
+       update hist_check_logs set business_date = b.business_date 
+       from hist_check_logs a, hist_orders b
+       where  a.business_date = b.business_date 
+       and 	a.branch_code = b.branch_code 
+       and a.order_no = b.order_no 
+       and a.recall = b.recall
+       and a.branch_code = '3763'
+       and a.business_date = '2017-04-06'
+       
+       select * from hist_orders a where 1=1
+       and a.branch_code = '3763'
+       and a.business_date = '2017-04-07'
+       
+       
+       select * ,
+       
+        cast(right(convert(char(8),getdate(), 108), 1)as int)
+       
+       from dbo.POLL_EOD_CONTROL where branch_code = '4692'
+        
+        
+        update  POLL_SCHEME_SCHEDULE_JOB set is_enable='1'
+        
+        
+selec        dbo.POLL_BRANCH_SCHEME
+        
+select * from        dbo.POLL_SCHEME_SCHEDULE_JOB
+
+insert into dbo.POLL_SCHEME_SCHEDULE_JOB values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','0 0 * * * ?', '1','every 1 hour to run', 'Report Job', 'Report Job','DAYEND_REPORT','REPORT');
+insert into dbo.POLL_SCHEME_SCHEDULE_JOB values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','0 0/10 * * * ?', '1','every 10 minutes to run', 'Octopus Job', 'JCR','OCT_JCR','OCT_TO_POS');
+insert into dbo.POLL_SCHEME_SCHEDULE_JOB values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','0 0/10 * * * ?', '1','every 10 minutes to run', 'Octopus Job', 'AROME','OCT_AROME','OCT_TO_POS');
+insert into dbo.POLL_SCHEME_SCHEDULE_JOB values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','0 0/10 * * * ?', '1','every 10 minutes to run', 'Octopus Job', 'OTHER','OCT_OTHER','OCT_TO_POS');
+
+
+
+Mail Job	Mail Job	STG_TO_SMTP	SMTP
+'Email Address For Report','tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk,ITDBA@maxims.com.hk');
+
+2017-05-02 10:40:35.000	ESB_SYSTEM	2017-05-02 10:40:36.000	ESB_SYSTEM	0 0 1 * * ?	1	 every 1 day to  run	HOUSE_KEEPING	HOUSE_KEEPING
+
+select * from dbo.POLL_APPLICATION_SETTING
+
+tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk,ITDBA@maxims.com.hk
+update POLL_APPLICATION_SETTING set code_value='tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk' where code in('ALERT_EMAIL','REPORT_EMAIL')
+
+
+insert into dbo.POLL_APPLICATION_SETTING values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','REPORT_EMAIL', 'Email Address For Report','tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk,ITDBA@maxims.com.hk');
+insert into dbo.POLL_APPLICATION_SETTING values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','ALERT_EMAIL',  'Email Address For Email Alert','tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk,ITDBA@maxims.com.hk');
+
+2017-04-06 00:00:00.000	ESB_SYSTEM	2017-04-26 11:16:40.190	admin	ALERT_EMAIL	SMTP	
+
+
+select '[' + mapping_branch_code + ']' from dbo.POLL_BRANCH_MASTER where branch_code ='5120'
+select '[' + branch_code + ']' from dbo.hist_orders where branch_code ='5120'
+
+
+
+
+
+select * from dbo.POLL_SCHEME_JOB_LOG
+where schedule_job_id=33
+
+
+
+
+

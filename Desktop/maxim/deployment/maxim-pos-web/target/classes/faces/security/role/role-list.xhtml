@@ -1,0 +1,274 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/templates/main.xhtml">
+
+	<ui:define name="title">
+		<cc:titleText title="#{msg['security']['roleManagement']}" />
+	</ui:define>
+
+	<ui:define name="content">
+
+		<style>
+<!--
+-->
+</style>
+
+		<script>
+			function checkElementSelection() {
+				if (PF('roleDataTableVar').selection.length == 0) {
+					PF('infoDialog').show();
+					return false;
+				} else {
+					return true;
+				}
+			}
+		</script>
+
+		<h:form id="roleDataTableForm">
+
+			<p:panel header="#{msg['common']['search']}" style="width: 100%;">
+				<div class="ui-grid ui-grid-responsive">
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-4">
+							<h:outputLabel for="name" value="#{msg['common']['name']}" />
+							<p:inputText id="name"
+								value="#{roleManagementController.dataModel.dataModelQuery.criteria.nameKeyword}"
+								label="#{msg['common']['name']}" maxlength="30"
+								style="width: 164px;" />
+						</div>
+					</div>
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-4">
+							<h:outputLabel for="aliasKeyword"
+								value="#{msg['security']['alias']}" />
+							<p:inputText id="aliasKeyword"
+								value="#{roleManagementController.dataModel.dataModelQuery.criteria.aliasKeyword}"
+								label="#{msg['common']['name']}" maxlength="30"
+								style="width: 164px;" />
+							
+							<p:commandButton id="searchButton"
+									value="#{msg['common']['search']}" update="roleDataTable"
+									icon="ui-icon-search1" style=" margin-left: 10px;" />
+						</div>
+					</div>
+
+				</div>
+			</p:panel>
+
+			<sec:authorize
+				ifAnyGranted="CREATE_PERMISSION,EDIT_PERMISSION,DELETE_PERMISSION">
+				<p:toolbar id="toolbar">
+					<p:toolbarGroup align="left">
+
+						<sec:authorize ifAnyGranted="CREATE_PERMISSION">
+							<p:commandButton id="addBtn" value="#{msg['common']['add']}"
+								process="@this" action="#{roleManagementController.add}"
+								update=":roleDialogForm"
+								oncomplete="PF('roleDialogVar').show();" icon="ui-icon-add" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="EDIT_PERMISSION">
+							<p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+								process="@form" action="#{roleManagementController.edit}"
+								update=":roleDialogForm"
+								oncomplete="PF('roleDialogVar').show();" icon="ui-icon-edit"
+								onclick="if (!checkDatatableSelection('roleDataTableVar')) return false;" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="DELETE_PERMISSION">
+							<p:commandButton id="deleteBtn"
+								value="#{msg['common']['delete']}" process="@form"
+								action="#{roleManagementController.delete}"
+								update=":roleDataTableForm:roleDataTable :primefaceMessages" icon="ui-icon-delete"
+								onclick="if (!confirmDeleteDatatableRecord('roleDataTableVar')) return false;" />
+						</sec:authorize>
+
+					</p:toolbarGroup>
+				</p:toolbar>
+			</sec:authorize>
+
+			<p:dataTable id="roleDataTable" widgetVar="roleDataTableVar"
+				var="element" value="#{roleManagementController.dataModel}"
+				selection="#{roleManagementController.roleObject}" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+				emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+
+				<f:facet name="header">
+					<p:graphicImage value="/images/record16.png" />
+					<h:outputText value="#{msg['security']['role']}" />
+				</f:facet>
+
+				<p:column selectionMode="single"
+					style="width:16px; text-align:center" />
+
+				<p:column headerText="#{msg['security']['name']}">
+					<h:outputText value="#{element.name}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['alias']}">
+					<h:outputText value="#{element.alias}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['enabled']}">
+					<p:graphicImage value="/images/enabled16.png"
+						rendered="#{element.enabled}" />
+					<p:graphicImage value="/images/disabled16.png"
+						rendered="#{!element.enabled}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['description']}">
+					<h:outputText value="#{element.description}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+
+	<ui:define name="dialog">
+		<style>
+#roleDialogForm .ui-widget-content {
+	border: none;
+}
+
+#roleDialogForm .ui-panelgrid .ui-panelgrid-cell {
+	border-style: none;
+}
+
+.ui-datatable tbody td {
+	border-color: #d5d5d5;
+}
+
+.operation-btn-grid tr {
+	border: 0px !important;
+}
+
+.operation-btn-grid tr td {
+	border: 0px !important;
+}
+
+.operation-btn-grid .ui-button {
+	width: 80px;
+}
+
+.ui-picklist .ui-picklist-list {
+	width: 250px;
+}
+</style>
+
+		<p:dialog id="roleDialog" widgetVar="roleDialogVar" modal="true"
+			width="800" height="500" resizable="false">
+			
+			<p:ajax event="close"
+					listener="#{roleManagementController.onDialogClose}" />
+
+			<f:facet name="header">
+				<p:graphicImage value="/images/element16.png" />
+				<h:outputText value="#{msg['security']['roleDetail']}" />
+			</f:facet>
+			<h:form id="roleDialogForm">
+
+				<h:panelGrid id="formPanel" columns="2"
+					columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5"
+					style="width: 100%;"
+					rendered="#{roleManagementController.roleObject != null}">
+
+					<h:outputLabel for="name" value="#{msg['security']['name']}" />
+					<p:inputText id="name"
+						value="#{roleManagementController.roleObject.name}"
+						label="#{msg['security']['name']}" maxlength="40"
+						style="width: 95%" required="true" />
+
+					<h:outputLabel for="alias" value="#{msg['security']['alias']}" />
+					<p:inputText id="alias"
+						value="#{roleManagementController.roleObject.alias}"
+						label="#{msg['security']['alias']}" maxlength="40"
+						style="width: 95%" required="true" />
+
+					<h:outputLabel for="enabled" value="#{msg['security']['enabled']}" />
+					<p:selectBooleanCheckbox id="enabled"
+						value="#{roleManagementController.roleObject.enabled}"
+						label="#{msg['common']['enabled']}" required="true" />
+
+					<h:outputLabel for="description"
+						value="#{msg['security']['description']}" />
+					<p:inputText id="description"
+						value="#{roleManagementController.roleObject.description}"
+						label="#{msg['security']['description']}" maxlength="500"
+						style="width: 95%" />
+
+					<h:outputText value="#{msg['security']['permission']}" />
+					<p:pickList id="rolePickList"
+						value="#{roleManagementController.permissionListModel}"
+						var="permissionVar"
+						itemLabel="#{permissionVar.name}(#{permissionVar.alias})"
+						itemValue="#{permissionVar}" converter="#{entityConverter}"
+						style="width: 95%; border: 1px #EEEEEE solid;" />
+
+					<h:outputText value="Select Resource" />
+					<p:tree id="resourceTree" widgetVar="resourceTreeVar"
+						value="#{roleManagementController.resourceTreeHolder.root}"
+						var="node" selectionMode="checkbox"
+						selection="#{roleManagementController.resourceTreeHolder.selectedNodes}"
+						style="width: 95%; border: 1px #EEEEEE solid;">
+
+						<p:treeNode type="SYSTEM">
+							<h:outputText value="#{node.name}" />
+						</p:treeNode>
+						<p:treeNode type="FOLDER">
+							<h:outputText value="#{node.name}"
+								style="#{node.enabled ? '' : 'background-color: #CCCCCC;'}" />
+						</p:treeNode>
+						<p:treeNode type="LINK">
+							<h:outputText value="#{node.name} - #{node.url}"
+								style="#{node.enabled ? '' : 'background-color: #CCCCCC;'}" />
+						</p:treeNode>
+					</p:tree>
+
+				</h:panelGrid>
+
+				<h:panelGroup
+					style="width: 95%; display: inline-block; text-align: right;">
+					<p:commandButton id="submitButton" value="#{msg['common']['save']}"
+						styleClass="left-margin-style"
+						actionListener="#{roleManagementController.save}"
+						update="@form :roleDataTableForm :primefaceMessages"
+						oncomplete="handleComplete(xhr, status, args)"
+						icon="ui-icon-save1" style=" margin-right: -7px;" />
+				</h:panelGroup>
+
+
+			</h:form>
+		</p:dialog>
+
+		<script type="text/javascript">
+			function handleComplete(xhr, status, args) {
+				console.log(args);
+				if (args.validationFailed) {
+					PF('roleDialogVar').jq.effect("shake", {
+						times : 3
+					}, 100);
+				} else {
+					PF('roleDialogVar').hide();
+				}
+			}
+
+			$(document).bind("keyup", function(evt) {
+				if (27 == evt.keyCode) {
+					PF('roleDialogVar').hide();
+				}
+			});
+		</script>
+
+	</ui:define>
+
+</ui:composition>

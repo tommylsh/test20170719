@@ -1,0 +1,134 @@
+Steven briefing 
+===============
+
+
+SA & D
+=======
+
+
+1. Task
+=======
+
+ - External Compatability 
+ - Work with application team to get knowledge 
+ 
+ 
+ Internal / External / Changes 
+ 
+ Draw a picutre 
+ 
+ Scope of work: Gurantee can Run / No improvement 
+ 
+ Time line on how to work / Edward 
+ 
+ Address Plan 
+     
+	how to address: 
+	
+		
+		SIT 
+		UAT 
+		
+		
+		
+		End Users Involved?   - What resources required ? / Any testing team (change to full reqression test)
+		
+		How to verify? 
+		
+		Pre-requisites 
+			
+			Unit Testing 
+				Definition of this....
+					Full Put 
+			
+			SIT Testing 
+				Product this 
+					Integrated with application team
+					
+			
+			New Definition 
+			
+			Difference between SIT / Full Regression test 
+			
+			
+			
+			SIT - Client 
+			
+			UAT - User Involved 
+			
+				
+			Need to clarify which team / any members / no testing team 
+			
+			UAT definition 
+			
+			Who will do ? 
+			
+			Assume all has full regression test script?   Need to provide or not 
+			
+			Project Planning has buffer on it 
+			
+			Test Script no matter who prepare .....
+			
+				Planning 
+				
+					Assumption (confirm assumption)
+					
+			
+			UAT confirm ok / SIT team first 
+			
+			
+			
+			IF APP Required ? 
+			
+				WHAT TO DO? 
+				
+			
+			
+			Error detection procedure ?
+			
+				Recommend them to test? 
+				
+					Slide one: How to do if there is problem found ....
+					
+						Add task on it 
+							Communication overhead 
+							
+							
+			Full Regression SIT   (What kind of people involved? )
+			
+			End to End User Acceptance Test 
+			
+				Any things need to consider ? 
+				
+			
+			Test Stragegry
+				Who do the test script? RGP
+				Who carry out the test?
+				Information / work with external parties / 
+				
+				Roles and responsibilty 
+				other people's roles and responsiblity 
+				
+			Coding Changes
+			
+				Due to upgrade (reserver)
+				
+					Changes Time
+					Development Time
+					Code Change 
+				
+	Add Back Big Picture Diagram  
+	Add Back Related 
+	Add Back RGP powerpoint slides 
+	Add Back Performance Test slides (target improvement? DR)
+	Asked the objectives of the project 
+	Bound back (version failed out)
+	
+		Risk management 
+			Technical how to do this ...
+				
+			
+				
+								
+		
+			

@@ -1,0 +1,15 @@
+package com.maxim.pos.common.persistence;
+
+import org.springframework.stereotype.Repository;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.ConvertLog;
+
+
+@Repository("convertLogDao")
+public class ConvertLogDao  extends HibernateDAO {
+	
+	public void saveOrUpdateConvertLog(ConvertLog converLog){
+		save(converLog);
+	}
+}

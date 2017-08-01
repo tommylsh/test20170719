@@ -1,0 +1,20 @@
+package com.maxim.pos.common.enumeration;
+
+public enum ClientType {
+
+    SQLSERVER(""),
+    SQLPOS(""),
+    ORACLE(""),
+    DBF(".dbf"), 
+    CSV(".txt"),
+    TEXT(".txt");
+    
+	private final String fileExt;
+	
+	ClientType(String newFileExte){
+		fileExt = newFileExte;
+	}
+	
+	public String getFileExt(){return fileExt;}
+    
+}

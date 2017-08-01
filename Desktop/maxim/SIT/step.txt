@@ -1,0 +1,29 @@
+1)   Realtime POS -> Staging			-> EDW
+     
+     A)		Single Branch		(XXX)
+
+		->  Test script 
+
+		->  Check data on Staging / EDW
+
+
+     B)		Multiple Branch		(A,B,C,D,E)
+
+		->  Test script 
+
+		->  Check data on Staging / EDW
+
+2)   EOD
+     A)		Single Branch		(XXX)
+
+		->  Test script 
+
+		->  Check data on Staging / EDW
+
+
+     B)		Multiple Branch		(A,B,C,D,E)
+
+		->  Test script 
+
+		->  Check data on Staging / EDW
+

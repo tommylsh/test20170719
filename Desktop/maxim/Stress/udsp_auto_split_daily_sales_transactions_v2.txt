@@ -1,0 +1,316 @@
+CREATE PROCEDURE [dbo].[udsp_auto_split_daily_sales_transactions_v2]
+@branch_code	varchar(6),
+@business_date	datetime,
+@replaced_date	datetime,
+@first_day char(1)
+AS
+
+declare @cut_off_start_datetime as datetime
+declare @cut_off_end_datetime as datetime
+
+--select @branch_code = '3423'
+--select @business_date = '20090526'
+--select @replaced_date = '20090526'
+
+if (@first_day not in ('Y', 'N')) or (@first_day = 'Y' and @business_date = @replaced_date)
+BEGIN
+	RAISERROR('Incorrect parameter value of @first_day (Y/N)', 16, 1)
+	RETURN 1
+END
+else if @replaced_date > @business_date
+BEGIN
+	RAISERROR('incorrect parameter value of @business_date/@replaced_date', 16, 1)
+	RETURN 1
+END
+
+-- Add by hing 20151229
+IF (SELECT OBJECT_ID('tempdb..#payment')) IS not NULL
+   drop table #payment
+
+SELECT pay_code into  #payment  FROM view_payment (nolock)  WHERE bank_in = '1' and branch_code = @branch_code
+
+IF NOT EXISTS (SELECT * FROM #payment)
+begin
+insert into #payment values ('0001')
+insert into #payment values ('0197')
+insert into #payment values ('0145')
+insert into #payment values ('0363')
+insert into #payment values ('0238')
+insert into #payment values ('0239')
+insert into #payment values ('0240')
+insert into #payment values ('0246')
+insert into #payment values ('0284')
+insert into #payment values ('0236')
+end
+--- Add by hing 20151229
+
+select @cut_off_start_datetime = dateadd(hh, 3, @replaced_date)
+
+--if @business_date = @replaced_date
+	select @cut_off_end_datetime = dateadd(day, 1, @cut_off_start_datetime)
+--else
+--	select @cut_off_end_datetime = dateadd(hh, 3, @business_date)
+
+if @first_day = 'Y'
+	select @cut_off_start_datetime = '19000101'
+
+if @business_date = @replaced_date
+	select @cut_off_end_datetime = '29991231'
+
+select @cut_off_start_datetime, @cut_off_end_datetime
+
+select * into #hist_orders from md_hist_orders (nolock) where business_date = @business_date and branch_code = @branch_code and 
+	trans_datetime between @cut_off_start_datetime and @cut_off_end_datetime order by trans_datetime
+
+select distinct branch_code, business_date, order_no, recall into #hist_orders_key from #hist_orders
+
+select a.* into #hist_check_logs from md_hist_check_logs a(nolock), #hist_orders_key b where a.business_date = b.business_date and a.branch_code = b.branch_code and 
+	a.order_no = b.order_no and a.recall = b.recall
+
+select a.* into #hist_coupon_sales from md_hist_coupon_sales a(nolock), #hist_orders_key b where a.business_date = b.business_date and 
+	a.branch_code = b.branch_code and a.order_no = b.order_no and a.recall = b.recall
+
+select a.* into #hist_orders_extra from md_hist_orders_extra a(nolock), #hist_orders_key b where a.business_date = b.business_date and 
+	a.branch_code = b.branch_code and a.order_no = b.order_no and a.recall = b.recall
+
+select a.* into #hist_orders_pay from md_hist_orders_pay a(nolock), #hist_orders_key b where a.business_date = b.business_date and a.branch_code = b.branch_code and 
+	a.order_no = b.order_no and a.recall = b.recall
+
+select a.* into #hist_orders_pay_progress from md_hist_orders_pay_progress a(nolock), #hist_orders_key b where a.business_date = b.business_date and 
+	a.branch_code = b.branch_code and a.order_no = b.order_no and a.recall = b.recall
+
+select a.* into #hist_supp from md_hist_supp a(nolock), #hist_orders_key b where a.business_date = b.business_date and a.branch_code = b.branch_code and 
+	a.order_no = b.order_no and a.recall = b.recall
+
+select a.* into #hist_trans from md_hist_trans a(nolock), #hist_orders_key b where a.business_date = b.business_date and a.branch_code = b.branch_code and 
+	a.order_no = b.order_no and a.recall = b.recall
+
+select a.* into #hist_trans_ecard from md_hist_trans_ecard a(nolock), #hist_orders_key b where a.business_date = b.business_date and a.branch_code = b.branch_code 
+	and a.order_no = b.order_no and a.recall = b.recall
+
+select a.* into #hist_trans_modifier from md_hist_trans_modifier a(nolock), #hist_orders_key b where a.business_date = b.business_date and 
+	a.branch_code = b.branch_code and a.order_no = b.order_no and a.recall = b.recall
+
+select * into #hist_paysum from md_hist_paysum (nolock) where 1 = 2
+
+--CC
+select * into #hist_possystem from hist_possystem (nolock) where business_date = @business_date and branch_code = @branch_code
+--CC
+
+update #hist_orders set business_date = @replaced_date, rowguid = newid()
+update #hist_check_logs set business_date = @replaced_date, rowguid = newid()
+update #hist_coupon_sales set business_date = @replaced_date, rowguid = newid()
+update #hist_orders_extra set business_date = @replaced_date, rowguid = newid()
+update #hist_orders_pay set business_date = @replaced_date, rowguid = newid()
+update #hist_orders_pay_progress set business_date = @replaced_date, rowguid = newid()
+update #hist_supp set business_date = @replaced_date, rowguid = newid()
+update #hist_trans set business_date = @replaced_date, rowguid = newid()
+update #hist_trans_ecard set business_date = @replaced_date, rowguid = newid()
+update #hist_trans_modifier set business_date = @replaced_date, rowguid = newid()
+
+--CC
+update #hist_possystem set business_date = @replaced_date, rowguid = newid()
+--CC
+
+--- Sales PaySum --------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE TABLE #tmp_paysum (
+	branch_code varchar (6) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+	business_date smalldatetime NOT NULL ,
+	station_id varchar (4) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+	pay_code varchar (10) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+	cury_no char (3) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+	cury_total_amt money NOT NULL ,
+	cury_org_amt money NOT NULL ,
+	exch_rate smallmoney NOT NULL ,
+	total_amt money NOT NULL ,
+	org_amt money NOT NULL ,
+	total_qty int NOT NULL ,
+	reserved varchar (20) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+	status char (2) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+	last_update_time datetime NOT NULL ,
+	rowguid  uniqueidentifier ROWGUIDCOL  NOT NULL 
+)
+
+
+SELECT * INTO #paysum FROM #tmp_paysum
+
+SELECT * INTO #orders_pay FROM #hist_orders_pay (NOLOCK)
+
+INSERT INTO #paysum SELECT branch_code, business_date, station_id, pay_code, cury_no, SUM(tender), SUM(tender), exch_rate, SUM(pay_amt), SUM(pay_amt), 
+	SUM(pay_qty), '', ' ', GETDATE(), NEWID()
+FROM #orders_pay WHERE recall = 0 AND refund = '0' AND void = '0'
+GROUP BY branch_code, business_date, station_id, pay_code, cury_no, exch_rate
+
+INSERT INTO #paysum SELECT branch_code, business_date, station_id, pay_code, cury_no, SUM(tender) * -1, SUM(tender) * -1, exch_rate, SUM(pay_amt) * -1, 
+	SUM(pay_amt) * -1, SUM(pay_qty) * -1, '', ' ', GETDATE(), NEWID()
+FROM #orders_pay WHERE recall = 0 AND refund = '1' AND void = '0'
+GROUP BY branch_code, business_date, station_id, pay_code, cury_no, exch_rate
+
+INSERT INTO #tmp_paysum SELECT branch_code, business_date, station_id, pay_code, cury_no, SUM(cury_total_amt), SUM(cury_org_amt), exch_rate, SUM(total_amt), 
+	SUM(org_amt), SUM(total_qty), '', ' ', GETDATE(), NEWID()
+FROM #paysum GROUP BY branch_code, business_date, station_id, pay_code, cury_no, exch_rate	
+
+insert into #hist_paysum select * from #tmp_paysum
+
+--select * from #hist_paysum
+
+--- Sales PayFig --------------------------------------------------------------------------------------------------------------------------------------------------
+SELECT cury_no, tender AS amt, pay_amt AS local_amt INTO #income FROM #hist_orders_pay (NOLOCK) WHERE 1 = 2
+
+DECLARE @base_cury_no char(3)
+SELECT @base_cury_no = cury_no FROM view_currency WHERE base_cury = '1' and branch_code = @branch_code
+
+select top 1 @base_cury_no = cury_no from md_hist_orders_pay  (nolock) where branch_code=@branch_code and pay_code='0001'  and business_date=@business_date -- Add by hing 20151229
+
+
+INSERT INTO #income SELECT cury_no, ISNULL(SUM(tender + tips), 0), ISNULL(SUM(pay_amt + change), 0) FROM #hist_orders_pay (NOLOCK) WHERE recall = 0 AND 
+	refund = '0' AND void = '0' AND pay_code IN (SELECT pay_code FROM #payment) GROUP BY cury_no
+
+INSERT INTO #income SELECT @base_cury_no, ISNULL(SUM(change), 0) * -1, ISNULL(SUM(change), 0) * -1 FROM #hist_orders_pay (NOLOCK) WHERE recall = 0 AND 
+	refund = '0' AND void = '0'
+
+INSERT INTO #income SELECT cury_no, ISNULL(SUM(tender + tips), 0) * -1, ISNULL(SUM(pay_amt + change), 0) * -1 FROM #hist_orders_pay (NOLOCK) WHERE recall = 0 AND 
+	refund = '1' AND void = '0' AND pay_code IN (SELECT pay_code FROM #payment ) GROUP BY cury_no
+
+INSERT INTO #income SELECT @base_cury_no, ISNULL(SUM(change), 0), ISNULL(SUM(change), 0) FROM #hist_orders_pay (NOLOCK) WHERE recall = 0 AND refund = '1' AND 
+	void = '0'
+
+select * into #hist_payfig from hist_payfig where 1 = 2
+
+select top 1 *  into #hist_payfig2 from md_hist_payfig (nolock) where business_date = @business_date and branch_code = @branch_code and type like 'B%' and void = 0
+
+insert into #hist_payfig select b.branch_code, @replaced_date, b.trans_datetime, b.uid, b.station_id, b.type, ltrim(rtrim(b.remarks)) + '-AutoSplit', a.cury_no, 
+	a.amt, 0 as exch_rate, 
+	a.local_amt, cast(right(convert(char(8),getdate(), 108), 1)as int), b.void, b.void_datetime, b.void_uid, b.void_station_id, b.reserved, b.status, 
+	getdate(), newid() from (SELECT cury_no, SUM(amt) AS amt, SUM(local_amt) AS local_amt FROM #income GROUP BY cury_no) a, #hist_payfig2 b 
+
+update #hist_payfig set input_amt = a.input_amt + b.input_amt, local_amt = a.local_amt + b.local_amt from #hist_payfig a, 
+	(select cury_no, sum(input_amt) as input_amt, sum(local_amt) as local_amt from md_hist_payfig where business_date = @replaced_date and 
+	branch_code = @branch_code and type like 'A%' and void = 0 group by cury_no) b where a.cury_no = b.cury_no
+
+update #hist_payfig set input_amt = a.input_amt + b.input_amt, local_amt = a.local_amt + b.local_amt from #hist_payfig a, 
+	(select cury_no, sum(input_amt) as input_amt, sum(local_amt) as local_amt from md_hist_payfig where business_date = @replaced_date and 
+	branch_code = @branch_code and type like 'E%' and void = 0 group by cury_no) b where a.cury_no = b.cury_no
+
+update #hist_payfig set input_amt = a.input_amt - b.input_amt, local_amt = a.local_amt - b.local_amt from #hist_payfig a, 
+	(select cury_no, sum(input_amt) as input_amt, sum(local_amt) as local_amt from md_hist_payfig where business_date = @replaced_date and 
+	branch_code = @branch_code and type like 'S%' and void = 0 group by cury_no) b where a.cury_no = b.cury_no
+
+insert into #hist_payfig select * from md_hist_payfig (nolock) where business_date = @replaced_date and branch_code = @branch_code and type not like 'B%' and void = 0
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+insert into hist_orders select * from #hist_orders
+insert into hist_check_logs select * from #hist_check_logs
+insert into hist_coupon_sales select * from #hist_coupon_sales
+insert into hist_orders_extra select * from #hist_orders_extra
+insert into hist_orders_pay select * from #hist_orders_pay
+insert into hist_orders_pay_progress select * from #hist_orders_pay_progress
+insert into hist_supp select * from #hist_supp
+insert into hist_trans select * from #hist_trans
+insert into hist_trans_ecard select * from #hist_trans_ecard
+insert into hist_trans_modifier select * from #hist_trans_modifier
+insert into hist_paysum select * from #hist_paysum
+insert into hist_payfig select * from #hist_payfig
+
+--CC
+insert into hist_possystem select * from #hist_possystem
+--CC
+
+--select @branch_code + ' Completed !'
+
+drop table #hist_orders
+drop table #hist_check_logs
+drop table #hist_coupon_sales
+drop table #hist_orders_extra
+drop table #hist_orders_pay
+drop table #hist_orders_pay_progress
+drop table #hist_supp
+drop table #hist_trans
+drop table #hist_trans_ecard
+drop table #hist_trans_modifier
+drop table #hist_paysum
+drop table #hist_payfig
+
+drop table #hist_payfig2
+drop table #hist_orders_key
+
+drop table #tmp_paysum
+drop table #orders_pay
+drop table #paysum
+drop table #income
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------- Check Data of Business vs Replaced Date -------------
+--CC
+create table #chk_split_data_1(
+pos_table	varchar(50),
+check_sum01	money,
+check_sum02	money,
+check_sum03	money)
+
+select * into #chk_split_data_2 from #chk_split_data_1 where 1 = 2
+
+
+--------- Check Business Date -------------
+-- 'hist_check_logs'
+insert into #chk_split_data_1 select 'hist_check_logs', count(*), 0, 0 from hist_check_logs (nolock) where business_date = @business_date and branch_code = @branch_code
+	
+-- 'hist_orders'
+insert into #chk_split_data_1 select 'hist_orders', count(*), sum(grand_total), 0 from hist_orders (nolock) where business_date = @business_date and branch_code = @branch_code
+
+-- 'hist_orders_pay'
+insert into #chk_split_data_1 select 'hist_orders_pay', count(*), sum(pay_amt), sum(tips) from hist_orders_pay (nolock) where business_date = @business_date and branch_code = @branch_code
+
+-- 'hist_payfig'
+insert into #chk_split_data_1 select 'hist_payfig', count(*), sum(input_amt), 0 from hist_payfig (nolock) where business_date = @business_date and branch_code = @branch_code
+
+-- 'hist_paysum'
+insert into #chk_split_data_1 select 'hist_paysum', count(*), sum(total_amt), 0 from hist_paysum (nolock) where business_date = @business_date and branch_code = @branch_code
+
+-- 'hist_trans'
+insert into #chk_split_data_1 select 'hist_trans', count(*), sum(sub_total), 0 from hist_trans (nolock) where business_date = @business_date and branch_code = @branch_code
+
+
+--------- Check Replaced Date -------------
+-- 'hist_check_logs'
+insert into #chk_split_data_2 select 'hist_check_logs', count(*), 0, 0 from hist_check_logs (nolock) where business_date = @replaced_date and branch_code = @branch_code
+	
+-- 'hist_orders'
+insert into #chk_split_data_2 select 'hist_orders', count(*), sum(grand_total), 0 from hist_orders (nolock) where business_date = @replaced_date and branch_code = @branch_code
+
+-- 'hist_orders_pay'
+insert into #chk_split_data_2 select 'hist_orders_pay', count(*), sum(pay_amt), sum(tips) from hist_orders_pay (nolock) where business_date = @replaced_date and branch_code = @branch_code
+
+-- 'hist_payfig'
+insert into #chk_split_data_2 select 'hist_payfig', count(*), sum(input_amt), 0 from hist_payfig (nolock) where business_date = @replaced_date and branch_code = @branch_code
+
+-- 'hist_paysum'
+insert into #chk_split_data_2 select 'hist_paysum', count(*), sum(total_amt), 0 from hist_paysum (nolock) where business_date = @replaced_date and branch_code = @branch_code
+
+-- 'hist_trans'
+insert into #chk_split_data_2 select 'hist_trans', count(*), sum(sub_total), 0 from hist_trans (nolock) where business_date = @replaced_date and branch_code = @branch_code
+
+if exists (select * from #chk_split_data_1 a, #chk_split_data_2 b where a.pos_table = b.pos_table and a.check_sum01 = b.check_sum01 and a.check_sum02 = b.check_sum02 and a.check_sum03 = b.check_sum03)
+	begin 
+		drop table #chk_split_data_1
+		drop table #chk_split_data_2
+
+		select 'Please check the data, it seems two days is the same figures!!!!'
+
+		return 1
+	end
+
+drop table #chk_split_data_1
+drop table #chk_split_data_2
+--CC
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+return 0
+
+
+
+GO
+

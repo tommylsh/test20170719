@@ -1,0 +1,84 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+	<composite:attribute name="authCriteria" required="true" />
+	<composite:attribute name="validateFirstUser"
+		method-signature="void actionListener()" required="true" />
+	<composite:attribute name="validateSecondUser"
+		method-signature="void actionListener()" required="true" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<p:dialog id="currentUserAuthDialog"
+		header="#{msg['vpps']['currentUserAuth']}" modal="true"
+		widgetVar="currentUserAuthDialogVar">
+		<h:form>
+
+			<h:panelGrid columns="2" cellpadding="5"
+				rendered="#{cc.attrs.authCriteria != null}">
+				<h:outputLabel for="firstUsername"
+					value="#{msg['vpps']['username']}" />
+				<p:inputText value="#{cc.attrs.authCriteria.firstUsername}"
+					id="firstUsername" required="true"
+					label="#{msg['vpps']['username']}" />
+
+				<h:outputLabel for="firstPassword"
+					value="#{msg['vpps']['password']}" />
+				<h:inputSecret value="#{cc.attrs.authCriteria.firstPassword}"
+					id="firstPassword" required="true"
+					label="#{msg['vpps']['password']}" />
+
+				<p:spacer />
+				<h:panelGrid style="width: 100%; text-align: right;">
+					<p:commandButton id="confirmButton1"
+						value="#{msg['vpps']['confirm']}"
+						actionListener="#{cc.attrs.validateFirstUser}"
+						oncomplete="currentUserAuthDialogVar.hide();" icon="ui-icon-confirm"/>
+				</h:panelGrid>
+			</h:panelGrid>
+
+		</h:form>
+	</p:dialog>
+
+	<p:dialog id="doulbeUserAuthDialog"
+		header="#{msg['vpps']['doulbeUserAuth']}" modal="true"
+		widgetVar="doulbeUserAuthDialogVar">
+		<h:form>
+
+			<h:panelGrid columns="2" cellpadding="5"
+				rendered="#{cc.attrs.authCriteria != null}">
+				<h:outputLabel for="secondUsername"
+					value="#{msg['vpps']['username']}" />
+				<p:inputText value="#{cc.attrs.authCriteria.secondUsername}"
+					id="secondUsername" required="true"
+					label="#{msg['vpps']['username']}" />
+
+				<h:outputLabel for="secondPassword"
+					value="#{msg['vpps']['password']}" />
+				<h:inputSecret value="#{cc.attrs.authCriteria.secondPassword}"
+					id="secondPassword" required="true"
+					label="#{msg['vpps']['password']}" />
+
+				<p:spacer />
+				<h:panelGrid style="width: 100%; text-align: right;">
+					<p:commandButton id="confirmButton2"
+						value="#{msg['vpps']['confirm']}"
+						actionListener="#{cc.attrs.validateSecondUser}"
+						oncomplete="doulbeUserAuthDialogVar.hide();" icon="ui-icon-confirm"/>
+				</h:panelGrid>
+			</h:panelGrid>
+
+		</h:form>
+	</p:dialog>
+
+</composite:implementation>
+
+</html>
+

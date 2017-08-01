@@ -1,0 +1,42 @@
+2017-01-12 Meeting with Jimmy
+=============================
+
+CorpMQ     100   HOST NAME KEEP NAME SAME IP CHANGE 
+FrabrixMQ  30    Host Name / IP change 
+DMZ MQ     15
+
+Proposal   - Assumption - Code Change - 
+
+Code Change 
+===========
+1. Upgrade Application Effort break a number 
+2. Once Million HKD dollar required 
+3. CR scope propse
+4. Include out of scope issue 
+5. Regress test execution not under RGP
+6. Cut over (CorpMQ is big bang)
+
+Schedule
+========
+
+    1. DMZ MQ           <= Full Team      (AIX to Linux)
+    2. Frabix MQ        <=                (AIX to Linux)
+    3. CorpMQ Upgrade   <=                (AIX to Linux)
+    4. Testing Env (SIT / UAT / Pre-UAT / PRD)    
+
+       (all completed by 2017)    
+
+===============    
+Management Team
+===============
+1. PM 
+2. Some Rendor 
+3. 
+
+Follow Up
+=========
+1. DMZ MQ 
+2. Next Tue three proposals 
+3.  
+
+

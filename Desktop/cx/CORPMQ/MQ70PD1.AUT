@@ -1,0 +1,500 @@
+setmqaut -m MQ70PD1 -n 'FLTOPS_SALEABLECFGCHG' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'BK70QMPD1.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'CX.FDM_IDOO.SMP.BATCH' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'ACP1.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQSP1A.TO.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.BASE.TOPIC' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'FLTPLN_SSM_1A' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'PIP.1A.SBRFEED' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.SBRFEED' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLSCH.EODS.SSM.TEMP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLSCH.EODS.SSM.TEMP' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'CSS.ELP.TRANSHP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EDW.FDM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EDW.FDM' -t queue -g infa +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'NLOPS.EDW.FDM' -t queue -g etl +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'TO.MQ70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.STATISTICS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.CLUSTER.HISTORY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.PROS' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.PROS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g inframws +dsp +get +inq 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.ETL' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.REQUESTER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.REALTIME' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.REALTIME' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.REALTIME' -t queue -g infa +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.1A.NGD.FFFGRQ' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.NGD.FFFGRQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.CHANNEL.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.SESSION.MGMT.ERROR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.SESSION.MGMT.ERROR' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'WBC.MMB.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.MMB.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.1A.RHS.FECFUQ' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.RHS.FECFUQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMSMP.RT.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMSMP.RT.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'EODS.SALEABLECFGCHG.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'EODS.SALEABLECFGCHG.IN' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.MPO.PNRCHG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CLS.EVOU.ENTIT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEAD.LETTER.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.BROKER.CONTROL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.WSI.1A.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.WSI.1A.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'BK70QMPD1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.TO.MQSP1B' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.TO.MQSP1B' -t channel -g etl +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'EODS.UPDATE.NEWPROFILE.EODS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'EODS.UPDATE.NEWPROFILE.EODS' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM' -t queue -g etl +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM' -t queue -g infa +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'CX.FDM_IDOO.SMP' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'MQPD3' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.PAX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.PAX' -t queue -g netline +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.PAX' -t queue -g etl +inq +put 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.PAX' -t queue -g infa +inq +put 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.CUSPROFUPD.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.CUSPROFUPD.STG' -t queue -g cushub +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.CUSPROFUPD.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'GWP41.PRD1_MQ70PD1S2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP41.PRD1_MQ70PD1S2' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.CICS.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.TEMP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.TEMP' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.1A.SBRFEED.XML' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'GWP44.PRD1_MQ70PD1S2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP44.PRD1_MQ70PD1S2' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP41.PRD1_MQ70PD1S1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP41.PRD1_MQ70PD1S1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n '1A.CLUSTER.PRD1' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n '1A.CLUSTER.PRD1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.BROKER.DEFAULT.SUBPOINT' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'GWP44.PRD1_MQ70PD1S1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP44.PRD1_MQ70PD1S1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'TESTQ' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'TESTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.NEWPROFILE.EODS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.NEWPROFILE.EODS' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.1A.NGD.FFFGRQ.CTL' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.NGD.FFFGRQ.CTL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'BK70PD2' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.QPUBSUB.QUEUE.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD1 -n 'UM.ETECHLOG.ELOG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'UM.ETECHLOG.ELOG' -t queue -g ultra +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.TAG.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.TAG.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'WBC.CIS.EVENT.LOG.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.CIS.EVENT.LOG.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMSMP.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMSMP.IN' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'EVOU.ETL.ENTIT.DPGW' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'EVOU.ETL.ENTIT.DPGW' -t queue -g etl +browse +dsp +get +inq +put 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.BATCH' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.BATCH' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.BATCH' -t queue -g infa +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'FLTOPS_FLTCREATION' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'CX.FDM' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'CX.FDM' -t topic -g netline +pub 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.BK70QMPD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.CLUSTER.TRANSMIT.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CALIDRIS.V93.SBRFEED' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CALIDRIS.V93.SBRFEED' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CALIDRIS.V93.SBRFEED' -t queue -g system +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMOWP.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMOWP.IN' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'NLOPS.FBX.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.FBX.TELEX' -t queue -g netline +put 
+setmqaut -m MQ70PD1 -n 'MQSP1B' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQSP1B' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CUSHUB.CLS.CUSPROFSYNC.REPLY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CUSHUB.CLS.CUSPROFSYNC.REPLY' -t queue -g etl +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.SELECTION.EVALUATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'EVOU.CLS.ENTIT.DPGW' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.CIS.KA.EVENT.LOG.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.CIS.KA.EVENT.LOG.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.1A.NGD.FDSLUQ' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.NGD.FDSLUQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.ETL.LOGGING' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.ETL.LOGGING' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'IIBQMPD2.TO.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.REMOTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.SELECTION.VALIDATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.TAG.PNR.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.TAG.PNR.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g inframws +dsp +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.PNR.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.PNR.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.TOPIC' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD1 -n 'LOUMOB.FLTLST.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'LOUMOB.FLTLST.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'FLTOPS_TAILCHG' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'CX.FDM_IDOO.OWP' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'SYSTEM.INTER.QMGR.FANREQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.ETL.FLAB' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.ETL.FLAB' -t queue -g etl +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'FBX.ETL.FLAB' -t queue -g infa +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.EFF' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.EFF' -t channel -g eff +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.EFF' -t channel -g eagle +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'PIP.1A.IOPTAQ' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.IOPTAQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.IOPTNQ' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.IOPTNQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'GWP43.PRD1_MQ70PD1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP43.PRD1_MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'FLTOPS_ATDCHG' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'FLTOPS_ETDCHG' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.BAYGATE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.BAYGATE' -t queue -g netline +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'SYSTEM.AUTH.DATA.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.HAS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.BROKER.DEFAULT.STREAM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.FLTPLN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.FLTPLN' -t queue -g netline +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DURABLE.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.AUTO.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'ETL.FSS.FLAB' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'ETL.FSS.FLAB' -t queue -g etl +inq +put 
+setmqaut -m MQ70PD1 -n 'ETL.FSS.FLAB' -t queue -g infa +inq +put 
+setmqaut -m MQ70PD1 -n 'FBX.IPIL.SEARCHPNRDETAIL' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.IPIL.SEARCHPNRDETAIL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.IPIL.SEARCHPNRDETAIL' -t queue -g ipilapp +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'CLS.CUSHUB.CUSPROFSYNC.EN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CLS.CUSHUB.CUSPROFSYNC.EN' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'FABRICX.ERROR.LOGGING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.ERROR.LOGGING.QUEUE' -t queue -g cep +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'AIRPATH.EFF.FLIGHTPLAN.EN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'AIRPATH.EFF.FLIGHTPLAN.EN' -t queue -g eff +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'AIRPATH.EFF.FLIGHTPLAN.EN' -t queue -g staff +get +inq +put 
+setmqaut -m MQ70PD1 -n 'AIRPATH.EFF.FLIGHTPLAN.EN' -t queue -g eagle +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g mqm +chg +dlt +dsp 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.CUSPROFUPD.EN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.CUSPROFUPD.EN' -t queue -g cushub +inq +put 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.CUSPROFUPD.EN' -t queue -g etl +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'PIP.SBR.CUST.NOEVENT.BACKUP.Q' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.SBR.CUST.NOEVENT.BACKUP.Q' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.RETAINED.PUB.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.PSYREQ.ERRRSP' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.PSYREQ.ERRRSP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.AIRPATH.FLTSCH' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.AIRPATH.FLTSCH' -t queue -g etl +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'NLOPS.AIRPATH.FLTSCH' -t queue -g infa +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'IBMMSG.EODS.TELEX.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'IBMMSG.EODS.TELEX.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.PNR.PAXSEG.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.PNR.PAXSEG.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.BROKER.DEFAULT.STREAM' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.PERFM.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.CUSHUB' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.MELITEM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.MELITEM' -t queue -g netline +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'PSS.EODS.SALEABLECFGCHG.TEMP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PSS.EODS.SALEABLECFGCHG.TEMP' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.LOGGER.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'IBMMSG.EODS.TELEX.RECOVERY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'IBMMSG.EODS.TELEX.RECOVERY' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'EVOU.CLS.ERR.DPGW' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.CALIDRIS' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.CALIDRIS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'ACARS.FBX.AOC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CLS.ETL.CUSLOYALTY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CLS.ETL.CUSLOYALTY' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'CLS.CUSHUB.CUSPROFUPD.REPLY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CLS.CUSHUB.CUSPROFUPD.REPLY' -t queue -g cushub +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'CLS.CUSHUB.CUSPROFUPD.REPLY' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.CUSPROFUPD.DISPATCH' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CUSHUB.ETL.CUSPROFUPD.DISPATCH' -t queue -g etl +browse +dsp +get +inq +put 
+setmqaut -m MQ70PD1 -n 'WBC.MAIL.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.CHANNEL.INITQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.TO.MQPD3' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.AUTO.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'IIBQMPD3.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQSP1B.TO.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQSP1B.TO.MQ70PD1' -t channel -g etl +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.QPUBSUB.SUBPOINT.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DURABLE.SUBSCRIBER.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.FSS.FLAB' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.SMS.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.SMS.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'CUSHUB.CLS.CUSPROFUPD.EN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CUSHUB.CLS.CUSPROFUPD.EN' -t queue -g cushub +inq +put 
+setmqaut -m MQ70PD1 -n 'CUSHUB.CLS.CUSPROFUPD.EN' -t queue -g etl +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.1A.PSYREQ.HIGH' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.PSYREQ.HIGH' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g cep +none 
+setmqaut -m MQ70PD1 -n 'PIP.1A.DLD.FECFUR' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.DLD.FECFUR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'GWP43.PRD1_MQ70PD1S1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP43.PRD1_MQ70PD1S1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.MQSC.REPLY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.CIS.EVENT.LOG.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.CIS.EVENT.LOG.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.CHANNEL.SYNCQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'GWP43.PRD1_MQ70PD1S2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP43.PRD1_MQ70PD1S2' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'TO.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQPD3.TO.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.CLUSTER.REPOSITORY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.CLUSRCVR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'AIRCOM.ULTRA.CMC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'AIRCOM.ULTRA.CMC' -t queue -g ultra +browse +dsp +get +inq 
+setmqaut -m MQ70PD1 -n 'WBC.MAIL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.MAIL.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'GWP42.PRD1_MQ70PD1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP42.PRD1_MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.COMMAND.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'ACP1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ71DMZP1.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'FBXOCS.EODS.SSM.RECOVERY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBXOCS.EODS.SSM.RECOVERY' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'CLS.EVOU.CCFR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.SERVICE' -t service -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.PROCESS' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.APTSCS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.HIERARCHY.STATE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.SMS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.SMS.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.ULTRA' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.CLUSTER.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'AIRCOM.CPA.CMC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'AIRCOM.CPA.CMC' -t queue -g ultra +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'IBMMSG.EODS.SSM.RECOVERY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'IBMMSG.EODS.SSM.RECOVERY' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.MQSP2B' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.MQSP2B' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'CSS.CUBIC.BKGSYNC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.IBE.EVENT.LOG.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.IBE.EVENT.LOG.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.CALIDRIS.SBRFEED.XML' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CALIDRIS.SBRFEED.XML' -t queue -g system +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'APTSCS.GORMSCX.RTFD.OUT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'APTSCS.GORMSCX.RTFD.OUT' -t queue -g gorms +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'APTSCS.GORMSCX.RTFD.OUT' -t queue -g aptscs +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.TRACE.ROUTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQSP2B' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQSP2B' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.GORMSCX' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'WBC.MMB.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.MMB.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'WBC.CIS.KA.EVENT.LOG.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.CIS.KA.EVENT.LOG.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SERVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.PENDING.DATA.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'ETECHLOG.UM.ELOG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'ETECHLOG.UM.ELOG' -t queue -g ultra +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.IPIL' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.TELEX' -t queue -g netline +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.TELEX' -t queue -g etl +inq +put 
+setmqaut -m MQ70PD1 -n 'FBX.NLOPS.TELEX' -t queue -g infa +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.BROKER.ADMIN.STREAM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.REALTIME.D34' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.REALTIME.D34' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDM.REALTIME.D34' -t queue -g infa +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqbrkrs +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cep +none 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.ETECHLOG' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.ETECHLOG' -t channel -g ultra +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ71DMZP1' -t queue -g system +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ71DMZP1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.ULM.FDM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBX.ULM.FDM' -t queue -g ultra +browse +get +inq +put 
+setmqaut -m MQ70PD1 -t qmgr -g mqm +altusr +chg +connect +dlt +dsp +inq +set +setall +setid +system 
+setmqaut -m MQ70PD1 -t qmgr -g inframws +connect +dsp +inq 
+setmqaut -m MQ70PD1 -t qmgr -g prosuser +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g olgm +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g infa +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g etl +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g netline +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g ipilapp +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g icats +connect +inq +setall 
+setmqaut -m MQ70PD1 -t qmgr -g ultra +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g has +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g aptscs +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g gorms +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g cushub +connect +dsp +inq 
+setmqaut -m MQ70PD1 -t qmgr -g system +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g eff +connect +inq 
+setmqaut -m MQ70PD1 -t qmgr -g eagle +connect +inq 
+setmqaut -m MQ70PD1 -n 'PIP.1A.DLD.FECFUQ' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.DLD.FECFUQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'GWP42.PRD1_MQ70PD1S1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP42.PRD1_MQ70PD1S1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'FABRICX.GLOBAL.LOGGING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.GLOBAL.LOGGING.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'FABRICX.GLOBAL.LOGGING.QUEUE' -t queue -g olgm +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.1A.IOPTNQ.PROS' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.IOPTNQ.PROS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'GWP42.PRD1_MQ70PD1S2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP42.PRD1_MQ70PD1S2' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'FABRICX.WSI.NON1A.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.WSI.NON1A.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ70PD1 -n 'SYSTEM.BROKER.ADMIN.STREAM' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'FLTOPS_ATACHG' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'FLTOPS_ETACHG' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.ACTIVITY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.CONFIG.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.CXIP.CONPAX.REQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.CXIP.CONPAX.REQ' -t queue -g netline +put 
+setmqaut -m MQ70PD1 -n 'NLOPS.CXIP.CONPAX.REQ' -t queue -g etl +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'NLOPS.CXIP.CONPAX.REQ' -t queue -g infa +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g inframws +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.INTER.QMGR.CONTROL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.PSYREQ.NORMAL' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.PSYREQ.NORMAL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.FBX.FDM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.FBX.FDM' -t queue -g netline +put 
+setmqaut -m MQ70PD1 -n 'PIP.1A.ICATS.SPWREQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqbrkrs +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cep +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g inframws +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g prosuser +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g system +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g olgm +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g netline +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g etl +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g infa +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g ipilapp +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g ultra +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g gorms +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g has +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g aptscs +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cushub +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g eff +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g staff +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g eagle +none 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.MQSP1B' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.MQSP1B' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.AUTHINFO.OCSP' -t authinfo -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD1 -n 'MQ71DMZP2.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'CLS.EODS.LOYSYNC.STAGING' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'CLS.EODS.LOYSYNC.STAGING' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g inframws +none 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMOWP.TEMP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.PROCESS' -t process -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.PROCESS' -t process -g inframws +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.INTERNAL.REPLY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ70PD1 -n 'HAS.APTTA.RTSD' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'HAS.APTTA.RTSD' -t queue -g has +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'PIP.PROS.V93.SBRFEED' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.PROS.V93.SBRFEED' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.PROS.V93.SBRFEED' -t queue -g prosuser +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.NDURABLE.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -t qmgr -g mqm +crt 
+setmqaut -m MQ70PD1 -t qmgr -g inframws +none 
+setmqaut -m MQ70PD1 -t qmgr -g prosuser +none 
+setmqaut -m MQ70PD1 -t qmgr -g olgm +none 
+setmqaut -m MQ70PD1 -t qmgr -g infa +none 
+setmqaut -m MQ70PD1 -t qmgr -g etl +none 
+setmqaut -m MQ70PD1 -t qmgr -g netline +none 
+setmqaut -m MQ70PD1 -t qmgr -g ipilapp +none 
+setmqaut -m MQ70PD1 -t qmgr -g icats +none 
+setmqaut -m MQ70PD1 -t qmgr -g ultra +none 
+setmqaut -m MQ70PD1 -t qmgr -g has +none 
+setmqaut -m MQ70PD1 -t qmgr -g aptscs +none 
+setmqaut -m MQ70PD1 -t qmgr -g gorms +none 
+setmqaut -m MQ70PD1 -t qmgr -g cushub +none 
+setmqaut -m MQ70PD1 -t qmgr -g system +none 
+setmqaut -m MQ70PD1 -t qmgr -g eff +none 
+setmqaut -m MQ70PD1 -t qmgr -g eagle +none 
+setmqaut -m MQ70PD1 -n 'PIP.PROS.SBRFEED.XML' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.PROS.SBRFEED.XML' -t queue -g prosuser +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g cep +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g inframws +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g mqbrkrs +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g netline +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g etl +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g ultra +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g eff +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SENDER' -t channel -g eagle +none 
+setmqaut -m MQ70PD1 -n 'FBXOCS.EODS.SSM.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBXOCS.EODS.SSM.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.ACP1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMSMP.BATCH.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'NLOPS.EODS.FDMSMP.BATCH.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'FABRICX.SESSION.MGMT.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.SESSION.MGMT.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'FBXOCS.EODS.SSM.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FBXOCS.EODS.SSM.IN' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g inframws +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEF.CLUSSDR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'WBC.IBE.EVENT.LOG.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'WBC.IBE.EVENT.LOG.BACKOUTQ' -t queue -g cep +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.ACCOUNTING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'ACARS.FBX.WXM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.RHS.FECFUR' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.1A.RHS.FECFUR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.TOPIC' -t topic -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.TOPIC' -t topic -g netline +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.ADMIN.QMGR.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.FABRICX' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.FABRICX' -t channel -g cep +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1_GWP43.PRD1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1_GWP43.PRD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.PAXSEG.STG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'PIP.CUST.PNRCHG.PAXSEG.STG' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'FABRICX.SESSION.MGMT.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.SESSION.MGMT.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'FABRICX.TO.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g inframws +none 
+setmqaut -m MQ70PD1 -n 'MQSP1A' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.OCS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.OCS' -t channel -g netline +chg +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.SERVICE' -t service -g mqm +crt 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.SERVICE' -t service -g inframws +none 
+setmqaut -m MQ70PD1 -n 'SYSTEM.DEFAULT.ALIAS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.MQ71DMZP1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'MQ70PD1.BK70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'BK70PD2.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'FLTOPS_ASM_IATA' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD1 -n 'APTSCS.HAS.RTFD.OUT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'APTSCS.HAS.RTFD.OUT' -t queue -g has +browse +get +inq 
+setmqaut -m MQ70PD1 -n 'FABRICX.GLOBAL.LOGGING.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'FABRICX.GLOBAL.LOGGING.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'APTTA.HAS.RTSD' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'APTTA.HAS.RTSD' -t queue -g has +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'SYSTEM.INTER.QMGR.PUBS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'IBMMSG.EODS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'IBMMSG.EODS.TELEX' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'GWP41.PRD1_MQ70PD1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP41.PRD1_MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'LOUMOB.FLTLST.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'LOUMOB.FLTLST.IN' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'EODS.CLS.LOYSYNC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD1 -n 'EODS.CLS.LOYSYNC' -t queue -g etl +browse +get +inq +put 
+setmqaut -m MQ70PD1 -n 'GWP44.PRD1_MQ70PD1' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n 'GWP44.PRD1_MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD1 -n '**' -t clntconn -g inframws +dsp 
+setmqaut -m MQ70PD1 -n '**' -t queue -g inframws +browse +dsp 
+setmqaut -m MQ70PD1 -n '**' -t namelist -g inframws +dsp 
+setmqaut -m MQ70PD1 -n '**' -t process -g inframws +dsp 
+setmqaut -m MQ70PD1 -n '**' -t channel -g inframws +dsp 
+setmqaut -m MQ70PD1 -n '**' -t authinfo -g inframws +dsp 
+setmqaut -m MQ70PD1 -n '**' -t listener -g inframws +dsp 
+setmqaut -m MQ70PD1 -n '**' -t service -g inframws +dsp 

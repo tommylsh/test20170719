@@ -1,0 +1,234 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:cc="http://java.sun.com/jsf/composite/components"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="/templates/main.xhtml">
+
+    <ui:define name="title">
+        <cc:titleText title="#{msg['pos']['branchScheme']}"/>
+    </ui:define>
+
+    <ui:define name="content">
+
+        <style>
+            .branchSchemeDataTable table tbody td {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+        </style>
+
+        <script>
+            function checkElementSelection() {
+                if (PF('branchSchemeDataTableVar').selection.length == 0) {
+                    PF('infoDialog').show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+
+        <h:form id="branchSchemeDataTableForm">
+
+            <p:panel header="#{msg['common']['search']}" style="width: 100%;">
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <h:outputLabel for="name" value="#{msg['pos']['branchCode']}"/>
+                            <p:inputText id="name"
+                                         value="#{branchSchemeController.dataModel.dataModelQuery.criteria.branchCodeKeyword}"
+                                         label="#{msg['common']['name']}" maxlength="100"
+                                         style="width: 164px;"/>
+
+                            <p:commandButton id="searchButton"
+                                             value="#{msg['common']['search']}"
+                                             update="branchSchemeDataTable" icon="ui-icon-search1"
+                                             style=" margin-left: 10px;"/>
+                        </div>
+                    </div>
+
+                </div>
+            </p:panel>
+
+            <cc:spacer/>
+
+            <p:toolbar id="toolbar">
+                <p:toolbarGroup align="left">
+
+                    <p:commandButton id="addBtn" value="#{msg['common']['add']}"
+                                     process="@this" action="#{branchSchemeController.add}"
+                                     update=":branchSchemeDialogForm"
+                                     oncomplete="PF('branchSchemeDialogVar').show();"
+                                     icon="ui-icon-add"/>
+
+                    <p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+                                     process="@form"
+                                     update=":branchSchemeDialogForm"
+                                     oncomplete="PF('branchSchemeDialogVar').show();" icon="ui-icon-edit"
+                                     onclick="if (!checkDatatableSelection('branchSchemeDataTableVar')) return false;"/>
+
+                    <p:commandButton id="deleteBtn"
+                                     value="#{msg['common']['delete']}" process="@form"
+                                     action="#{branchSchemeController.delete}"
+                                     update=":branchSchemeDataTableForm:branchSchemeDataTable"
+                                     icon="ui-icon-delete"
+                                     onclick="if (!confirmDeleteDatatableRecord('branchSchemeDataTableVar')) return false;"
+                                     rendered="#{commonController.loginUser.isAdmin()}"/>
+
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <cc:spacer height="3"/>
+
+            <p:dataTable id="branchSchemeDataTable" styleClass="branchSchemeDataTable"
+                         widgetVar="branchSchemeDataTableVar" var="element"
+                         value="#{branchSchemeController.dataModel}"
+                         selection="#{branchSchemeController.branchScheme}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                         emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+
+                <f:facet name="header">
+                    <p:graphicImage value="/images/record16.png"/>
+                    <h:outputText value="#{msg['pos']['branchScheme']}"/>
+                </f:facet>
+
+                <p:column selectionMode="single" style="width:16px; text-align:center"/>
+
+                <p:column headerText="#{msg['pos']['pollSchemeType']}">
+                    <h:outputText value="#{element.pollSchemeType}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['direction']}">
+                    <h:outputText value="#{element.direction}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['pollSchemeName']}">
+                    <h:outputText value="#{element.pollSchemeName}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['pollSchemeDesc']}">
+                    <h:outputText value="#{element.pollSchemeDesc}"/>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['pollSchemeStartTime']}">
+                    <h:outputText value="#{element.startTime}">
+                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['pollSchemeEndTime']}">
+                    <h:outputText value="#{element.endTime}">
+                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+
+                <p:column headerText="#{msg['pos']['enabled']}">
+                    <h:outputText value="#{element.enabled}"/>
+                </p:column>
+
+            </p:dataTable>
+
+        </h:form>
+
+    </ui:define>
+
+    <ui:define name="dialog">
+        <p:dialog id="branchSchemeDialog"
+                  widgetVar="branchSchemeDialogVar" modal="true" width="600"
+                  resizable="false">
+            <f:facet name="header">
+                <p:graphicImage value="/images/element16.png"/>
+                <h:outputText value="#{msg['pos']['branchScheme']} #{msg['pos']['detail']}"/>
+            </f:facet>
+            <h:form id="branchSchemeDialogForm">
+
+                <h:panelGrid id="formPanel" columns="2"
+                             columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5"
+                             style="width: 100%;"
+                             rendered="#{branchSchemeController.branchScheme != null}">
+
+                    <h:outputLabel for="pollSchemeType" value="#{msg['pos']['pollSchemeType']}"/>
+                    <p:selectOneListbox id="pollSchemeType" value="#{branchSchemeController.branchScheme.pollSchemeType}"
+                                        style="width: 95%" required="true">
+                        <f:selectItem itemLabel="SALES_REALTIME" itemValue="SALES_REALTIME"/>
+                        <f:selectItem itemLabel="SALES_EOD" itemValue="SALES_EOD"/>
+                        <f:selectItem itemLabel="MASTER" itemValue="MASTER"/>
+                    </p:selectOneListbox>
+
+                    <h:outputLabel for="direction" value="#{msg['pos']['direction']}"/>
+                    <p:selectOneListbox id="direction" value="#{branchSchemeController.branchScheme.direction}"
+                                        style="width: 95%" required="true">
+                        <f:selectItem itemLabel="POS_TO_STG" itemValue="POS_TO_STG"/>
+                        <f:selectItem itemLabel="STG_TO_EDW" itemValue="STG_TO_EDW"/>
+                        <f:selectItem itemLabel="MST_TO_STG" itemValue="MST_TO_STG"/>
+                        <f:selectItem itemLabel="EDW_TO_STG" itemValue="EDW_TO_STG"/>
+                        <f:selectItem itemLabel="STG_TO_POS" itemValue="STG_TO_POS"/>
+                    </p:selectOneListbox>
+
+                    <h:outputLabel for="pollSchemeName" value="#{msg['pos']['pollSchemeName']}"/>
+                    <p:inputText id="pollSchemeName"
+                                 value="#{branchSchemeController.branchScheme.pollSchemeName}"
+                                 label="#{msg['pos']['pollSchemeName']}" maxlength="500"
+                                 style="width: 95%"/>
+
+                    <h:outputLabel for="pollSchemeDesc" value="#{msg['pos']['pollSchemeDesc']}"/>
+                    <p:inputText id="pollSchemeDesc" value="#{branchSchemeController.branchScheme.pollSchemeDesc}"
+                                 label="#{msg['pos']['pollSchemeDesc']}" maxlength="500"
+                                 style="width: 95%"/>
+
+                    <h:outputLabel for="pollSchemeStartTime" value="#{msg['pos']['pollSchemeStartTime']}"/>
+                    <p:calendar id="pollSchemeStartTime" value="#{branchSchemeController.branchScheme.startTime}"
+                                label="#{msg['pos']['pollSchemeStartTime']}" maxlength="500" type="date"
+                                style="width: 95%" pattern="yyyy-MM-dd HH:mm:ss" required="true"/>
+
+                    <h:outputLabel for="pollSchemeEndTime" value="#{msg['pos']['pollSchemeEndTime']}"/>
+                    <p:calendar id="pollSchemeEndTime" value="#{branchSchemeController.branchScheme.endTime}"
+                                label="#{msg['pos']['pollSchemeEndTime']}" maxlength="500"
+                                style="width: 95%" pattern="yyyy-MM-dd HH:mm:ss" required="true"/>
+
+                    <h:outputLabel for="enable" value="#{msg['pos']['enable']}"/>
+                    <p:inputSwitch id="enable" value="#{branchSchemeController.branchScheme.enabled}" required="true"/>
+
+                    <p:spacer/>
+                    <h:panelGroup style="width: 95%; display: inline-block; text-align: right;">
+                        <p:commandButton id="submitButton"
+                                         value="#{msg['common']['save']}"
+                                         actionListener="#{branchSchemeController.save}"
+                                         update="@form :branchSchemeDataTableForm :primefaceMessages"
+                                         oncomplete="handleComplete(xhr, status, args)"
+                                         icon="ui-icon-save1" style=" margin-right: -7px;"/>
+                    </h:panelGroup>
+
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+
+        <script type="text/javascript">
+            function handleComplete(xhr, status, args) {
+
+                if (args.validationFailed) {
+                    PF('branchSchemeDialogVar').jq.effect("shake", {
+                        times: 3
+                    }, 100);
+
+                } else {
+                    PF('branchSchemeDialogVar').hide();
+                }
+            }
+
+            $(document).bind("keyup", function (evt) {
+                if (27 == evt.keyCode) {
+                    PF('branchSchemeDialogVar').hide();
+                }
+            });
+        </script>
+
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,127 @@
+package com.maxim.pos.common.service;
+
+import java.text.MessageFormat;
+import java.util.Date;
+
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.util.JDBCUtils;
+import com.maxim.pos.sales.service.MasterMonitoringService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.sales.service.MasterService;
+import com.maxim.pos.sales.service.SalesService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class BranchSchemeExecutor implements Runnable {
+	public static final Logger LOGGER = LoggerFactory.getLogger(BranchSchemeExecutor.class);
+	private BranchScheme branchScheme;
+	private Logger logger;
+	private SalesService salesService;
+	private MasterService masterService;
+	private PosSystemService posSystemService;
+
+	private MasterMonitoringService masterMonitoringService;
+
+	public BranchSchemeExecutor(){
+		salesService  = (SalesService)SpringBeanUtil.context.getBean("salesService");
+		masterService = (MasterService)SpringBeanUtil.context.getBean("masterService");
+		posSystemService = (PosSystemService)SpringBeanUtil.context.getBean("posSystemService");
+		masterMonitoringService = (MasterMonitoringService) SpringBeanUtil.context.getBean("masterMonitoringService");
+	}
+
+	public String call() {
+		// TODO Auto-generated method stub
+		if (logger == null) {
+			logger = LOGGER;
+		}
+		if (branchScheme != null) {
+			// process branchScheme
+			switch (branchScheme.getPollSchemeType()) {
+
+			case SALES_REALTIME:
+			case SALES_EOD:
+				switch (branchScheme.getDirection()) {
+				case POS_TO_STG:
+					salesService.processPosDataToStg(branchScheme, logger);
+					break;
+				// Seems never reach
+				case STG_TO_EDW:
+					salesService.processStgToEdw(branchScheme, logger);
+					break;
+
+				default:
+					MessageFormat.format("Direction Invalid,SchemeType={0},Direction={1}",
+							branchScheme.getPollSchemeType(), branchScheme.getDirection());
+					break;
+				}
+				break;
+			case MASTER:
+				switch (branchScheme.getDirection()) {
+				case MST_TO_STG:
+					if(masterMonitoringService.AssertMonitoring(branchScheme)){
+						masterService.processMasterServerToStaging(branchScheme, logger);
+						masterMonitoringService.updateStatus(branchScheme);
+					} else {
+						logger.error("current BranchScheme:" + branchScheme +" don't have trigger event");
+					}
+					break;
+				case STG_TO_POS:
+					masterService.processStagingToPos(branchScheme, logger);
+					break;
+
+				default:
+
+					break;
+				}
+				break;
+
+			default:
+
+				break;
+			}
+
+		} else {
+			LogUtils.printLog(logger, " BranchScheme is null");
+		}
+		return null;
+	}
+
+	public BranchScheme getBranchScheme() {
+		return branchScheme;
+	}
+
+	public void setBranchScheme(BranchScheme branchScheme) {
+		this.branchScheme = branchScheme;
+	}
+
+	public Logger getLogger() {
+		return logger;
+	}
+
+	public void setLogger(Logger logger) {
+		this.logger = logger;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		boolean eodComplete = posSystemService.checkEodComplete(branchScheme,logger);
+
+		if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_REALTIME && eodComplete) {
+			LogUtils.printLog(logger, " {} Branch EOD IS COMPLETED , SALES_REALTIME PROCESS SKIP..."
+					,branchScheme.getBranchMaster().getBranchCode());
+			return;
+		}
+
+		if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD && !eodComplete) {
+			LogUtils.printLog(logger, "{} Branch EOD IS NOT COMPLETED , SALES_EOD PROCESS SKIP ..." ,
+					branchScheme.getBranchMaster().getBranchCode());
+			return;
+		}
+		call();
+	}
+
+}

@@ -1,0 +1,105 @@
+package com.maxim.pos.common.entity;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.maxim.entity.AbstractEntity;
+
+
+@Entity
+@Table(name = "CONVERT_LOG")
+public class ConvertLog extends AbstractEntity {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private Date ttdate;
+	private String brno;
+	private Integer runno;
+	private String pollMethod;
+	private Date convDate;
+	private String convFlag;
+	private Date chkUploadDataDatetime;
+	
+	@Override
+    @Id
+    @Column(name = "CONVERT_lOG_ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long getId() {
+        return super.getId();
+    }
+	
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "TTDATE")
+	public Date getTtdate() {
+		return ttdate;
+	}
+
+	public void setTtdate(Date ttdate) {
+		this.ttdate = ttdate;
+	}
+    @Column(name = "BRNO")
+	public String getBrno() {
+		return brno;
+	}
+
+	public void setBrno(String brno) {
+		this.brno = brno;
+	}
+
+    @Column(name = "RUNNO")
+	public Integer getRunno() {
+		return runno;
+	}
+
+	public void setRunno(Integer runno) {
+		this.runno = runno;
+	}
+
+    @Column(name = "POLL_METHOD")
+	public String getPollMethod() {
+		return pollMethod;
+	}
+
+	public void setPollMethod(String pollMethod) {
+		this.pollMethod = pollMethod;
+	}
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CONV_DATE")
+	public Date getConvDate() {
+		return convDate;
+	}
+
+	public void setConvDate(Date convDate) {
+		this.convDate = convDate;
+	}
+
+    @Column(name = "CONV_FLAG")
+	public String getConvFlag() {
+		return convFlag;
+	}
+
+	public void setConvFlag(String convFlag) {
+		this.convFlag = convFlag;
+	}
+
+	@Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "CHK_UPLOAD_DATA_DATETIME")
+	public Date getChkUploadDataDatetime() {
+		return chkUploadDataDatetime;
+	}
+
+	public void setChkUploadDataDatetime(Date chkUploadDataDatetime) {
+		this.chkUploadDataDatetime = chkUploadDataDatetime;
+	}
+	
+}

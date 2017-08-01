@@ -1,0 +1,45 @@
+package com.maxim.pos.common.persistence;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.SchemeJobLog;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+
+@Repository("schemeJobLogDao")
+public class SchemeJobLogDao extends HibernateDAO {
+
+    private static final String HQL_findSchemeJobLogByCriteria = "findSchemeJobLogByCriteria";
+    private static final String HQL_findLatestSchemeJobLog = "findLatestSchemeJobLog";
+
+    public List<SchemeJobLog> findSchemeJobLogByCriteria(CommonCriteria criteria) {
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findSchemeJobLogByCriteria, paramMap);
+        return getList(cmd, SchemeJobLog.class);
+    }
+
+    public SchemeJobLog findLatestSchemeJobLog(Long scheduleJobId) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("scheduleJobId", scheduleJobId);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findLatestSchemeJobLog, paramMap);
+        List<SchemeJobLog> results = getList(cmd, SchemeJobLog.class, 0, 1);
+
+        if (results.size() == 1) {
+            return results.get(0);
+        }
+
+        return null;
+    }
+
+    public SchemeJobLog addOrUpdateSchemeJobLog(SchemeJobLog schemeJobLog) {
+        Auditer.audit(schemeJobLog);
+        return (SchemeJobLog) save(schemeJobLog);
+    }
+
+}

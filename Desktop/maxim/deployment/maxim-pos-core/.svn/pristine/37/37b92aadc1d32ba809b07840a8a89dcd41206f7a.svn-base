@@ -1,0 +1,20 @@
+package com.maxim.pos.common.service;
+
+import com.maxim.pos.common.entity.SchemeScheduleJob;
+import com.maxim.pos.common.value.CommonCriteria;
+
+import java.util.List;
+
+public interface SchemeScheduleJobService {
+
+    public static final String BEAN_NAME = "schemeScheduleJobService";
+
+    public void save(SchemeScheduleJob schemeScheduleJob);
+
+    public void delete(Long scheduleJobId);
+
+    public List<SchemeScheduleJob> findSchemeScheduleJobByCriteria(CommonCriteria criteria);
+
+    public Long getSchemeScheduleJobCountByCriteria(CommonCriteria criteria);
+
+}

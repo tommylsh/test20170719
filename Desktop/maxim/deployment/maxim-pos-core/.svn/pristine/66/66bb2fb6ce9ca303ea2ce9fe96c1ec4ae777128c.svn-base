@@ -1,0 +1,25 @@
+package com.maxim.pos.common.persistence;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.SchemeScheduleJob;
+
+@Repository("scheduleJobDao")
+@Transactional
+public class ScheduleJobDao extends HibernateDAO {
+
+    public static final String HQL_findAllSchedules = "findAllSchedules";
+
+    public SchemeScheduleJob findById(Long id) {
+        return getSingle(SchemeScheduleJob.class, id);
+    }
+    
+    public List<SchemeScheduleJob> findAll() {
+        return getAllList(SchemeScheduleJob.class);
+    }
+    
+}

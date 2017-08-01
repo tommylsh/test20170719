@@ -1,0 +1,43 @@
+package com.maxim.pos.common.persistence;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository("pollSchemeInfoDao")
+public class PollSchemeInfoDao extends HibernateDAO {
+
+    private static final String HQL_findSchemeInfoByByCriteria = "findSchemeInfoByByCriteria";
+    private static final String HQL_findSchemeInfoByBySchemeTypeAndClientType = "findSchemeInfoByBySchemeTypeAndClientType";
+
+    public List<SchemeInfo> findSchemeInfoByCriteria(CommonCriteria criteria) {
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findSchemeInfoByByCriteria, paramMap);
+        return getList(cmd, SchemeInfo.class);
+    }
+
+    public List<SchemeInfo> findSchemeInfoBySchemeTypeAndClientType(PollSchemeType pollSchemeType, ClientType clientType) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pollSchemeType", pollSchemeType);
+        paramMap.put("clientType", clientType);
+        return findSchemeInfo(paramMap);
+    }
+
+    public SchemeInfo addOrUpdateSchemeInfo(SchemeInfo schemeInfo) {
+        Auditer.audit(schemeInfo);
+        return (SchemeInfo) save(schemeInfo);
+    }
+
+    public List<SchemeInfo> findSchemeInfo(Map<String, Object> paramMap) {
+        return getList(new PosDaoCmd(HQL_findSchemeInfoByBySchemeTypeAndClientType, paramMap), SchemeInfo.class);
+    }
+}

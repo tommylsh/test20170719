@@ -1,0 +1,31 @@
+#,Task Name,Duration,Start,Finish,Predecessors,Resource Names,% Complete,Notes
+1,Maxim's ESB Development,31 days,Mon 2/6/17,Mon 3/20/17,,,1%,
+2,Data Model Definition,1 day,Mon 2/6/17,Mon 2/6/17,,Steven,100%,
+3,Work Flow Pseudo Coding,2 days,Tue 2/7/17,Wed 2/8/17,,Steven,20%,
+4,Story Telling on Overall Project Background ,1 day,Fri 2/10/17,Fri 2/10/17,2,"Steven,Edward,Gavin,Johnson,Joy,Lotic",100%,"Present all requirements to all developers, develop write back logic and technical spec"
+5,Common Model ,7 days,Thu 2/9/17,Fri 2/17/17,,,0%,
+6,FTP Server (for FTP based file download),1 day,Thu 2/9/17,Thu 2/9/17,,Lotic,0%,
+7,File Copy Service (Network Drive File Copy),1 day,Fri 2/10/17,Fri 2/10/17,6,Lotic,0%,
+8,Job Control Services ,2 days,Mon 2/13/17,Tue 2/14/17,,Gavin,0%,
+9,JDBC Utility,5 days,Mon 2/13/17,Fri 2/17/17,,Steven,0%,
+10,Export DBF / CSV / Text ,3 days,Mon 2/13/17,Wed 2/15/17,,Joy,0%,
+11,ESB Core Data Polling ,11 days,Mon 2/13/17,Mon 2/27/17,,,0%,
+12,POS to Staging - Real Time,5 days,Mon 2/13/17,Fri 2/17/17,7,Johnson,0%,Lotic Support
+13,POS to Staging - End of Day,3 days,Mon 2/20/17,Wed 2/22/17,12,Johnson,0%,Lotic Support
+14,Staging to EDW - Real Time,5 days,Wed 2/15/17,Tue 2/21/17,8,Gavin,0%,"STG -> Web Services API -> EDW, Steven Support"
+15,Staging to EDW - End of Day,4 days,Wed 2/22/17,Mon 2/27/17,14,Gavin,0%,
+16,Master/Pricing Data (Staging to POS),5 days,Mon 2/13/17,Fri 2/17/17,,Joy,0%,Steven support
+17,DB Adaptor Monitor ,3 days,Thu 2/16/17,Mon 2/20/17,10,Lotic,0%,Steven support
+18,Copy Data from (IT12 or IT50) to Staging ,3 days,Mon 2/20/17,Wed 2/22/17,16,Joy,0%,Steven support
+19,Systems Configuration User Interface / Others,20 days,Tue 2/21/17,Mon 3/20/17,,,0%,
+20,User Maintenance (Completed),0 days,Tue 2/21/17,Tue 2/21/17,17,,100%,
+21,System Parameter Configuration ,4 days,Tue 2/21/17,Fri 2/24/17,17,Joy,2%,
+22,Branch Info Maintenance ,3 days,Tue 2/28/17,Thu 3/2/17,15,Gavin,0%,
+23,Branch Scheme Maintenance ,15 days,Thu 2/23/17,Wed 3/15/17,18,Johnson,0%,
+24,Scheduler Jobs Maintenance,5 days,Mon 2/27/17,Fri 3/3/17,21,Joy,0%,
+25,Alert Email ,4 days,Mon 3/6/17,Thu 3/9/17,24,Joy,0%,
+26,Export Daily Report ,4 days,Thu 2/23/17,Tue 2/28/17,13,Lotic,0%,
+27,Job Logs View ,6 days,Fri 3/3/17,Fri 3/10/17,22,Gavin,0%,
+28,Systems Dashboard ,3 days,Wed 3/1/17,Fri 3/3/17,26,Lotic,0%,
+29,Backup and Housekeeping ,6 days,Mon 3/13/17,Mon 3/20/17,27,Gavin,0%,
+,,,,,,,,

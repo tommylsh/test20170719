@@ -1,0 +1,945 @@
+<mockup version="1.0" skin="wirefram" fontFace="jongde" measureW="1585" measureH="3967" mockupW="1527" mockupH="3795">
+  <controls>
+    <control controlID="0" controlTypeID="DataGrid" x="195" y="824" w="589" h="142" measuredW="507" measuredH="108" zOrder="0" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Operation%2C%20Job%20Name%2C%20Running%2C%20Cron%20Expression%2C%20Description%0A%5BEdit%5D%20%5BDelete%5D%2CRealtime%20Sales%20Job%2C%20Yes%2C%200%200/15%20*%20*%20*%20%3F%2C%20%u6BCF%u5929%u6BCF%u969415%u5206%u949F%u6267%u884C%u4E00%u6B21%0A%5BEdit%5D%20%5BDelete%5D%2CEnd%20Of%20Day%20Job%2C%20Yes%2C%200%200%200%20*%20*%20%3F%2C%20%u6BCF%u59290%u65F60%u52060%u79D2%u6267%u884C%u4E00%u6B21%0A%5BEdit%5D%20%5BDelete%5D%2CSales%20Job%2C%20Yes%2C%200%200%206%20*%20*%20%3F%2C%20%u6BCF%u59296%u65F60%u52060%u79D2%u6267%u884C%u4E00%u6B21</text>
+      </controlProperties>
+    </control>
+    <control controlID="2" controlTypeID="SubTitle" x="423" y="770" w="170" h="-1" measuredW="167" measuredH="25" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Scheme%20Schedule%20Job</text>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="Button" x="195" y="795" w="65" h="23" measuredW="75" measuredH="29" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="DataGrid" x="195" y="1185" w="589" h="142" measuredW="635" measuredH="108" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Operation%2C%20Branch%20Code%2C%20Client%20Type%2C%20Client%20Host%2C%20Client%20Port%2C%20Client%20DB%2C%20DB%20User%0A%5BEdit%5D%20%5BDelete%5D%20%5BView%20Scheme%5D%2C%20001%2C%20JDBC%2C%20192.168.1.1%2C%201001%2C%20poll_db%2C%20dbusername%0A%5BEdit%5D%20%5BDelete%5D%20%5BView%20Scheme%5D%2C%20002%2C%20JDBC%2C%20192.168.1.2%2C%201001%2C%20poll_db%2C%20dbusername%0A%5BEdit%5D%20%5BDelete%5D%20%5BView%20Scheme%5D%2C%20003%2C%20JDBC%2C%20192.168.1.3%2C%201001%2C%20poll_db%2C%20dbusername</text>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="SubTitle" x="438" y="1130" w="93" h="-1" measuredW="92" measuredH="25" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Branch%20Info</text>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="Button" x="195" y="1155" w="65" h="23" measuredW="75" measuredH="29" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="ComboBox" x="286" y="1087" w="161" h="-1" measuredW="59" measuredH="24" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>up</state>
+        <text>JDBC</text>
+      </controlProperties>
+    </control>
+    <control controlID="10" controlTypeID="TextInput" x="286" y="1051" w="159" h="-1" measuredW="33" measuredH="25" zOrder="7" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>001</text>
+      </controlProperties>
+    </control>
+    <control controlID="11" controlTypeID="Label" x="195" y="1051" w="73" h="-1" measuredW="72" measuredH="25" zOrder="8" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Branch%20Code</text>
+      </controlProperties>
+    </control>
+    <control controlID="12" controlTypeID="Label" x="195" y="1087" w="65" h="-1" measuredW="64" measuredH="25" zOrder="9" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Client%20Type</text>
+      </controlProperties>
+    </control>
+    <control controlID="13" controlTypeID="HRule" x="195" y="1111" w="595" h="-1" measuredW="100" measuredH="10" zOrder="10" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>3355443</color>
+      </controlProperties>
+    </control>
+    <control controlID="15" controlTypeID="Canvas" x="58" y="3698" w="438" h="269" measuredW="174" measuredH="116" zOrder="11" locked="false" isInGroup="-1">
+      <controlProperties/>
+    </control>
+    <control controlID="16" controlTypeID="DataGrid" x="195" y="1504" w="589" h="142" measuredW="584" measuredH="108" zOrder="12" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Operation%2C%20Scheme%20Name%2C%20Direction%2C%20Start%20Time%2C%20End%20Time%2C%20Enabled%0A%5BEdit%5D%20%5BDelete%5D%20%5BView%20Scheme%20Info%5D%2C%20Scheme001%2C%20POS_TO_ESB%2C%2005%3A30%3A00%2C%2008%3A30%3A00%2C%20Yes%0A%5BEdit%5D%20%5BDelete%5D%20%5BView%20Scheme%20Info%5D%2C%20Scheme002%2C%20POS_TO_ESB%2C%2008%3A30%3A00%2C%2014%3A30%3A00%2C%20Yes%0A%5BEdit%5D%20%5BDelete%5D%20%5BView%20Scheme%20Info%5D%2C%20Scheme003%2C%20POS_TO_ESB%2C%2009%3A30%3A00%2C%2017%3A30%3A00%2C%20No</text>
+      </controlProperties>
+    </control>
+    <control controlID="17" controlTypeID="SubTitle" x="423" y="1450" w="165" h="-1" measuredW="165" measuredH="25" zOrder="13" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Branch%20001%27s%20Scheme</text>
+      </controlProperties>
+    </control>
+    <control controlID="18" controlTypeID="Button" x="195" y="1475" w="65" h="23" measuredW="75" measuredH="29" zOrder="14" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create</text>
+      </controlProperties>
+    </control>
+    <control controlID="19" controlTypeID="HRule" x="110" y="1010" w="1475" h="-1" measuredW="100" measuredH="10" zOrder="15" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>2848996</color>
+      </controlProperties>
+    </control>
+    <control controlID="20" controlTypeID="HRule" x="110" y="1384" w="1475" h="-1" measuredW="100" measuredH="10" zOrder="16" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>2848996</color>
+      </controlProperties>
+    </control>
+    <control controlID="21" controlTypeID="Alert" x="692" y="1740" w="200" h="118" measuredW="200" measuredH="117" zOrder="17" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Information%0AOperation%20Success/Failure%0AOK</text>
+      </controlProperties>
+    </control>
+    <control controlID="22" controlTypeID="TitleWindow" x="195" y="1661" w="450" h="304" measuredW="450" measuredH="400" zOrder="18" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Scheme%20Detail</text>
+      </controlProperties>
+    </control>
+    <control controlID="24" controlTypeID="ComboBox" x="301" y="1731" w="249" h="-1" measuredW="131" measuredH="24" zOrder="19" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>up</state>
+        <text>Sales%20Schedule%20Job</text>
+      </controlProperties>
+    </control>
+    <control controlID="25" controlTypeID="TextInput" x="301" y="1761" w="247" h="-1" measuredW="16" measuredH="25" zOrder="20" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="26" controlTypeID="Label" x="210" y="1761" w="82" h="-1" measuredW="84" measuredH="25" zOrder="21" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Scheme%20Name</text>
+      </controlProperties>
+    </control>
+    <control controlID="27" controlTypeID="Label" x="210" y="1729" w="74" h="-1" measuredW="73" measuredH="25" zOrder="22" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Schedule%20Job</text>
+      </controlProperties>
+    </control>
+    <control controlID="28" controlTypeID="Label" x="210" y="1704" w="73" h="-1" measuredW="72" measuredH="25" zOrder="23" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Branch%20Code</text>
+      </controlProperties>
+    </control>
+    <control controlID="29" controlTypeID="Label" x="301" y="1704" w="23" h="-1" measuredW="25" measuredH="25" zOrder="24" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>001</text>
+      </controlProperties>
+    </control>
+    <control controlID="30" controlTypeID="Label" x="210" y="1792" w="53" h="-1" measuredW="52" measuredH="25" zOrder="25" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Direction</text>
+      </controlProperties>
+    </control>
+    <control controlID="31" controlTypeID="RadioButton" x="301" y="1795" w="-1" h="-1" measuredW="91" measuredH="18" zOrder="26" locked="false" isInGroup="-1">
+      <controlProperties>
+        <state>selected</state>
+        <text>POS_TO_ESB</text>
+      </controlProperties>
+    </control>
+    <control controlID="33" controlTypeID="RadioButton" x="396" y="1795" w="-1" h="-1" measuredW="91" measuredH="18" zOrder="27" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>ESB_TO_POS</text>
+      </controlProperties>
+    </control>
+    <control controlID="34" controlTypeID="Label" x="210" y="1823" w="59" h="-1" measuredW="60" measuredH="25" zOrder="28" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%20Time</text>
+      </controlProperties>
+    </control>
+    <control controlID="35" controlTypeID="TextInput" x="301" y="1823" w="65" h="-1" measuredW="61" measuredH="25" zOrder="29" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%2009%3A30%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="36" controlTypeID="Label" x="210" y="1858" w="55" h="-1" measuredW="55" measuredH="25" zOrder="30" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>End%20Time</text>
+      </controlProperties>
+    </control>
+    <control controlID="37" controlTypeID="TextInput" x="301" y="1858" w="65" h="-1" measuredW="61" measuredH="25" zOrder="31" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%2009%3A30%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="38" controlTypeID="Button" x="565" y="1904" w="65" h="23" measuredW="75" measuredH="29" zOrder="32" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save</text>
+      </controlProperties>
+    </control>
+    <control controlID="39" controlTypeID="Canvas" x="346" y="2083" w="798" h="394" measuredW="174" measuredH="116" zOrder="33" locked="false" isInGroup="-1">
+      <controlProperties/>
+    </control>
+    <control controlID="40" controlTypeID="Label" x="353" y="2090" w="58" h="-1" measuredW="59" measuredH="25" zOrder="34" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Operation</text>
+      </controlProperties>
+    </control>
+    <control controlID="41" controlTypeID="SubTitle" x="346" y="2020" w="157" h="-1" measuredW="156" measuredH="25" zOrder="35" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>Scheme001%27s%20Tables</text>
+      </controlProperties>
+    </control>
+    <control controlID="42" controlTypeID="Label" x="496" y="2090" w="56" h="-1" measuredW="57" measuredH="25" zOrder="36" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sequence</text>
+      </controlProperties>
+    </control>
+    <control controlID="43" controlTypeID="Label" x="567" y="2090" w="65" h="-1" measuredW="64" measuredH="25" zOrder="37" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>From%20Table</text>
+      </controlProperties>
+    </control>
+    <control controlID="44" controlTypeID="Label" x="744" y="2090" w="51" h="-1" measuredW="51" measuredH="25" zOrder="38" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>To%20Table</text>
+      </controlProperties>
+    </control>
+    <control controlID="45" controlTypeID="Label" x="935" y="2090" w="86" h="-1" measuredW="87" measuredH="25" zOrder="39" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Table%20PK%20Name</text>
+      </controlProperties>
+    </control>
+    <control controlID="46" controlTypeID="Link" x="353" y="2128" w="-1" h="-1" measuredW="81" measuredH="25" zOrder="40" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>View%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="47" controlTypeID="Link" x="442" y="2128" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="41" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="48" controlTypeID="Label" x="519" y="2128" w="11" h="-1" measuredW="12" measuredH="25" zOrder="42" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="49" controlTypeID="TextInput" x="567" y="2128" w="162" h="-1" measuredW="16" measuredH="25" zOrder="43" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="50" controlTypeID="TextInput" x="744" y="2128" w="162" h="-1" measuredW="16" measuredH="25" zOrder="44" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="51" controlTypeID="TextInput" x="935" y="2128" w="162" h="-1" measuredW="16" measuredH="25" zOrder="45" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="52" controlTypeID="VerticalScrollBar" x="1114" y="2117" w="-1" h="281" measuredW="14" measuredH="100" zOrder="46" locked="false" isInGroup="-1">
+      <controlProperties/>
+    </control>
+    <control controlID="53" controlTypeID="HRule" x="353" y="2112" w="774" h="-1" measuredW="100" measuredH="10" zOrder="47" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>0</color>
+      </controlProperties>
+    </control>
+    <control controlID="54" controlTypeID="Link" x="353" y="2163" w="-1" h="-1" measuredW="81" measuredH="25" zOrder="48" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>View%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="55" controlTypeID="Link" x="442" y="2163" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="49" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="56" controlTypeID="Label" x="519" y="2163" w="11" h="-1" measuredW="12" measuredH="25" zOrder="50" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>2</text>
+      </controlProperties>
+    </control>
+    <control controlID="57" controlTypeID="TextInput" x="567" y="2163" w="162" h="-1" measuredW="16" measuredH="25" zOrder="51" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="58" controlTypeID="TextInput" x="744" y="2163" w="162" h="-1" measuredW="16" measuredH="25" zOrder="52" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="59" controlTypeID="TextInput" x="935" y="2163" w="162" h="-1" measuredW="16" measuredH="25" zOrder="53" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="60" controlTypeID="Link" x="353" y="2198" w="-1" h="-1" measuredW="81" measuredH="25" zOrder="54" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>View%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="61" controlTypeID="Link" x="442" y="2198" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="55" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="62" controlTypeID="Label" x="519" y="2198" w="11" h="-1" measuredW="12" measuredH="25" zOrder="56" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>3</text>
+      </controlProperties>
+    </control>
+    <control controlID="63" controlTypeID="TextInput" x="567" y="2198" w="162" h="-1" measuredW="16" measuredH="25" zOrder="57" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="64" controlTypeID="TextInput" x="744" y="2198" w="162" h="-1" measuredW="16" measuredH="25" zOrder="58" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="65" controlTypeID="TextInput" x="935" y="2198" w="162" h="-1" measuredW="16" measuredH="25" zOrder="59" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="66" controlTypeID="Link" x="353" y="2233" w="-1" h="-1" measuredW="81" measuredH="25" zOrder="60" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>View%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="67" controlTypeID="Link" x="442" y="2233" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="61" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="68" controlTypeID="Label" x="519" y="2233" w="11" h="-1" measuredW="12" measuredH="25" zOrder="62" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>4</text>
+      </controlProperties>
+    </control>
+    <control controlID="69" controlTypeID="TextInput" x="567" y="2233" w="162" h="-1" measuredW="16" measuredH="25" zOrder="63" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="70" controlTypeID="TextInput" x="744" y="2233" w="162" h="-1" measuredW="16" measuredH="25" zOrder="64" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="71" controlTypeID="TextInput" x="935" y="2233" w="162" h="-1" measuredW="16" measuredH="25" zOrder="65" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="72" controlTypeID="Link" x="353" y="2270" w="-1" h="-1" measuredW="81" measuredH="25" zOrder="66" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>View%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="73" controlTypeID="Link" x="442" y="2270" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="67" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="74" controlTypeID="Label" x="519" y="2270" w="11" h="-1" measuredW="12" measuredH="25" zOrder="68" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>5</text>
+      </controlProperties>
+    </control>
+    <control controlID="75" controlTypeID="TextInput" x="567" y="2270" w="162" h="-1" measuredW="16" measuredH="25" zOrder="69" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="76" controlTypeID="TextInput" x="744" y="2270" w="162" h="-1" measuredW="16" measuredH="25" zOrder="70" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="77" controlTypeID="TextInput" x="935" y="2270" w="162" h="-1" measuredW="16" measuredH="25" zOrder="71" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="78" controlTypeID="Link" x="353" y="2305" w="-1" h="-1" measuredW="81" measuredH="25" zOrder="72" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>View%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="79" controlTypeID="Link" x="442" y="2305" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="73" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="80" controlTypeID="Label" x="519" y="2305" w="11" h="-1" measuredW="12" measuredH="25" zOrder="74" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>6</text>
+      </controlProperties>
+    </control>
+    <control controlID="81" controlTypeID="TextInput" x="567" y="2305" w="162" h="-1" measuredW="16" measuredH="25" zOrder="75" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="82" controlTypeID="TextInput" x="744" y="2305" w="162" h="-1" measuredW="16" measuredH="25" zOrder="76" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="83" controlTypeID="TextInput" x="935" y="2305" w="162" h="-1" measuredW="16" measuredH="25" zOrder="77" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="84" controlTypeID="Link" x="353" y="2337" w="-1" h="-1" measuredW="81" measuredH="25" zOrder="78" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>View%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="85" controlTypeID="Link" x="442" y="2337" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="79" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="86" controlTypeID="Label" x="519" y="2337" w="11" h="-1" measuredW="12" measuredH="25" zOrder="80" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>7</text>
+      </controlProperties>
+    </control>
+    <control controlID="87" controlTypeID="TextInput" x="567" y="2337" w="162" h="-1" measuredW="16" measuredH="25" zOrder="81" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="88" controlTypeID="TextInput" x="744" y="2337" w="162" h="-1" measuredW="16" measuredH="25" zOrder="82" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="89" controlTypeID="TextInput" x="935" y="2337" w="162" h="-1" measuredW="16" measuredH="25" zOrder="83" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="90" controlTypeID="Link" x="353" y="2372" w="-1" h="-1" measuredW="81" measuredH="25" zOrder="84" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>View%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="91" controlTypeID="Link" x="442" y="2372" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="85" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="92" controlTypeID="Label" x="519" y="2372" w="11" h="-1" measuredW="12" measuredH="25" zOrder="86" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>8</text>
+      </controlProperties>
+    </control>
+    <control controlID="93" controlTypeID="TextInput" x="567" y="2372" w="162" h="-1" measuredW="16" measuredH="25" zOrder="87" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="94" controlTypeID="TextInput" x="744" y="2372" w="162" h="-1" measuredW="16" measuredH="25" zOrder="88" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="95" controlTypeID="TextInput" x="935" y="2372" w="162" h="-1" measuredW="16" measuredH="25" zOrder="89" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="96" controlTypeID="Button" x="1064" y="2440" w="65" h="23" measuredW="75" measuredH="29" zOrder="90" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save%20All</text>
+      </controlProperties>
+    </control>
+    <control controlID="98" controlTypeID="StickyNote" x="73" y="2072" w="258" h="235" measuredW="109" measuredH="123" zOrder="91" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u25CF%20%u5F53Scheme%20Info%u88AB%u6301%u4E45%u5316%u540E%u624D%u663E%u793AView%20Columns%u94FE%u63A5%0A%20%0A%u25CF%20Sequence%u4EE3%u8868%u987A%u5E8F%uFF0C%u4E0D%u4F1A%u5B58%u50A8%u81F3DB%0A%20%0A%u25CF%20%u6309%u4E0B%u201CSave%u201D%u4E0B%u6279%u91CF%u50A8%u5B58%u6216%u66F4%u65B0</text>
+      </controlProperties>
+    </control>
+    <control controlID="99" controlTypeID="Alert" x="906" y="833" w="200" h="118" measuredW="200" measuredH="117" zOrder="92" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Information%0ADo%20you%20confirm%20delete%3F%0ANo%2C%20Yes</text>
+      </controlProperties>
+    </control>
+    <control controlID="100" controlTypeID="HRule" x="110" y="2002" w="1475" h="-1" measuredW="100" measuredH="10" zOrder="93" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>2848996</color>
+      </controlProperties>
+    </control>
+    <control controlID="101" controlTypeID="Canvas" x="353" y="2676" w="578" h="405" measuredW="174" measuredH="116" zOrder="94" locked="false" isInGroup="-1">
+      <controlProperties/>
+    </control>
+    <control controlID="102" controlTypeID="Label" x="380" y="2694" w="58" h="-1" measuredW="59" measuredH="25" zOrder="95" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Operation</text>
+      </controlProperties>
+    </control>
+    <control controlID="103" controlTypeID="SubTitle" x="353" y="2610" w="339" h="-1" measuredW="335" measuredH="25" zOrder="96" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>FROM_TABLE_01%20To%20TO_TABLE_01%27s%20Columns</text>
+      </controlProperties>
+    </control>
+    <control controlID="104" controlTypeID="Label" x="453" y="2694" w="56" h="-1" measuredW="57" measuredH="25" zOrder="97" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Sequence</text>
+      </controlProperties>
+    </control>
+    <control controlID="105" controlTypeID="Label" x="524" y="2694" w="79" h="-1" measuredW="76" measuredH="25" zOrder="98" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>From%20Column</text>
+      </controlProperties>
+    </control>
+    <control controlID="106" controlTypeID="Label" x="701" y="2694" w="65" h="-1" measuredW="63" measuredH="25" zOrder="99" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>To%20Column</text>
+      </controlProperties>
+    </control>
+    <control controlID="109" controlTypeID="Link" x="389" y="2732" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="100" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="110" controlTypeID="Label" x="476" y="2732" w="11" h="-1" measuredW="12" measuredH="25" zOrder="101" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="111" controlTypeID="TextInput" x="524" y="2732" w="162" h="-1" measuredW="16" measuredH="25" zOrder="102" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="112" controlTypeID="TextInput" x="701" y="2732" w="162" h="-1" measuredW="16" measuredH="25" zOrder="103" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="114" controlTypeID="VerticalScrollBar" x="901" y="2722" w="-1" h="281" measuredW="14" measuredH="100" zOrder="104" locked="false" isInGroup="-1">
+      <controlProperties/>
+    </control>
+    <control controlID="115" controlTypeID="HRule" x="368" y="2716" w="546" h="-1" measuredW="100" measuredH="10" zOrder="105" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>0</color>
+      </controlProperties>
+    </control>
+    <control controlID="117" controlTypeID="Link" x="389" y="2767" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="106" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="118" controlTypeID="Label" x="476" y="2767" w="11" h="-1" measuredW="12" measuredH="25" zOrder="107" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>2</text>
+      </controlProperties>
+    </control>
+    <control controlID="119" controlTypeID="TextInput" x="524" y="2767" w="162" h="-1" measuredW="16" measuredH="25" zOrder="108" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="120" controlTypeID="TextInput" x="701" y="2767" w="162" h="-1" measuredW="16" measuredH="25" zOrder="109" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="123" controlTypeID="Link" x="389" y="2802" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="110" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="124" controlTypeID="Label" x="476" y="2802" w="11" h="-1" measuredW="12" measuredH="25" zOrder="111" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>3</text>
+      </controlProperties>
+    </control>
+    <control controlID="125" controlTypeID="TextInput" x="524" y="2802" w="162" h="-1" measuredW="16" measuredH="25" zOrder="112" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="126" controlTypeID="TextInput" x="701" y="2802" w="162" h="-1" measuredW="16" measuredH="25" zOrder="113" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="129" controlTypeID="Link" x="389" y="2837" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="114" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="130" controlTypeID="Label" x="476" y="2837" w="11" h="-1" measuredW="12" measuredH="25" zOrder="115" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>4</text>
+      </controlProperties>
+    </control>
+    <control controlID="131" controlTypeID="TextInput" x="524" y="2837" w="162" h="-1" measuredW="16" measuredH="25" zOrder="116" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="132" controlTypeID="TextInput" x="701" y="2837" w="162" h="-1" measuredW="16" measuredH="25" zOrder="117" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="135" controlTypeID="Link" x="389" y="2874" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="118" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="136" controlTypeID="Label" x="476" y="2874" w="11" h="-1" measuredW="12" measuredH="25" zOrder="119" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>5</text>
+      </controlProperties>
+    </control>
+    <control controlID="137" controlTypeID="TextInput" x="524" y="2874" w="162" h="-1" measuredW="16" measuredH="25" zOrder="120" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="138" controlTypeID="TextInput" x="701" y="2874" w="162" h="-1" measuredW="16" measuredH="25" zOrder="121" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="141" controlTypeID="Link" x="389" y="2909" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="122" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="142" controlTypeID="Label" x="476" y="2909" w="11" h="-1" measuredW="12" measuredH="25" zOrder="123" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>6</text>
+      </controlProperties>
+    </control>
+    <control controlID="143" controlTypeID="TextInput" x="524" y="2909" w="162" h="-1" measuredW="16" measuredH="25" zOrder="124" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="144" controlTypeID="TextInput" x="701" y="2909" w="162" h="-1" measuredW="16" measuredH="25" zOrder="125" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="147" controlTypeID="Link" x="389" y="2941" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="126" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="148" controlTypeID="Label" x="476" y="2941" w="11" h="-1" measuredW="12" measuredH="25" zOrder="127" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>7</text>
+      </controlProperties>
+    </control>
+    <control controlID="149" controlTypeID="TextInput" x="524" y="2941" w="162" h="-1" measuredW="16" measuredH="25" zOrder="128" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="150" controlTypeID="TextInput" x="701" y="2941" w="162" h="-1" measuredW="16" measuredH="25" zOrder="129" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="153" controlTypeID="Link" x="389" y="2976" w="-1" h="-1" measuredW="40" measuredH="25" zOrder="130" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Delete</text>
+      </controlProperties>
+    </control>
+    <control controlID="154" controlTypeID="Label" x="476" y="2976" w="11" h="-1" measuredW="12" measuredH="25" zOrder="131" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>8</text>
+      </controlProperties>
+    </control>
+    <control controlID="155" controlTypeID="TextInput" x="524" y="2976" w="162" h="-1" measuredW="16" measuredH="25" zOrder="132" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="156" controlTypeID="TextInput" x="701" y="2976" w="162" h="-1" measuredW="16" measuredH="25" zOrder="133" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="158" controlTypeID="Button" x="849" y="3042" w="65" h="23" measuredW="75" measuredH="29" zOrder="134" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save%20All</text>
+      </controlProperties>
+    </control>
+    <control controlID="159" controlTypeID="Canvas" x="167" y="232" w="578" h="405" measuredW="174" measuredH="116" zOrder="135" locked="false" isInGroup="-1">
+      <controlProperties/>
+    </control>
+    <control controlID="161" controlTypeID="SubTitle" x="292" y="172" w="339" h="-1" measuredW="248" measuredH="25" zOrder="136" locked="false" isInGroup="-1">
+      <controlProperties>
+        <bold>true</bold>
+        <size>16</size>
+        <text>System%20Parameter%20Configuration</text>
+      </controlProperties>
+    </control>
+    <control controlID="162" controlTypeID="Label" x="182" y="250" w="-1" h="-1" measuredW="61" measuredH="25" zOrder="137" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Param%20Key</text>
+      </controlProperties>
+    </control>
+    <control controlID="163" controlTypeID="Label" x="268" y="250" w="-1" h="-1" measuredW="73" measuredH="25" zOrder="138" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Param%20Value</text>
+      </controlProperties>
+    </control>
+    <control controlID="166" controlTypeID="Label" x="182" y="291" w="-1" h="-1" measuredW="31" measuredH="25" zOrder="139" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Key1</text>
+      </controlProperties>
+    </control>
+    <control controlID="167" controlTypeID="TextInput" x="268" y="291" w="162" h="-1" measuredW="51" measuredH="25" zOrder="140" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Value1</text>
+      </controlProperties>
+    </control>
+    <control controlID="169" controlTypeID="VerticalScrollBar" x="715" y="278" w="-1" h="281" measuredW="14" measuredH="100" zOrder="141" locked="false" isInGroup="-1">
+      <controlProperties/>
+    </control>
+    <control controlID="170" controlTypeID="HRule" x="182" y="272" w="546" h="-1" measuredW="100" measuredH="10" zOrder="142" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>0</color>
+      </controlProperties>
+    </control>
+    <control controlID="173" controlTypeID="TextInput" x="268" y="326" w="162" h="-1" measuredW="51" measuredH="25" zOrder="143" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Value2</text>
+      </controlProperties>
+    </control>
+    <control controlID="177" controlTypeID="TextInput" x="268" y="361" w="162" h="-1" measuredW="51" measuredH="25" zOrder="144" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Value3</text>
+      </controlProperties>
+    </control>
+    <control controlID="181" controlTypeID="TextInput" x="268" y="396" w="162" h="-1" measuredW="51" measuredH="25" zOrder="145" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Value4</text>
+      </controlProperties>
+    </control>
+    <control controlID="185" controlTypeID="TextInput" x="268" y="433" w="162" h="-1" measuredW="51" measuredH="25" zOrder="146" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Value5</text>
+      </controlProperties>
+    </control>
+    <control controlID="189" controlTypeID="TextInput" x="268" y="468" w="162" h="-1" measuredW="51" measuredH="25" zOrder="147" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Value6</text>
+      </controlProperties>
+    </control>
+    <control controlID="193" controlTypeID="TextInput" x="268" y="500" w="162" h="-1" measuredW="51" measuredH="25" zOrder="148" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Value7</text>
+      </controlProperties>
+    </control>
+    <control controlID="197" controlTypeID="TextInput" x="268" y="535" w="162" h="-1" measuredW="51" measuredH="25" zOrder="149" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Value8</text>
+      </controlProperties>
+    </control>
+    <control controlID="199" controlTypeID="Button" x="663" y="598" w="65" h="23" measuredW="75" measuredH="29" zOrder="150" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Save%20All</text>
+      </controlProperties>
+    </control>
+    <control controlID="200" controlTypeID="Label" x="184" y="326" w="-1" h="-1" measuredW="31" measuredH="25" zOrder="151" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Key2</text>
+      </controlProperties>
+    </control>
+    <control controlID="201" controlTypeID="Label" x="184" y="361" w="-1" h="-1" measuredW="31" measuredH="25" zOrder="152" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Key3</text>
+      </controlProperties>
+    </control>
+    <control controlID="202" controlTypeID="Label" x="184" y="396" w="-1" h="-1" measuredW="31" measuredH="25" zOrder="153" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Key4</text>
+      </controlProperties>
+    </control>
+    <control controlID="203" controlTypeID="Label" x="186" y="431" w="-1" h="-1" measuredW="31" measuredH="25" zOrder="154" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Key5</text>
+      </controlProperties>
+    </control>
+    <control controlID="204" controlTypeID="Label" x="186" y="466" w="-1" h="-1" measuredW="31" measuredH="25" zOrder="155" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Key6</text>
+      </controlProperties>
+    </control>
+    <control controlID="205" controlTypeID="Label" x="184" y="500" w="-1" h="-1" measuredW="31" measuredH="25" zOrder="156" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Key7</text>
+      </controlProperties>
+    </control>
+    <control controlID="207" controlTypeID="TextInput" x="447" y="291" w="247" h="-1" measuredW="16" measuredH="25" zOrder="157" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="208" controlTypeID="TextInput" x="447" y="326" w="246" h="-1" measuredW="16" measuredH="25" zOrder="158" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="209" controlTypeID="TextInput" x="447" y="361" w="247" h="-1" measuredW="16" measuredH="25" zOrder="159" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="210" controlTypeID="TextInput" x="447" y="396" w="247" h="-1" measuredW="16" measuredH="25" zOrder="160" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="211" controlTypeID="TextInput" x="447" y="433" w="247" h="-1" measuredW="16" measuredH="25" zOrder="161" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="212" controlTypeID="TextInput" x="447" y="468" w="247" h="-1" measuredW="16" measuredH="25" zOrder="162" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="213" controlTypeID="TextInput" x="447" y="500" w="247" h="-1" measuredW="16" measuredH="25" zOrder="163" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="214" controlTypeID="TextInput" x="447" y="535" w="247" h="-1" measuredW="16" measuredH="25" zOrder="164" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%20</text>
+      </controlProperties>
+    </control>
+    <control controlID="215" controlTypeID="Label" x="447" y="250" w="-1" h="-1" measuredW="101" measuredH="25" zOrder="165" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Param%20Description</text>
+      </controlProperties>
+    </control>
+    <control controlID="216" controlTypeID="Button" x="167" y="204" w="65" h="23" measuredW="75" measuredH="29" zOrder="166" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create</text>
+      </controlProperties>
+    </control>
+    <control controlID="217" controlTypeID="TextInput" x="182" y="535" w="76" h="-1" measuredW="39" measuredH="25" zOrder="167" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Key8</text>
+      </controlProperties>
+    </control>
+    <control controlID="218" controlTypeID="StickyNote" x="790" y="232" w="258" h="235" measuredW="109" measuredH="123" zOrder="168" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%u25CF%20%u65B0%u589E%u65F6%uFF0C%u5141%u8BB8%u7F16%u8F91Key%2C%20Value%2C%20Description%uFF1B%0A%20%0A%u25CF%20%u66F4%u65B0%u65F6%uFF0C%u53EA%u5141%u8BB8%u7F16%u8F91Value%2C%20Description%uFF1B%0A%20%0A%u25CF%20%u56E0%u7CFB%u7EDF%u5BF9%u7CFB%u7EDF%u4E1A%u52A1%u903B%u8F91%u5F71%u54CD%u8F83%u5927%uFF0C%u4E0D%u5141%u8BB8%u5728%u754C%u9762%u5220%u9664%uFF1B</text>
+      </controlProperties>
+    </control>
+    <control controlID="220" controlTypeID="HRule" x="110" y="692" w="1475" h="-1" measuredW="100" measuredH="10" zOrder="169" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>2848996</color>
+      </controlProperties>
+    </control>
+    <control controlID="221" controlTypeID="Button" x="346" y="2051" w="65" h="23" measuredW="75" measuredH="29" zOrder="170" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create</text>
+      </controlProperties>
+    </control>
+    <control controlID="222" controlTypeID="Button" x="353" y="2642" w="65" h="23" measuredW="75" measuredH="29" zOrder="171" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Create</text>
+      </controlProperties>
+    </control>
+    <control controlID="223" controlTypeID="HRule" x="110" y="2566" w="1475" h="-1" measuredW="100" measuredH="10" zOrder="172" locked="false" isInGroup="-1">
+      <controlProperties>
+        <backgroundAlpha>1</backgroundAlpha>
+        <color>2848996</color>
+      </controlProperties>
+    </control>
+    <control controlID="225" controlTypeID="DataGrid" x="152" y="3143" w="1010" h="242" measuredW="558" measuredH="78" zOrder="173" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Operation%2C%20Job%2C%20Start%20Time%2C%20End%20Time%2C%20Status%2C%20%23%20schemes%0A%5BView%5D%2C%20Real%20Time%20Feed%2C%202016-01-15%2015%3A00%3A00%2C%202016-01-15%2015%3A06%3A02%2C%20E%2C%201%0A%5BView%5D%2C%20EOD%20Feed%2C%202016-01-15%2001%3A00%3A00%2C%202016-01-15%2002%3A16%3A33%2C%20E%2C%201</text>
+      </controlProperties>
+    </control>
+    <control controlID="227" controlTypeID="TitleWindow" x="509" y="3414" w="820" h="518" measuredW="450" measuredH="400" zOrder="174" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Job%20Detail</text>
+      </controlProperties>
+    </control>
+    <control controlID="230" controlTypeID="Label" x="526" y="3527" w="98" h="-1" measuredW="55" measuredH="25" zOrder="175" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>End%20Time</text>
+      </controlProperties>
+    </control>
+    <control controlID="231" controlTypeID="Label" x="526" y="3502" w="88" h="-1" measuredW="60" measuredH="25" zOrder="176" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Start%20Time</text>
+      </controlProperties>
+    </control>
+    <control controlID="232" controlTypeID="Label" x="526" y="3471" w="87" h="-1" measuredW="59" measuredH="25" zOrder="177" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Job%20Name</text>
+      </controlProperties>
+    </control>
+    <control controlID="233" controlTypeID="Label" x="624" y="3471" w="304" h="-1" measuredW="85" measuredH="25" zOrder="178" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Real%20Time%20Feed</text>
+      </controlProperties>
+    </control>
+    <control controlID="242" controlTypeID="Label" x="624" y="3502" w="304" h="-1" measuredW="117" measuredH="25" zOrder="179" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>2016-01-15%2015%3A00%3A00</text>
+      </controlProperties>
+    </control>
+    <control controlID="244" controlTypeID="Label" x="624" y="3527" w="304" h="-1" measuredW="117" measuredH="25" zOrder="180" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>2016-01-15%2015%3A06%3A02</text>
+      </controlProperties>
+    </control>
+    <control controlID="245" controlTypeID="Label" x="526" y="3551" w="98" h="-1" measuredW="39" measuredH="25" zOrder="181" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Status</text>
+      </controlProperties>
+    </control>
+    <control controlID="246" controlTypeID="Label" x="624" y="3551" w="304" h="-1" measuredW="12" measuredH="25" zOrder="182" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>E</text>
+      </controlProperties>
+    </control>
+    <control controlID="247" controlTypeID="Label" x="526" y="3569" w="129" h="-1" measuredW="57" measuredH="25" zOrder="183" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>%23%20Scheme</text>
+      </controlProperties>
+    </control>
+    <control controlID="248" controlTypeID="Label" x="624" y="3569" w="304" h="-1" measuredW="12" measuredH="25" zOrder="184" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>1</text>
+      </controlProperties>
+    </control>
+    <control controlID="249" controlTypeID="DataGrid" x="526" y="3601" w="751" h="276" measuredW="573" measuredH="79" zOrder="185" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>Branch%20Code%2C%20Poll%20Scheme%20Name%2C%20Start%20Time%2C%20%20End%20Time%2C%20Status%2C%20Error%20Code%0A001%2C%20poll%2C%202016-01-15%2015%3A00%3A00%2C%202016-01-15%2015%3A0015%2C%20E%2C%200%0A001%2C%20poll%2C%202016-01-15%2015%3A03%3A00%2C%202016-01-15%2015%3A04%3A33%2C%20E%2C%200</text>
+      </controlProperties>
+    </control>
+  </controls>
+  <comments/>
+</mockup>

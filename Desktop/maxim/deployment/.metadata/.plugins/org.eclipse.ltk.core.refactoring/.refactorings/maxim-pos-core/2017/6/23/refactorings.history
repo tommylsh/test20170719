@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;SecurityConfig.java&apos; to &apos;maxim-rest/src/main/java/com.maxim.common.datasource&apos;&#x0D;&#x0A;- Original project: &apos;maxim-pos-core&apos;&#x0D;&#x0A;- Destination element: &apos;maxim-rest/src/main/java/com.maxim.common.datasource&apos;&#x0D;&#x0A;- Original element: &apos;com.maxim.pos.common.config.SecurityConfig.java&apos;" description="Copy compilation unit" destination="=maxim-rest/src\/main\/java&lt;com.maxim.common.datasource" element1="/src\/main\/java&lt;com.maxim.pos.common.config{SecurityConfig.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1496653215848" units="1" version="1.0"/>
+</session>

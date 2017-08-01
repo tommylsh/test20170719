@@ -1,0 +1,352 @@
+package com.maxim.pos.test.common.util;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Date;
+import java.util.List;
+
+import javax.sql.DataSource;
+
+import org.hibernate.Hibernate;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.CommonDataStatus;
+import com.maxim.pos.common.service.ApplicationSettingService;
+import com.maxim.pos.common.service.PollSchemeInfoService;
+import com.maxim.pos.common.util.ConnectionStringHelper;
+import com.maxim.pos.common.util.JDBCUtils;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.pos.test.common.BaseTest;
+
+public class JDBCUtilTest extends BaseTest {
+
+	@Autowired
+	private DataSource dataSource;
+	
+	@Autowired
+	private ApplicationSettingService applicationSettingService;
+	
+	@Autowired
+	PollSchemeInfoService pollSchemeInfoService;
+
+//	@Test
+//	@Transactional
+//	public void testBulkCopy() throws ClassNotFoundException, SQLException {
+//
+//		String fromDS = "jdbc:sqlserver://enlightening-it.eatuo.com:61809;"
+//				+ "databaseName=pos_1282;user=sa;password=123456";
+//
+//		String toDS = "jdbc:sqlserver://enlightening-it.eatuo.com:61807;"
+//				+ "databaseName=maxim_staging_test;user=sa;password=P@ssw0rd";
+//
+//		CommonCriteria criteria = new CommonCriteria(1L);
+//		
+//		List<SchemeInfo> schemeInfos = pollSchemeInfoService.findSchemeInfoByCriteria(criteria);
+//		SchemeInfo schemeInfo = schemeInfos.get(0);
+//		
+//		Hibernate.initialize(schemeInfo);
+//		
+//		String fromTable = schemeInfo.getSource();
+//		String toTable = schemeInfo.getDestination();
+//		
+//		List<String> fromCols = new ArrayList<String>();
+//		List<String> toCols = new ArrayList<String>();
+//		
+//		for(SchemeTableColumn col: schemeInfo.getSchemeTableColumns()){
+//			fromCols.add(col.getFromColumn());
+//			toCols.add(col.getToColumn());
+//		}
+//		
+//		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		try(Connection fromConn = DriverManager.getConnection(fromDS);
+//			Connection toConn = DriverManager.getConnection(toDS);)
+//		{
+//		
+//			try {
+//				String sql = "SELECT branch_cname from hist_possystem where branch_type = 'GEN'";
+//				System.out.println("Test Bulk Copy SQL");
+//				JDBCUtils.bulkCopyFromSQLConn(fromConn, toConn, fromTable, toTable, fromCols, toCols, null, null);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
+
+//	@Test
+//	public void testStructureConsistentbulkCopy() throws Exception {
+//
+//		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		BranchInfo info = new BranchInfo();
+//		info.setClientType(ClientType.SQLSERVER);
+//		info.setClientHost("192.168.1.251");
+//		info.setClientPort(1433);
+//		info.setUser("sa");
+//		info.setPassword("123456");
+//		info.setClientDB("pos_0000");
+//		// ;
+//		Connection from = DriverManager.getConnection(ConnectionStringHelper.getSQLServerConnectionString(info));
+//		SchemeInfo schemeInfo = new SchemeInfo();
+//		schemeInfo.setSource("orders_pay_lotic");
+//		schemeInfo.setDestination("orders_pay_lotic");
+//		schemeInfo.setOverride(false);
+//		schemeInfo.setConsistentStructure(true);
+//
+//		if (schemeInfo.isConsistentStructure()) {
+//			int[] rs = JDBCUtils.StructureConsistentbulkCopy(from, applicationSettingService.getCurrentJDBCConnection(),
+//					schemeInfo, new String[] {});
+//
+//			System.out.println("insert:" + rs[0]);
+//			System.out.println("update:" + rs[1]);
+//		}
+//
+//	}
+	
+	
+	
+//	@Test
+//	public void testBulkCopyFromSQLConn() throws Exception {
+//
+//		Class.forName("oracle.jdbc.OracleDriver");
+//		BranchInfo info = new BranchInfo();
+//		info.setClientType(ClientType.ORACLE);
+//		info.setClientHost("192.168.1.56");
+//		info.setClientPort(1521);
+//		info.setUser("MAXIM_EDW");
+//		info.setPassword("123456");
+//		info.setClientDB("orcl");
+//		// ;
+//		Connection from = applicationSettingService.getCurrentJDBCConnection();
+//		
+//		String toString = ConnectionStringHelper.getOracleConnectionString(info);
+//		System.out.println(toString);
+//		Connection to = DriverManager.getConnection(toString);
+//		
+//		
+//		SchemeInfo schemeInfo = new SchemeInfo();
+//		schemeInfo.setSource("order_test");
+//		schemeInfo.setDestination("order_test");
+//		schemeInfo.setOverride(false);
+//		schemeInfo.setConsistentStructure(true);
+//		
+//		 List<SchemeTableColumn> schemeTableColumns = new ArrayList<SchemeTableColumn>();
+//		 SchemeTableColumn stc1= new SchemeTableColumn();
+//		 stc1.setFromColumn("branch_code");
+//		 stc1.setFromColumnFormat("String");
+//		 stc1.setToColumn("branch_code");
+//		 stc1.setToColumnFormat("VARCHAR2");
+//		 schemeTableColumns.add(stc1);
+//		 
+//		 
+//		 SchemeTableColumn stc2= new SchemeTableColumn();
+//		 stc2.setFromColumn("order_no");
+//		 stc2.setFromColumnFormat("NUMBER");
+//		 stc2.setToColumn("order_no");
+//		 stc2.setToColumnFormat("NUMBER");
+//		 schemeTableColumns.add(stc2);
+//		 
+//		 
+//		 SchemeTableColumn stc3= new SchemeTableColumn();
+//		 stc3.setFromColumn("order_amt");
+//		 stc3.setFromColumnFormat("NUMBER");
+//		 stc3.setToColumn("order_amt");
+//		 stc3.setToColumnFormat("NUMBER");
+//		 schemeTableColumns.add(stc3);
+//		 
+//		 SchemeTableColumn stc4= new SchemeTableColumn();
+//		 stc4.setFromColumn("status");
+//		 stc4.setFromColumnFormat("String");
+//		 stc4.setToColumn("status");
+//		 stc4.setToColumnFormat("VARCHAR2");
+//		 schemeTableColumns.add(stc4);
+//		 
+//		 
+//		 SchemeTableColumn stc5= new SchemeTableColumn();
+//		 stc1.setFromColumn("order_gad");
+//		 stc1.setFromColumnFormat("NUMBER");
+//		 stc1.setToColumn("order_gad");
+//		 stc1.setToColumnFormat("NUMBER");
+//		 schemeTableColumns.add(stc5);
+//		 
+//		 
+//		 
+//		 
+//		 
+//		 schemeInfo.setSchemeTableColumns(schemeTableColumns);
+//		
+//		JDBCUtils.bulkCopyFromSQLConn(from,to,schemeInfo,null,null,new String[]{});
+//
+//		if (schemeInfo.isConsistentStructure()) {
+//			int[] rs = JDBCUtils.StructureConsistentbulkCopy(from, applicationSettingService.getCurrentJDBCConnection(),
+//					schemeInfo, new String[] {});
+//
+//			System.out.println("insert:" + rs[0]);
+//			System.out.println("update:" + rs[1]);
+//		}
+//
+//	}
+	
+	
+//	@Test
+//	public void testGetBusinessDate1(){
+//		
+//		Date testDate = DateUtil.parse("20170302 035900", "yyyyMMdd HHmmss");
+//		System.out.println(JDBCUtils.getBusinessDate(testDate));
+//		
+//		Assert.assertEquals("20170303", JDBCUtils.getBusinessDate(testDate));
+//	}
+//	
+//	@Test
+//	public void testGetBusinessDate2(){
+//		
+//		Date testDate = DateUtil.parse("20170302 035900", "yyyyMMdd HHmmss");
+//		System.out.println(JDBCUtils.getBusinessDate(testDate));
+//		
+//		Assert.assertEquals("20170303", JDBCUtils.getBusinessDate(new Date()));
+//	}
+	
+	
+//	@Test
+//	@Transactional
+//	public void testBulkCopyFromSQLToOracle() throws ClassNotFoundException{
+//		
+//		CommonCriteria criteria = new CommonCriteria(1567L);
+//		
+//		List<SchemeInfo> schemeInfos = pollSchemeInfoService.findSchemeInfoByCriteria(criteria);
+//		SchemeInfo schemeInfo = schemeInfos.get(0);
+//		
+//		System.out.println(schemeInfo.getPollSchemeType() +" - " 
+//				+ schemeInfo.getClientType()+ " - " 
+//				+ schemeInfo.getSchemeTableColumns().size());
+//		
+//		Hibernate.initialize(schemeInfo);
+//		System.out.println(schemeInfo.getSchemeTableColumns().size());
+//		
+//		
+//		BranchInfo info = new BranchInfo();
+//		info.setClientType(ClientType.ORACLE);
+//		info.setClientHost("enlightening-it.eatuo.com");
+//		info.setClientPort(61803);
+//		info.setUser("maxim_edw");
+//		info.setPassword("123456");
+//		info.setClientDB("orcl");
+//		
+//		System.out.println(ConnectionStringHelper.getOracleConnectionString(info));
+//		
+//		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		try(Connection fromConn = DriverManager.getConnection("jdbc:sqlserver://enlightening-it.eatuo.com:61807;"
+//				+ "databaseName=maxim_staging;user=sa;password=P@ssw0rd")){
+//			
+//			Class.forName("oracle.jdbc.driver.OracleDriver");
+//			try(Connection toConn = DriverManager.getConnection(ConnectionStringHelper.getOracleConnectionString(info))){
+//				toConn.setAutoCommit(false);
+//				
+//				
+//				String[] criteria2 = new String[]{
+//						 String.format("status<>\'%s\'",CommonDataStatus.C)
+//						,String.format("convert(varchar(8),business_date,112)=\'%s\'", "20161220")
+//						,String.format("branch_code=\'%s\'", "1234")
+//					};
+//				JDBCUtils.bulkCopyFromSQLToOracle(fromConn, toConn, schemeInfo, null, null, criteria2 );
+//				
+//				toConn.commit();
+//				
+//			}
+//			
+//		}
+//		catch(Exception e){
+//			e.printStackTrace();
+//		}
+//	}
+	
+	
+//	@Test
+//	public void testBulkCopyBySchemeInfo() {
+//		String filePath = "";
+//		String toDS = "";
+//
+//		String fields = "";
+//
+//		String source = "";
+//		String destination = "";
+//
+//	}
+	
+//	@Test
+//	public void testDeleteByBranchAndDate() throws ClassNotFoundException, SQLException{
+//		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		BranchInfo info = new BranchInfo();
+//		info.setClientType(ClientType.SQLSERVER);
+//		info.setClientHost("enlightening-it.eatuo.com");
+//		info.setClientPort(61807);
+//		info.setUser("sa");
+//		info.setPassword("P@ssw0rd");
+//		info.setClientDB("hopos");
+//		// ;
+//		try(Connection conn = DriverManager.getConnection(ConnectionStringHelper.getSQLServerConnectionString(info))){
+//			int deleteCount = JDBCUtils.deleteByBranchAndBizDate
+//					(conn, "orders_extra", "3710", DateUtil.parse("2016-12-14 00:00:00", "yyyy-MM-dd HH:mm:ss"));
+//			System.out.println();
+//			
+//			conn.commit();
+//		}
+//
+//	}
+	
+//	@Test
+//	@Transactional
+//	public void testHandleDuplicatedRecords() throws ClassNotFoundException, SQLException{
+//		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		BranchInfo toInfo = new BranchInfo();
+//		toInfo.setClientType(ClientType.SQLSERVER);
+//		toInfo.setClientHost("enlightening-it.eatuo.com");
+//		toInfo.setClientPort(61807);
+//		toInfo.setUser("sa");
+//		toInfo.setPassword("P@ssw0rd");
+//		toInfo.setClientDB("hopos");
+//		// ;
+//		
+//		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+//		BranchInfo fromInfo = new BranchInfo();
+//		fromInfo.setClientType(ClientType.SQLSERVER);
+//		fromInfo.setClientHost("enlightening-it.eatuo.com");
+//		fromInfo.setClientPort(61809);
+//		fromInfo.setUser("sa");
+//		fromInfo.setPassword("123456");
+//		fromInfo.setClientDB("pos_1282");
+//		
+//		CommonCriteria criteria = new CommonCriteria(156L);
+//		
+//		List<SchemeInfo> schemeInfos = pollSchemeInfoService.findSchemeInfoByCriteria(criteria);
+//		SchemeInfo schemeInfo = schemeInfos.get(0);
+//		
+//		int[] counts = new int[2];
+//		
+//		try(Connection toConn = DriverManager.getConnection(ConnectionStringHelper.getSQLServerConnectionString(toInfo));
+//				Connection fromConn = DriverManager.getConnection(ConnectionStringHelper.getSQLServerConnectionString(fromInfo))){
+//			toConn.setAutoCommit(false);
+//			counts = JDBCUtils.handleDuplicatedRecords(fromConn, toConn, schemeInfo, null);
+//			System.out.println(counts[0] +" - " + counts[1]);
+//			
+//			toConn.commit();
+//		}
+//
+//	}
+	
+//	@Test(expected=IllegalArgumentException.class)
+//	public void testDeleteMethodException() throws SQLException{
+//		// ;
+//		try(Connection conn = null){
+//			int deleteCount = JDBCUtils.deleteByBranchAndBizDate
+//					(conn, "orders_extra", "3710", DateUtil.parse("2016-12-14 00:00:00", "yyyy-MM-dd HH:mm:ss"));
+//			System.out.println();
+//			
+//			conn.commit();
+//		}
+//	}
+	
+}

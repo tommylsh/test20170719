@@ -1,0 +1,307 @@
+package com.maxim.pos.common.service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+import java.util.UUID;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.TaskJobExceptionDetail;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.entity.TaskJobLogDetail;
+import com.maxim.pos.common.enumeration.LatestJobInd;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.enumeration.SalesRealTimeTable;
+import com.maxim.pos.common.enumeration.TaskProcessStatus;
+import com.maxim.pos.common.util.JDBCUtils;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.util.PosClientUtils;
+import com.maxim.pos.common.util.SQLStmtUtils;
+import com.maxim.util.DateUtil;
+
+@Service("processStgToEdwService")
+@Scope("prototype")
+public class ProcessStgToEdwService implements Runnable {
+	public static final String TO_EDW_CHANNEL_JDBC = "JDBC";
+	public static final String TO_EDW_CHANNEL_WEBSERVICE = "WEBSERVICE";
+//	private static final Logger LOGGER = LoggerFactory.getLogger(ProcessStgToEdwService.class);
+	@Autowired
+	private PollSchemeInfoService pollSchemeInfoService;
+	@Autowired
+	private ApplicationSettingService applicationSettingService;
+
+	@Autowired
+	private TaskJobLogService taskJobLogService;
+
+	private BranchScheme branchScheme;
+	private TaskJobLog taskJobLog;
+	private Logger logger;
+	
+	private String channel;
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		if (branchScheme == null || taskJobLog == null) {
+			LogUtils.printLog(logger,"branchScheme or taskJobLog is must ... return");
+			return;
+		}
+		
+		if(StringUtils.equalsIgnoreCase(TO_EDW_CHANNEL_WEBSERVICE, channel)){
+			//TDD
+		} else {
+			processStgToEdwJDBC();
+		}
+	
+
+	}
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+	public String processStgToEdwJDBC() {
+		String result = null;
+
+		// Poll Branch Scheme should belong to ORACLE client type
+		PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+		List<SchemeInfo> schemeInfoList = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(pollSchemeType,
+				branchScheme.getBranchInfo().getClientType());
+
+		LogUtils.printLog(logger, "schemeInfoList.size: {}", schemeInfoList.size());
+		String[] conditions_eod_by_date = { " status <> \'C\'", " branch_code  = \'" + branchScheme.getBranchMaster().getBranchCode() + "\'","TO_CHAR(BUSINESS_DATE,\'yyyyMMdd\') = \'"+ DateUtil.format(new Date(), "yyyyMMdd")+"\'"};
+		String[] conditions_eod = {"status <> \'C\'", " branch_code  = \'" + branchScheme.getBranchMaster().getBranchCode() + "\'",
+				" CONVERT(varchar(16),business_date,23)  = \'"
+                        + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "\'"};
+		String[] conditions= { "status <> \'C\'", " branch_code  = \'" + branchScheme.getBranchMaster().getBranchCode() + "\'"};
+		Connection fromConn = applicationSettingService.getCurrentJDBCConnection();
+		try {
+			try (Connection toConn =  applicationSettingService.getJDBCConection(branchScheme.getBranchInfo(), true)) {
+				boolean flag = false;
+				if (schemeInfoList.size() > 0) {
+					for (SchemeInfo schemeInfo : schemeInfoList) {
+						LogUtils.printLog(logger, "schemeInfo.id: {}", schemeInfo.getId());
+						
+						String fromTable = schemeInfo.getSource();
+						String toTable = schemeInfo.getDestination();
+							try {
+								
+								int[] rs = null;
+	
+								toConn.setAutoCommit(false);
+								if(PollSchemeType.SALES_EOD.equals(branchScheme.getPollSchemeType())){
+									String selectSQL = MessageFormat.format("SELECT count(*) as ss FROM {0} {1}", schemeInfo.getDestination(),
+			                				SQLStmtUtils.getCriteriaString(conditions_eod));
+			                        List<Map<String, Object>> execCliectQuery = PosClientUtils.execCliectQuery(fromConn, selectSQL, false);
+			                        Object obj = execCliectQuery.get(0).get("ss");
+			                        if(Integer.parseInt(obj.toString())>0){
+										int row = JDBCUtils.deleteByBranchAndBizDateOracle(toConn, schemeInfo.getDestination(), branchScheme.getBranchMaster().getBranchCode(), new Date());
+			                            LogUtils.printLog("del: {} row data", row);
+			                        } else {
+										continue;
+									}
+			                        flag = true;
+			                        rs = JDBCUtils.bulkCopyFromSQLToOracle(fromConn, toConn, schemeInfo, null, null,
+			                        		conditions_eod);
+			                        String toOrcl = SQLStmtUtils.getUpdateSqlByStatus(toTable, conditions_eod_by_date);
+									PosClientUtils.updateTable(toConn, toOrcl, false);
+									String toSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable, conditions);
+									PosClientUtils.updateTable(fromConn, toSql, false);
+									
+								} else {
+									String selectSQL = MessageFormat.format("SELECT count(*) as ss FROM {0} {1}", schemeInfo.getDestination(),
+			                				SQLStmtUtils.getCriteriaString(conditions));
+			                        List<Map<String, Object>> execCliectQuery = PosClientUtils.execCliectQuery(fromConn, selectSQL, false);
+			                        Object obj = execCliectQuery.get(0).get("ss");
+			                        if(Integer.parseInt(obj.toString())>0){
+			            	            if (StringUtils.isNotBlank(toTable) && SalesRealTimeTable.fromTableName(toTable) == null) {
+			            	            	rs = JDBCUtils.bulkCopyFromSQLToOracle(fromConn, toConn, schemeInfo, null, null,
+												conditions);
+			            	            	flag = true;
+					                        String toOrcl = SQLStmtUtils.getUpdateSqlByStatus(toTable, conditions);
+											PosClientUtils.updateTable(toConn, toOrcl, false);
+											String toSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable, conditions);
+											PosClientUtils.updateTable(fromConn, toSql, false);
+			            	            } else {
+			            	            	continue;
+			            	            }
+			                        } else {
+			                        	continue;
+			                        }
+			                        
+								}
+								
+								toConn.commit();
+								toConn.setAutoCommit(true);
+								
+								
+								LogUtils.printLog("{} : update sucess" + toTable);
+								createJobLogDetail(taskJobLog, fromTable, toTable, rs);
+	
+								result = pollSchemeType + ":" + branchScheme.getDirection() + " process success!";
+							} catch (Exception e) {
+								LogUtils.printException(logger, "Task execute exception:", e);
+	
+								createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+	
+								result = pollSchemeType + ":" + branchScheme.getDirection() + " process failed!";
+	
+								try {
+									if (toConn != null) {
+										toConn.rollback();
+										toConn.setAutoCommit(true);
+									}
+								} catch (SQLException e1) {
+									LogUtils.printException(logger, "transaction exception:", e1);
+								}
+						}
+					}
+					insertTaskJobLog(taskJobLog);
+				} else {
+					LogUtils.printLog(logger, "SchemeInfo is null");
+				}
+				if(flag){
+					String sql = "INSERT INTO CONVERT_LOG(ROWGUID,TTDATE,BRNO,RUNNO,POLL_METHOD,CONV_DATE,CONV_FLAG,LAST_UPDATE_USER,CHK_UPLOAD_DATA_DATETIME) VALUES('"+ UUID.randomUUID().toString()+"',sysdate,'"+branchScheme.getBranchMaster().getBranchCode()+"',0,'1',sysdate,' ','ESB_SYSTEM',sysdate)";
+					boolean bl = PosClientUtils.updateTable(toConn,sql,false);
+					LogUtils.printLog(logger,"insert convert_log success,update is " +bl);
+				}
+			} catch (Exception e) {
+				LogUtils.printException(logger, "JDBC Process to EDW Oracle encounters exception", e);
+				throw new RuntimeException(e);
+			}
+		} catch (Exception e) {
+			LogUtils.printException(logger, "Oracle Driver Not Found in Class Loader", e);
+			createJobExceptionDetail(taskJobLog, "", "", e);
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+
+	private void insertTaskJobLog(TaskJobLog taskJobLog) {
+		if (TaskProcessStatus.PROGRESS.equals(taskJobLog.getStatus())) {
+			taskJobLog.setStatus(TaskProcessStatus.COMPLETE);
+		}
+		taskJobLog.setEndTime(new Date());
+		taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+
+	}
+
+	private void createJobExceptionDetail(TaskJobLog taskJobLog, String fromTable, String toTable, Exception e) {
+		taskJobLog.setStatus(TaskProcessStatus.FAILED);
+		TaskJobExceptionDetail taskJobExceptionDetail = new TaskJobExceptionDetail();
+		taskJobExceptionDetail.setSource(fromTable);
+		taskJobExceptionDetail.setDestination(toTable);
+		taskJobExceptionDetail.setExceptionContent(LogUtils.getStackTrace(e));
+		taskJobExceptionDetail.setTaskJobLog(taskJobLog);
+		Auditer.audit(taskJobExceptionDetail);
+
+		taskJobLogService.addOrUpdateTaskJobExceptionDetail(taskJobExceptionDetail);
+
+		// if (taskJobLog.getTaskJobExceptionDetails() == null) {
+		// taskJobLog.setTaskJobExceptionDetails(new
+		// TreeSet<TaskJobExceptionDetail>());
+		// }
+		//
+		// taskJobLog.getTaskJobExceptionDetails().add(taskJobExceptionDetail);
+	}
+
+	private void createJobLogDetail(TaskJobLog taskJobLog, String fromTable, String toTable, int[] rs) {
+		TaskJobLogDetail taskJobLogDetail = new TaskJobLogDetail();
+		taskJobLogDetail.setTaskJobLog(taskJobLog);
+		taskJobLogDetail.setSource(fromTable);
+		taskJobLogDetail.setDestination(toTable);
+		taskJobLogDetail.setNumOfRecDelete(null);
+		taskJobLogDetail.setNumOfRecProcessed(null);
+		if (rs != null) {
+			taskJobLogDetail.setNumOfRecInsert(rs[0]);
+			taskJobLogDetail.setNumOfRecUpdate(rs[1]);
+		} else {
+			taskJobLogDetail.setNumOfRecInsert(null);
+			taskJobLogDetail.setNumOfRecUpdate(null);
+		}
+		Auditer.audit(taskJobLogDetail);
+
+		if (taskJobLog.getTaskJobLogDetails() == null) {
+			taskJobLog.setTaskJobLogDetails(new TreeSet<TaskJobLogDetail>());
+		}
+
+		taskJobLogService.addOrUpdateTaskJobLogDetail(taskJobLogDetail);
+		// taskJobLog.getTaskJobLogDetails().add(taskJobLogDetail);
+	}
+
+	private TaskJobLog createTaskJobLog(BranchScheme branchScheme) {
+		TaskJobLog taskJobLog = taskJobLogService.findLatestTaskJobLog(branchScheme);
+		if (taskJobLog != null) {
+			if (taskJobLog.getStatus() == TaskProcessStatus.PROGRESS) {
+				if(System.currentTimeMillis() - taskJobLog.getLastUpdateTime().getTime() > 3600000){
+					LogUtils.printLog("{} branch code process continue 1 hour ,auto update status  to failed ",
+							branchScheme.getBranchMaster().getBranchCode());
+					taskJobLog.setStatus(TaskProcessStatus.FAILED);
+				} else {
+					return null;
+				}
+			}
+			taskJobLog.setLastestJobInd(LatestJobInd.N);
+			Auditer.audit(taskJobLog);
+			taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+		}
+
+		TaskJobLog taskLog = new TaskJobLog();
+		taskLog.setLastestJobInd(LatestJobInd.Y);
+		taskLog.setStatus(TaskProcessStatus.PROGRESS);
+		taskLog.setStartTime(new Date());
+		Auditer.audit(taskLog);
+		taskLog.setSchemeScheduleJob(branchScheme.getSchemeScheduleJob());
+		taskLog.setPollSchemeID(branchScheme.getId());
+		taskLog.setDirection(branchScheme.getDirection());
+		taskLog.setPollSchemeType(branchScheme.getPollSchemeType());
+		taskLog = taskJobLogService.addOrUpdateTaskJobLog(taskLog);
+
+		return taskLog;
+	}
+
+	public BranchScheme getBranchScheme() {
+		return branchScheme;
+	}
+
+	public void setBranchScheme(BranchScheme branchScheme) {
+		this.branchScheme = branchScheme;
+	}
+
+	public TaskJobLog getTaskJobLog() {
+		return taskJobLog;
+	}
+
+	public void setTaskJobLog(TaskJobLog taskJobLog) {
+		this.taskJobLog = taskJobLog;
+	}
+
+	public Logger getLogger() {
+		return logger;
+	}
+
+	public void setLogger(Logger logger) {
+		this.logger = logger;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+
+}

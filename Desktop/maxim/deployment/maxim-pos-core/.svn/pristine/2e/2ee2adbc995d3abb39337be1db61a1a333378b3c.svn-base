@@ -1,0 +1,181 @@
+package com.maxim.pos.common.entity;
+
+import java.math.BigDecimal;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.maxim.entity.AbstractEntity;
+
+@Entity
+@Table(name = "HIST_POS_SYSTEM", uniqueConstraints = { @UniqueConstraint(columnNames = {
+		"BRANCH_CODE", "BUSINESS_DATE" }) })
+public class HistPosSystem extends AbstractEntity {
+	private static final long serialVersionUID = 1L;
+
+	private String branchCode;
+	private Date businessDate;
+	private String branchCname;
+	private String branchEname;
+	private String branchType;
+	private Integer registerCount;
+	private Integer serviceChgRate;
+	private Integer gstRate;
+	private BigDecimal accumSales;
+	private Integer postCount;
+	private String openTime;
+	private String postTime;
+	private Integer postMode;
+	private BigDecimal netDisc;
+	private BigDecimal discProd;
+
+	@Override
+	@Id
+	@Column(name = "HIST_POS_SYSTEM_ID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Long getId() {
+		return super.getId();
+	}
+	
+	@Column(name = "BRANCH_CODE")
+	public String getBranchCode() {
+		return branchCode;
+	}
+
+	public void setBranchCode(String branchCode) {
+		this.branchCode = branchCode;
+	}
+	
+	@Column(name = "BUSINESS_DATE")
+	public Date getBusinessDate() {
+		return businessDate;
+	}
+
+	public void setBusinessDate(Date businessDate) {
+		this.businessDate = businessDate;
+	}
+
+	@Column(name = "BRANCH_CNAME", length = 50)
+	public String getBranchCname() {
+		return branchCname;
+	}
+
+	public void setBranchCname(String branchCname) {
+		this.branchCname = branchCname;
+	}
+
+	@Column(name = "BRANCH_ENAME", length = 50)
+	public String getBranchEname() {
+		return branchEname;
+	}
+
+	public void setBranchEname(String branchEname) {
+		this.branchEname = branchEname;
+	}
+
+	@Column(name = "BRANCH_TYPE", length = 4)
+	public String getBranchType() {
+		return branchType;
+	}
+
+	public void setBranchType(String branchType) {
+		this.branchType = branchType;
+	}
+
+	@Column(name = "REGISTER_COUNT")
+	public Integer getRegisterCount() {
+		return registerCount;
+	}
+
+	public void setRegisterCount(Integer registerCount) {
+		this.registerCount = registerCount;
+	}
+
+	@Column(name = "SERVICE_CHG_RATE")
+	public Integer getServiceChgRate() {
+		return serviceChgRate;
+	}
+
+	public void setServiceChgRate(Integer serviceChgRate) {
+		this.serviceChgRate = serviceChgRate;
+	}
+
+	@Column(name = "GST_RATE")
+	public Integer getGstRate() {
+		return gstRate;
+	}
+
+	public void setGstRate(Integer gstRate) {
+		this.gstRate = gstRate;
+	}
+
+	@Column(name = "ACCUM_SALES")
+	public BigDecimal getAccumSales() {
+		return accumSales;
+	}
+
+	public void setAccumSales(BigDecimal accumSales) {
+		this.accumSales = accumSales;
+	}
+
+	@Column(name = "POST_COUNT")
+	public Integer getPostCount() {
+		return postCount;
+	}
+
+	public void setPostCount(Integer postCount) {
+		this.postCount = postCount;
+	}
+
+	@Column(name = "OPEN_TIME")
+	public String getOpenTime() {
+		return openTime;
+	}
+
+	public void setOpenTime(String openTime) {
+		this.openTime = openTime;
+	}
+
+	@Column(name = "POST_TIME")
+	public String getPostTime() {
+		return postTime;
+	}
+
+	public void setPostTime(String postTime) {
+		this.postTime = postTime;
+	}
+
+	@Column(name = "POST_MODE")
+	public Integer getPostMode() {
+		return postMode;
+	}
+
+	public void setPostMode(Integer postMode) {
+		this.postMode = postMode;
+	}
+
+	@Column(name = "NET_DISC")
+	public BigDecimal getNetDisc() {
+		return netDisc;
+	}
+
+	public void setNetDisc(BigDecimal netDisc) {
+		this.netDisc = netDisc;
+	}
+
+	@Column(name = "DISC_PROD")
+	public BigDecimal getDiscProd() {
+		return discProd;
+	}
+
+	public void setDiscProd(BigDecimal discProd) {
+		this.discProd = discProd;
+	}
+
+}

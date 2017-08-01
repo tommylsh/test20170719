@@ -1,0 +1,36 @@
+package com.maxim.pos.common.persistence;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.PollEodControl;
+
+
+@Repository("posSystemDao")
+@Transactional
+public class PosSystemDao extends HibernateDAO {
+	
+	private static final String HQL_findPollEodControlByBranchCode = "findPollEodControlByBranchCode"; 
+	
+	public boolean findPollEodControlByBranchCodeAndDate(String branchCode) {
+		boolean bl =false;
+		Map<String, Object> paramMap = new HashMap<String,Object>();
+		paramMap.put("branchCode", branchCode);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String datetime =sdf.format(new Date());
+		paramMap.put("businessDate",datetime);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findPollEodControlByBranchCode, paramMap);
+        List<PollEodControl> list = getList(cmd, PollEodControl.class);
+		if(list.size()>0){
+			bl=true;
+		}
+        return bl;
+	}
+}

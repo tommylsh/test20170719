@@ -1,0 +1,7362 @@
+*
+* QMNAME (MQ70PD1) +
+** (Skipping QMGR Object) **
+
+** (Skipping SYSTEM AuthInfo objects) **
+** (Skipping SYSTEM Queues) **
+DEFINE QLOCAL ('1A.CLUSTER.PRD1') +
+* CRDATE (2014-03-21) +
+* CRTIME (20.12.33) +
+       DESCR('Transmission queue to FabriCX PRD') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1_GWP43.PRD1') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(YES) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('ACARS.FBX.AOC') +
+       DESCR('Remote queue for ACARS to FBX AOC') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQ71DMZP1') +
+       RNAME('ACARS.FBX.AOC.DPGW') +
+       RQMNAME('MQ71DMZP1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('ACARS.FBX.WXM') +
+       DESCR('Remote queue for ACARS to FBX WXM') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQ71DMZP1') +
+       RNAME('ACARS.FBX.WXM.DPGW') +
+       RQMNAME('MQ71DMZP1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('ACP1') +
+* CRDATE (2014-09-03) +
+* CRTIME (14.44.36) +
+       DESCR('TRANSMISSION QUEUE to ACP1') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(5000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1.ACP1') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QALIAS ('AIRCOM.CPA.CMC') +
+       DESCR('Alias q for AIRCOM.ULTRA.CMC') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       TARGET('AIRCOM.ULTRA.CMC') +
+       TARGTYPE(QUEUE) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('AIRCOM.ULTRA.CMC') +
+* CRDATE (2016-03-14) +
+* CRTIME (19.07.07) +
+       DESCR('msg q for AIRCOM and ULTRA') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(5000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('AIRPATH.EFF.FLIGHTPLAN.EN') +
+* CRDATE (2016-06-25) +
+* CRTIME (18.28.09) +
+       DESCR('FLIGHTPLAN MSG form AIRPATH to EFF') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(5000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('APTSCS.GORMSCX.RTFD.OUT') +
+* CRDATE (2015-11-19) +
+* CRTIME (21.39.59) +
+       DESCR('APTTA provides realtime flight data to GORMSCX') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('APTSCS.HAS.RTFD.OUT') +
+* CRDATE (2015-11-19) +
+* CRTIME (21.39.59) +
+       DESCR('APT Time and Attendance to HAS queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('APTTA.HAS.RTSD') +
+* CRDATE (2015-12-02) +
+* CRTIME (21.35.36) +
+       DESCR('SCS APTTA Time and Attendance to HAS queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('BK70PD2') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('Transmission queue to Fabricx BK70PD2') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(5000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1.BK70PD2') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('BK70QMPD1') +
+* CRDATE (2014-01-19) +
+* CRTIME (14.11.18) +
+       DESCR('BK70QMPD1') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(5000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1.BK70QMPD1') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(YES) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('CLS.CUSHUB.CUSPROFSYNC.EN') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.55.33) +
+       DESCR('CIS: ProspectR2 INT006 CLS to ETL to CIS cust profile -
+sync') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(500000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('CLS.CUSHUB.CUSPROFUPD.REPLY') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.55.23) +
+       DESCR('CIS: ProspectR2 INT003a Response CLS to CIS cust profi-
+le update') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(10000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('CLS.EODS.LOYSYNC.STAGING') +
+* CRDATE (2015-12-01) +
+* CRTIME (20.29.23) +
+       DESCR('Cabin Tablet CLS send msg to ETL-Staging q') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(4000000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('CLS.ETL.CUSLOYALTY') +
+* CRDATE (2015-12-01) +
+* CRTIME (20.29.23) +
+       DESCR('Cabin Tablet CLS send msg to ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(4000000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('CLS.EVOU.CCFR') +
+       DESCR('MPOREV INT19') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQ71DMZP1') +
+       RNAME('CLS.EVOU.CCFR') +
+       RQMNAME('MQ71DMZP1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('CLS.EVOU.ENTIT') +
+       DESCR('MPOREV INT11') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQ71DMZP1') +
+       RNAME('CLS.EVOU.ENTIT') +
+       RQMNAME('MQ71DMZP1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('CSS.CUBIC.BKGSYNC') +
+       DESCR('CGO: CSS to CUBIC Backside Sync') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('ACP1') +
+       RNAME('CSS.CUBIC.BKGSYNC') +
+       RQMNAME('ACP1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('CSS.ELP.TRANSHP') +
+       DESCR('CGO ELP06: Message from CSS to ELP ISD-CSV-048') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1A') +
+       RNAME('CSS.ELP.TRANSHP') +
+       RQMNAME('MQSP1A') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('CUSHUB.CLS.CUSPROFSYNC.REPLY') +
+       DESCR('CIS: ProspectR2 INT006 Response ETL to CLS cust profil-
+e sync') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1B') +
+       RNAME('CUSHUB.CLS.CUSPROFSYNC.REPLY') +
+       RQMNAME('MQSP1B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('CUSHUB.CLS.CUSPROFUPD.EN') +
+       DESCR('CIS: ProspectR1 INT003a CIS to CLS cust profile update-
+') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1B') +
+       RNAME('CUSHUB.CLS.CUSPROFUPD.EN') +
+       RQMNAME('MQSP1B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('CUSHUB.ETL.CUSPROFUPD.DISPATCH') +
+* CRDATE (2016-05-30) +
+* CRTIME (10.46.20) +
+       DESCR('MPO: Dispatch MQ to use parallelism with ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(1500000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('CUSHUB.ETL.CUSPROFUPD.EN') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.54.59) +
+       DESCR('CIS: INT003 CIS to ETL EODS for cust profile update') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(1500000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('CUSHUB.ETL.CUSPROFUPD.STG') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.55.07) +
+       DESCR('CIS: ProspectR2 EN CUSHUB to EODS: stage q for non-key-
+ elements') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(500000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('CUSHUB.ETL.NEWPROFILE.EODS') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.56.11) +
+       DESCR('CIS: ProspectR2 EN CUST to EODS: stage q for ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('EODS.CLS.LOYSYNC') +
+       DESCR('Cabin Tablet EODS CLS Loyalty sync') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1B') +
+       RNAME('EODS.CLS.LOYSYNC') +
+       RQMNAME('MQSP1B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('EODS.SALEABLECFGCHG.IN') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 009') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('EODS.UPDATE.NEWPROFILE.EODS') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.51.04) +
+       DESCR('CIS: ProspectR2 EN CUST to EODS: stage q for ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(200000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('ETECHLOG.UM.ELOG') +
+* CRDATE (2015-12-03) +
+* CRTIME (19.08.31) +
+       DESCR('eEnabled queue from eTechlog to Ultramain') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(100000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('ETL.FSS.FLAB') +
+       DESCR('FOP4273: OCS Informatica to FSS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('ACP1') +
+       RNAME('AIROPS.FSS.MFLAFLB.QL') +
+       RQMNAME('ACP1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('EVOU.CLS.ENTIT.DPGW') +
+       DESCR('MPOREV INT12') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1B') +
+       RNAME('EVOU.CLS.ENTIT.DPGW') +
+       RQMNAME('MQSP1B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('EVOU.CLS.ERR.DPGW') +
+       DESCR('MPOREV INT11a') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1B') +
+       RNAME('EVOU.CLS.ERR') +
+       RQMNAME('MQSP1B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('EVOU.ETL.ENTIT.DPGW') +
+* CRDATE (2016-04-09) +
+* CRTIME (01.00.48) +
+       DESCR('MPOREV INT25') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FABRICX.ERROR.LOGGING.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.32) +
+       DESCR('FabriCX Global Logging Error Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(NOTFIXED) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FABRICX.GLOBAL.LOGGING.BACKOUTQ') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.32) +
+       DESCR('FabriCX Global Logging Backout Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FABRICX.GLOBAL.LOGGING.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.32) +
+       DESCR('FabriCX Global Logging Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(500000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME('FABRICX.GLOBAL.LOGGING.BACKOUTQ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FABRICX.SESSION.MGMT.BACKOUTQ') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.32) +
+       DESCR('FabriCX Session Management Backout Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FABRICX.SESSION.MGMT.ERROR') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.32) +
+       DESCR('FabriCX Session Management Error Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(NOTFIXED) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FABRICX.SESSION.MGMT.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.32) +
+       DESCR('FabriCX Session Management Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(1) +
+       BOQNAME('FABRICX.SESSION.MGMT.BACKOUTQ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(LOW) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FABRICX.WSI.1A.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.32) +
+       DESCR('DataPower WSI Report Queue for 1A Services') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(NOTFIXED) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FABRICX.WSI.NON1A.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.32) +
+       DESCR('DataPower WSI Report Queue for Non1A Services') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(NOTFIXED) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.ETL.FLAB') +
+* CRDATE (2016-04-08) +
+* CRTIME (19.34.16) +
+       DESCR('FOP4273: OCS FabriCX to Informatica') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.ETL.LOGGING') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.56.04) +
+       DESCR('CIS: ProspectR2 Logging') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('FBX.FSS.FLAB') +
+       DESCR('ICC.0507FABRICX_NLOPS.0150FSS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('ACP1') +
+       RNAME('AIROPS.FSS.MFLAFLB.QL') +
+       RQMNAME('ACP1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.IPIL.SEARCHPNRDETAIL') +
+* CRDATE (2015-02-06) +
+* CRTIME (01.57.07) +
+       DESCR('RESP Q for SearchPNRDetail in CheckInMgmt') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(5000) +
+       MAXMSGL(5242880) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.NLOPS.BAYGATE') +
+* CRDATE (2014-11-20) +
+* CRTIME (10.31.47) +
+       DESCR('ICC.0507FABRICX_NLOPS.0150FSS_NLOPS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(EXCL) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.NLOPS.FLTPLN') +
+* CRDATE (2014-11-20) +
+* CRTIME (10.31.47) +
+       DESCR('ICC.0507FABRICX_NLOPS.0150FSS_NLOPS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(EXCL) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.NLOPS.MELITEM') +
+* CRDATE (2014-11-20) +
+* CRTIME (10.31.47) +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(EXCL) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.NLOPS.PAX') +
+* CRDATE (2014-11-20) +
+* CRTIME (10.31.47) +
+       DESCR('ICC.0507FABRICX_NLOPS.0150FSS_NLOPS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(EXCL) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.NLOPS.TELEX') +
+* CRDATE (2014-11-20) +
+* CRTIME (10.31.47) +
+       DESCR('ICC.0507FABRICX_NLOPS.0150FSS_NLOPS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(EXCL) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBX.ULM.FDM') +
+* CRDATE (2015-04-29) +
+* CRTIME (00.02.30) +
+       DESCR('ENH37530: OCS Ultramain FabriCX To Ultramain') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBXOCS.EODS.SSM.IN') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 003') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBXOCS.EODS.SSM.RECOVERY') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 003') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('FBXOCS.EODS.SSM.STG') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 003') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('HAS.APTTA.RTSD') +
+* CRDATE (2015-12-02) +
+* CRTIME (21.35.36) +
+       DESCR('HAS send RTSD to SCS APT') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('IBMMSG.EODS.SSM.RECOVERY') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 004') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('IBMMSG.EODS.TELEX') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 004') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('IBMMSG.EODS.TELEX.RECOVERY') +
+* CRDATE (2016-11-09) +
+* CRTIME (20.03.25) +
+       DESCR('AppID:0507 4CNRS Interface 004') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('IBMMSG.EODS.TELEX.STG') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 004') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('LOUMOB.FLTLST.IN') +
+* CRDATE (2015-06-04) +
+* CRTIME (21.36.16) +
+       DESCR('AML: LOUNGEMOB INT005 HKIA to ETL flight schd update i-
+nput') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       NOHARDENBO +
+       USAGE(NORMAL) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('LOUMOB.FLTLST.STG') +
+* CRDATE (2015-06-04) +
+* CRTIME (21.36.16) +
+       DESCR('AML: LOUNGEMOB INT005a ETL to ETL EODS Ops flight schd-
+ staging') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       NOHARDENBO +
+       USAGE(NORMAL) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('MQ71DMZP1') +
+* CRDATE (2015-04-17) +
+* CRTIME (12.35.00) +
+       DESCR('XMITQ to MQ71DMZP1') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(99999999) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1.MQ71DMZP1') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(YES) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('MQPD3') +
+* CRDATE (2016-08-31) +
+* CRTIME (14.51.34) +
+       DESCR('TRANSMIT Q to MQPD3') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(4000000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1.TO.MQPD3') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(YES) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('MQSP1A') +
+* CRDATE (2016-04-12) +
+* CRTIME (17.01.37) +
+       DESCR('CGO ELP06:') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(100000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1.MQSP1A') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(YES) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('MQSP1B') +
+* CRDATE (2014-03-21) +
+* CRTIME (20.12.33) +
+       DESCR('TRANSMIT Q to MQSP1B') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(4000000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1.TO.MQSP1B') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(YES) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('MQSP2B') +
+* CRDATE (2014-03-21) +
+* CRTIME (20.12.33) +
+       DESCR('Transmission queue to MQSP2B') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(100000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(XMITQ) +
+       TRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA('MQ70PD1.MQSP2B') +
+       PROCESS(' ') +
+       INITQ('SYSTEM.CHANNEL.INITQ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(YES) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.AIRPATH.FLTSCH') +
+* CRDATE (2014-12-06) +
+* CRTIME (04.40.43) +
+       DESCR('ICC.0507FABRICX_NLOPS.0017AIRPATH') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.CXIP.CONPAX.REQ') +
+* CRDATE (2014-11-20) +
+* CRTIME (10.31.47) +
+       DESCR('ICC.0507FABRICX_NLOPS.0150FSS_NLOPS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EDW.FDM') +
+* CRDATE (2014-11-20) +
+* CRTIME (10.31.47) +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(999999999) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDM') +
+* CRDATE (2015-06-17) +
+* CRTIME (01.20.49) +
+       DESCR('ENH37999: OCS FabriCX To ETL EODS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDM.BATCH') +
+* CRDATE (2015-06-17) +
+* CRTIME (01.20.49) +
+       DESCR('ENH37999: OCS FabriCX To ETL EODS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDM.REALTIME') +
+* CRDATE (2015-06-17) +
+* CRTIME (01.20.49) +
+       DESCR('ENH37999: OCS FabriCX To ETL EODS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDM.REALTIME.D34') +
+* CRDATE (2015-06-17) +
+* CRTIME (01.20.49) +
+       DESCR('ENH37999: OCS FabriCX To ETL EODS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDM.TEMP') +
+* CRDATE (2016-04-07) +
+* CRTIME (18.13.01) +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDMOWP.IN') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 007') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDMOWP.TEMP') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDMSMP.BATCH.STG') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 005') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDMSMP.IN') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 005/006') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLOPS.EODS.FDMSMP.RT.STG') +
+* CRDATE (2016-11-03) +
+* CRTIME (19.04.24) +
+       DESCR('AppID:0507 4CNRS Interface 006') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QALIAS ('NLOPS.FBX.FDM') +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       TARGET('CX.FDM') +
+       TARGTYPE(TOPIC) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('NLOPS.FBX.TELEX') +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('BK70QMPD1') +
+       RNAME('NLOPS.FBX.TELEX') +
+       RQMNAME('BK70QMPD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('NLSCH.EODS.SSM.TEMP') +
+* CRDATE (2016-04-07) +
+* CRTIME (18.13.01) +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.DLD.FECFUQ') +
+       DESCR('DLD ->1A  FECFUQ - EDIFACT Joining Cargo Feed - DI3800-
+') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('1A.CLUSTER.PRD1') +
+       RNAME('BRIDGE.CX.CARGO.DLD.IN') +
+       RQMNAME('1A.CLUSTER.PRD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.DLD.FECFUR') +
+       DESCR('1A-> DLD FECFUR - Transit DLD Feed for DI 3800') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP2B') +
+       RNAME('PIP.DLD.FECFUR') +
+       RQMNAME('MQSP2B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.ICATS.SPWREQ') +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('BK70QMPD1') +
+       RNAME('PIP.1A.ICATS.SPWREQ') +
+       RQMNAME('BK70QMPD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.IOPTAQ') +
+       DESCR('CX Remote queue for BATCH and adhoc feed') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('1A.CLUSTER.PRD1') +
+       RNAME('BRIDGE.CX.BATCH.IN') +
+       RQMNAME('1A.CLUSTER.PRD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.IOPTNQ') +
+       DESCR('IOPTNQ from 1A') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('BK70QMPD1') +
+       RNAME('PIP.1A.IOPTNQ') +
+       RQMNAME('BK70QMPD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.1A.IOPTNQ.PROS') +
+* CRDATE (2014-01-13) +
+* CRTIME (11.44.43) +
+       DESCR('Queue for IOPTNQ message for PROS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(9999999) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.NGD.FDSLUQ') +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('BK70QMPD1') +
+       RNAME('PIP.1A.NGD.FDSLUQ') +
+       RQMNAME('BK70QMPD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.NGD.FFFGRQ') +
+       DESCR('Externalisation To 1A (DI 5200) Update fuel figures in-
+ FM') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('1A.CLUSTER.PRD1') +
+       RNAME('BRIDGE.CX.NGD.IEDI.IN') +
+       RQMNAME('1A.CLUSTER.PRD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.NGD.FFFGRQ.CTL') +
+       DESCR('1A To Externalisation(DI 5200)Update fuel figures in F-
+M(Control)') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1B') +
+       RNAME('PIP.1A.NGD.FFFGRQ.CTL') +
+       RQMNAME('MQSP1B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.PSYREQ.ERRRSP') +
+       DESCR('CX Remote queue for error acknowledgement - 1A Cust Pr-
+of') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1B') +
+       RNAME('PIP.CLS.ERRORACK') +
+       RQMNAME('MQSP1B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.PSYREQ.HIGH') +
+       DESCR('CX Remote queue for High Priority Member Profile Sync'-
+) +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('1A.CLUSTER.PRD1') +
+       RNAME('BRIDGE.CX.LOYALTY.PROF.1.IN') +
+       RQMNAME('1A.CLUSTER.PRD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.PSYREQ.NORMAL') +
+       DESCR('CX Remote queue for Normal Priority Member Profile Syn-
+c') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('1A.CLUSTER.PRD1') +
+       RNAME('BRIDGE.CX.LOYALTY.PROF.2.IN') +
+       RQMNAME('1A.CLUSTER.PRD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.RHS.FECFUQ') +
+       DESCR('DI3800 RHS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('1A.CLUSTER.PRD1') +
+       RNAME('BRIDGE.CX.CARGO.RHS.IN') +
+       RQMNAME('1A.CLUSTER.PRD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.RHS.FECFUR') +
+       DESCR('DI3800 RHS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQSP1B') +
+       RNAME('PIP.RHS.FECFUR') +
+       RQMNAME('MQSP1B') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.SBRFEED') +
+       DESCR('SBRFEED from 1A') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('BK70QMPD1') +
+       RNAME('PIP.1A.SBRFEED') +
+       RQMNAME('BK70QMPD1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.1A.SBRFEED.XML') +
+       DESCR('Remote queue for SBR14.1 XML') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQPD3') +
+       RNAME('PIP.1A.SBRFEED.XML') +
+       RQMNAME('MQPD3') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.CALIDRIS.SBRFEED.XML') +
+* CRDATE (2016-08-31) +
+* CRTIME (14.51.35) +
+       DESCR('Local queue for SBR14.1 XML for CALIDRIS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(999999) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.CALIDRIS.V93.SBRFEED') +
+* CRDATE (2014-01-13) +
+* CRTIME (11.44.43) +
+       DESCR('Amadeus sending SBR data feed version 9.3 to Calidris'-
+) +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(6400000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.CUST.PNRCHG') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.50.12) +
+       DESCR('CIS: ProspectR2 EN CUST to EODS: stage q for ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.CUST.PNRCHG.PAXSEG.STG') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.50.57) +
+       DESCR('CIS: ProspectR2 EN CUST to EODS: stage q for ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.CUST.PNRCHG.PNR.PAXSEG.STG') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.50.48) +
+       DESCR('CIS: ProspectR2 EN CUST to EODS: stage q for ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.CUST.PNRCHG.PNR.STG') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.50.39) +
+       DESCR('CIS: ProspectR2 EN CUST to EODS: stage q for ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.CUST.PNRCHG.TAG.PNR.STG') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.50.29) +
+       DESCR('CIS: ProspectR2 EN CUST to EODS: stage q for ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.CUST.PNRCHG.TAG.STG') +
+* CRDATE (2016-02-17) +
+* CRTIME (19.50.20) +
+       DESCR('CIS: ProspectR2 EN CUST to EODS: stage q for ETL') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QREMOTE ('PIP.MPO.PNRCHG') +
+       DESCR('MPOREV INT8') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       SCOPE(QMGR) +
+       XMITQ('MQ71DMZP1') +
+       RNAME('PIP.MPO.PNRCHG') +
+       RQMNAME('MQ71DMZP1') +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.PROS.SBRFEED.XML') +
+* CRDATE (2016-08-31) +
+* CRTIME (14.51.35) +
+       DESCR('Local queue for SBR14.1 XML for PROS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(999999) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.PROS.V93.SBRFEED') +
+* CRDATE (2014-01-13) +
+* CRTIME (11.44.43) +
+       DESCR('Amadeus sending SBR data feed version 9.3 to PROS') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PIP.SBR.CUST.NOEVENT.BACKUP.Q') +
+* CRDATE (2016-03-07) +
+* CRTIME (19.38.27) +
+       DESCR('CIS: ProspectR2 EN CUST Backout queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(100000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(FIFO) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('PSS.EODS.SALEABLECFGCHG.TEMP') +
+* CRDATE (2016-04-07) +
+* CRTIME (18.13.01) +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(640000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('TESTQ') +
+* CRDATE (2013-07-10) +
+* CRTIME (00.42.39) +
+       DESCR(' ') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(5000000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('UM.ETECHLOG.ELOG') +
+* CRDATE (2015-12-03) +
+* CRTIME (19.08.31) +
+       DESCR('eEnabled queue from Ultramain to eTechlog') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(YES) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(100000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER(' ') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.CIS.EVENT.LOG.BACKOUTQ') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.33) +
+       DESCR('CEP Web Channel CIS CX Event Log Backout Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.CIS.EVENT.LOG.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.33) +
+       DESCR('CEP Web Channel CIS CX Event Log Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME('WBC.CIS.EVENT.LOG.BACKOUTQ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.CIS.KA.EVENT.LOG.BACKOUTQ') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.33) +
+       DESCR('CEP Web Channel CIS KA Event Log Backout Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.CIS.KA.EVENT.LOG.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.33) +
+       DESCR('CEP Web Channel CIS KA Event Log Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME('WBC.CIS.EVENT.LOG.BACKOUTQ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.IBE.EVENT.LOG.BACKOUTQ') +
+* CRDATE (2013-05-24) +
+* CRTIME (14.23.03) +
+       DESCR('CEP Web Channel IBE Event Log Backout Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.IBE.EVENT.LOG.QUEUE') +
+* CRDATE (2013-05-24) +
+* CRTIME (14.23.14) +
+       DESCR('CEP Web Channel IBE Event Log Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(300000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME('WBC.CIS.EVENT.LOG.BACKOUTQ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.MAIL.BACKOUTQ') +
+* CRDATE (2013-07-05) +
+* CRTIME (19.01.51) +
+       DESCR('CEP Web Channel Mail Backout Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.MAIL.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.33) +
+       DESCR('CEP Web Channel Mail Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME('WBC.MAIL.BACKOUTQ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.MMB.BACKOUTQ') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.33) +
+       DESCR('CEP Web Channel ManageMyBooking Backout Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.MMB.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.33) +
+       DESCR('CEP Web Channel ManageMyBooking Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(1200000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(1) +
+       BOQNAME('WBC.MMB.BACKOUTQ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(MEDIUM) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.SMS.BACKOUTQ') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.34) +
+       DESCR('CEP Web Channel SMS Backout Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME(' ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE QLOCAL ('WBC.SMS.QUEUE') +
+* CRDATE (2013-01-30) +
+* CRTIME (02.18.34) +
+       DESCR('CEP Web Channel SMS Queue') +
+       PUT(ENABLED) +
+       DEFPRTY(0) +
+       DEFPSIST(NO) +
+       DEFPRESP(SYNC) +
+       CLWLUSEQ(QMGR) +
+       SCOPE(QMGR) +
+       GET(ENABLED) +
+       PROPCTL(COMPAT) +
+       DEFREADA(NO) +
+       MAXDEPTH(50000) +
+       MAXMSGL(4194304) +
+       SHARE +
+       DEFSOPT(SHARED) +
+       MSGDLVSQ(PRIORITY) +
+       HARDENBO +
+       USAGE(NORMAL) +
+       NOTRIGGER +
+       TRIGTYPE(FIRST) +
+       TRIGDPTH(1) +
+       TRIGMPRI(0) +
+       TRIGDATA(' ') +
+       PROCESS(' ') +
+       INITQ(' ') +
+       RETINTVL(999999999) +
+       BOTHRESH(0) +
+       BOQNAME('WBC.SMS.BACKOUTQ') +
+       QDEPTHHI(80) +
+       QDEPTHLO(20) +
+       QDPMAXEV(ENABLED) +
+       QDPHIEV(DISABLED) +
+       QDPLOEV(DISABLED) +
+       QSVCINT(999999999) +
+       QSVCIEV(NONE) +
+       DISTL(NO) +
+       NPMCLASS(NORMAL) +
+       STATQ(QMGR) +
+       MONQ(QMGR) +
+       ACCTQ(QMGR) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       DEFBIND(OPEN) +
+       CLWLRANK(0) +
+       CLWLPRTY(0) +
+       REPLACE
+
+DEFINE CHANNEL ('ACP1.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('Receiver Channel from ACDR') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('BK70PD2.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('MPOREV INT11a') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('BK70QMPD1.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(5242880) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('FABRICX.TO.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('Receiver Channel to MQ70PD1') +
+       HBINT(300) +
+       MAXMSGL(5242880) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP41.PRD1_MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP41.PRD1_MQ70PD1S1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP41.PRD1_MQ70PD1S2') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP42.PRD1_MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP42.PRD1_MQ70PD1S1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP42.PRD1_MQ70PD1S2') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP43.PRD1_MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP43.PRD1_MQ70PD1S1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP43.PRD1_MQ70PD1S2') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP44.PRD1_MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(MEDIUM) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP44.PRD1_MQ70PD1S1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('GWP44.PRD1_MQ70PD1S2') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(ZLIBFAST,NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('IIBQMPD2.TO.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('Receiver channel from IIBQMPD2 to MQ70PD1') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('IIBQMPD3.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('Receiver Channel from IIBQMPD3 to MQ70PD1') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.ACP1') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('acp1(1414)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR(' ') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('ACP1') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.APTSCS') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('Client connection to Server by APTSCS') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(OFF) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.BK70PD2') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('hkgx1unx002-wmb-vip.cathaypacific.com(1415)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR('Sender Channel To BK70PD2') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('BK70PD2') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.BK70QMPD1') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('hkgx1unx001-wmb-vip.cathaypacific.com(1414)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR('Sender channel from MQ70PD1 to BK70QMPD1') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('BK70QMPD1') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.CALIDRIS') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('MQ channel for CALIDRIS') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.CUSHUB') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('CIS: Client channel for Prospect CustomerHub WAS') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER('cushub') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.EFF') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('SVRCONN channel for EFF') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(20) +
+       MAXINST(900) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.ETECHLOG') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('eTechlogs for enabled aircraft') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.ETL') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.FABRICX') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('Server Connection Channel to FabriCX') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.GORMSCX') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('Client Channel for GORMSCX') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.HAS') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('Client channel for HAS') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.IPIL') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('SVRCONN channel for IPIL') +
+       HBINT(300) +
+       MAXMSGL(5242880) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.MQ71DMZP1') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('hkgx1unx001-wmq-vip.cathaypacific.com(1414)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR('Sender channel from MQ70PD1 to B2X MQ71DMZP1') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('MQ71DMZP1') +
+       SSLCIPH('TLS_RSA_WITH_AES_256_CBC_SHA') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.MQSP1A') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('MQLH1A(1414)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR('CGO Sdr channel from FabriCX MQ to MQSP1A') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('MQSP1A') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.MQSP1B') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('mqlh1b.cathaypacific.com(1415)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR(' ') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('MQSP1B') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.MQSP2B') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('mqlh2b.cathaypacific.com(1417)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR(' ') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('MQSP2B') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.OCS') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR(' ') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.PROS') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('MQ channel for PROS') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.TO.MQPD3') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('MQPD3-VIP.cathaypacific.com(1423)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR('Sender channel from MQ70PD1 to MQPD3') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('MQPD3') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.TO.MQSP1B') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('MQLH1B.cathaypacific.com(1415)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR('Sender channel to MQSP1B') +
+       DISCINT(0) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('MQSP1B') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1.ULTRA') CHLTYPE(SVRCONN) +
+       TRPTYPE(TCP) +
+       DESCR('ENH37530: OCS Ultramain MQ client connect') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       SHARECNV(10) +
+       MAXINST(999999999) +
+       MAXINSTC(999999999) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ70PD1_GWP43.PRD1') CHLTYPE(SDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CONNAME('194.156.171.141(11143)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR(' ') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(PROCESS) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       XMITQ('1A.CLUSTER.PRD1') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ71DMZP1.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('Receiver channel from B2X MQ71DMZP1 to MQ70PD1') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH('TLS_RSA_WITH_AES_256_CBC_SHA') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('MQ71DMZP2.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('Receiver Channel from MQ71DMZP2') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('MQPD3.TO.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('Receiver Channel From MQPD3') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(999999999) +
+       MRTMR(0) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(MEDIUM) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('MQSP1A.TO.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('RCVR CHL from MQSP1A to MQ70PD1') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('MQSP1B.TO.MQ70PD1') CHLTYPE(RCVR) +
+       TRPTYPE(TCP) +
+       BATCHSZ(50) +
+       DESCR('Receiver channel from MQSP1B') +
+       HBINT(300) +
+       MAXMSGL(4194304) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       REPLACE
+
+DEFINE CHANNEL ('TO.MQ70PD1') CHLTYPE(CLUSRCVR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       CONNAME('hkgx1unx001-wmb.cathaypacific.com(1416)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR('Cluster-receiver channel to MQ70PD1') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(THREAD) +
+       MCAUSER(' ') +
+       MRDATA(' ') +
+       MREXIT(' ') +
+       MRRTY(10) +
+       MRTMR(1000) +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NETPRTY(0) +
+       NPMSPEED(FAST) +
+       PUTAUT(DEF) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       SSLCAUTH(REQUIRED) +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       CLWLPRTY(0) +
+       CLWLRANK(0) +
+       CLWLWGHT(50) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+DEFINE CHANNEL ('TO.MQ70PD2') CHLTYPE(CLUSSDR) +
+       TRPTYPE(TCP) +
+       BATCHINT(0) +
+       BATCHHB(0) +
+       BATCHSZ(50) +
+       CLUSTER('MQPDCLUS') +
+       CLUSNL(' ') +
+       CONNAME('hkgx1unx002-wmb.cathaypacific.com(1417)') +
+       LOCLADDR(' ') +
+       CONVERT(NO) +
+       DESCR('Cluster-sender channel to MQ70PD2') +
+       DISCINT(6000) +
+       HBINT(300) +
+       LONGRTY(999999999) +
+       LONGTMR(1200) +
+       SHORTRTY(10) +
+       SHORTTMR(60) +
+       MAXMSGL(4194304) +
+       MCATYPE(THREAD) +
+       MCAUSER(' ') +
+       MSGDATA(' ') +
+       MSGEXIT(' ') +
+       NPMSPEED(FAST) +
+       RCVDATA(' ') +
+       RCVEXIT(' ') +
+       SCYDATA(' ') +
+       SCYEXIT(' ') +
+       SENDDATA(' ') +
+       SENDEXIT(' ') +
+       SEQWRAP(999999999) +
+       USERID(' ') +
+       SSLCIPH(' ') +
+       SSLPEER(' ') +
+       KAINT(AUTO) +
+       MONCHL(QMGR) +
+       STATCHL(QMGR) +
+       CLWLPRTY(0) +
+       CLWLRANK(0) +
+       CLWLWGHT(50) +
+       COMPMSG(NONE) +
+       COMPHDR(NONE) +
+       PROPCTL(COMPAT) +
+       REPLACE
+
+** (Skipping SYSTEM Process objects) **
+** (Skipping SYSTEM Namelists) **
+DEFINE LISTENER ('MQ70PD1.TCP') +
+       TRPTYPE(TCP) +
+       IPADDR(' ') +
+       PORT(1416) +
+       BACKLOG(0) +
+       DESCR(' ') +
+       CONTROL(QMGR) +
+       REPLACE
+
+** (Skipping SYSTEM Service objects) **
+DEFINE TOPIC ('CX.FDM') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(QMGR) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('CX.FDM_IDOO.OWP') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM_IDOO/OWP') +
+       DESCR('AppID:0507 4CNRS Interface 007') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ALL) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('CX.FDM_IDOO.SMP') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM_IDOO/SMP') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(ASPARENT) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ASPARENT) +
+       SUB(ASPARENT) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ASPARENT) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ASPARENT) +
+       SUBSCOPE(ASPARENT) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('CX.FDM_IDOO.SMP.BATCH') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM_IDOO/SMP/Batch') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(ASPARENT) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ASPARENT) +
+       SUB(ASPARENT) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ASPARENT) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ASPARENT) +
+       SUBSCOPE(ASPARENT) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTOPS_ASM_IATA') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/ASM/IATA') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTOPS_ATACHG') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/TimeChange/ActualArrvial') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTOPS_ATDCHG') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/TimeChange/ActualDeparture') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTOPS_ETACHG') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/TimeChange/EstimatedArrival') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTOPS_ETDCHG') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/TimeChange/EstimatedDeparture') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTOPS_FLTCREATION') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FlightCreation') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTOPS_SALEABLECFGCHG') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/ConfigurationChange/Saleable') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTOPS_TAILCHG') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/TailRegistrationChange') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE TOPIC ('FLTPLN_SSM_1A') +
+       TOPICSTR('/CX/AirlinePlanning/FlightScheduling/FlightEvent/V1-
+.0/SSM/1A') +
+       DESCR(' ') +
+       CLUSTER(' ') +
+       DEFPRTY(ASPARENT) +
+       DEFPSIST(YES) +
+       DEFPRESP(ASPARENT) +
+       MDURMDL(' ') +
+       DURSUB(ASPARENT) +
+       PUB(ENABLED) +
+       SUB(ENABLED) +
+       MNDURMDL(' ') +
+       NPMSGDLV(ASPARENT) +
+       PMSGDLV(ALL) +
+       PROXYSUB(FIRSTUSE) +
+       PUBSCOPE(ALL) +
+       SUBSCOPE(ALL) +
+       WILDCARD(PASSTHRU) +
+       REPLACE
+
+DEFINE SUB ('CX.FDM_IDOO.OWP') +
+* CRDATE (2016-11-03) +
+* CRTIME (19:04:24) +
+       DESTQMGR('MQ70PD1') +
+       DEST('NLOPS.EODS.FDMOWP.IN') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM_IDOO/OWP') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('CX.FDM_IDOO.OWP.TEMP') +
+* CRDATE (2016-11-03) +
+* CRTIME (19:04:24) +
+       DESTQMGR('MQ70PD1') +
+       DEST('NLOPS.EODS.FDMOWP.TEMP') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM_IDOO/OWP') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('MQ71DMZP1 SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS 414-
+D5159000001070000014CD8749A710000000000000000 SYSTEM.BROKER.ADMIN.ST-
+REAM MQ/MQ70PD1                                         /StreamSuppo-
+rt') +
+* CRDATE (2015-04-22) +
+* CRTIME (19:51:55) +
+       DESTQMGR('MQ71DMZP1') +
+       DEST('SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(00000000000000000000000000000000000000000000000000000-
+00000000000) +
+       PUBAPPID('AMQXMQ71DMZP1   54F3695B20001302') +
+       PUBPRTY(ASPUB) +
+       PSPROP(COMPAT) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('SYSTEM.BROKER.ADMIN.STREAM/MQ/MQ70PD1              -
+                           /StreamSupport') +
+       TOPICOBJ('SYSTEM.BROKER.ADMIN.STREAM') +
+       USERDATA(' ') +
+       VARUSER(FIXED) +
+       WSCHEMA(CHAR) +
+       REPLACE
+
+DEFINE SUB ('BK70QMPD1 SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS 414-
+D5159000001070000014CD8749A6E0000000000000000 SYSTEM.BROKER.ADMIN.ST-
+REAM MQ/MQ70PD1                                         /StreamSuppo-
+rt') +
+* CRDATE (2015-04-22) +
+* CRTIME (19:22:05) +
+       DESTQMGR('BK70QMPD1') +
+       DEST('SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(00000000000000000000000000000000000000000000000000000-
+00000000000) +
+       PUBAPPID('AMQXBK70QMPD1   55355D4C20001502') +
+       PUBPRTY(ASPUB) +
+       PSPROP(COMPAT) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('SYSTEM.BROKER.ADMIN.STREAM/MQ/MQ70PD1              -
+                           /StreamSupport') +
+       TOPICOBJ('SYSTEM.BROKER.ADMIN.STREAM') +
+       USERDATA(' ') +
+       VARUSER(FIXED) +
+       WSCHEMA(CHAR) +
+       REPLACE
+
+DEFINE SUB ('CX.SALEABLECFGCHG.EODS') +
+* CRDATE (2016-11-03) +
+* CRTIME (19:04:24) +
+       DESTQMGR('MQ70PD1') +
+       DEST('EODS.SALEABLECFGCHG.IN') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/ConfigurationChange/Saleable') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('FLTOPS_SALEABLECFGCHG.EODS.TEMP') +
+* CRDATE (2016-04-07) +
+* CRTIME (18:44:35) +
+       DESTQMGR('MQ70PD1') +
+       DEST('PSS.EODS.SALEABLECFGCHG.TEMP') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/ConfigurationChange/Saleable') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('FLTPLN_SSM_1A.EODS.TEMP') +
+* CRDATE (2016-04-07) +
+* CRTIME (18:44:35) +
+       DESTQMGR('MQ70PD1') +
+       DEST('NLSCH.EODS.SSM.TEMP') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/AirlinePlanning/FlightScheduling/FlightEvent/V1-
+.0/SSM/1A') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('CX.FDM.EODS.TEMP') +
+* CRDATE (2016-04-07) +
+* CRTIME (18:44:35) +
+       DESTQMGR('MQ70PD1') +
+       DEST('NLOPS.EODS.FDM.TEMP') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('CX.FDM_IDOO.SMP.EODS') +
+* CRDATE (2015-06-17) +
+* CRTIME (01:20:49) +
+       DESTQMGR('MQ70PD1') +
+       DEST('NLOPS.EODS.FDMSMP.IN') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM_IDOO/SMP') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('CX.FDM_IDOO.SMP.USI') +
+* CRDATE (2015-06-17) +
+* CRTIME (01:20:49) +
+       DESTQMGR('MQ70PD1') +
+       DEST('FBX.ULM.FDM') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM_IDOO/SMP') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('MQ70PD1 SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS 414D5-
+1590000010100000000000000000000000000000000 SYSTEM.BROKER.ADMIN.STRE-
+AM MQ/MQ70PD1                                         /StreamSupport-
+') +
+* CRDATE (2013-01-30) +
+* CRTIME (01:54:48) +
+       DESTQMGR('MQ70PD1') +
+       DEST('SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(00000000000000000000000000000000000000000000000000000-
+00000000000) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(COMPAT) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('SYSTEM.BROKER.ADMIN.STREAM/MQ/MQ70PD1              -
+                           /StreamSupport') +
+       TOPICOBJ('SYSTEM.BROKER.ADMIN.STREAM') +
+       USERDATA(' ') +
+       VARUSER(FIXED) +
+       WSCHEMA(CHAR) +
+       REPLACE
+
+DEFINE SUB ('CX.FDM.EDW') +
+* CRDATE (2014-11-20) +
+* CRTIME (13:01:06) +
+       DESTQMGR('MQ70PD1') +
+       DEST('NLOPS.EDW.FDM') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('CX.FDM_IDOO.SMP.BATCH.EODS') +
+* CRDATE (2015-06-17) +
+* CRTIME (01:20:49) +
+       DESTQMGR('MQ70PD1') +
+       DEST('NLOPS.EODS.FDMSMP.IN') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(03323630000000000000000000000000000000000000000000000-
+00000000006) +
+       PUBAPPID(' ') +
+       PUBPRTY(ASPUB) +
+       PSPROP(MSGPROP) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('/CX/FlightOperations/OperationServices/FlightEvent/-
+V1.0/FDM_IDOO/SMP/Batch') +
+       TOPICOBJ(' ') +
+       USERDATA(' ') +
+       VARUSER(ANY) +
+       WSCHEMA(TOPIC) +
+       REPLACE
+
+DEFINE SUB ('MQPD3 SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS 414D515-
+9000001070000015528F32DE30000000000000000 SYSTEM.BROKER.ADMIN.STREAM-
+ MQ/MQ70PD1                                         /StreamSupport') +
+* CRDATE (2016-11-07) +
+* CRTIME (03:07:50) +
+       DESTQMGR('MQPD3') +
+       DEST('SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS') +
+       DESTCLAS(PROVIDED) +
+       EXPIRY(UNLIMITED) +
+       PUBACCT(00000000000000000000000000000000000000000000000000000-
+00000000000) +
+       PUBAPPID('AMQXMQPD3       57B9D42F20001902') +
+       PUBPRTY(ASPUB) +
+       PSPROP(COMPAT) +
+       REQONLY(NO) +
+       SELECTOR('') +
+       SUBLEVEL(1) +
+       SUBSCOPE(ALL) +
+       SUBUSER('mqm') +
+       TOPICSTR('SYSTEM.BROKER.ADMIN.STREAM/MQ/MQ70PD1              -
+                           /StreamSupport') +
+       TOPICOBJ('SYSTEM.BROKER.ADMIN.STREAM') +
+       USERDATA(' ') +
+       VARUSER(FIXED) +
+       WSCHEMA(CHAR) +
+       REPLACE
+

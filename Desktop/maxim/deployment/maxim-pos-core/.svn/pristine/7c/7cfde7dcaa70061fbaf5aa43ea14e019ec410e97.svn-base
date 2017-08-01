@@ -1,0 +1,20 @@
+package com.maxim.pos.common.service;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.maxim.pos.common.persistence.PosSystemDao;
+
+@Service("posSystemService")
+public class PosSystemServiceImpl implements PosSystemService {
+
+	@Autowired
+	private PosSystemDao posSystemDao;
+	
+	@Override
+	public boolean checkEodComplete(String branchCode, Date date) {
+		return posSystemDao.findHistPosSystemByBranchCodeAndDate(branchCode,date);
+	}
+
+}

@@ -1,0 +1,26 @@
+package com.maxim.pos.common.service;
+
+import java.sql.Connection;
+import java.util.List;
+
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.value.CommonCriteria;
+
+public interface ApplicationSettingService {
+
+    public ApplicationSetting findApplicationSettingByCode(String code);
+
+    public List<ApplicationSetting> findApplicationSettingByCriteria(CommonCriteria criteria);
+
+    public Long getApplicationSettingCountByCriteria(CommonCriteria criteria);
+
+    public ApplicationSetting saveApplicationSetting(ApplicationSetting applicationSetting);
+    
+    public void deleteApplicationSettingById(Long applicationSettingId);
+    
+    public String getCurrentJDBCConnectionString();
+    public Connection getCurrentJDBCConnection();
+
+	public Connection getJDBCConection(BranchInfo info, boolean retry);
+}

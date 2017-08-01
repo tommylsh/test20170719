@@ -1,0 +1,33 @@
+package com.maxim.pos.common.enumeration;
+
+import java.util.Objects;
+
+/**
+ * Sales Real Time Table(EDW)
+ */
+public enum SalesRealTimeTable {
+
+    ORDERS("ORDERS"),
+    ORDERS_PAY("ORDERS_PAY"),
+    ORDERS_EXTRA("ORDERS_EXTRA");
+
+    private final String tableName;
+
+    SalesRealTimeTable(String tableName) {
+        this.tableName = tableName;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
+    public static SalesRealTimeTable fromTableName(final String tableName) {
+        for (SalesRealTimeTable salesRealTimeTable : SalesRealTimeTable.values()) {
+            if (Objects.equals(salesRealTimeTable.tableName, tableName)) {
+                return salesRealTimeTable;
+            }
+        }
+        return null;
+    }
+
+}

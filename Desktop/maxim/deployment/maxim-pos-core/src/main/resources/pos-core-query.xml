@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<queries>
+
+	<findUserByUserId type="hql">
+        <![CDATA[
+            select e
+              from User e where e.userId = :userId
+        ]]>
+	</findUserByUserId>
+
+	<findUserDetailByUserId type="hql">
+        <![CDATA[
+            select e
+              from User e left join fetch e.roles  
+              where e.userId = :userId
+        ]]>
+	</findUserDetailByUserId>
+
+	<findUsersByCriteria type="hql">
+    	 <![CDATA[
+            select 
+           	<#if queryRecord = true??>
+            	e
+            <#else>
+            	count(e.id)
+            </#if>
+            
+             from User e 
+             where 1 = 1
+            
+            <#if userIdKeyword??>
+             	and e.userId like (:percentChar + :userIdKeyword + :percentChar)
+            </#if>
+             
+            <#if userNameKeyword??>
+             	and e.userName like (:percentChar + :userNameKeyword + :percentChar)
+            </#if>
+             
+             <#if queryRecord = true??>
+             	order by e.id desc 
+             </#if>
+        ]]>
+	</findUsersByCriteria>
+
+	<findSchemeInfoBybranchSchemeId type="hql">
+    	 <![CDATA[
+            select e             
+             from SchemeInfo e 
+             where 1 = 1
+            
+            <#if brancheSchemeId??>
+             and e.branchScheme.id = :brancheSchemeId
+            </#if>
+             
+          
+        ]]>
+	</findSchemeInfoBybranchSchemeId>
+
+	<findSystemModuleByAlias type="hql">
+    	 <![CDATA[
+            select e      
+             from SystemModule e 
+             where e.alias = :systemAlias
+        ]]>
+	</findSystemModuleByAlias>
+
+	<findRolesBySystemAlias type="hql">
+    	 <![CDATA[
+            select e      
+             from Role e 
+             where e.systemModule.alias = :systemAlias
+        ]]>
+	</findRolesBySystemAlias>
+
+	<findRolesByCriteria type="hql">
+    	 <![CDATA[
+            select 
+           	<#if queryRecord = true??>
+            	e
+            <#else>
+            	count(e.id)
+            </#if>
+            
+             from Role e 
+             where 1 = 1
+             
+            and e.systemModule.alias = :systemAlias 
+            
+            <#if aliasKeyword??>
+             	and e.alias like (:percentChar + :aliasKeyword + :percentChar)
+            </#if>
+             
+            <#if nameKeyword??>
+             	and e.name like (:percentChar + :nameKeyword + :percentChar)
+            </#if>
+             
+             <#if queryRecord = true??>
+             	order by e.id desc 
+             </#if>
+        ]]>
+	</findRolesByCriteria>
+
+	<findFoldersBySystemAlias type="hql">
+    	 <![CDATA[
+            select e      
+             from Folder e 
+             where e.systemModule.alias = :systemAlias
+        ]]>
+	</findFoldersBySystemAlias>
+
+	<findFoldersBySystemAlias type="hql">
+    	 <![CDATA[
+            select e      
+             from Folder e 
+             where e.systemModule.alias = :systemAlias
+        ]]>
+	</findFoldersBySystemAlias>
+
+	<findFolderDetailById type="hql">
+    	 <![CDATA[
+            select e      
+             from Folder e left join fetch e.links 
+             where e.id = :id
+        ]]>
+	</findFolderDetailById>
+
+	<findPermissionByAlias type="hql">
+    	 <![CDATA[
+            select e      
+             from Permission e left join e.systemModule  
+             where e.alias = :alias
+        ]]>
+	</findPermissionByAlias>
+
+	<findPermissionsByCriteria type="hql">
+    	 <![CDATA[
+            select 
+           	<#if queryRecord = true??>
+            	e
+            <#else>
+            	count(e.id)
+            </#if>
+            
+             from Permission e 
+             where 1 = 1
+             
+            and e.systemModule.alias = :systemAlias 
+            
+            <#if aliasKeyword??>
+             	and e.alias like (:percentChar + :aliasKeyword + :percentChar)
+            </#if>
+             
+            <#if nameKeyword??>
+             	and e.name like (:percentChar + :nameKeyword + :percentChar)
+            </#if>
+             
+             <#if queryRecord = true??>
+             	order by e.id desc 
+             </#if>
+        ]]>
+	</findPermissionsByCriteria>
+
+	<findPermissionsByUserId type="hql">
+    	 <![CDATA[
+             
+             select distinct e from Permission e 
+             	where e.enabled = true and e.systemModule.alias = :systemAlias
+             	
+             	<#if notAdminUser>
+	           	and exists (select r from Role r left join r.permissions p where r.enabled = true and p.id = e.id and exists (
+	           		select u from User u left join u.roles ur where ur.id = r.id and u.userId = :userId
+	           	))	
+	           	</#if>
+        ]]>
+	</findPermissionsByUserId>
+
+	<findLinksBySystemAlias type="hql">
+    	 <![CDATA[
+             
+             select distinct e from Link e where e.enabled = true and e.systemModule.alias = :systemAlias
+             <#if notAdminUser>
+             	and exists (select r from Role r left join r.links rl where r.enabled = true and rl.id = e.id and exists (
+             		select u from User u left join u.roles ur where ur.id = r.id and u.userId = :userId
+             	))	
+             </#if>
+             
+        ]]>
+	</findLinksBySystemAlias>
+
+	<findLinksByFolderId type="hql">
+    	 <![CDATA[
+            select e      
+             from Link e 
+             where e.folder.id = :folderId
+        ]]>
+	</findLinksByFolderId>
+
+	<findLinkByUrl type="hql">
+    	 <![CDATA[
+            select e      
+             from Link e 
+             where e.url = :url
+        ]]>
+	</findLinkByUrl>
+
+	<getLinkCountByUserIdAndUrl type="hql">
+    	 <![CDATA[
+             
+             select count(e.id) from Link e where e.enabled = true and 
+             	e.url = :url 
+             	and exists (select r from Role r left join r.links rl where rl.id = e.id and exists (
+             		select u from User u left join u.roles ur where ur.id = r.id and u.userId = :userId
+             	))	
+        ]]>
+	</getLinkCountByUserIdAndUrl>
+
+	<findBranchSchemeByPollSchemeType type="hql">
+		 <![CDATA[
+	            select e      
+	             from BranchScheme e 
+	             where e.pollSchemeType = :pollSchemeType and e.direction = :direction
+	        ]]>
+	</findBranchSchemeByPollSchemeType>
+
+    <findSchemeJobLogByCriteria type="hql">
+        <![CDATA[
+            from SchemeJobLog e
+             where 1 = 1
+             <#if entityId??>
+              and e.id = :entityId
+            </#if>
+             <#if scheduleJobId??>
+                and e.scheduleJobId = :scheduleJobId
+            </#if>
+            <#if lastJobInd??>
+             	and e.lastJobInd =:lastJobInd
+            </#if>
+            <#if status??>
+             	and e.status =:status
+            </#if>
+            <#if createUser??>
+              and e.createUser = :createUser
+            </#if>            
+            <#if orderbyLastUpdateTimeDesc??>
+              order by e.lastUpdateTime desc
+            </#if>            
+            <#if orderbyCreateTimeDesc??>
+              order by e.createTime desc
+            </#if>            
+        ]]>
+    </findSchemeJobLogByCriteria>
+
+    <countSchemeJobLogDifferentUser type="hql">
+        <![CDATA[
+            select count(distinct e.createUser)
+            from SchemeJobLog e
+            where e.scheduleJobId = :scheduleJobId
+            and e.createUser <> :createUser
+            <#if createTime??>
+              and e.createTime > :createTime
+            </#if>            
+            <#if lastUpdateTime??>
+              and e.lastUpdateTime > :lastUpdateTime
+            </#if>            
+        ]]>
+    </countSchemeJobLogDifferentUser>
+
+    <findLatestSchemeJobLog type="hql">
+        <![CDATA[
+            select a from SchemeJobLog  a
+            where 1=1  and   a.lastJobInd = 'Y'  
+            and  (a.status ='COMPLETE' or a.status ='PENDING' or a.status ='FAILED' or a.status ='PROGRESS')
+            <#if scheduleJobId??>
+              and a.scheduleJobId = :scheduleJobId
+             </#if>
+            <#if createUser??>
+              and a.createUser = :createUser
+            </#if>
+            order by a.lastUpdateTime desc
+        ]]>
+    </findLatestSchemeJobLog>
+
+    <findApplicationSettingByCode type="hql">
+		 <![CDATA[
+            	select e
+             	from ApplicationSetting e 
+             	where e.code = :code
+           ]]>
+	</findApplicationSettingByCode>
+
+	<findApplicationSettingByCriteria type="hql">
+		 <![CDATA[
+	            select 
+           	<#if queryRecord = true??>
+            	e
+            <#else>
+            	count(e.id)
+            </#if>
+            
+             from ApplicationSetting e 
+             where 1 = 1
+            
+            <#if code??>
+             	and e.code = :code
+            </#if>
+            
+            <#if codeKeyword??>
+             	and e.code like (:percentChar + :codeKeyword + :percentChar)
+            </#if>
+	        ]]>
+	</findApplicationSettingByCriteria>
+
+    <findTaskJobLogBySchemeJobLogIdAndBranchCode type="hql">
+        <![CDATA[
+            SELECT
+                e
+            FROM TaskJobLog e
+           WHERE e.pollSchemeJobLogId = :pollSchemeJobLogId
+           AND e.branchCode = :branchCode
+        ]]>
+    </findTaskJobLogBySchemeJobLogIdAndBranchCode>
+
+
+    <findTaskJobLogByCriteria type="hql">
+        <![CDATA[
+            SELECT
+            <#if queryRecord = true??>
+                e
+            <#else>
+                count(e.id)
+            </#if>
+            FROM TaskJobLog e
+           WHERE 1 = 1
+           
+            <#if entityId??>
+              AND e.id = :entityId
+            </#if>
+            <#if pollSchemeJobLogId??>
+              AND e.pollSchemeJobLogId = :pollSchemeJobLogId
+            </#if>
+            <#if branchCode??>
+              AND e.branchCode = :branchCode
+            </#if>
+            <#if userId!!=''>
+              AND (e.createUser = :userId OR e.lastUpdateUser = :userId)
+            </#if>
+            <#if startTime??>
+                AND convert(varchar(24),e.startTime,121) = :startTime
+            </#if>
+            <#if createUser??>
+             AND e.createUser = :createUser
+            </#if>
+            <#if pollSchemeID??>
+             AND e.pollSchemeID = :pollSchemeID
+            </#if>
+            <#if pollSchemeType??>
+             AND e.pollSchemeType = :pollSchemeType
+            </#if>
+            <#if direction??>
+             AND e.direction = :direction
+            </#if>            
+            <#if lastUpdateTime??>
+                AND convert(varchar(24),e.lastUpdateTime,121) = :lastUpdateTime
+            </#if>
+            <#if status??>
+             AND e.status = :status
+            </#if>
+            <#if queryRecord = true??>
+                   order by e.startTime desc
+            </#if>
+        ]]>
+    </findTaskJobLogByCriteria>
+
+    <findLatestTaskJobLog type="hql">
+        <![CDATA[
+            FROM TaskJobLog e 
+           WHERE (e.lastestJobInd = 'Y' OR e.lastestJobInd = 'P')
+             AND (e.status = 'COMPLETE' OR e.status ='FAILED' OR e.status='PROGRESS' OR e.status='PENDING')
+             AND e.pollSchemeType = :pollSchemeType
+             AND e.branchCode = :branchCode
+             AND e.pollSchemeID = :branchSchemeId
+             AND e.direction = :direction
+             
+             order by e.lastUpdateTime desc
+        ]]>
+    </findLatestTaskJobLog>
+    
+    
+  <findLatestTaskJobLogUpdateTime type="sql">
+        <![CDATA[
+        select MAX(lastUpdateTime)
+            FROM PTask_Job_Log with (NOLOCK)
+           WHERE (LASTTEST_JOB_IND = 'Y' OR LASTTEST_JOB_IND = 'P')
+             AND (STATUS = 'COMPLETE' OR status ='FAILED' OR status='PROGRESS' OR status='PENDING')
+             AND POLL_SCHEME_TYPE = :pollSchemeType
+             AND BRANCH_CODE = :branchCode
+             AND POLL_SCHEME_ID = :branchSchemeId
+             AND DIRECTION = :direction
+        ]]>
+    </findLatestTaskJobLogUpdateTime>
+
+    <purgeTaskJobLog type="sql">
+        <![CDATA[
+           delete
+            FROM Task_Job_Log with (ROWLOCK)
+           WHERE STATUS = :status 
+             AND POLL_SCHEME_TYPE = :pollSchemeType
+             AND BRANCH_CODE = :branchCode
+             AND POLL_SCHEME_ID = :branchSchemeId
+             AND DIRECTION = :direction
+             
+        ]]>
+    </purgeTaskJobLog>
+    <purgeTaskJobLogWithoutLatestTask type="sql">
+        <![CDATA[
+           delete
+            FROM Task_Job_Log with (ROWLOCK)
+           WHERE STATUS = :status 
+             AND POLL_SCHEME_TYPE = :pollSchemeType
+             AND BRANCH_CODE = :branchCode
+             AND POLL_SCHEME_ID = :branchSchemeId
+             AND DIRECTION = :direction
+             <#if newTaskJobLogId??>
+               AND TASK_JOB_LOG_ID <> :newTaskJobLogId
+             </#if>            
+        ]]>
+    </purgeTaskJobLogWithoutLatestTask>
+    
+    <updatePendingTaskJobLog type="sql">
+        <![CDATA[
+           UPDATE Task_Job_Log with (ROWLOCK)
+           SET LASTTEST_JOB_IND = 'N' 
+           WHERE ( STATUS = 'PROGRESS' OR STATUS='PENDING' )
+             AND POLL_SCHEME_TYPE = :pollSchemeType
+             AND BRANCH_CODE = :branchCode
+             AND POLL_SCHEME_ID = :branchSchemeId
+             AND DIRECTION = :direction
+        ]]>
+    </updatePendingTaskJobLog>
+
+    <updateOtherTaskJobLogNotLatest type="sql">
+        <![CDATA[
+           UPDATE Task_Job_Log with (ROWLOCK)
+           SET LASTTEST_JOB_IND = 'N' 
+           WHERE BRANCH_CODE = :branchCode
+             <#if newTaskJobLogId??>
+               AND TASK_JOB_LOG_ID <> :newTaskJobLogId
+             </#if>            
+             <#if latestTaskJobLogId??>
+               AND TASK_JOB_LOG_ID <> :latestTaskJobLogId
+             </#if>            
+             AND POLL_SCHEME_TYPE = :pollSchemeType
+             AND POLL_SCHEME_ID = :branchSchemeId
+             AND DIRECTION = :direction
+             AND LASTTEST_JOB_IND = 'Y' 
+        ]]>
+    </updateOtherTaskJobLogNotLatest>
+
+    <updateOtherSchemeJobLogNotLatest type="sql">
+        <![CDATA[
+           UPDATE POLL_SCHEME_JOB_LOG with (ROWLOCK)
+           SET LAST_JOB_IND = 'N' 
+           WHERE SCHEDULE_JOB_ID = :scheduleJobId
+            <#if createUser??>
+              AND CREATE_USER = :createUser
+            </#if>
+            AND LAST_JOB_IND = 'Y'
+         ]]>
+    </updateOtherSchemeJobLogNotLatest>
+
+
+    <findLatestTaskJobLogWithLock type="sql">
+        <![CDATA[
+        select TOP 1 TASK_JOB_LOG_ID
+            FROM Task_Job_Log e with (ROWLOCK)
+           WHERE (LASTTEST_JOB_IND = 'Y' OR LASTTEST_JOB_IND = 'P')
+             AND (STATUS = 'COMPLETE' OR status ='FAILED' OR status='PROGRESS' OR status='PENDING')
+             AND e.POLL_SCHEME_TYPE = :pollSchemeType
+             AND e.BRANCH_CODE = :branchCode
+             AND e.POLL_SCHEME_ID = :branchSchemeId
+             AND e.DIRECTION = :direction
+             
+             order by e.LAST_UPDATE_TIME desc
+        ]]>
+    </findLatestTaskJobLogWithLock>
+
+    <findApplicationLock type="sql">
+        <![CDATA[
+        select 1
+            FROM POLL_APPLICATION_SETTING e with (XLOCK,ROWLOCK)
+           WHERE CODE = :code
+        ]]>
+    </findApplicationLock>
+
+    <findBranchLock type="sql">
+        <![CDATA[
+        select 1
+            FROM POLL_BRANCH_MASTER e with (XLOCK,ROWLOCK)
+           WHERE BRANCH_CODE = :branchCode
+        ]]>
+    </findBranchLock>
+    
+    <findApplicationValue type="sql">
+        <![CDATA[
+        select CODE_VALUE
+            FROM POLL_APPLICATION_SETTING e with (NOLOCK)
+           WHERE CODE = :code
+        ]]>
+    </findApplicationValue>
+
+    <findSchemeInfoBySchemeTypeAndClientType type="hql">
+        <![CDATA[
+            select e
+            from SchemeInfo e left join fetch e.schemeTableColumns stc
+            where 1=1
+            <#if pollSchemeType??>
+                and e.pollSchemeType = :pollSchemeType
+            </#if>
+            <#if clientType??>
+                and e.clientType = :clientType
+            </#if>
+            <#if destination!!=''>
+                and e.destination = :destination
+            </#if>
+        ]]>
+    </findSchemeInfoBySchemeTypeAndClientType>
+
+    <findSchemeInfoByCriteria type="hql">
+        <![CDATA[
+            SELECT
+            <#if queryRecord = true??>
+                e
+            <#else>
+                count(e.id)
+            </#if>
+            from SchemeInfo e
+           where 1 = 1
+            <#if entityId??>
+              and e.id = :entityId
+            </#if>
+            <#if pollSchemeType??>
+              and e.pollSchemeType = :pollSchemeType
+            </#if>
+            <#if clientType??>
+              and e.clientType = :clientType
+            </#if>
+             <#if source??>
+              and e.source = :source
+            </#if>
+
+            <#if queryRecord = true??>
+                order by e.pollSchemeType,e.clientType,e.source
+            </#if>
+
+        ]]>
+    </findSchemeInfoByCriteria>
+
+	<findPollEodControlByBranchCode type="hql">
+	 	<![CDATA[
+            from PollEodControl e
+           where 1 = 1
+            <#if branchCode??>
+              and e.branchCode = :branchCode
+            </#if>
+            <#if maxBusinessDate??>
+              and e.businessDate < :maxBusinessDate
+            </#if>
+			and (e.status ='P' or  e.status ='C')
+            order by e.businessDate desc, e.lastUpdateTime desc
+        ]]>
+	</findPollEodControlByBranchCode>
+
+	<findCompletedPollEodControlByBranchCode type="hql">
+	 	<![CDATA[
+            from PollEodControl e
+           where 1 = 1
+            <#if branchCode??>
+              and e.branchCode = :branchCode
+            </#if>
+            <#if maxBusinessDate??>
+              and e.businessDate < :maxBusinessDate
+            </#if>
+			and e.status ='C'
+            order by e.businessDate desc, e.lastUpdateTime desc
+        ]]>
+	</findCompletedPollEodControlByBranchCode>
+	
+	
+	<findPollEodControlByBranchCodeAfterBusinessDate type="hql">
+	 	<![CDATA[
+            from PollEodControl e
+            where e.branchCode = :branchCode
+            and e.businessDate > :businessDate
+            order by e.businessDate asc, e.lastUpdateTime asc
+        ]]>
+	</findPollEodControlByBranchCodeAfterBusinessDate>
+
+	<findBranchSchemeByPollSchemeTypeAndDirectionAndClientType type="hql">
+		<![CDATA[
+            from BranchScheme e
+           where 1 = 1
+            <#if pollSchemeType??>
+              and e.pollSchemeType = :pollSchemeType
+            </#if>
+            <#if direction??>
+              and e.direction = :direction
+            </#if>
+            <#if clientType??>
+              and e.branchInfo.clientType = :clientType
+            </#if>
+            <#if branchCode??>
+              and e.branchMaster.branchCode = :branchCode
+            </#if>
+            <#if enabled??>
+              and e.enabled = :enabled
+            </#if>
+        ]]>
+	</findBranchSchemeByPollSchemeTypeAndDirectionAndClientType>
+
+	<findSchemeInfoByBySchemeTypeAndClientTypeAndTableName type="hql">
+		<![CDATA[
+            select e
+            from SchemeInfo e left join fetch e.schemeTableColumns stc
+            where 1=1
+            <#if pollSchemeType??>
+                and e.pollSchemeType = :pollSchemeType
+            </#if>
+            <#if clientType??>
+                and e.clientType = :clientType
+            </#if>
+            <#if tableName??>
+                and e.source = :tableName
+            </#if>
+        ]]>
+	</findSchemeInfoByBySchemeTypeAndClientTypeAndTableName>
+
+    <findBranchSchemeByCriteria type="hql">
+        <![CDATA[
+	        select
+           	<#if queryRecord = true??>
+            	e
+            <#else>
+            	count(e.id)
+            </#if>
+             from BranchScheme e
+             where 1 = 1
+            <#if branchCode??>
+             	and e.branchMaster.branchCode = :branchCode
+            </#if>
+            <#if branchCodeKeyword!!=''>
+             	and e.branchMaster.branchCode like (:percentChar + :branchCodeKeyword + :percentChar)
+            </#if>
+	        ]]>
+    </findBranchSchemeByCriteria>
+
+    <findSchemeScheduleJobByCriteria type="hql">
+        <![CDATA[
+	        SELECT
+           	<#if queryRecord = true??>
+            	e
+            <#else>
+            	count(e.id)
+            </#if>
+             FROM SchemeScheduleJob e
+            WHERE 1 = 1
+            <#if pollSchemeType??>
+                AND e.pollSchemeType = :pollSchemeType
+            </#if>
+            <#if pollSchemeDirection??>
+             	AND e.pollSchemeDirection = :pollSchemeDirection
+            </#if>
+            <#if jobNameKeyword??>
+             	AND e.jobName LIKE (:percentChar + :jobNameKeyword + :percentChar)
+            </#if>
+        ]]>
+    </findSchemeScheduleJobByCriteria>
+
+    <findBranchMaster type="hql">
+        <![CDATA[
+            FROM BranchMaster e
+           WHERE 1=1
+            <#if branchCode!!=''>
+                AND e.branchCode = :branchCode
+            </#if>
+            <#if branchType!!=''>
+                AND e.branchType = :branchType
+            </#if>
+        ]]>
+    </findBranchMaster>
+
+    <findEDOCompletedBranchByCreateTimeRange type="sql">
+        <![CDATA[
+                	select PBM.BRANCH_TYPE, PBS1.POLL_BRANCH_MASTER_ID ,PBS1.POLL_BRANCH_SCHEME_ID, 
+                	(select   max(LAST_UPDATE_TIME) AS END_TIME    
+                	from POLL_EOD_CONTROL PEC            
+                	where PEC.BUSINESS_DATE = :businessDate
+                	and PEC.STATUS  ='C'
+                	and PEC.BRANCH_CODE =PBM.BRANCH_CODE ) AS END_TIME
+					from dbo.POLL_BRANCH_SCHEME PBS1 
+					left join dbo.POLL_BRANCH_SCHEME PBS2 
+					on PBS2.DIRECTION = 'STG_TO_EDW' and PBS2.POLL_SCHEME_TYPE = 'SALES_EOD'
+					and PBS2.POLL_BRANCH_INFO_ID  = PBS1.POLL_BRANCH_INFO_ID    
+					and PBS2.POLL_BRANCH_MASTER_ID  = PBS1.POLL_BRANCH_MASTER_ID    
+                    and PBS2.IS_ENABLED ='1'      
+					join dbo.POLL_BRANCH_MASTER PBM on PBM.POLL_BRANCH_MASTER_ID = PBS1.POLL_BRANCH_MASTER_ID
+                    join dbo.POLL_BRANCH_INFO PBI on PBI.POLL_BRANCH_INFO_ID = PBS1.POLL_BRANCH_INFO_ID and ENABLE='1' 
+					where  PBS1.IS_ENABLED ='1'
+					and PBS1.DIRECTION = 'POS_TO_STG' and PBS1.POLL_SCHEME_TYPE = 'SALES_EOD' 
+					order by PBM.BRANCH_TYPE, PBS1.POLL_BRANCH_MASTER_ID , END_TIME				
+        ]]>
+    </findEDOCompletedBranchByCreateTimeRange>
+
+	<getTableColumnInfoByDBNameAndTable type="sql">
+		 <![CDATA[
+		 	SELECT
+				col.ordinal_position AS seq
+				,col.column_name AS columnName
+				,CASE WHEN col.data_type = 'smalldatetime' THEN 'JDBC_DATE'
+				 WHEN col.data_type = 'datetime' THEN 'JDBC_TIMESTAMP'
+				 WHEN col.data_type = 'uniqueidentifier' THEN 'JDBC_VARCHAR'
+				 WHEN col.data_type = 'money' THEN 'JDBC_DECIMAL'
+				 WHEN col.data_type = 'int' THEN 'JDBC_INTEGER'
+				 ELSE 'JDBC_' + UPPER(col.data_type)
+				 END AS columnFormat
+				,CASE WHEN col.data_type = 'uniqueidentifier' THEN 36
+				 ELSE COALESCE(col.character_maximum_length, 
+								col.character_octet_length,
+								col.numeric_precision,
+								type.precision)
+				END AS columnLength
+				,COALESCE(col.numeric_scale, col.datetime_precision, 0) AS columnPrecision
+				FROM information_schema.columns col, sys.types type
+				WHERE 1=1
+				AND col.data_type = type.name
+				AND col.table_catalog = ?
+				AND col.table_name = ?
+				ORDER BY seq ASC
+		 ]]>
+	</getTableColumnInfoByDBNameAndTable>
+
+    <findBranchInfoByCriteria type="hql">
+        <![CDATA[
+            SELECT
+            <#if queryRecord = true??>
+                e
+            <#else>
+                count(e.id)
+            </#if>
+            FROM BranchInfo e
+            WHERE 1 = 1
+            <#if entityId??>
+              AND e.id = :entityId
+            </#if>
+            <#if enable??>
+              AND e.enable = :enable
+            </#if>
+            <#if clientType??>
+              AND e.clientType = :clientType
+            </#if>
+            <#if clientHostKeyword??>
+                AND e.clientHost LIKE (:percentChar + :clientHostKeyword + :percentChar)
+            </#if>
+        ]]>
+    </findBranchInfoByCriteria>
+
+    <findBranchMasterByCriteria type="hql">
+        <![CDATA[
+            SELECT
+            <#if queryRecord = true??>
+                e
+            <#else>
+                count(e.id)
+            </#if>
+            FROM BranchMaster e
+            WHERE 1 = 1
+            <#if branchCode??>
+                AND e.branchCode = :branchCode
+            </#if>
+        ]]>
+    </findBranchMasterByCriteria>
+
+    <findTaskJobLogDetailByCriteria type="hql">
+        <![CDATA[
+            SELECT
+            <#if queryRecord = true??>
+                e
+            <#else>
+                count(e.id)
+            </#if>
+            FROM TaskJobLogDetail e
+           WHERE 1=1
+            <#if taskJobLogId??>
+              AND e.taskJobLog.id = :taskJobLogId
+            </#if>
+        ]]>
+    </findTaskJobLogDetailByCriteria>
+
+    <findTaskJobExceptionDetailByCriteria type="hql">
+        <![CDATA[
+            SELECT
+            <#if queryRecord = true??>
+                e
+            <#else>
+                count(e.id)
+            </#if>
+            FROM TaskJobExceptionDetail e
+           WHERE 1=1
+            <#if taskJobLogId??>
+              AND e.taskJobLog.id = :taskJobLogId
+            </#if>
+        ]]>
+    </findTaskJobExceptionDetailByCriteria>
+
+    <findSchemeTableColumnByCriteria type="hql">
+        <![CDATA[
+            SELECT
+            <#if queryRecord = true??>
+                e
+            <#else>
+                count(e.id)
+            </#if>
+            FROM SchemeTableColumn e
+            WHERE 1 = 1
+            <#if schemeInfoId??>
+                AND e.schemeInfo.id = :schemeInfoId
+            </#if>
+        ]]>
+    </findSchemeTableColumnByCriteria>
+	<findTaskJobExceptionDetailByStatusAndSeverity type="hql">
+		   <![CDATA[
+	            FROM TaskJobExceptionDetail e
+	            WHERE 1 = 1
+	            <#if status??>
+	                AND e.status = :status
+	            </#if>
+	            <#if severity??>
+	                AND e.severity <= :severity
+	            </#if>
+	        ]]>
+	</findTaskJobExceptionDetailByStatusAndSeverity>
+	<findSchemeScheduleJobByBranchScheme type="hql">
+		   <![CDATA[
+	            FROM SchemeScheduleJob e
+	            WHERE 1 = 1
+	            <#if pollSchemeType??>
+	                AND e.pollSchemeType = :pollSchemeType
+	            </#if>
+	            <#if direction??>
+	                AND e.pollSchemeDirection = :direction
+	            </#if>
+	      ]]>
+	</findSchemeScheduleJobByBranchScheme>
+
+	<findEodProcess type="hql">
+		<![CDATA[
+			SELECT
+			    <#if queryRecord = true??>
+	                e
+	            <#else>
+                	count(e.id)
+            	</#if>
+			FROM TaskJobLog e
+			where 1=1
+			AND LASTTEST_JOB_IND = 'Y' 
+			<#if startTime??>
+ 				AND convert(varchar(16),e.startTime,112) = convert(varchar(16),:startTime,112)
+			</#if>
+
+			<#if pollSchemeType??>
+ 				AND e.pollSchemeType = :pollSchemeType
+			</#if>
+
+			<#if branchCode??>
+ 				AND e.branchCode = :branchCode
+			</#if>
+	      ]]>
+	</findEodProcess>
+
+	<findSystemDashboard type="hql">
+		<![CDATA[
+			SELECT
+			    <#if queryRecord = true??>
+	                e
+	            <#else>
+                	count(e.id)
+            	</#if>
+			FROM SystemDashboard e
+	      ]]>
+	</findSystemDashboard>
+	
+	<findLatestPollBrachScheme type="sql">
+		<![CDATA[
+				SELECT PBS.POLL_BRANCH_SCHEME_ID, PBS.IS_ENABLED AS SCHEME_ENABLED, PBI.ENABLE AS INFO_ENABLED, PBS.START_TIME, PBS.END_TIME, 
+				    PBM.BRANCH_CODE, PBS.POLL_BRANCH_INFO_ID, PBS.POLL_SCHEME_NAME, PBS.POLL_SCHEME_DESC,
+				    TJLS.TASK_JOB_LOG_ID AS LAST_JOB_LOG_ID, TJLS.LAST_UPDATE_TIME, TJLS.STATUS AS LAST_STATUS,  TJL.TASK_JOB_LOG_ID, TJL2.TASK_JOB_LOG_ID AS TASK_JOB_LOG_ID2, TJL.STATUS, TJL2.STATUS AS STATUS2
+				FROM POLL_BRANCH_SCHEME PBS
+				LEFT JOIN POLL_BRANCH_MASTER PBM ON PBM.POLL_BRANCH_MASTER_ID = PBS.POLL_BRANCH_MASTER_ID
+				LEFT JOIN POLL_BRANCH_INFO PBI ON PBI.POLL_BRANCH_INFO_ID = PBS.POLL_BRANCH_INFO_ID
+				LEFT JOIN TASK_JOB_LOG TJL WITH (NOLOCK)
+				ON TJL.DIRECTION=PBS.DIRECTION
+				and TJL.POLL_SCHEME_TYPE = PBS.POLL_SCHEME_TYPE
+				and TJL.BRANCH_CODE = PBM.BRANCH_CODE	
+				and TJL.STATUS <> 'NONE'
+	            and TJL.LAST_UPDATE_TIME = (
+		            select  max(LAST_UPDATE_TIME)
+		            from TASK_JOB_LOG TJLM WITH (NOLOCK)      
+		            where TJL.DIRECTION=TJLM.DIRECTION     
+		            and TJL.POLL_SCHEME_TYPE = TJLM.POLL_SCHEME_TYPE     
+		            and TJL.BRANCH_CODE = TJLM.BRANCH_CODE   
+		            AND TJLM.LASTTEST_JOB_IND  = 'Y'
+		            and TJLM.STATUS <> 'NONE' ) 
+				LEFT JOIN TASK_JOB_LOG TJLS WITH (NOLOCK)
+				ON TJLS.DIRECTION=PBS.DIRECTION
+				and TJLS.POLL_SCHEME_TYPE = PBS.POLL_SCHEME_TYPE
+				and TJLS.BRANCH_CODE = PBM.BRANCH_CODE	
+	            and TJLS.LAST_UPDATE_TIME = (
+		            select  max(LAST_UPDATE_TIME)
+		            from TASK_JOB_LOG TJLSM WITH (NOLOCK)      
+		            where TJLS.DIRECTION=TJLSM.DIRECTION     
+		            and TJLS.POLL_SCHEME_TYPE = TJLSM.POLL_SCHEME_TYPE     
+		            and TJLS.BRANCH_CODE = TJLSM.BRANCH_CODE     )
+				LEFT JOIN TASK_JOB_LOG TJL2 WITH (NOLOCK)
+				ON TJL2.DEPEND_ON=TJL.TASK_JOB_LOG_ID
+				where PBS.DIRECTION=:direction
+				and PBS.POLL_SCHEME_TYPE = :pollSchemeType
+				ORDER BY TJLS.LAST_UPDATE_TIME 
+	      ]]>	
+	      
+    
+	</findLatestPollBrachScheme>
+	<!-- 
+				LEFT JOIN 
+				(
+				select max(LAST_UPDATE_TIME) LAST_UPDATE_TIME , BRANCH_CODE from TASK_JOB_LOG TJL WITH (NOLOCK) 
+				where TJL.DIRECTION=:direction
+				and TJL.POLL_SCHEME_TYPE = :pollSchemeType
+				GROUP BY TJL.BRANCH_CODE
+				
+				) PMT
+				 ON PMT.BRANCH_CODE= PBM.BRANCH_CODE
+				 
+				and TJL.LAST_UPDATE_TIME = PMT.LAST_UPDATE_TIME
+				 
+-->	  
+
+	
+</queries>

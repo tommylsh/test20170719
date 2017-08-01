@@ -1,0 +1,36 @@
+package com.maxim.pos.common.service;
+
+import com.maxim.pos.common.entity.BranchMaster;
+import com.maxim.pos.common.persistence.BranchMasterDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import java.util.List;
+
+@Transactional
+@Service("branchMasterService")
+public class BranchMasterServiceImpl implements BranchMasterService {
+
+    @Autowired
+    private BranchMasterDao branchMasterDao;
+
+    @Override
+    public List<BranchMaster> getBranchMasterList() {
+        return branchMasterDao.getBranchMasterList();
+    }
+
+    @Override
+    public List<BranchMaster> getBranchMasterList(String branchType) {
+        Assert.hasText(branchType);
+        return branchMasterDao.getBranchMasterList(branchType);
+    }
+
+    @Override
+    public BranchMaster getBranchMaster(String branchCode) {
+        Assert.hasText(branchCode);
+        return branchMasterDao.getBranchMaster(branchCode);
+    }
+
+}

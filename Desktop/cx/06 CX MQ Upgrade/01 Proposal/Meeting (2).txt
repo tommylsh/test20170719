@@ -1,0 +1,68 @@
+* MQ Server on P6 (now no VM) Yes in virtual 
+* Migration to P7 plus also to virtual box 
+      P6 to P7 plus 
+           Clarify the scope            
+           Additional Scope 
+                    Infra and AIX 
+                            
+           1st part task list and estimation if server switch over and effort 
+           Same IP, same host
+           Use 6.0 first  
+                        
+* Software 
+      Now task break down already have 
+      Server switch over first 
+      P6 not stable, need to carry out first 
+      
+      What is the time? 
+        3 month of time completed 
+            end of 
+            
+      MQ Time Frame start from Jan-2017. 6 to 8 month to complete 
+        Question Migration CorpMQ 
+            Question AIX to AIX. Server performacne to AIX to red hat first AIX to AIX. Later AIX to Linux 
+            
+            Two stage 
+            
+            Seperate To Do 
+            
+            
+SRM - Server Resource Management - Exisitng Linux Platform. Ready Already for MQ migration 
+P6 Migration to Linux Virtual 
+
+Part I: 
+P6 not stable 
+P7 machine 
+    server switch over 
+        VM to VM 
+            Then MQ migration 
+                   P7 on Linux 
+                        
+      P6 VM, how to put start to new 
+           P6 TO P7 check compatability 
+               PL 12 (to be checked)
+                    Testing 
+                           Down time required 
+                                   P7 
+                                   
+      P6 ? MACHINE? VM to VM 
+        Clone no down time 
+            Other IP, other name 
+                Delta and put the delta to PL6 and 12 is disk format 
+                
+                
+                
+                Task what can do and effort 
+                    
+                    Hardware Switch 
+                        Part  I: Hardware Switch Over 
+                        Part II: Hosting Team with together 
+                                 RSD management (IBM)
+                                 
+                                 
+                                 
+                Next 
+                                 
+    
+                                 
+          

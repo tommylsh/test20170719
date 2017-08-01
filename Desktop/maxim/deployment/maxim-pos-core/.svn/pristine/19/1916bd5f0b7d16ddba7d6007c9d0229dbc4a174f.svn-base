@@ -1,0 +1,644 @@
+package com.maxim.pos.sales.service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.PollEodControl;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.SchemeJobLog;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.LatestJobInd;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.enumeration.TaskProcessStatus;
+import com.maxim.pos.common.persistence.PollEodControlDao;
+import com.maxim.pos.common.persistence.TaskJobLogDao;
+import com.maxim.pos.common.service.ApplicationSettingService;
+import com.maxim.pos.common.service.PollBranchSchemeService;
+import com.maxim.pos.common.service.PollSchemeInfoService;
+import com.maxim.pos.common.service.ProcessStgToEdwService;
+import com.maxim.pos.common.service.SchedulerJobLogService;
+import com.maxim.pos.common.service.SpringBeanUtil;
+import com.maxim.pos.common.service.TaskJobLogService;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.util.PosClientUtils;
+import com.maxim.rest.ResponseData;
+
+/**
+ * Class SalesServiceBaseImpl
+ * <p>
+ * Created by Tommy Leung
+ * Created on 12 Apr 2017
+ * <p>
+ * Amendment History
+ * <p>
+ * Name                  Modified on  Comment
+ * --------------------  -----------  ----------------------------------------
+ */
+
+public abstract class SalesServiceBaseImpl implements SalesService {
+
+
+    protected @Value("${sales.enableArchive}")    boolean enableArchive;
+	protected @Value("${sales.enableWebservice}") boolean enableWebservice ;
+    
+    protected @Value("${sales.fileArchivePath}")  String salesFileArchivePath = null;
+    
+    protected @Value("${sales.batchSize}")                         int defaultTransactionBatchSize;
+    
+    protected @Value("${sales.textFileMaxScanDay}")                int textFileMaxScanDay;
+    protected @Value("${sales.textFileDefaultScanDayIfNoControl}") int textFileDefaultScanDayIfNoControl;
+    protected @Value("${sales.sqlMaxScanDay}")                     int sqlMaxScanDay;
+    protected @Value("${sales.sqlDefaultScanDayIfNoControl}")      int sqlDefaultScanDayIfNoControl;
+    
+
+
+    @PostConstruct
+    public void init() throws Exception {
+
+    }
+
+    @Autowired
+    private PollSchemeInfoService pollSchemeInfoService;
+
+    @Autowired
+    protected ApplicationSettingService applicationSettingService;
+    
+    @Autowired
+    protected SchedulerJobLogService schedulerJobLogService;
+
+    @Autowired
+    protected TaskJobLogService taskJobLogService;
+
+    @Autowired
+    private PollBranchSchemeService pollBranchSchemeService;
+
+    @Autowired
+    private RealTimeService realTimeService;
+
+    @Autowired
+    private PollEodControlDao pollEodControlDao;
+
+    @Autowired
+    private TaskJobLogDao taskJobLogDao;
+    
+
+//    
+//    @Autowired
+//    private SchemeScheduleJobService schemeScheduleJobService;
+//    
+//    @Autowired
+//    private SchemeJobLogDao schemeJobLogDao;
+
+    @Override
+    public String processPosDataToStg(BranchScheme branchScheme,Logger logger) {
+    	
+    	return processPosDataToStg(branchScheme, null,  logger);
+    }
+    
+    @Override      
+    public String processPosDataToStg(BranchScheme branchScheme, SchemeJobLog schemeJobLog, Logger logger) {
+
+        String branchCode				= branchScheme.getBranchMaster().getBranchCode();
+        ClientType clientType			= branchScheme.getBranchInfo().getClientType();
+        PollSchemeType pollSchemeType	= branchScheme.getPollSchemeType();
+
+        LogUtils.printLog(logger, "{} {} processPosDataToStg {} {}", branchCode, pollSchemeType,  branchScheme.isReRun(), branchScheme.getBusinessDate());
+        
+        boolean start = false;								// Indicate the job whether it is start 
+        boolean done = false;								// Indicate the job whether it is done 
+        java.sql.Date controlDate = null;					// Last EOD run Date
+        List<Date> prcDates = new ArrayList<Date>();		// The Date going to process
+        TaskJobLog taskLog = branchScheme.getTaskLog() ;	// The task Log (Scheduling will assign / Re-run will not assign yet)
+        List<PollEodControl> eodControls = null ;
+        if (branchScheme.isReRun() && branchScheme.getDirection()==Direction.STG_TO_EDW)
+        {
+            Calendar c = Calendar.getInstance();
+            c.setTime(branchScheme.getBusinessDate());
+            c.add(Calendar.DATE, -1);
+            controlDate = new java.sql.Date(c.getTime().getTime());
+            controlDate = java.sql.Date.valueOf(controlDate.toString());
+            prcDates.add(branchScheme.getBusinessDate());
+        }
+        
+        // For POS -> Staging 
+        if(!branchScheme.isReRun() || branchScheme.getDirection()==Direction.POS_TO_STG)
+        {
+        	// If Re-run, there are no task log assign by scheduler, the systme need to accquire
+        	taskLog = taskJobLogService.acquireTaskJobLog(branchScheme, schemeJobLog);
+	        if (taskLog == null) {
+	            LogUtils.printLog(logger, "{} {} processPosDataToStg End (Exist Processing Task)", branchCode, pollSchemeType);
+	            return null;
+	        }
+	
+	        LogUtils.printLog(logger, "{} {} processPosDataToStg task id {} / last task id {} ", branchCode, pollSchemeType, 
+	        		taskLog.getId(), taskLog.getLastTaskJobLog()==null?null:taskLog.getLastTaskJobLog().getId());
+	        
+	        Calendar now = Calendar.getInstance();
+	        java.sql.Date currentDate = new java.sql.Date(now.getTime().getTime());
+	        currentDate = java.sql.Date.valueOf(currentDate.toString());
+	        now.add(Calendar.DATE, -1);
+	        java.sql.Date yesterdayDate = new java.sql.Date(now.getTime().getTime());
+	        yesterdayDate = java.sql.Date.valueOf(yesterdayDate.toString());
+	        try {
+	            if (branchScheme.getBusinessDate() == null) {
+	                PollEodControl control = pollEodControlDao.findLatestPollEodControl(branchCode);
+	                if (control != null) {
+	                    controlDate = new java.sql.Date(control.getBusinessDate().getTime());
+	                    controlDate = java.sql.Date.valueOf(controlDate.toString());
+	                }
+                    LogUtils.printLog(logger, "{} {} processPosDataToStg controlDate{} current{} yesterday{}", branchCode, pollSchemeType, 
+                    		controlDate, currentDate, yesterdayDate);
+                    LogUtils.printLog(logger, "{} {} processPosDataToStg controlDate{} current{} yesterday{}", branchCode, pollSchemeType, 
+                    		controlDate == null ? null : controlDate.getTime(), currentDate.getTime(), yesterdayDate.getTime());
+
+	                if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_REALTIME) {
+	                    if (controlDate == null) {
+	                        controlDate = yesterdayDate;
+	                    }
+//	                    if (controlDate.compareTo(currentDate) >= 0) {
+//	            	        LogUtils.printLog(logger, "{} {} POLL_EOD_CONTROL {} found, Real Time Job Skppied ", branchCode, pollSchemeType, controlDate);
+//	                        return null;
+//	                    }
+	                }
+	                if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD) {
+	                    if (controlDate == null) {
+	                        now.add(Calendar.DATE, -1 * getDefaultScanDayIfNoControl());
+	                        controlDate = new java.sql.Date(now.getTime().getTime());
+	                        controlDate = java.sql.Date.valueOf(controlDate.toString());
+	                    } else {
+	                        if (controlDate.compareTo(currentDate) >= 0) {
+	                            LogUtils.printLog(logger, "{} {} POLL_EOD_CONTROL {} found, EOD Job Skppied", branchCode, pollSchemeType, controlDate);
+	                            return null;
+	                        }
+	                    }
+	                }
+	            } else {
+	                Calendar c = Calendar.getInstance();
+	                c.setTime(branchScheme.getBusinessDate());
+	                c.add(Calendar.DATE, -1);
+	                controlDate = new java.sql.Date(c.getTime().getTime());
+	            }
+	
+	            List<SchemeInfo> schemeList = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(pollSchemeType, clientType);
+	
+	
+	            Calendar scanDaysBeforeCal = Calendar.getInstance();
+	            scanDaysBeforeCal.setTime(currentDate);
+	            scanDaysBeforeCal.add(Calendar.DATE, -1 * getMaxScanDay() - 1);
+	
+	            List<Date> chkDates = doGetPosProcessDate(branchScheme, schemeList, currentDate, yesterdayDate, controlDate, logger);
+//	            if (branchScheme.getBusinessDate() == null) {
+//	            	// Not - Run, Need to check Pcoess Date
+//	                chkDates = doGetPosProcessDate(branchScheme, schemeList, currentDate, yesterdayDate, controlDate, logger);
+//	            } else {
+//	            	// Re-Run --> No need Get Process Date
+//	                chkDates = new ArrayList<>();
+//	                chkDates.add(branchScheme.getBusinessDate());
+//	            }
+	            
+	            if (chkDates != null) {
+	                for (Date date : chkDates) {
+	                    if (branchScheme.isReRun() || getMaxScanDay() < 0 || date.after(scanDaysBeforeCal.getTime())) {
+	                        prcDates.add(date);
+	                    }
+	                }
+	            } else {
+	                return null;
+	            }
+	            LogUtils.printLog(logger, " {} {} scanDaysControl {} {} -> {}", branchCode, pollSchemeType, 
+	            		scanDaysBeforeCal.getTime(), chkDates, prcDates);
+	            chkDates = null;
+	
+	
+	            if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType)) {
+	                if (prcDates.size() > 0) {
+                        LogUtils.printLog(logger, "{} {} Branche History Record > {} found, Real Time Job Skppied", 
+                        		branchCode, pollSchemeType, controlDate);
+                        
+                        schedulerJobLogService.higherEodPriority(branchCode);
+	                    return null;
+	                }
+	
+	            } else if (PollSchemeType.SALES_EOD.equals(pollSchemeType)) {
+	
+	                if (prcDates.isEmpty()) {
+	                    LogUtils.printLog(logger, "{} {} Branch POS EOD IS NOT COMPLETED , SALES_EOD PROCESS WILL BE SKPPIED..."
+	                            ,branchCode, pollSchemeType);
+	                    return null;
+	                }
+	            }
+	
+	            ApplicationSetting applicationSetting = applicationSettingService.findApplicationSettingByCode("CUT_OFF_TIME");
+	            String cutOffTime = applicationSetting == null ? "03:00:00" : applicationSetting.getCodeValue();
+	            taskLog = taskJobLogService.startTaskJobLog(branchScheme,taskLog);
+	            start = true;
+	            
+	            if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD) {
+	                LogUtils.printLog(logger, "{} {} processPosDataToStg insertPollEodControl {} ", branchCode, pollSchemeType, prcDates);
+	                eodControls = insertPendingPollEodControl(branchCode, prcDates);
+	            }
+
+	
+	//            // rerun by direction  RE RUN LOTIC
+	//            if(branchScheme.isReRun() && branchScheme.getDirection()==Direction.POS_TO_STG){
+	//                prcDates = doProcessPosDataToStg(branchScheme, schemeList, prcDates, currentDate, yesterdayDate, controlDate, taskLog, logger);
+	//                if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD) {
+	//                    java.sql.Date lastControlDate = new java.sql.Date(controlDate.getTime());
+	//                    for (Date date : prcDates) {
+	//                        java.sql.Date businessDate = new java.sql.Date(date.getTime());
+	//                        for (SchemeInfo schemeInfo : schemeList) {
+	//                            if (schemeInfo.isSplitDateRequired()) {
+	//                                try {
+	//                                    int splitDateCount = this.updateBussinessDate(branchCode, schemeInfo.getDestination(), cutOffTime, lastControlDate, businessDate, logger);
+	//
+	//                                    LogUtils.printLog(logger, "splitDateCount : {} ", splitDateCount);
+	//                                } catch (SQLException e) {
+	//                                    prcDates = null;
+	//                                    LogUtils.printLog(logger, "SQLException : ", e);
+	//                                    taskJobLogService.createJobExceptionDetail(taskLog, "", "", e);
+	//                                }
+	//                            }
+	//                        }
+	//                        lastControlDate = businessDate;
+	//                    }
+	//                }
+	//
+	//                LogUtils.printLog(logger, "{} Branch : processPosDataToStg staging re run finish , {}", branchCode, prcDates);
+	//                return null;
+	//            }
+	//
+	//
+	//
+	//            if(branchScheme.isReRun() && branchScheme.getDirection()==Direction.STG_TO_EDW){
+	//
+	//                LogUtils.printLog(logger, "{} Branch : STG_TO EDW RERUN  for {}", branchCode, branchScheme.getPollSchemeName());
+	//                TaskJobLog taskLogEdw = taskLog;//taskJobLogService.acquireTaskJobLog(branchScheme);
+	//                if (taskLogEdw == null) {
+	//                    LogUtils.printLog(logger, "{} Branch : processPosDataToedw end (Processing)", branchCode);
+	//                    return null;
+	//                }
+	//                try {
+	//                    LogUtils.printLog(logger, "{} Branch : processPosDataToStg processStgToEdwJDBC ", branchCode);
+	//                    processStgToEdwJDBC(branchScheme, controlDate, prcDates, taskLogEdw, logger);
+	//                } catch (Exception e) {
+	//                    LogUtils.printException(logger, "processPosDataToStg processStgToEdwJDBC excpetion", e);
+	//                    throw new RuntimeException(e);
+	//                } finally {
+	//                    updateTaskJobLog(taskLogEdw, true);
+	//                }
+	//
+	//                LogUtils.printLog(logger, "{} Branch : processStgToEdwJDBC Done", branchCode);
+	//                if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD) {
+	//                    LogUtils.printLog(logger, "{} Branch : processPosDataToStg insertPollEodControl ", branchCode);
+	//                    insertPollEodControl(branchCode, prcDates);
+	//                }
+	//                return  null;
+	//
+	//            }
+	            chkDates = new ArrayList<Date>(prcDates) ;
+	
+	            prcDates = doProcessPosDataToStg(branchScheme, schemeList, prcDates, currentDate, yesterdayDate, controlDate, taskLog, logger);
+	
+	            if (prcDates != null && branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD) {
+	                java.sql.Date lastControlDate = new java.sql.Date(controlDate.getTime());
+	                for (Date date : prcDates) {
+	                    java.sql.Date businessDate = new java.sql.Date(date.getTime());
+	                    for (SchemeInfo schemeInfo : schemeList) {
+	                        if (schemeInfo.isSplitDateRequired()) {
+	                            try {
+	                                int splitDateCount = this.updateBussinessDate(branchCode, schemeInfo.getDestination(), cutOffTime, lastControlDate, businessDate, logger);
+	        	                    LogUtils.printLog(logger, " {} {} schemeInfo{} splitDateCount :{}"
+	        	                            ,branchCode, pollSchemeType, schemeInfo.getDestination(), splitDateCount);
+	                            } catch (SQLException e) {
+	                                prcDates = null;
+	                                LogUtils.printLog(logger, "SQLException : ", e);
+	                                taskJobLogService.createJobExceptionDetail(taskLog, "", "", e);
+	                            }
+	                        }
+	                    }
+	                    lastControlDate = businessDate;
+	                }
+	            }
+	
+	        } catch(Exception e) {
+	        	e.printStackTrace();
+	        	LogUtils.printException(logger, "{"+branchCode+"} Branch processPosDataToStg Error ",e);
+	        	taskJobLogService.createJobExceptionDetail(taskLog, "", "", e);
+	        }
+	        finally {
+                updateTaskJobLog(taskLog, start && prcDates != null);
+	        	if (!start ) {
+	                prcDates = null;
+	        	}
+
+
+//	        	if (TaskProcessStatus.FAILED.equals(taskLog.getStatus()))
+//	        	{
+//	                updateTaskJobLog(taskLog, prcDates != null);
+//	            }
+//	        	else if (!start || prcDates == null) {
+//	
+//	                LogUtils.printLog(logger, "{} Branch : processPosDataToStg {} delete ", branchScheme.getBranchMaster().getBranchCode(), taskLog.getId());
+//	
+////	                taskJobLogDao.deleteByKey(taskLog.getId());
+//	                updateTaskJobLog(taskLog, false);
+//
+//	                prcDates = null;
+//	            } else {
+//	                updateTaskJobLog(taskLog, prcDates != null);
+//	            }
+	        }
+        }
+
+        LogUtils.printLog(logger, " {} {} processPosDataToStg staging finish startEdw {}", branchCode, pollSchemeType, prcDates);
+      
+
+        if (prcDates != null) {
+//            for (Date date : prcDates) {
+//                LogUtils.printLog(logger, "{} Branch : prcDates {}", branchCode, date);
+//
+//            }
+            
+            if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD &&  prcDates.isEmpty() )
+            {
+                LogUtils.printLog(logger, "{} {} processPosDataToStg No prcDates for EOD {}", branchCode, pollSchemeType, prcDates.size());
+            }
+            else
+            {
+	            BranchScheme branchSchemeToEdw = pollBranchSchemeService.getBranchScheme(branchScheme.getPollSchemeType(),
+	                    Direction.STG_TO_EDW, ClientType.ORACLE, branchScheme.getBranchMaster().getBranchCode());
+	            if (branchSchemeToEdw != null) {
+	
+	                TaskJobLog taskLogEdw = taskJobLogService.acquireTaskJobLog(branchSchemeToEdw, schemeJobLog);
+	                if (taskLogEdw == null) {
+			            LogUtils.printLog(logger, "{} {}  processPosDataToStg EDW end (Exist Processing Task)", branchCode, pollSchemeType);
+	                    return null;
+	                }
+	                
+			        LogUtils.printLog(logger, "{} {} processPosDataToStg EDW task id {} / last task id {} ", branchCode, pollSchemeType, 
+			        		taskLogEdw.getId(), taskLogEdw.getLastTaskJobLog()==null?null:taskLogEdw.getLastTaskJobLog().getId());
+	                
+	                if (taskLog != null)
+	                {
+	                	taskLogEdw.setDependOn(taskLog.getId());
+	                }
+	                taskLogEdw = taskJobLogService.startTaskJobLog(branchScheme,taskLogEdw);
+	
+	                try {
+	                    processStgToEdwJDBC(branchSchemeToEdw, controlDate, prcDates, taskLogEdw, logger);
+	                } catch (Exception e) {
+	                    LogUtils.printException(logger, "processPosDataToStg processStgToEdwJDBC excpetion", e);
+	                    e.printStackTrace();
+	                    throw new RuntimeException(e);
+	                } finally {
+	                    updateTaskJobLog(taskLogEdw, true);
+	                }
+	            } else {
+			        LogUtils.printLog(logger, "{} {} processPosDataToStg EDW No Oracle Configuration ", branchCode, pollSchemeType); 
+	            }
+	            LogUtils.printLog(logger, "{} {} processPosDataToStg processStgToEdwJDBC Done", branchCode, pollSchemeType);
+	            if (branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD) {
+	                LogUtils.printLog(logger, "{} {} processPosDataToStg insertPollEodControl {} ", branchCode, pollSchemeType, prcDates);
+	                updatePollEodControl(eodControls);
+	            }
+            }
+
+        }
+        return null;
+    }
+
+    protected abstract List<Date> doGetPosProcessDate(BranchScheme branchScheme, List<SchemeInfo> schemeList, java.sql.Date currentDate, java.sql.Date yesterdayDate, java.sql.Date controlDate, Logger logger);
+
+    protected abstract List<Date> doProcessPosDataToStg(BranchScheme branchScheme, List<SchemeInfo> schemeList, List<Date> procDates, java.sql.Date currentDate, java.sql.Date yesterdayDate, java.sql.Date controlDate, TaskJobLog taskJobLog, Logger logger);
+
+    protected abstract int getDefaultScanDayIfNoControl();
+
+    protected abstract int getMaxScanDay();
+
+    public String processStgToEdwJDBC(BranchScheme branchScheme, java.sql.Date controlDate, List<Date> prcDate, TaskJobLog taskLogEdw, Logger logger) {
+        if (branchScheme != null && branchScheme.isEnabled()) {
+        	
+        	if (enableWebservice)
+        	{
+	            // Stg To EDW (WS)
+	            if (PollSchemeType.SALES_REALTIME.equals(branchScheme.getPollSchemeType())) {
+	                try {
+	                    ResponseData responseData = realTimeService.processStgRealTimeDataToEdw(branchScheme.getBranchMaster().getBranchCode(),branchScheme.getBranchMaster().getMappingBranchCode(), logger);
+	                    if (responseData.isSuccess()) {
+	                        int count = Integer.parseInt(responseData.getData().toString());
+	                        LogUtils.printLog(logger, "Process data from Stg to EDW Success, insert {} data", responseData.getData());
+	                        taskJobLogService.createJobLogDetail(taskLogEdw, "webService", "webService", 0, count);
+	                    } else {
+	                        if (ResponseData.CODE.EXIST_EMPTY_DATA.getValue().equals(responseData.getCode())) {
+	                            LogUtils.printLog(logger, responseData.getMessage());
+	                        } else if (ResponseData.CODE.FAILURE.getValue().equals(responseData.getCode())) {
+	                            LogUtils.printLog(logger, "Process data from Stg to EDW transmission failure.");
+	                            LogUtils.printObject(logger, responseData);
+	                            taskJobLogService.createJobExceptionDetail(taskLogEdw, "webService", "webService", new Exception(responseData.getMessage()));
+	                        }
+	                    }
+	                } catch (Exception e) {
+	                    taskJobLogService.createJobExceptionDetail(taskLogEdw, "webService", "webService", e);
+	                    LogUtils.printLog(logger, "Process data from Stg to EDW failure.", e);
+	                }
+	
+	            }
+        	}
+
+            ProcessStgToEdwService processStgToEdwService = SpringBeanUtil.context.getBean(ProcessStgToEdwService.class);
+            processStgToEdwService.setBranchScheme(branchScheme);
+            processStgToEdwService.setTaskJobLog(taskLogEdw);
+            processStgToEdwService.setDefaultTransactionBatchSize(defaultTransactionBatchSize);
+            processStgToEdwService.setLogger(logger);
+	        LogUtils.printLog(logger, "{} {} processStgToEdwJDBC controlDate{} prcDates{}", branchScheme.getBranchMaster().getBranchCode(), branchScheme.getPollSchemeType(),
+	        		controlDate, prcDate); 
+            processStgToEdwService.processStgToEdwJDBC(controlDate, prcDate);
+        } else {
+            LogUtils.printLog(logger, "processStgToEdwJDBC invalid branchScheme");
+        }
+        return null;
+    }
+
+    /**
+     * updateBussinessDate
+     * <p>
+     * update the Business Date according to the split date logic
+     *
+     * @param branchCode
+     * @param toTable
+     * @param cutOffTime
+     * @param controlDate
+     * @param logger
+     * @return
+     * @throws SQLException
+     */
+    private int updateBussinessDate(String branchCode, String toTable, String cutOffTime, java.sql.Date controlDate, java.sql.Date businessDate, Logger logger) throws SQLException {
+
+        Calendar controlCal = Calendar.getInstance();
+//		controlCal.add(Calendar.DATE, -1);
+//		java.sql.Date yesterdayDate = new java.sql.Date(controlCal.getTime().getTime());
+
+
+        controlCal.setTime(controlDate);
+        controlCal.add(Calendar.DATE, 1);
+        java.sql.Date controlNextDate = new java.sql.Date(controlCal.getTime().getTime());
+
+        String splitDateSql = "update " + toTable + " set business_date = " +
+                "case when convert(date, trans_datetime) > '" + businessDate + "' then '" + businessDate + "' " +
+                "when convert(date, trans_datetime) <= '" + controlNextDate + "'  then '" + controlNextDate + "' " +
+                "when convert(time, trans_datetime) < convert(time,'" + cutOffTime + "') then DATEADD(day ,-1 , convert(date,trans_datetime) ) " +
+                "else convert(date, trans_datetime) end " +
+                "where branch_code  = \'" + branchCode + "\' " +
+//                              (dateStr == null ? "" : "and convert(date,business_date) in " + dateStr + " ") +
+                "and convert(date,business_date) = '" + businessDate + "' " +
+                "and business_date <> " +
+                "case when convert(date, trans_datetime) > '" + businessDate + "' then '" + businessDate + "' " +
+                "when convert(date, trans_datetime) <= '" + controlNextDate + "'  then '" + controlNextDate + "' " +
+                "when convert(time, trans_datetime) < convert(time,'" + cutOffTime + "') then DATEADD(day ,-1 , convert(date,trans_datetime) ) " +
+                "else convert(date, trans_datetime) end ";
+//                              (dateStr == null ? "" : "and  business_date not in "+dateStr) ;
+        LogUtils.printLog("{} SALES_EOD : {}{}{}splitSQL {}", branchCode, businessDate, controlDate, controlNextDate, splitDateSql);
+
+        try (Connection connection = applicationSettingService.getCurrentJDBCConnection()) {
+            return PosClientUtils.updateTable(connection, splitDateSql);
+        }
+    }
+
+
+    private List<PollEodControl> insertPendingPollEodControl(String branchCode, List<Date> dates) {
+
+    	List<PollEodControl> eodControls = new ArrayList<PollEodControl>(dates.size());
+        for (Date date : dates) {
+            PollEodControl pollEodControl = new PollEodControl();
+            pollEodControl.setCreateTime(new Date());
+            pollEodControl.setCreateUser("ESB_SYSTEM");
+            pollEodControl.setLastUpdateTime(new Date());
+            pollEodControl.setLastUpdateUser("ESB_SYSTEM");
+            pollEodControl.setBranchCode(branchCode);
+            pollEodControl.setBusinessDate(date);
+            pollEodControl.setStatus("P");
+            pollEodControl = pollEodControlDao.save(pollEodControl);
+            
+            eodControls.add(pollEodControl);
+        }
+        return eodControls;
+    }
+
+
+    private void updatePollEodControl(List<PollEodControl> eodControls) {
+
+        for (PollEodControl pollEodControl : eodControls) {
+            pollEodControl.setStatus("C");
+            pollEodControlDao.save(pollEodControl);
+        }
+    }
+//    
+//    private TaskJobLog createTaskJobLog(BranchScheme branchScheme) {
+//        TaskJobLog taskJobLog = taskJobLogService.findLatestTaskJobLog(branchScheme);
+//        if (taskJobLog != null) {
+//            if (taskJobLog.getStatus() == TaskProcessStatus.PROGRESS) {
+//            	if(System.currentTimeMillis() - taskJobLog.getLastUpdateTime().getTime() > 3600000){
+//					LogUtils.printLog("{} branch code process continue 1 hour ,auto update status  to failed ",
+//							branchScheme.getBranchMaster().getBranchCode());
+//					taskJobLog.setStatus(TaskProcessStatus.FAILED);
+//				} else {
+//					return null;
+//				}
+//            }
+//            taskJobLog.setLastestJobInd(LatestJobInd.N);
+//            Auditer.audit(taskJobLog);
+//            taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+//        }
+//
+//        TaskJobLog taskLog = new TaskJobLog();
+//        taskLog.setLastestJobInd(LatestJobInd.Y);
+//        taskLog.setStatus(TaskProcessStatus.PROGRESS);
+//        taskLog.setStartTime(new Date());
+//        Auditer.audit(taskLog);
+//        taskLog.setSchemeScheduleJob(branchScheme.getSchemeScheduleJob());
+//        taskLog.setPollSchemeID(branchScheme.getId());
+//        taskLog.setDirection(branchScheme.getDirection());
+//        taskLog.setPollSchemeType(branchScheme.getPollSchemeType());
+
+//    SchemeScheduleJob schemeScheduleJob = schemeScheduleJobService.getSchemeScheduleJob(branchScheme);
+//    if(schemeScheduleJob!=null){
+//        Long scheduleJobId = schemeScheduleJob.getId();
+//        SchemeJobLog SchemeJobLog = schemeJobLogDao.findLatestSchemeJobLog(scheduleJobId);
+//        taskLog.setSchemeJobLog(SchemeJobLog);
+//    }
+
+//        
+//        taskLog.setBranchCode(branchScheme.getBranchMaster().getBranchCode());
+//        taskLog.setPollBranchId(branchScheme.getBranchInfo().getId());
+//        taskLog.setPollSchemeName(branchScheme.getPollSchemeName());
+//        
+//        taskLog = taskJobLogService.addOrUpdateTaskJobLog(taskLog);
+//
+//        return taskLog;
+//    }
+
+
+    private void updateTaskJobLog(TaskJobLog taskJobLog, boolean isComplete) 
+    {
+        if (TaskProcessStatus.FAILED.equals(taskJobLog.getStatus())) {
+        	TaskJobLog lastTaskJobLog = taskJobLog.getLastTaskJobLog();
+        	if (lastTaskJobLog != null)
+        	{
+        		if (!LatestJobInd.N.equals(lastTaskJobLog.getLastestJobInd()))
+        		{
+	    			lastTaskJobLog.setLastestJobInd(LatestJobInd.N);
+	    			taskJobLogDao.save(lastTaskJobLog);
+        		}
+        	}	
+        	taskJobLog.setLastestJobInd(LatestJobInd.Y);
+        }
+        else
+        {
+	        if (isComplete)
+	        {
+	            if (TaskProcessStatus.PROGRESS.equals(taskJobLog.getStatus())) {
+	                taskJobLog.setStatus(TaskProcessStatus.COMPLETE);
+	            }
+	        }
+	        else
+	        {
+	        	TaskJobLog lastTaskJobLog = taskJobLog.getLastTaskJobLog();
+	        	if (lastTaskJobLog != null)
+	        	{
+	        		if (!LatestJobInd.Y.equals(lastTaskJobLog.getLastestJobInd()))
+	        		{
+		    			lastTaskJobLog.setLastestJobInd(LatestJobInd.Y);
+		    			taskJobLogDao.save(lastTaskJobLog);
+	        		}
+	        	}
+	            taskJobLog.setStatus(TaskProcessStatus.NONE);
+	        	taskJobLog.setLastestJobInd(LatestJobInd.N);
+	        }
+        }
+        
+//        if (TaskProcessStatus.PROGRESS.equals(taskJobLog.getStatus())) {
+//            if (isComplete)
+//                taskJobLog.setStatus(TaskProcessStatus.COMPLETE);
+//            else
+//                taskJobLog.setStatus(TaskProcessStatus.NONE);
+//        }
+        taskJobLog.setEndTime(new Date());
+        taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+
+    }
+
+}

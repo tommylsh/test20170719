@@ -1,0 +1,19 @@
+package com.maxim.dao;
+
+import java.util.List;
+
+public interface BaseEntityDAO<T,K> extends BaseDAO {
+
+	
+	public T findByKey(K key );
+	public T deleteByKey(K key );
+
+	public List<T> findAll();
+	
+	public void update(T obj);
+	public void delete(T obj);
+	public void insert(T obj);
+	
+
+
+}

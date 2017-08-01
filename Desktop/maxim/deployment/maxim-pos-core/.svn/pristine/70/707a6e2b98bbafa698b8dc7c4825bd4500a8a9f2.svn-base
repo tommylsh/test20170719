@@ -1,0 +1,49 @@
+package com.maxim.pos.test.common.util;
+
+import java.io.File;
+
+import org.junit.Test;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.util.JavaDBFUtils;
+import com.maxim.pos.test.common.BaseTest;
+
+public class PollSchemeDataGenerator extends BaseTest{
+	
+	@Test
+	@Transactional
+	public void generateSchemeDataDBF(){
+		
+		
+		File folder = new File("D:\\Maxim_test\\Infrasys_Dbf\\");
+		File[] fileList = folder.listFiles();
+		
+		for(File file: fileList){
+			if(file.isFile()){
+				String table = JavaDBFUtils.getTableFromFileName(file.getName())[2];
+				System.out.println("Table Name:" + table);
+				//process scheme table columns
+				
+				
+			}
+		}
+	}
+	
+	public void processDBFColumns(File file){
+		
+	}
+	
+	
+	@Test
+	@Transactional
+	public void generateSchemeDataCSV(){
+		
+	}
+	
+	
+	@Test
+	@Transactional
+	public void generateSchemeDataEDW(){
+		
+	}
+}

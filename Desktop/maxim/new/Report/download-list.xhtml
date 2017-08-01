@@ -1,0 +1,98 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:p="http://primefaces.org/ui"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:cc="http://java.sun.com/jsf/composite/components"
+				xmlns:sec="http://www.springframework.org/security/tags"
+				template="/templates/main.xhtml">
+
+	<!-- meta title -->
+	<ui:define name="title">
+		<cc:titleText title="#{msg['report']['downloadManagement']}" />
+	</ui:define>
+	
+	
+	<!-- embedded to content div of main.xhtml template. -->
+	<ui:define name="content">
+
+		<!-- css style. -->
+		<style>
+			#form table[summary=downloadTab] {
+				width: 600px;
+				border: 1px solid #d5d5d5;
+				margin-top: 10px;
+   	 			margin-bottom: 7px;
+			}
+			
+			#form table[summary=downloadTab] th {
+				text-align: center;
+				background-color: #ffffff;
+				font-size: 16px;
+			}
+			
+			#form table[summary=downloadTab] td {
+				padding-right: 11px;
+    			padding-left: 11px;
+    			padding-bottom: 7px;
+    			padding-top: 7px;
+				text-align: center;
+				border: 0.5px solid #d5d5d5;
+			}
+		</style>
+
+		<!-- content -->
+		<h:form id="form">
+			<p:panel header="Day End Report">
+				<h:panelGrid columns="2" cellpadding="5">
+					<p:outputLabel for="effect" value="Business Date :" />
+	        		<p:calendar id="effect" effect="fold" readonly="true" pattern="yyyy-MM-dd" />
+	        	</h:panelGrid>
+	        	
+	        	<p:dataTable id="downloadTab" summary="downloadTab" value="#{downloadManagementController.reportTypeList}" var="type">
+	        		<p:column headerText="#{msg['report']['name']}" style="width:40%;">
+						<h:outputText value="#{type}" style="display:block;text-align:left;" />
+					</p:column>
+				
+					<p:column headerText="#{msg['report']['parameter']}" style="width:35%;">
+						<p:inputText />
+					</p:column>
+					
+					<p:column headerText="#{msg['report']['download']}" style="width:25%;">
+						<p:commandButton value="Download" title="#{type}" icon="ui-icon-arrowthick-1-s" 
+										 action="#{downloadManagementController.downloadReport}" ajax="false"
+										 onclick="downloadReportInit(event)" />
+					</p:column>
+	        	</p:dataTable>  
+	        </p:panel>
+	        
+	        <h:inputHidden id="reportType" value="#{downloadManagementController.reportType}" />
+	        <h:inputHidden id="parameter" value="#{downloadManagementController.parameter}" />
+	        <h:inputHidden id="businessDate" value="#{downloadManagementController.businessDate}" />
+		</h:form>
+	
+		<!-- javascript script. -->
+		<script>
+			var now = new Date();
+			var dateStr = now.getFullYear() + "-" + (now.getMonth() + 1) + "-" + now.getDate();
+			$("#form table:eq(0) input").val(dateStr);
+			
+			function downloadReportInit(event) {
+				var targetBtn = $(event.currentTarget);
+				var reportType = targetBtn.attr("title");
+				var parameter = targetBtn.parent().prev().children("input").val();
+				var businessDate = document.getElementById('form:effect_input').value + " 23:59:59";
+				
+				console.log("== Download Report ==\nreport: " +  reportType + "\nparameter: " + parameter + 
+																			  "\ndate: " + businessDate);
+				document.getElementById('form:reportType').value = reportType;
+				document.getElementById('form:parameter').value = parameter;
+				document.getElementById('form:businessDate').value = businessDate;
+			}
+		</script>
+		
+	</ui:define> <!-- content div end. -->
+	
+</ui:composition>
+

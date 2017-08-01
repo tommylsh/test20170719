@@ -1,0 +1,283 @@
+package com.maxim.pos.common.service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.TreeSet;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.TaskJobExceptionDetail;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.entity.TaskJobLogDetail;
+import com.maxim.pos.common.enumeration.CommonDataStatus;
+import com.maxim.pos.common.enumeration.LatestJobInd;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.enumeration.SalesRealTimeTable;
+import com.maxim.pos.common.enumeration.TaskProcessStatus;
+import com.maxim.pos.common.util.JDBCUtils;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.util.PosClientUtils;
+import com.maxim.pos.common.util.SQLStmtUtils;
+
+@Service("processStgToEdwService")
+@Scope("prototype")
+public class ProcessStgToEdwService implements Runnable {
+	public static final String TO_EDW_CHANNEL_JDBC = "JDBC";
+	public static final String TO_EDW_CHANNEL_WEBSERVICE = "WEBSERVICE";
+	private static final Logger LOGGER = LoggerFactory.getLogger(ProcessStgToEdwService.class);
+	@Autowired
+	private PollSchemeInfoService pollSchemeInfoService;
+	@Autowired
+	private ApplicationSettingService applicationSettingService;
+
+	@Autowired
+	private TaskJobLogService taskJobLogService;
+
+	private BranchScheme branchScheme;
+	private TaskJobLog taskJobLog;
+	private Logger logger;
+	
+	private String channel;
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		if (branchScheme == null || taskJobLog == null) {
+			LogUtils.printLog("branchScheme or taskJobLog is must ... return");
+			return;
+		}
+//		if (logger == null) {
+//			switch (branchScheme.getPollSchemeType()) {
+//			case SALES_REALTIME:
+//				logger = LogUtils.SALES_REALTIME_LOGGER;
+//				break;
+//			case SALES_EOD:
+//				logger = LogUtils.SALES_EOD_LOGGER;
+//				break;
+//			case MASTER:
+//				logger = LogUtils.MASTER_LOGGER;
+//				break;
+//			default:
+//				logger = LOGGER;
+//				break;
+//			}
+//		}
+		
+		if(StringUtils.equalsIgnoreCase(TO_EDW_CHANNEL_WEBSERVICE, channel)){
+			//TDD
+		} else {
+			processStgToEdwJDBC();
+		}
+	
+
+	}
+
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+	public String processStgToEdwJDBC() {
+		String result = null;
+
+		// Poll Branch Scheme should belong to ORACLE client type
+		BranchInfo branchInfo = branchScheme.getBranchInfo();
+		PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+		List<SchemeInfo> schemeInfoList = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(pollSchemeType,
+				branchScheme.getBranchInfo().getClientType());
+
+		LogUtils.printLog(logger, "schemeInfoList.size: {}", schemeInfoList.size());
+		String[] conditions_orcl = { " status <> \'C\'", " branch_code  = \'" + branchScheme.getBranchMaster().getBranchCode() + "\'",
+				" to_char(business_date,'YYYY-MM-DD')  = \'"
+						+ new SimpleDateFormat("yyyy-MM-dd").format(JDBCUtils.getBusinessDate()) + "\'" };
+		String[] conditions_sql = { " LTRIM(RTRIM(status)) <> \'C\'", " branch_code  = \'" + branchScheme.getBranchMaster().getBranchCode() + "\'",
+				" CONVERT(varchar(16),business_date,23)  = \'"
+						+ new SimpleDateFormat("yyyy-MM-dd").format(JDBCUtils.getBusinessDate()) + "\'" };
+		Connection fromConn = applicationSettingService.getCurrentJDBCConnection();
+		try {
+			try (Connection toConn =  applicationSettingService.getJDBCConection(branchScheme.getBranchInfo(), true)) {
+
+				if (schemeInfoList.size() > 0) {
+					for (SchemeInfo schemeInfo : schemeInfoList) {
+						LogUtils.printLog(logger, "schemeInfo.id: {}", schemeInfo.getId());
+
+						String fromTable = schemeInfo.getSource();
+						String toTable = schemeInfo.getDestination();
+//						SalesRealTimeTable table = SalesRealTimeTable.fromTableName(toTable.toUpperCase());
+//						if(table == null){
+							try {
+								
+								int[] rs = null;
+	
+								toConn.setAutoCommit(false);
+								String[] criteria = new String[]{
+									 String.format("status<>\'%s\'",CommonDataStatus.C.toString())
+									,String.format("CONVERT(VARCHAR(8),business_date,112)=\'%s\'", JDBCUtils.getBusinessDate(new Date()))
+									,String.format("branch_code=\'%s\'", branchScheme.getBranchMaster().getBranchCode())
+								};
+								rs = JDBCUtils.bulkCopyFromSQLToOracle(fromConn, toConn, schemeInfo, null, null,
+										criteria);
+								toConn.commit();
+								toConn.setAutoCommit(true);
+								
+								String toOrcl = SQLStmtUtils.getUpdateSqlByStatus(fromTable, conditions_orcl);
+								PosClientUtils.updateTable(toConn, toOrcl, false);
+								String toSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable, conditions_sql);
+								PosClientUtils.updateTable(fromConn, toSql, false);
+								LogUtils.printLog("{} : update sucess" + toTable);
+								createJobLogDetail(taskJobLog, fromTable, toTable, rs);
+	
+								result = pollSchemeType + ":" + branchScheme.getDirection() + " process success!";
+							} catch (Exception e) {
+								LogUtils.printException(logger, "Task execute exception:", e);
+	
+								createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+	
+								result = pollSchemeType + ":" + branchScheme.getDirection() + " process failed!";
+	
+								try {
+									if (toConn != null) {
+										toConn.rollback();
+										toConn.setAutoCommit(true);
+									}
+								} catch (SQLException e1) {
+									LogUtils.printException(logger, "transaction exception:", e1);
+								}
+							}
+						}
+//					}
+					insertTaskJobLog(taskJobLog);
+				} else {
+					LogUtils.printLog(logger, "SchemeInfo is null");
+				}
+			} catch (Exception e) {
+				LogUtils.printException(logger, "JDBC Process to EDW Oracle encounters exception", e);
+				throw new RuntimeException(e);
+			}
+		} catch (Exception e) {
+			LogUtils.printException(logger, "Oracle Driver Not Found in Class Loader", e);
+			throw new RuntimeException(e);
+		}
+		return result;
+	}
+
+	private void insertTaskJobLog(TaskJobLog taskJobLog) {
+		if (TaskProcessStatus.PROGRESS.equals(taskJobLog.getStatus())) {
+			taskJobLog.setStatus(TaskProcessStatus.COMPLETE);
+		}
+		taskJobLog.setEndTime(new Date());
+		taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+
+	}
+
+	private void createJobExceptionDetail(TaskJobLog taskJobLog, String fromTable, String toTable, Exception e) {
+		taskJobLog.setStatus(TaskProcessStatus.FAILED);
+		TaskJobExceptionDetail taskJobExceptionDetail = new TaskJobExceptionDetail();
+		taskJobExceptionDetail.setSource(fromTable);
+		taskJobExceptionDetail.setDestination(toTable);
+		taskJobExceptionDetail.setExceptionContent(LogUtils.getStackTrace(e));
+		taskJobExceptionDetail.setTaskJobLog(taskJobLog);
+		Auditer.audit(taskJobExceptionDetail);
+
+		taskJobLogService.addOrUpdateTaskJobExceptionDetail(taskJobExceptionDetail);
+
+		// if (taskJobLog.getTaskJobExceptionDetails() == null) {
+		// taskJobLog.setTaskJobExceptionDetails(new
+		// TreeSet<TaskJobExceptionDetail>());
+		// }
+		//
+		// taskJobLog.getTaskJobExceptionDetails().add(taskJobExceptionDetail);
+	}
+
+	private void createJobLogDetail(TaskJobLog taskJobLog, String fromTable, String toTable, int[] rs) {
+		TaskJobLogDetail taskJobLogDetail = new TaskJobLogDetail();
+		taskJobLogDetail.setTaskJobLog(taskJobLog);
+		taskJobLogDetail.setSource(fromTable);
+		taskJobLogDetail.setDestination(toTable);
+		taskJobLogDetail.setNumOfRecDelete(null);
+		taskJobLogDetail.setNumOfRecProcessed(null);
+		if (rs != null) {
+			taskJobLogDetail.setNumOfRecInsert(rs[0]);
+			taskJobLogDetail.setNumOfRecUpdate(rs[1]);
+		} else {
+			taskJobLogDetail.setNumOfRecInsert(null);
+			taskJobLogDetail.setNumOfRecUpdate(null);
+		}
+		Auditer.audit(taskJobLogDetail);
+
+		if (taskJobLog.getTaskJobLogDetails() == null) {
+			taskJobLog.setTaskJobLogDetails(new TreeSet<TaskJobLogDetail>());
+		}
+
+		taskJobLogService.addOrUpdateTaskJobLogDetail(taskJobLogDetail);
+		// taskJobLog.getTaskJobLogDetails().add(taskJobLogDetail);
+	}
+
+	private TaskJobLog createTaskJobLog(BranchScheme branchScheme) {
+		TaskJobLog taskJobLog = taskJobLogService.findLatestTaskJobLog(branchScheme);
+		if (taskJobLog != null) {
+			if (taskJobLog.getStatus() == TaskProcessStatus.PROGRESS) {
+				return null;
+			}
+			taskJobLog.setLastestJobInd(LatestJobInd.N);
+			Auditer.audit(taskJobLog);
+			taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+		}
+
+		TaskJobLog taskLog = new TaskJobLog();
+		taskLog.setLastestJobInd(LatestJobInd.Y);
+		taskLog.setStatus(TaskProcessStatus.PROGRESS);
+		taskLog.setStartTime(new Date());
+		Auditer.audit(taskLog);
+		taskLog.setSchemeScheduleJob(branchScheme.getSchemeScheduleJob());
+		taskLog.setPollSchemeID(branchScheme.getId());
+		taskLog.setDirection(branchScheme.getDirection());
+		taskLog.setPollSchemeType(branchScheme.getPollSchemeType());
+		taskLog = taskJobLogService.addOrUpdateTaskJobLog(taskLog);
+
+		return taskLog;
+	}
+
+	public BranchScheme getBranchScheme() {
+		return branchScheme;
+	}
+
+	public void setBranchScheme(BranchScheme branchScheme) {
+		this.branchScheme = branchScheme;
+	}
+
+	public TaskJobLog getTaskJobLog() {
+		return taskJobLog;
+	}
+
+	public void setTaskJobLog(TaskJobLog taskJobLog) {
+		this.taskJobLog = taskJobLog;
+	}
+
+	public Logger getLogger() {
+		return logger;
+	}
+
+	public void setLogger(Logger logger) {
+		this.logger = logger;
+	}
+
+	public String getChannel() {
+		return channel;
+	}
+
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+
+}

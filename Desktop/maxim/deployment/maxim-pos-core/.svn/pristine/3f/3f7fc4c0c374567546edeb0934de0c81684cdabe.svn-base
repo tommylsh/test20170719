@@ -1,0 +1,53 @@
+package com.maxim.pos.common.service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.SchemeScheduleJob;
+import com.maxim.pos.common.entity.SchemeTableColumn;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.util.PosClientUtils;
+import com.maxim.pos.sales.persistence.SchemeInfoDao;
+
+@Service("pollBranchSchemeService")
+@Transactional
+public class PollBranchSchemeServiceImpl implements PollBranchSchemeService {
+    
+    private static final String SELECT_STATEMENT = "SELECT {0} FROM {1} {2}";
+    private static final String INSERT_STATEMENT = "INSERT INTO {0} ({1}) VALUES ({2})";
+    private static final String UPDATE_STATEMENT = "UPDATE {0} SET {1} WHERE {2}";
+    
+    @Autowired
+    private SchemeInfoDao schemeInfoDao;
+    @Override
+    public BranchScheme savePollBranchScheme(BranchScheme schema) {
+        return (BranchScheme) schemeInfoDao.save(schema);
+    }
+
+	@Override
+	public List<BranchScheme> getBranchSchemeByScheduleJob(SchemeScheduleJob schemeScheduleJob) {
+		return schemeInfoDao.findByPollSchemeType(schemeScheduleJob.getPollSchemeType(),schemeScheduleJob.getPollSchemeDirection());
+	}
+
+	@Override
+	public BranchScheme getBranchScheme(PollSchemeType pollSchemeType, Direction direction,ClientType clientType,String branchCode) {
+		return schemeInfoDao.findbyPollSchemeTypeAndDirectionAndClientType(pollSchemeType,direction,clientType,branchCode);
+	}
+
+}

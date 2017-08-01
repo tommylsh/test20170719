@@ -1,0 +1,204 @@
+package com.maxim.pos.common.service;
+
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeJobLog;
+import com.maxim.pos.common.entity.SchemeScheduleJob;
+import com.maxim.pos.common.enumeration.JobProcessStatus;
+import com.maxim.pos.common.enumeration.LatestJobInd;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.util.JDBCUtils;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.util.PollThreadPoolExecutor;
+import com.maxim.pos.common.value.SchemeJobLogQueryCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
+@Service("schemeQuartzTaskExecutor")
+public class SchemeQuartzTaskExecutor {
+    public static final Logger LOGGER = LoggerFactory.getLogger(SchemeQuartzTaskExecutor.class);
+    //	private static ExecutorService EXECUTOR_SERVICE;
+    private static PollThreadPoolExecutor pool;
+    @Autowired
+    private PollBranchSchemeService pollBranchSchemeService;
+    @Autowired
+    private SchedulerJobLogService schedulerJobLogService;
+    @Autowired
+    private PosSystemService posSystemService;
+    @Autowired
+    private ApplicationSettingService applicationSettingService;
+
+    @PostConstruct
+    public void init() throws Exception {
+        ApplicationSetting applicationSetting = applicationSettingService
+                .findApplicationSettingByCode("BRANCH_EXECUTE_THREADPOOL_SIZE");
+        int poolSize = 100;
+        if (applicationSetting != null) {
+            String pool = applicationSetting.getCodeValue();
+            try {
+                poolSize = Integer.parseInt(pool);
+            } catch (Exception e) {
+                LOGGER.error("BRANCH_EXECUTE_THREADPOOL config Error,must number", e);
+            }
+        }
+        pool = new PollThreadPoolExecutor(poolSize, poolSize, 60,
+                TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+
+    }
+
+    @Transactional(propagation = Propagation.NOT_SUPPORTED)
+    public void execute(SchemeScheduleJob scheduleJob) {
+
+        Logger logger = null;
+        SchemeJobLog schemeJobLog = null;
+        try {
+            switch (scheduleJob.getPollSchemeType()) {
+                case SALES_REALTIME:
+                    logger = LogUtils.SALES_REALTIME_LOGGER;
+                    break;
+                case SALES_EOD:
+                    logger = LogUtils.SALES_EOD_LOGGER;
+                    break;
+                case MASTER:
+                    logger = LogUtils.MASTER_LOGGER;
+                    break;
+                default:
+                    logger = LOGGER;
+                    break;
+            }
+
+            if (!scheduleJob.isEnable()) {
+                LogUtils.printLog(logger,
+                        "job is not enable : jobId={},jobName={},pollSchemeType={},pollSchemeDirection={}",
+                        scheduleJob.getId(), scheduleJob.getJobName(), scheduleJob.getPollSchemeType(),
+                        scheduleJob.getPollSchemeDirection());
+                return;
+            }
+
+            LogUtils.printLog(logger,
+                    "job execute start... jobId={},jobName={},pollSchemeType={},pollSchemeDirection={}",
+                    scheduleJob.getId(), scheduleJob.getJobName(), scheduleJob.getPollSchemeType(),
+                    scheduleJob.getPollSchemeDirection());
+            schemeJobLog = checkJobLog(scheduleJob);
+            if (schemeJobLog == null) {
+                return;
+            }
+
+            List<BranchScheme> branchSchemes = pollBranchSchemeService.getBranchSchemeByScheduleJob(scheduleJob);
+
+            BranchSchemeExecutor branchSchemeExecutor;
+            int NumberOfRecordProcessed = 0;
+            for (BranchScheme branchScheme : branchSchemes) {
+                if (!branchScheme.isEnabled()) {
+                    LogUtils.printLog(logger, "branchScheme is not enable :{}=={}=={}", branchScheme.getId(),
+                            branchScheme.getPollSchemeName(),branchScheme.getPollSchemeType());
+                    continue;
+                } else if (!branchScheme.getBranchInfo().isEnable()) {
+                    LogUtils.printLog(logger, "BranchInfo is not enable :{}=={}", branchScheme.getBranchInfo().getId(),
+                            branchScheme.getBranchInfo().getClientDB());
+                    continue;
+                } else {
+                    LocalDateTime now = LocalDateTime.now();
+                    LocalDateTime start = branchScheme.getStartTime().toInstant().atZone(ZoneId.systemDefault())
+                            .toLocalDateTime();
+                    LocalDateTime end = branchScheme.getEndTime().toInstant().atZone(ZoneId.systemDefault())
+                            .toLocalDateTime();
+                    if (now.isBefore(start) || now.isAfter(end)) {
+                        LogUtils.printLog(logger, "branchScheme {}=={}=={}  invald execute datetime: startTime={},endTime={}",
+                                branchScheme.getId(),
+                                branchScheme.getPollSchemeName(),
+                                branchScheme.getPollSchemeType(),
+                                branchScheme.getStartTime(),
+                                branchScheme.getEndTime());
+                        continue;
+                    }
+
+                }
+
+
+
+
+
+                branchScheme.setSchemeScheduleJob(scheduleJob);
+                LogUtils.printLog(logger, "submit branchScheme process: {}", branchScheme.toString());
+                branchSchemeExecutor = new BranchSchemeExecutor();
+                branchSchemeExecutor.setBranchScheme(branchScheme);
+                branchSchemeExecutor.setLogger(logger);
+
+                pool.execute(branchSchemeExecutor);
+                NumberOfRecordProcessed++;
+            }
+            schemeJobLog.setNumberOfRecordProcessed(NumberOfRecordProcessed);
+            schemeJobLog.setStatus(JobProcessStatus.COMPLETE);
+
+            LogUtils.printLog(logger, "job execute end... jobId={},jobName={},pollSchemeType={},pollSchemeDirection={}",
+                    scheduleJob.getId(), scheduleJob.getJobName(), scheduleJob.getPollSchemeType(),
+                    scheduleJob.getPollSchemeDirection());
+        } catch (Exception e) {
+            // TODO: handle exception
+            LogUtils.printException(logger, "job execte exception:", e);
+            if (schemeJobLog != null) {
+                schemeJobLog.setStatus(JobProcessStatus.FAILED);
+            }
+        }
+		if (schemeJobLog != null) {
+			schemeJobLog.setEndTime(new Date());
+			schedulerJobLogService.addOrUpdateSchemeJobLog(schemeJobLog);
+		}
+
+    }
+
+    private SchemeJobLog checkJobLog(SchemeScheduleJob scheduleJob) {
+//        SchemeJobLogQueryCriteria schemeJobLogQueryCriteria = new SchemeJobLogQueryCriteria();
+//        schemeJobLogQueryCriteria.setScheduleJobId(scheduleJob.getId());
+
+//        List<SchemeJobLog> schemeJobLogs = schedulerJobLogService.findSchemeJobLogByCriteria(schemeJobLogQueryCriteria);
+        SchemeJobLog schemeJobLog = schedulerJobLogService.findLatestSchemeJobLog(scheduleJob.getId());
+        if (schemeJobLog == null) {
+            SchemeJobLog jobLog = new SchemeJobLog();
+            jobLog.setLastJobInd(LatestJobInd.Y);
+            jobLog.setStatus(JobProcessStatus.PROGRESS);
+            jobLog.setStartTime(new Date());
+            jobLog.setScheduleJobId(scheduleJob.getId());
+            return schedulerJobLogService.addOrUpdateSchemeJobLog(jobLog);
+        } else {
+            if (schemeJobLog.getStatus() == JobProcessStatus.PROGRESS) {
+				if(System.currentTimeMillis() - schemeJobLog.getLastUpdateTime().getTime() > 3600000) {
+					LogUtils.printLog("scheduleJob={}  PROGRESS Continue 1 Hour", scheduleJob.getId());
+					schemeJobLog.setStatus(JobProcessStatus.FAILED);
+					schemeJobLog.setLastJobInd(LatestJobInd.N);
+					schedulerJobLogService.addOrUpdateSchemeJobLog(schemeJobLog);
+				} else {
+                    LogUtils.printLog("scheduleJob={}  PROGRESS ING...", scheduleJob.getId());
+                    return null;
+                }
+
+            } else {
+                schemeJobLog.setLastJobInd(LatestJobInd.N);
+                schedulerJobLogService.addOrUpdateSchemeJobLog(schemeJobLog);
+            }
+
+            SchemeJobLog jobLog = new SchemeJobLog();
+            jobLog.setLastJobInd(LatestJobInd.Y);
+            jobLog.setStatus(JobProcessStatus.PROGRESS);
+            jobLog.setStartTime(new Date());
+            jobLog.setScheduleJobId(scheduleJob.getId());
+            jobLog = schedulerJobLogService.addOrUpdateSchemeJobLog(jobLog);
+            return jobLog;
+        }
+
+    }
+
+}

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC
+        "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+
+    <context id="MysqlTables" targetRuntime="MyBatis3" defaultModelType="flat">
+
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+        <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+        <property name="beginningDelimiter" value='"'/>
+        <property name="endingDelimiter" value='"'/>
+
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
+        <!--<plugin type="org.handler.generator.plugins.EqualsHashCodePlugin"/>-->
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin"/>
+
+        <commentGenerator>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="oracle.jdbc.OracleDriver"
+                        connectionURL="jdbc:oracle:thin:@192.168.1.56:1521:orcl"
+                        userId="maxim_edw" password="123456"/>
+        <!--
+        <jdbcConnection driverClass="com.microsoft.sqlserver.jdbc.SQLServerDriver"
+                        connectionURL="jdbc:sqlserver://enlightening-it.eatuo.com:61807;DatabaseName=maxim_staging;SelectMethod=Cursor"
+                        userId="sa" password="P@ssw0rd"/>
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/maxim"
+                        userId="root" password="root"/>
+        -->
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <javaModelGenerator targetPackage="com.maxim.api.model" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="false"/>
+            <property name="rootClass" value="com.maxim.common.model.AbstractModel"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="com.maxim.core.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.maxim.core.mapper" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="false"/>
+            <property name="rootInterface" value=""/>
+        </javaClientGenerator>
+
+        <table tableName="ORDERS"
+               domainObjectName="Orders"
+               enableInsert="true"
+               enableDeleteByPrimaryKey="false"
+               enableSelectByPrimaryKey="false"
+               enableUpdateByPrimaryKey="false"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="void" property="voidVal"/>
+            <!--
+            <ignoreColumn column="void"/>
+            <ignoreColumn column="status"/>
+            -->
+        </table>
+        <table tableName="ORDERS_PAY"
+               domainObjectName="OrdersPay"
+               enableInsert="true"
+               enableDeleteByPrimaryKey="false"
+               enableSelectByPrimaryKey="false"
+               enableUpdateByPrimaryKey="false"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="void" property="voidVal"/>
+            <!--
+            <ignoreColumn column="void"/>
+            <ignoreColumn column="status"/>
+            <ignoreColumn column="change"/>
+            -->
+        </table>
+        <table tableName="ORDERS_EXTRA"
+               domainObjectName="OrdersExtra"
+               enableInsert="true"
+               enableDeleteByPrimaryKey="false"
+               enableSelectByPrimaryKey="false"
+               enableUpdateByPrimaryKey="false"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="void" property="voidVal"/>
+            <!--
+            <ignoreColumn column="void"/>
+            <ignoreColumn column="status"/>
+            -->
+        </table>
+
+        <table tableName="COUPON_SALES"
+               domainObjectName="CouponSales"
+               enableInsert="true"
+               enableDeleteByPrimaryKey="false"
+               enableSelectByPrimaryKey="false"
+               enableUpdateByPrimaryKey="false"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <columnOverride column="void" property="voidVal"/>
+            <!--
+            <ignoreColumn column="void"/>
+            <ignoreColumn column="status"/>
+            -->
+        </table>
+
+    </context>
+
+</generatorConfiguration>

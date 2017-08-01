@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maxim.core.mapper.ext.TransExtMapper">
+  <insert id="insertBatch" parameterType="java.util.List">
+    INSERT INTO VB_TRANS (BRANCH_CODE, BUSINESS_DATE,
+    ORDER_NO, EVENT_NO, TRANS_TYPE,
+    ORDER_SEQ, ITEM_SEQ, SUBITEM_SEQ,
+    TRANS_DATETIME, "UID_CD", STATION_ID,
+    DEPT_CODE, DEPT_CDESC, DEPT_EDESC,
+    ITEM_CODE, ITEM_CDESC, ITEM_EDESC,
+    PRN_CDESC, PRN_EDESC, UNIT_PRICE,
+    ITEM_QTY, UNIT_MEASURE, UNIT_BASE,
+    N_CAKE_SALE, DISC_PROD, TAKE_PLACE,
+    SERVICE_CHG, DISC_SERV_CHG, GST_RATE,
+    PMT_NO, DISC_OFF_RATE, DEDUCT_AMT,
+    FREE_ITEM, MODIF_AMT, SUB_TOTAL,
+    SET_MENU, SET_MENU_CODE, CHECK_DISC_ALLOC,
+    PAY_DISC_ALLOC, RECALL, REFUND,"VOID_CD",VOID_DATETIME,
+    VOID_UID,VOID_STATION_ID,AUTH_UID,VOID_REASON,POST_DATETIME,
+    RESERVED,"STATUS",LAST_UPDATE_TIME,ROWGUID)
+    <foreach collection="list" index="index" item="item" separator=" UNION ALL ">
+      SELECT
+      #{item.branchCode,jdbcType=VARCHAR},
+      #{item.businessDate,jdbcType=TIMESTAMP},
+      #{item.orderNo,jdbcType=VARCHAR},
+      #{item.eventNo,jdbcType=VARCHAR},
+      #{item.transType,jdbcType=VARCHAR},
+      #{item.orderSeq,jdbcType=DECIMAL},
+      #{item.itemSeq,jdbcType=DECIMAL},
+      #{item.subitemSeq,jdbcType=DECIMAL},
+      #{item.transDatetime,jdbcType=TIMESTAMP},
+      #{item.uid,jdbcType=DECIMAL},
+      #{item.stationId,jdbcType=VARCHAR},
+      #{item.deptCode,jdbcType=VARCHAR},
+      #{item.deptCdesc,jdbcType=VARCHAR},
+      #{item.deptEdesc,jdbcType=VARCHAR},
+      #{item.itemCode,jdbcType=VARCHAR},
+      #{item.itemCdesc,jdbcType=VARCHAR},
+      #{item.itemEdesc,jdbcType=VARCHAR},
+      #{item.prnCdesc,jdbcType=VARCHAR},
+      #{item.prnEdesc,jdbcType=VARCHAR},
+      #{item.unitPrice,jdbcType=DECIMAL},
+      #{item.itemQty,jdbcType=DECIMAL},
+      #{item.unitMeasure,jdbcType=VARCHAR},
+      #{item.unitBase,jdbcType=VARCHAR},
+      #{item.nCakeSale,jdbcType=VARCHAR},
+      #{item.discProd,jdbcType=VARCHAR},
+      #{item.takePlace,jdbcType=VARCHAR},
+      #{item.serviceChg,jdbcType=DECIMAL},
+      #{item.discServChg,jdbcType=VARCHAR},
+      #{item.gstRate,jdbcType=DECIMAL},
+      #{item.pmtNo,jdbcType=VARCHAR},
+      #{item.discOffRate,jdbcType=DECIMAL},
+      #{item.deductAmt,jdbcType=DECIMAL},
+      #{item.freeItem,jdbcType=VARCHAR},
+      #{item.modifAmt,jdbcType=DECIMAL},
+      #{item.subTotal,jdbcType=DECIMAL},
+      #{item.setMenu,jdbcType=VARCHAR},
+      #{item.setMenuCode,jdbcType=VARCHAR},
+      #{item.checkDiscAlloc,jdbcType=DECIMAL},
+      #{item.payDiscAlloc,jdbcType=DECIMAL},
+      #{item.recall,jdbcType=DECIMAL},
+      #{item.refund,jdbcType=VARCHAR},
+      #{item.voidVal,jdbcType=VARCHAR},
+      #{item.voidDatetime,jdbcType=TIMESTAMP},
+      #{item.voidUid,jdbcType=DECIMAL},
+      #{item.voidStationId,jdbcType=VARCHAR},
+      #{item.authUid,jdbcType=DECIMAL},
+      #{item.voidReason,jdbcType=VARCHAR},
+      #{item.postDatetime,jdbcType=TIMESTAMP},
+      #{item.reserved,jdbcType=VARCHAR},
+      '',
+      #{item.lastUpdateTime,jdbcType=TIMESTAMP},
+      #{item.rowguid,jdbcType=VARCHAR}
+      FROM DUAL
+    </foreach>
+  </insert>
+  <delete id="deleteBatch" parameterType="java.util.List">
+    DELETE FROM VB_TRANS WHERE BRANCH_CODE IN
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item.branchCode,jdbcType=VARCHAR}
+    </foreach>
+    AND BUSINESS_DATE IN
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item.businessDate}
+    </foreach>
+    AND ORDER_NO IN
+    <foreach collection="list" item="item" open="(" separator="," close=")">
+      #{item.orderNo,jdbcType=VARCHAR}
+    </foreach>
+  </delete>
+</mapper>

@@ -1,0 +1,15 @@
+package com.maxim.pos.common.persistence;
+
+import org.springframework.stereotype.Repository;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.PollEodControl;
+
+
+@Repository("pollEodControlDao")
+public class PollEodControlDao  extends HibernateDAO {
+	
+	public void saveOrUpdateConvertLog(PollEodControl pollEodControl){
+		save(pollEodControl);
+	}
+}

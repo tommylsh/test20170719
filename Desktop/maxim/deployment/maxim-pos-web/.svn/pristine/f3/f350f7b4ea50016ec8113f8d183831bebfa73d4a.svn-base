@@ -1,0 +1,62 @@
+package com.maxim.pos.common.web.faces.controller;
+
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.value.BranchInfoQueryCriteria;
+import com.maxim.pos.common.web.faces.datamodel.BranchInfoDataModelQuery;
+import com.maxim.pos.common.web.security.UserDetailsService;
+import com.maxim.pos.sales.service.BranchInfoService;
+import com.maxim.web.faces.annotation.OperationMessage;
+import com.maxim.web.faces.model.GenericEntityLazyDataModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import java.io.Serializable;
+
+@Controller
+@Scope("viewScope")
+public class BranchInfoController implements Serializable {
+
+    @Autowired
+    private BranchInfoService branchInfoService;
+
+    private GenericEntityLazyDataModel dataModel;
+    private BranchInfo branchInfo;
+
+    public void add() {
+        branchInfo = new BranchInfo();
+    }
+
+    @OperationMessage(type = OperationMessage.OperationType.UPDATE, operationName = "Save BranchInfo")
+    public void save() {
+        Auditer.audit(branchInfo, UserDetailsService.getUser());
+        branchInfoService.save(branchInfo);
+    }
+
+    @OperationMessage(type = OperationMessage.OperationType.DELETE, operationName = "Delete BranchInfo")
+    public void delete() {
+        branchInfoService.delete(branchInfo.getId());
+    }
+
+    public GenericEntityLazyDataModel getDataModel() {
+        if (dataModel == null) {
+            BranchInfoQueryCriteria criteria = new BranchInfoQueryCriteria();
+            dataModel = new GenericEntityLazyDataModel(new BranchInfoDataModelQuery(branchInfoService, criteria));
+        }
+        return dataModel;
+    }
+
+    public void setDataModel(GenericEntityLazyDataModel dataModel) {
+        this.dataModel = dataModel;
+    }
+
+    public BranchInfo getBranchInfo() {
+        return branchInfo;
+    }
+
+    public void setBranchInfo(BranchInfo branchInfo) {
+        this.branchInfo = branchInfo;
+    }
+
+}

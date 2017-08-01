@@ -1,0 +1,26 @@
+package com.maxim.pos.common.persistence;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.stereotype.Component;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.SchemeTableColumn;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+
+@Component("schemeTableColumnDao")
+public class SchemeTableColumnDao extends HibernateDAO {
+
+	private static final String HQL_findSchemeTableColumnByCriteria = "findSchemeTableColumnByCriteria";
+	
+    @SuppressWarnings("unchecked")
+    public List<SchemeTableColumn> findSchemeTableColumnByCriteria(CommonCriteria criteria) {
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findSchemeTableColumnByCriteria, paramMap);
+
+        return (List<SchemeTableColumn>) getPaginatedListByCriteriaAndType(cmd, paramMap, SchemeTableColumn.class);
+    }
+    
+   }

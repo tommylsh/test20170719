@@ -1,0 +1,40 @@
+#parse ("macro.vm")
+package com.maxim.pos.web.datamodel;
+
+import com.maxim.entity.AbstractEntity;
+import com.maxim.pos.core.service.${entitySimpleName}Service;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.web.faces.model.GenericDataModelQuery;
+
+import java.util.List;
+
+public class ${entitySimpleName}DataModelQuery implements GenericDataModelQuery {
+
+    private ${entitySimpleName}Service #toLowerCase(${entitySimpleName})Service;
+    private CommonCriteria criteria;
+
+    public ${entitySimpleName}DataModelQuery() {}
+    
+    public ${entitySimpleName}DataModelQuery(${entitySimpleName}Service #toLowerCase(${entitySimpleName})Service, CommonCriteria criteria) {
+        this.#toLowerCase(${entitySimpleName})Service = #toLowerCase(${entitySimpleName})Service;
+        this.criteria = criteria;
+    }
+
+    @Override
+    public List<? extends AbstractEntity> getDataSource(int first, int pageSize) {
+        criteria.setStartFrom(first);
+        criteria.setMaxResult(pageSize);
+        criteria.setQueryRecord(true);
+        return #toLowerCase(${entitySimpleName})Service.find${entitySimpleName}ByCriteria(criteria);
+    }
+
+    @Override
+    public int getTotalCount() {
+        criteria.setQueryRecord(false);
+        return #toLowerCase(${entitySimpleName})Service.get${entitySimpleName}CountByCriteria(criteria).intValue();
+    }
+
+    public CommonCriteria getCriteria() {
+        return criteria;
+    }
+}

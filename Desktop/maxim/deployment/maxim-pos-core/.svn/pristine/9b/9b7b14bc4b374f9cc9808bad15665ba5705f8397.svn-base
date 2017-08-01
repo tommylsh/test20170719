@@ -1,0 +1,251 @@
+package com.maxim.pos.report.service.impl;
+
+import java.lang.reflect.InvocationTargetException;
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Service;
+import org.springframework.util.MethodInvoker;
+
+import com.maxim.pos.common.report.ConvertMonitorReport;
+import com.maxim.pos.report.data.ReportConfig;
+import com.maxim.pos.report.persistence.ReportGenerationDao;
+import com.maxim.pos.report.service.ReportService;
+import com.maxim.util.ExcelUtil;
+
+@Service("reportService")
+public class ReportServiceImpl implements ReportService {
+
+	@Autowired
+	private ApplicationContext appContext;
+	@Autowired
+	private ReportGenerationDao reportGenerationDao;
+	
+	
+	public List<ConvertMonitorReport> getErrorCountReportList(Map<String, Object> paramMap)
+	{
+		List<ConvertMonitorReport> errorCountReports = new ArrayList<>();
+		ConvertMonitorReport report_1 = new ConvertMonitorReport();
+		report_1.setBranchType("Store-1");
+		report_1.setTime("21:00");
+		report_1.setConverted(10);
+		report_1.setExpected(10);
+		ConvertMonitorReport report_2 = new ConvertMonitorReport();
+		report_2.setBranchType("Store-1");
+		report_2.setTime("22:00");
+		report_2.setConverted(20);
+		report_2.setExpected(20);
+		
+		errorCountReports.add(report_1);
+		errorCountReports.add(report_2);
+		
+		return errorCountReports;
+	}
+	
+	public List<ConvertMonitorReport> getConvertMonitorReportConfig(Map<String, Object> paramMap)
+	{
+		List<ConvertMonitorReport> convertMonitorReports = new ArrayList<>();
+		
+		String businessDate = (String) paramMap.get("businessDate");
+		
+		Timestamp startTime2 = Timestamp.valueOf(businessDate+ " 18:00:00");
+		Calendar cal2 = Calendar.getInstance();
+
+		cal2.setTimeInMillis(startTime2.getTime());
+		
+		cal2.add(Calendar.DATE, 1);
+		cal2.set(Calendar.AM_PM, Calendar.AM);
+		cal2.set(Calendar.HOUR, 7);
+
+		Timestamp endTime2 = new Timestamp(cal2.getTimeInMillis());
+
+		Calendar cal1 = Calendar.getInstance();
+		cal1.setTimeInMillis(startTime2.getTime());
+//		cal1.set(Calendar.AM_PM, Calendar.AM);
+//		cal1.set(Calendar.HOUR, 7);
+		
+//		Timestamp endTime1 = new Timestamp(cal1.getTimeInMillis());
+		cal1.add(Calendar.DATE, -2);
+		cal1.set(Calendar.AM_PM, Calendar.PM);
+		cal1.set(Calendar.HOUR, 6);
+		Timestamp startTime1 = new Timestamp(cal1.getTimeInMillis());
+		
+		List<Map<String, Object>> completeTimeList1 = reportGenerationDao.getEDOCompletedBranchByBusinessDate(java.sql.Date.valueOf(businessDate));
+		List<Map<String, Object>> completeTimeList2 = reportGenerationDao.getEDOCompletedBranchByBusinessDate(java.sql.Date.valueOf(businessDate));
+
+		Map<String, List<Map<String, Object>>> branchTypeMap1 = new TreeMap<String, List<Map<String, Object>>>();
+		for (Map<String, Object> map :completeTimeList1)
+		{
+			String branchType = (String) map.get("BRANCH_TYPE");
+			List<Map<String, Object>> list = branchTypeMap1.get(branchType);
+			if (list == null)
+			{
+				list = new ArrayList<Map<String, Object>>();
+				branchTypeMap1.put(branchType, list);
+			}
+			list.add(map);
+		}
+		
+		Map<String, List<Map<String, Object>>> branchTypeMap2 = new TreeMap<String, List<Map<String, Object>>>();
+		for (Map<String, Object> map :completeTimeList2)
+		{
+			String branchType = (String) map.get("BRANCH_TYPE");
+			List<Map<String, Object>> list = branchTypeMap2.get(branchType);
+			if (list == null)
+			{
+				list = new ArrayList<Map<String, Object>>();
+				branchTypeMap2.put(branchType, list);
+			}
+			list.add(map);
+		}
+		
+		for (String branchType :  branchTypeMap2.keySet())
+		{
+			cal1.setTimeInMillis(startTime1.getTime());
+			cal1.set(Calendar.AM_PM, Calendar.PM);
+			cal1.set(Calendar.HOUR, 9);
+			cal2.setTimeInMillis(startTime2.getTime());
+			cal2.set(Calendar.AM_PM, Calendar.PM);
+			cal2.set(Calendar.HOUR, 9);
+
+			while (cal2.getTimeInMillis() <= endTime2.getTime())
+			{
+				int converted = 0 ;
+				int expected = 0 ;
+				
+				List<Map<String, Object>> list2 = branchTypeMap2.get(branchType) ;
+				for (Map<String, Object> map : list2)
+				{
+					Timestamp endTime = (Timestamp) map.get("END_TIME");
+					if (endTime != null && endTime.getTime() <= cal2.getTimeInMillis())
+					{
+						converted ++;
+					}
+				}
+				List<Map<String, Object>> list1 = branchTypeMap1.get(branchType) ;
+				if (list1 != null)
+				{
+					for (Map<String, Object> map : list1)
+					{
+						Timestamp endTime = (Timestamp) map.get("END_TIME");
+						if (endTime != null && endTime.getTime() <= cal1.getTimeInMillis())
+						{
+							expected ++;
+						}
+					}
+				}
+				StringBuffer timeString = new StringBuffer() ;
+				int hour = cal2.get(Calendar.HOUR);
+				if (hour < 10)
+				{
+					timeString = timeString.append("0").append(hour).append(":00");
+				}
+				else
+				{
+					timeString = timeString.append(hour).append(":00");
+				}
+				if (cal2.get(Calendar.AM_PM) == Calendar.AM)
+				{
+					timeString = timeString.append("am");
+				}
+				else
+				{
+					timeString = timeString.append("pm");
+				}
+
+				ConvertMonitorReport report = new ConvertMonitorReport();
+				report.setBranchType(branchType);
+				report.setTime(timeString.toString());
+				report.setConverted(converted);
+				report.setExpected(expected);
+				cal1.add(Calendar.HOUR, 1);
+				cal2.add(Calendar.HOUR, 1);
+				convertMonitorReports.add(report);
+			}
+
+		}
+		
+		return convertMonitorReports;
+	}
+	
+	@Override
+	public SXSSFWorkbook getWorkbook(ReportConfig downlaodReportConfig, Map<String, Object> paramMap)
+	{
+		if (downlaodReportConfig.getQueryType().equals("method"))
+		{
+			MethodInvoker mi = new MethodInvoker() ;
+			Object obj = downlaodReportConfig.getTargetObject() ;
+			if (obj == null)
+			{
+				obj = appContext.getBean(downlaodReportConfig.getTargetBeanId());
+				if (obj == null)
+				{
+					throw new IllegalArgumentException("Incorrect Report Config Bean ID : " + downlaodReportConfig.getTargetBeanId());
+				}
+			}
+
+			mi.setTargetObject(obj);
+			mi.setTargetMethod(downlaodReportConfig.getTargetMethod());
+			mi.setArguments(new Object[] {paramMap});
+			
+			try 
+			{
+				mi.prepare();
+				
+				@SuppressWarnings("unchecked")
+				List<Object> reportList = (List<Object>) mi.invoke();
+				
+				return ExcelUtil.createXlsx(downlaodReportConfig.getReportTitle(), reportList, downlaodReportConfig.getColunmMap());
+			} 
+			catch (InvocationTargetException | IllegalAccessException | ClassNotFoundException | NoSuchMethodException e) {
+				e.printStackTrace();
+				return null ;
+			}
+
+		}
+		else if (downlaodReportConfig.getQueryType().equals("sql"))
+		{
+			List<Map<String, Object>> data = reportGenerationDao.getListBySQL(downlaodReportConfig.getQuery(), paramMap);
+			System.out.println("data size" + data.size());
+			return ExcelUtil.createXlsxByMapList(downlaodReportConfig.getReportTitle(), data, downlaodReportConfig.getColunmMap());
+//			List<Object[]> data = reportGenerationDao.getObectArrayListBySQL(downlaodReportConfig.getQuery(), paramMap);
+//			System.out.println("data size" + data.size());
+//			return ExcelUtil.createXlsxByObjectArrayList(downlaodReportConfig.getReportTitle(), data);
+		}
+		else if (downlaodReportConfig.getQueryType().equals("hql"))
+		{
+			List<?> data = reportGenerationDao.getListByHQL(downlaodReportConfig.getQuery(), paramMap);
+			if (data.size() > 0)
+			{
+				Object obj = data.iterator().next();
+				if (obj instanceof Map)
+				{
+				
+					@SuppressWarnings("unchecked")
+					List<Map<String,Object>> mapList = (List<Map<String,Object>>) data ;
+					
+					return ExcelUtil.createXlsxByMapList(downlaodReportConfig.getReportTitle(), mapList, downlaodReportConfig.getColunmMap());
+				}
+				else
+				{
+					return ExcelUtil.createXlsx(downlaodReportConfig.getReportTitle(), data, downlaodReportConfig.getColunmMap());
+				}
+			}
+			else
+			{
+				return ExcelUtil.createXlsx(downlaodReportConfig.getReportTitle(), data, downlaodReportConfig.getColunmMap());
+			}
+			
+		}
+		
+		return null;
+	}
+	
+}

@@ -1,0 +1,32 @@
+package com.maxim.pos.sales.persistence;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.persistence.PosDaoCmd;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Map;
+
+@Repository("branchSchemeDao")
+public class BranchSchemeDao extends HibernateDAO {
+
+    public static final String HQL_findBranchSchemeByCriteria = "findBranchSchemeByCriteria";
+
+    public List<BranchScheme> findBranchSchemeByCriteria(CommonCriteria criteria) {
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findBranchSchemeByCriteria, paramMap);
+
+        return (List<BranchScheme>) getPaginatedListByCriteriaAndType(cmd, paramMap, BranchScheme.class);
+    }
+
+    public Long getBranchSchemeCountByCriteria(CommonCriteria criteria) {
+        criteria.setQueryRecord(false);
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findBranchSchemeByCriteria, paramMap);
+        return getSingle(cmd, Long.class);
+    }
+
+}

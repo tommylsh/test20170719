@@ -1,0 +1,69 @@
+#parse ("macro.vm")
+package com.maxim.pos.web.controller;
+
+import com.maxim.pos.common.Auditer;
+import ${entityClassName};
+import com.maxim.pos.core.service.${entitySimpleName}Service;
+import com.maxim.pos.core.value.${entitySimpleName}QueryCriteria;
+import com.maxim.pos.web.datamodel.${entitySimpleName}DataModelQuery;
+import com.maxim.pos.common.web.security.UserDetailsService;
+import com.maxim.web.faces.annotation.OperationMessage;
+import com.maxim.web.faces.model.GenericEntityLazyDataModel;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Controller;
+
+import java.io.Serializable;
+
+@Controller
+@Scope("viewScope")
+public class ${entitySimpleName}Controller implements Serializable {
+
+    @Autowired
+    private ${entitySimpleName}Service #toLowerCase(${entitySimpleName})Service;
+
+    private GenericEntityLazyDataModel dataModel;
+    private ${entitySimpleName} #toLowerCase(${entitySimpleName});
+
+    #if(${enableAdd}=='true')
+    public void add() {
+        #toLowerCase(${entitySimpleName}) = new ${entitySimpleName}();
+    }
+    #end
+
+    #if(${enableAdd}=='true' || ${enableUpdate}=='true')
+    @OperationMessage(type = OperationMessage.OperationType.UPDATE, operationName = "Save ${entitySimpleName}")
+    public void save() {
+        Auditer.audit(#toLowerCase(${entitySimpleName}), UserDetailsService.getUser());
+        #toLowerCase(${entitySimpleName})Service.save(#toLowerCase(${entitySimpleName}));
+    }
+    #end
+
+    #if(${enableDelete}=='true')
+    @OperationMessage(type = OperationMessage.OperationType.DELETE, operationName = "Delete ${entitySimpleName}")
+    public void delete() {
+        #toLowerCase(${entitySimpleName})Service.delete(#toLowerCase(${entitySimpleName}).getId());
+    }
+    #end
+
+    public GenericEntityLazyDataModel getDataModel() {
+        if (dataModel == null) {
+            ${entitySimpleName}QueryCriteria criteria = new ${entitySimpleName}QueryCriteria();
+            dataModel = new GenericEntityLazyDataModel(new ${entitySimpleName}DataModelQuery(#toLowerCase(${entitySimpleName})Service, criteria));
+        }
+        return dataModel;
+    }
+
+    public void setDataModel(GenericEntityLazyDataModel dataModel) {
+        this.dataModel = dataModel;
+    }
+
+    public ${entitySimpleName} get${entitySimpleName}() {
+        return #toLowerCase(${entitySimpleName});
+    }
+
+    public void set${entitySimpleName}(${entitySimpleName} #toLowerCase(${entitySimpleName})) {
+        this.#toLowerCase(${entitySimpleName}) = #toLowerCase(${entitySimpleName});
+    }
+
+}

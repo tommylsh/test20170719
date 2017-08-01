@@ -1,0 +1,47 @@
+package com.maxim.pos.common.persistence;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository("taskJobLog")
+public class TaskJobLogDao extends HibernateDAO {
+
+    public static final String HQL_findTaskJobLogByCriteria = "findTaskJobLogByCriteria";
+    public static final String HQL_findLatestTaskJobLog = "findLatestTaskJobLog";
+
+    public List<TaskJobLog> findTaskJobLogByCriteria(CommonCriteria criteria) {
+        if (criteria == null) {
+            return getList(new PosDaoCmd(HQL_findTaskJobLogByCriteria), TaskJobLog.class);
+        }
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findTaskJobLogByCriteria, BeanUtil.transBeanToMap(criteria));
+        return getList(cmd, TaskJobLog.class, criteria.getStartFrom(),
+                criteria.getMaxResult() == 0 ? Integer.MAX_VALUE : criteria.getMaxResult());
+    }
+
+    public TaskJobLog findLatestTaskJobLog(Direction direction, Long branchSchemeId, PollSchemeType pollSchemeType,
+            Long schemeScheduleJobId) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("direction", direction);
+        paramMap.put("branchSchemeId", branchSchemeId);
+        paramMap.put("pollSchemeType", pollSchemeType);
+        paramMap.put("schemeScheduleJobId", schemeScheduleJobId);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findLatestTaskJobLog, paramMap);
+
+        List<TaskJobLog> results = getList(cmd, TaskJobLog.class, 0, 1);
+        
+        if (results.size() == 1) {
+            return results.get(0);
+        }
+
+        return null;
+    }
+}

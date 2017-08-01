@@ -1,0 +1,284 @@
+
+select * from dbo.POLL_EOD_CONTROL where branch_code='4117' and convert(date, business_date) = '2017-04-06';
+select * from dbo.POLL_EOD_CONTROL where branch_code='6101'
+select * from dbo.POLL_EOD_CONTROL where branch_code='1284' 
+
+
+drop table dbo.test
+
+create table dbo.test
+(
+txt varchar(20)
+);
+
+select * from dbo.test
+
+
+select * from dbo.POLL_APPLICATION_SETTING
+
+
+select * from dbo.POLL_APPLICATION_SETTING
+
+
+
+select * from dbo.POLL_SCHEME_INFO where client_type='CSV'
+
+
+
+select * from dbo.POLL_SCHEME_INFO where POLL_SCHEME_INFO_ID   = 1655
+
+
+
+
+select * from dbo.POLL_SCHEME_TABLE_COLUMN where POLL_SCHEME_INFO_ID   = 1655
+
+
+
+
+update dbo.POLL_APPLICATION_SETTING
+set code_value='http://10.10.33.25:7012/maxims-osb/maxims-rest'
+where code = 'REAL_TIME_RS'
+
+
+select * from dbo.POLL_BRANCH_INFO where client_type='DBF'
+update dbo.POLL_BRANCH_INFO 
+SET CLIENT_DB='export', CLIENT_HOST='10.20.30.166', LOGIN_USER='poll' ,LOGIN_PASSWORD='poll12345'
+where client_type in ('DBF','CSV')
+
+
+select * from dbo.POLL_SCHEME_INFO
+where client_type='ORACLE'
+
+select * from dbo.POLL_SCHEME_INFO
+where client_type='DBF'
+
+select * from esb_uat.POLL_SCHEME_INFO
+where client_type='ORACLE'
+
+select * from dbo.POLL_SCHEME_TABLE_COLUMN
+where poll_scheme_info_id=1662
+
+
+select * from POLL_SCHEME_INFO
+where poll_scheme_info_id=1662
+
+
+
+select * from POLL_SCHEME_INFO
+where client_type='WEBSERVICE'
+
+select * from POLL_SCHEME_INFO
+where client_type='ORACLE'
+
+
+select * from \
+where client_type='ORACLE'
+
+
+select * from payment
+
+UPDATE payment SET status = 'C'
+
+select * from dbo.POLL_EOD_CONTROL where branch_code='4001' 
+
+delete from dbo.POLL_EOD_CONTROL where branch_code='4001' 
+
+select * from dbo.POLL_EOD_CONTROL where branch_code='4466' 
+select * from dbo.POLL_EOD_CONTROL where branch_code='6101' 
+select * from dbo.POLL_EOD_CONTROL where branch_code='5101' 
+
+
+ select *
+            FROM dbo.POLL_SCHEME_INFO
+            where client_type='CSV'
+            and SOURCE ='check_logs'
+
+delete from dbo.POLL_EOD_CONTROL  where branch_code='4466' and convert(date, business_date) > '2017-04-01' ;
+delete from dbo.POLL_EOD_CONTROL  where branch_code='4117' and convert(date, business_date) > '2017-04-05' ;
+
+delete from dbo.POLL_EOD_CONTROL  where branch_code='6101' and convert(date, business_date) > '2017-04-01' 
+
+
+       update dbo.POLL_EOD_CONTROL set STATUS  = 'F' where branch_code='6101'and convert(date, business_date) = '2017-04-05';
+       update dbo.POLL_EOD_CONTROL set STATUS  = 'F' where branch_code='4117' and convert(date, business_date) = '2017-04-05';
+       
+       update dbo.POLL_EOD_CONTROL set STATUS  = 'F' where branch_code='4466' and convert(date, business_date) > '2017-04-01'
+
+
+       delete  from dbo.POLL_EOD_CONTROL where branch_code='6101' and convert(date, business_date) > '2017-03-30'
+       
+       update dbo.POLL_EOD_CONTROL set STATUS  = 'F' where branch_code='6101' and convert(date, business_date) > '2017-03-30'
+       update dbo.POLL_EOD_CONTROL set branch_code='4117', business_date = '2017-03-30'
+       update dbo.POLL_EOD_CONTROL set STATUS  = 'F' , business_date = '2017-03-30' where branch_code='6101'
+
+
+
+       update dbo.POLL_EOD_CONTROL set business_date  = '2017-04-01' where branch_code='4466' and convert(date, business_date) = '2017-04-05';
+
+ update dbo.POLL_SCHEME_SCHEDULE_JOB 
+ set is_enable='1'
+
+
+select * from dbo.POLL_APPLICATION_SETTING where CODE='SMTP's
+
+
+select * from dbo.POLL_APPLICATION_SETTING where CODE='SMTP';
+
+
+update  dbo.POLL_APPLICATION_SETTING 
+set CODE='ALERT_EMAIL', codE_value='tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk'
+where CODE='SMTP';
+
+
+
+select * from dbo.POLL_SCHEME_SCHEDULE_JOB 
+
+select * from dbo.POLL_SCHEME_SCHEDULE_JOB 
+
+select * from dbo.POLL_SCHEME_JOB_LOG  where LAST_JOB_IND='Y'
+
+delete from dbo.POLL_SCHEME_JOB_LOG where LAST_JOB_IND='Y'
+
+
+
+update dbo.POLL_SCHEME_JOB_LOG 
+set STATUS='FAIL', LAST_JOB_IND  ='N'
+where LAST_JOB_IND  ='Y'
+and status='PROGRESS'
+
+
+update dbo.POLL_SCHEME_JOB_LOG 
+set LAST_JOB_IND='N'
+where LAST_JOB_IND  ='Y'
+and STATUS='FAIL'
+
+
+
+35618                 2017-04-07 00:00:00.517 MAX_POS_SYSTEM                                     2017-04-07 00:02:46.247 MAX_POS_SYSTEM                                     4117                                                                                                                                                                                                                                                            NULL                  MST_TO_STG                                                                                                                                                                                                                                                      2017-04-07 00:02:46.240 NULL                                                                                                                                                                                                                                                            NULL                                                                                                                                                                                                                                                            Y                                                                                                                                                                                                                                                               110                   4117 MST_TO_STG                                                                                                                                                                                                                                                 MASTER                                                                                                                                                                                                                                                          2017-04-07 00:00:00.517 COMPLETE                                                                                                                                                                                                                                                        NULL                                                                                                                                                                                                                                                            32                    39                    NULL                                                                                                                                                                                                     
+35640                 2017-04-07 00:02:46.503 MAX_POS_SYSTEM                                     2017-04-07 00:04:58.310 MAX_POS_SYSTEM                                     4117                                                                                                                                                                                                                                                            NULL                  STG_TO_POS                                                                                                                                                                                                                                                      2017-04-07 00:04:58.307 NULL                                                                                                                                                                                                                                                            NULL                                                                                                                                                                                                                                                            Y                                                                                                                                                                                                                                                               81                    BRANCH-4117 STG_TO_POS MASTER                                                                                                                                                                                                                                   MASTER                                                                                                                                                                                                                                                          2017-04-07 00:02:46.503 COMPLETE                                                                                                                                                                                                                                                        NULL                                                                                                                                                                                                                                                            NULL                  23                    NULL                                                                                                                                                                                                     
+
+
+select * from dbo.TASK_JOB_LOG where LASTTEST_JOB_IND  ='Y'
+and branch_code='4117'
+
+
+select *
+from dbo.TASK_JOB_EXECEPTION_DETAIL where TASK_JOB_LOG_ID    = 35618
+
+
+select *
+from dbo.TASK_JOB_EXECEPTION_DETAIL where TASK_JOB_LOG_ID    = 35640
+
+
+select convert(varchar(20),source), NUM_OF_REC_DELETE ,NUM_OF_REC_INSERT ,NUM_OF_REC_PROCESSED , NUM_OF_REC_UPDATE
+from dbo.TASK_JOB_LOG_DETAIL where TASK_JOB_LOG_ID    = 35618
+order by source
+
+
+select convert(varchar(20),source), NUM_OF_REC_DELETE ,NUM_OF_REC_INSERT ,NUM_OF_REC_PROCESSED , NUM_OF_REC_UPDATE
+from dbo.TASK_JOB_LOG_DETAIL where TASK_JOB_LOG_ID    = 35640
+
+
+select * from dbo.TASK_JOB_LOG where LASTTEST_JOB_IND  ='Y'
+and status='PROGRESS'
+
+select * from
+POLL_SCHEME_SCHEDULE_JOB
+
+update dbo.TASK_JOB_LOG 
+set LASTTEST_JOB_IND='N'
+where LASTTEST_JOB_IND  ='Y'
+and STATUS='FAIL'
+
+
+update dbo.TASK_JOB_LOG 
+set STATUS='FAIL', LASTTEST_JOB_IND='N'
+where LASTTEST_JOB_IND  ='Y'
+and status='PROGRESS'
+
+
+
+
+update dbo.POLL_SCHEME_JOB_LOG 
+set STATUS='FAIL', LAST_JOB_IND  ='N'
+where LAST_JOB_IND  ='Y'
+and status='PROGRESS'
+
+ select * from dbo.TASK_JOB_EXECEPTION_DETAIL
+  select * from dbo.POLL_APPLICATION_SETTING
+
+truncate table dbo.TASK_JOB_LOG_DETAIL
+
+truncate table dbo.TASK_JOB_LOG
+
+truncate table  dbo.TASK_JOB_EXECEPTION_DETAIL
+
+delete  dbo.TASK_JOB_LOG where  1 =1
+
+select * from dbo.TASK_JOB_LOG where POLL_BRANCH_ID =41
+
+select * from   dbo.TASK_JOB_LOG where branch_code='6101'
+ 
+select * from   dbo.TASK_JOB_EXECEPTION_DETAIL where TASK_JOB_LOG_ID  =26184
+ 
+
+select * from dbo.TASK_JOB_LOG where TASK_JOB_LOG_ID =48455
+ 
+ 
+ 
+ select * from   dbo.TASK_JOB_EXECEPTION_DETAIL where convert(date,CREATE_TIME     )>='2017-04-11'
+ 
+ 
+ 
+ 
+ select * from   dbo.TASK_JOB_EXECEPTION_DETAIL where  status='D'
+ 
+ 
+  
+update dbo.TASK_JOB_EXECEPTION_DETAIL with (XLOCK)
+set status='D'
+where  status='P'
+
+
+select * from dbo.orders where branch_code='6101'
+
+select * from dbo.supp where branch_code='6101'
+
+delete from dbo.supp where branch_code='6101'
+
+
+select * from hist_orders_pay
+
+select count(1) from hist_orders  where branch_code='6101' and  business_date>'2017-04-01'
+
+update dbo.TASK_JOB_LOG 
+set STATUS='FAIL', LASTTEST_JOB_IND='N'
+where LASTTEST_JOB_IND  ='Y'
+and status='PROGRESS'
+
+
+select * from dbo.task_job_log where task_job_log_id  = 32629;
+
+select * from dbo.task_job_log_detail where task_job_log_id  = 32629;
+select * from dbo.task_job_log_detail where task_job_log_id  = 73850;
+
+select * from dbo.task_job_log_detail where NUM_OF_REC_PROCESSED  > 0 and task_job_log_id  in 
+
+(
+select task_job_log_id from dbo.task_job_log where branch_code ='4117'
+    )
+
+    select * from dbo.task_job_log where branch_code ='6101' and  convert(date,CREATE_TIME     )>='2017-04-13'
+    
+    select * from dbo.task_job_log where branch_code ='4117' and  END_TIME > START_TIME 
+    
+    > 1
+    
+    convert(date,CREATE_TIME     )>='2017-04-12'
+    
+    
+    select * from dbo.POLL_BRANCH_SCHEME where  POLL_BRANCH_MASTER_ID =16
+    
+    
+    select * from dbo.hist_supp where branch_code='4001' 
+    

@@ -1,0 +1,111 @@
+=============
+2016-10-28 CX 
+=============
+
+=======
+Phase I
+=======
+
+1. Lead Consultant - Jimmy 
+
+2. CX shows slide 
+
+   PBI#1971 CorpMQ Hardware Upgrade Only
+         Incident / Hardware 
+	         Applia
+		    
+		         Node1 CPU fail over to node2 (fail over) back to node1 also 
+			       have 
+				  
+   Risk - 3 icnlude VRM failure / powersupply 
+	
+   P6 to P7+ 
+   5.3 AIX
+   MQ remain unchanged 
+   All VM move to hardware 
+   
+   CorpMQ
+   
+	    396 
+	  
+	    Statistics 
+
+	    Virtualized swithc over to P7+
+	    IP Address same .... all same
+	   
+	    ETE CorpMQ single node will NOT upgrade 
+	        No change 
+		   All move to production 
+		   
+Mid-Nov
+
+H/W 50,000 cabling 
+S/W 30,000
+
+Implmentation 
+
+	15 days for RPG services 
+	Development work (if any)
+	Cut over design ()
+	MQ how to move unprocessed message to new server 
+
+ICO / HPE completed 
+Dec beginning should be OK 
+
+========
+Phase II
+========
+
+ EOL Middle SCM.37106
+ FabriCX
+ CorpESB
+ NON-CorpESB 
+ go-Live Oct 2017 
+ 
+ ** Most likely Non-CorpESB want to use IBM ** 
+ ** Upgrade CorpMQ **  / ** Upgrade non-CorpESB ** 
+ ** Both non-CorpESB and CorpMQ ** 
+ ** What's ** 
+ 
+    Co-Sourcing RGP resources 
+    
+ ** Decommison of legacy platform
+ ** Option 1 **
+ 
+ Service Migration (not go ahead)
+     Services migration 
+	    Batch by batch 
+
+Hardware Upgrade 
+
+   Stay in AIX - Simple 
+     Big Band (comparivie easy )   
+		Upgrade / Big Band 
+			Vendor Consultancy 
+				(User side)
+					800,000		
+						1,200,000
+							Functional and non-functional test (~400 man days)
+	Code Change 
+		800,000 - vendor consultancy 
+			2,000,000 (testing include all?)
+				Internal Charing Team 4,500,000 
+					MQ software 
+	Service 
+		1 - Consultancy
+		3 - Functional / non-functional test
+	4 - CPS Solution centres (code change + verification)
+		4 - Code Change included?  (Aaron suggest 50% 50%)
+		
+
+Project Start Day
+
+    Steven - 15 days (can start as early as possible)
+       
+
+Code Change 
+
+    James / 
+    
+
+			

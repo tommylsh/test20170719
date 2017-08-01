@@ -1,0 +1,1 @@
+/home/oracle/products/jdk1.8.0_101/bin/java -cp /home/oracle/products/Oracle_Home/wlserver/server/lib/weblogic.jar  weblogic.Deployer -url http://10.10.33.25:7001 -user weblogic -password Passw0rd -undeploy -name maxim-pos-web

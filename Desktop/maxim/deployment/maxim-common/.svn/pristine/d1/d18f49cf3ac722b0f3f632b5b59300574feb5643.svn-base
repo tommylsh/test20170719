@@ -1,0 +1,151 @@
+package com.maxim.dao;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
+public abstract class JdbcEntityDAO<T,K> 
+implements BaseEntityDAO<T,K> 
+{
+
+	protected Class<T> dtoClass = null ;
+	protected Class<K> keyClass = null ;
+	protected JdbcResultSetExtrator<T,K> extrator = null ;
+
+//	protected NamedParameterJdbcTemplate nameJdbcTempalte = null ; 
+//	protected JdbcTemplate jdbcTempalte = null ;
+//	
+//	public abstract void setDatasource(DataSource datasource) ;
+	
+//	protected abstract JdbcTemplate getJdbcTemplate() ;
+	protected abstract NamedParameterJdbcTemplate getNamedJdbcTemplate() ;
+
+    protected JdbcEntityDAO(Class<T> dtoClass, Class<K> keyClass) {
+        this.dtoClass = dtoClass;
+        this.keyClass = keyClass;
+        this.extrator = new JdbcResultSetExtrator<T, K>(dtoClass, keyClass) ;
+    }	
+    
+	@SuppressWarnings("unchecked")
+	protected JdbcEntityDAO() {
+    	Type genericSuperclass = this.getClass().getGenericSuperclass();
+
+        if (genericSuperclass instanceof ParameterizedType) {
+            ParameterizedType pt = (ParameterizedType) genericSuperclass;
+            Type type = pt.getActualTypeArguments()[0];
+            dtoClass = (Class<T>) type;
+            type = pt.getActualTypeArguments()[1];
+            keyClass = (Class<K>) type;
+        }
+//        this.typeParameterClass = typeParameterClass;
+        this.extrator = new JdbcResultSetExtrator<T, K>(dtoClass, keyClass);
+    }  
+	
+	@SuppressWarnings("unchecked")
+	protected Class<T> getDataClass()
+	{
+		Class<T> dataClass = null;
+    	Type genericSuperclass = this.getClass().getGenericSuperclass();
+
+        if (genericSuperclass instanceof ParameterizedType) {
+            ParameterizedType pt = (ParameterizedType) genericSuperclass;
+            Type type = pt.getActualTypeArguments()[0];
+            dataClass = (Class<T>) type;
+        }
+        
+        return dataClass;
+    }
+	
+	@Override
+	public T findByKey(K key) {
+		String sql = this.extrator.selectByKeySql ;
+		SqlParameterSource source = this.extrator.getKeyParameterSource(key);
+		try
+		{
+			T obj = this.getNamedJdbcTemplate().queryForObject(sql, source, this.extrator.mapper);
+			
+			return obj ;
+        }catch (EmptyResultDataAccessException e)
+        {
+            return null;    	
+        }		
+		
+	}
+
+	public T find(T obj) {
+		String sql = this.extrator.selectByKeySql ;
+		SqlParameterSource source = this.extrator.geParameterSource(obj);
+		try
+		{
+			return this.getNamedJdbcTemplate().queryForObject(sql, source, this.extrator.mapper);
+        }catch (EmptyResultDataAccessException e)
+        {
+            return null;    	
+        }		
+		
+	}
+	
+	public void insert(T obj) {
+		String sql = this.extrator.insertSql ;
+		SqlParameterSource source = this.extrator.geParameterSource(obj);
+		this.getNamedJdbcTemplate().update(sql, source);
+	}
+	
+	@Override
+	public T update(T obj) {
+		String sql = this.extrator.updateByKeySql ;
+		SqlParameterSource source = this.extrator.geParameterSource(obj);
+		this.getNamedJdbcTemplate().update(sql, source);
+		return obj;
+	}
+	
+	@Override
+	public T deleteByKey(K key) {
+		T obj = this.findByKey(key);
+		
+		String sql = this.extrator.deleteByKeySql ;
+		SqlParameterSource source = this.extrator.getKeyParameterSource(key);
+		this.getNamedJdbcTemplate().update(sql, source);
+
+        return obj;
+	}
+	
+	@Override
+	public void delete(T obj) {
+		String sql = this.extrator.deleteByKeySql ;
+		SqlParameterSource source = this.extrator.geParameterSource(obj);
+		this.getNamedJdbcTemplate().update(sql, source);
+	}
+	
+	@Override
+	public List<T> findAll() {
+		String sql = this.extrator.selectAllSql;
+		return this.getNamedJdbcTemplate().query(sql, this.extrator.mapper);
+	}
+    
+
+	@Override
+    public void mergeInsert(T obj) {
+		this.find(obj);
+		
+		insert(obj);
+    }
+
+	@Override
+    public void mergerDelete(T obj) {
+		this.find(obj);
+		
+		delete(obj);
+    }
+    
+
+
+
+
+}

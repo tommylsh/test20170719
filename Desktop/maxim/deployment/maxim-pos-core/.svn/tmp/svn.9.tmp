@@ -1,0 +1,452 @@
+package com.maxim.pos.sales.service;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.UnknownHostException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
+
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.util.JDBCUtils;
+import com.maxim.pos.common.util.LogUtils;
+
+import jcifs.smb.SmbException;
+import jcifs.smb.SmbFile;
+
+/**
+ * Class SalesServiceDbfImpl
+ * 
+ * Created by Tommy Leung
+ * Created on 12 Apr 2017
+ *  
+ * Amendment History
+ * 
+ * Name                  Modified on  Comment
+ * --------------------  -----------  ----------------------------------------
+ * 
+ * 
+ */
+
+public abstract class SalesServiceFileImpl extends  SalesServiceBaseImpl {
+	
+
+	public static String FILE_METHOD_PROPERTIES	= "PROPPERTIES";
+	public static String FILE_METHOD_DATABASE	= "DATABASE";
+    abstract protected String getFileMethod() ;
+    abstract protected String getFilePattern() ;
+	abstract protected int processToStagingTable(BranchScheme branchScheme, SchemeInfo schemeInfo, Date bizDate, InputStream in , Connection conn, int defaultTransactionBatchSize ) throws SQLException, IOException;
+
+	@Autowired
+	private SmbServiceImpl smbService;
+
+	@Override
+    protected int getDefaultScanDayIfNoControl()
+	{
+		return textFileDefaultScanDayIfNoControl ;
+	}
+	@Override
+    protected int getMaxScanDay()
+    {
+		return textFileMaxScanDay ;
+    }
+
+	@Override
+	protected List<Date> doGetPosProcessDate(BranchScheme branchScheme, List<SchemeInfo> schemeList, 
+			java.sql.Date currentDate, java.sql.Date yesterdayDate, java.sql.Date controlDate, Logger logger) {
+        List<Date> processDates = new ArrayList<Date>();
+        
+    	BranchInfo branchInfo			= branchScheme.getBranchInfo();
+        String branchType				= branchScheme.getBranchMaster().getBranchType();
+        String branchCode				= branchScheme.getBranchMaster().getBranchCode();
+        ClientType clientType			= branchScheme.getBranchInfo().getClientType();
+		PollSchemeType pollSchemeType	= branchScheme.getPollSchemeType();
+        LogUtils.printLog(logger, "{} {} {} doGetPosProcessDate  {}", branchCode, clientType, pollSchemeType, schemeList.size());
+
+
+        SimpleDateFormat dateFormat		= new SimpleDateFormat("yyMMdd");
+        SimpleDateFormat dateFormat2	= new SimpleDateFormat("yyyyMMdd");
+	    String fileMethod 				= getFileMethod() ;
+	    String filePattern 				= getFilePattern() ;
+        
+        LogUtils.printLog(logger, "{} {} {} fileMethod / filePattern{} {}", branchCode, clientType, pollSchemeType, fileMethod, filePattern);
+	    
+	    // Get the Window Share Directory
+		SmbFile rootDirectory = smbService.getRootDirectory(branchScheme.getBranchMaster(), branchInfo) ;
+		if (rootDirectory == null)
+		{
+			return null ;
+		}
+        LogUtils.printLog(logger, "{} {} {} rootDirectory {}", branchCode, clientType, pollSchemeType, fileMethod,  rootDirectory.getCanonicalPath());
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(controlDate);
+		java.sql.Date date = new java.sql.Date(cal.getTime().getTime());
+		date = java.sql.Date.valueOf(date.toString());
+        LogUtils.printLog(logger, "{} {} {} chkdate {} {} {}", branchCode, clientType, pollSchemeType, date,  currentDate, date.after(currentDate));
+		while (!date.after(currentDate))
+		{
+			try
+			{
+				boolean exists = true ;
+		    	for (SchemeInfo schemeInfo : schemeList) {
+		    		if (FILE_METHOD_DATABASE.equals(fileMethod))
+		    		{
+		    			filePattern = schemeInfo.getSource();
+		    		}
+	    			String filename = StringUtils.replace(filePattern, "{BRANCH_CODE}", branchCode);
+	    			filename = StringUtils.replace(filename,           "{BRANCH_TYPE}", branchType);
+					filename = StringUtils.replace(filename,           "{TABLE}",       schemeInfo.getSource().toUpperCase());
+	    			if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType))
+	    			{
+	    				filename = StringUtils.replace(filename,"{YYMMDD}"		,"000000");
+	    				filename = StringUtils.replace(filename,"{YYYYMMDD}"	,"00000000");
+	    			}
+	    			if (PollSchemeType.SALES_EOD.equals(pollSchemeType))
+	    			{
+	    				filename = StringUtils.replace(filename,"{YYMMDD}"		,dateFormat.format(date));
+	    				filename = StringUtils.replace(filename,"{YYYYMMDD}"	,dateFormat2.format(date));
+	    			}    			
+
+	        		try
+	        		{
+                        LogUtils.printLog(logger, "{} {} {} schemeInfo{}  check filename {} ", branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), filename);
+	            		SmbFile file = new SmbFile(rootDirectory, filename);
+	            		if (!file.exists())
+	            		{
+	            			exists = false ;
+	            			break ;
+	            		}
+	    			} catch (MalformedURLException | UnknownHostException | SmbException e) {
+                        LogUtils.printLog(logger, "{} {} {} schemeInfo{}  check filename error {} ", branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), filename);
+	            		LogUtils.printException(logger, "Chk File Exception ",e);
+	        			exists = false ;
+	        			break ;
+	    			}
+		    	}
+                LogUtils.printLog(logger, "{} {} {} chkdate exists {} {} ", branchCode, clientType, pollSchemeType, date, exists);
+				if (exists)
+		    	{
+		    		processDates.add(date);
+	    		}
+			}
+			catch (Exception e)
+			{
+				e.printStackTrace();
+        		LogUtils.printException(logger, "Chk File Exception ",e);
+			}
+			if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType))
+			{
+				break;
+			}
+			cal.add(Calendar.DATE, 1);
+			date = new java.sql.Date(cal.getTime().getTime());
+			date = java.sql.Date.valueOf(date.toString());
+	        LogUtils.printLog(logger, "{} {} {} chkdate {} {} {}", branchCode, clientType, pollSchemeType, date,  currentDate, date.after(currentDate));
+    	}
+
+        LogUtils.printLog(logger, "{} {} {}  dates size{}", branchCode, clientType, pollSchemeType, processDates.size());
+		if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType))
+		{
+			if (processDates.size() == 0)
+			{
+				return null;
+			}
+			else
+			{
+				processDates.clear();
+				return processDates;
+			}
+		}
+
+		return processDates;
+	}
+
+
+
+	@Override
+	protected List<Date> doProcessPosDataToStg(BranchScheme branchScheme, List<SchemeInfo> schemeList,
+			List<Date> procDates, java.sql.Date currentDate, java.sql.Date yesterdayDate, java.sql.Date controlDate,
+			TaskJobLog taskJobLog, Logger logger) {
+
+    	BranchInfo branchInfo			= branchScheme.getBranchInfo();
+        String branchType				= branchScheme.getBranchMaster().getBranchType();
+        String branchCode				= branchScheme.getBranchMaster().getBranchCode();
+        ClientType clientType			= branchScheme.getBranchInfo().getClientType();
+		PollSchemeType pollSchemeType	= branchScheme.getPollSchemeType();
+        LogUtils.printLog(logger, "{} {} {} doProcessPosDataToStg  {}", branchCode, clientType, pollSchemeType, schemeList.size());
+
+    	SimpleDateFormat dateFormat		= new SimpleDateFormat("yyMMdd");
+        SimpleDateFormat dateFormat2	= new SimpleDateFormat("yyyyMMdd");
+    	SimpleDateFormat dateFormat3	= new SimpleDateFormat("yyyy-MM-dd");
+        
+	    // Get the Window Share Directory
+		SmbFile rootDirectory = smbService.getRootDirectory(branchScheme.getBranchMaster(), branchInfo) ;
+		if (rootDirectory == null)
+		{
+			return null ;
+		}
+		if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType))
+		{
+			procDates.add(null);
+		}
+
+        int totalCount = 0 ;
+        boolean isError = false ;
+        String fileMethod = this.getFileMethod() ; 
+        String filePattern = this.getFilePattern() ;
+        List<SmbFile> fileList = new ArrayList<SmbFile>();
+        try (Connection conn = applicationSettingService.getCurrentJDBCConnection())
+        {
+            LogUtils.printLog(logger, "{} {} {} Ready to copy data from: \r\nsource: '{}' to \r\n datasource: '{}'", branchCode, clientType, pollSchemeType, rootDirectory.getCanonicalPath(), conn);
+        	for (SchemeInfo schemeInfo : schemeList) 
+        	{
+                LogUtils.printLog(logger, "{} {} {} schemeInfo{}  : {} -> {} ", branchCode, clientType, pollSchemeType, schemeInfo.getId(), schemeInfo.getSource(), schemeInfo.getDestination());
+
+                int deleteCount = 0 ;
+                int rs = 0;
+            	 try 
+            	 {
+             		if (PollSchemeType.SALES_EOD.equals(pollSchemeType))
+             		{
+                     	int idx = 0;
+                     	String minDate	= null ;
+                     	String maxDate	= null ;
+                     	for (Date date : procDates)
+                     	{
+                     		if (idx == 0)
+                     		{
+                     			minDate=dateFormat3.format(date);
+                     		}
+                     		idx++;
+                     		if (idx == procDates.size())
+                     		{
+                     			maxDate=dateFormat3.format(date);
+                     		}
+                     	}
+                     	String deleteDateConditionStr = "CONVERT(varchar(16),business_date,23) >= '"+minDate+"' and CONVERT(varchar(16),business_date,23) <= '"+maxDate+"'"; 
+                     	deleteCount = JDBCUtils.deleteByBranchAndBizDate(conn, schemeInfo.getDestination(),
+                 			branchScheme.getBranchMaster().getBranchCode(), deleteDateConditionStr);
+                        LogUtils.printLog(logger, "{} {} {} schemeInfo{}  delete table :{} {} ", branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), deleteCount, deleteDateConditionStr);
+             		}
+             		else
+             		{
+             			deleteCount = JDBCUtils.deleteByBranchAndBizDate(conn, schemeInfo.getDestination(),
+     						        branchScheme.getBranchMaster().getBranchCode(), (String) null);
+                        LogUtils.printLog(logger, "{} {} {} schemeInfo{}  delete table :{} ", branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), deleteCount);
+             		}
+             		
+     	       	    for (Date bizDate : procDates)
+     	     	    {
+
+     	   	    		if (FILE_METHOD_DATABASE.equals(fileMethod))
+     	   	    		{
+     	   	    			filePattern = schemeInfo.getDestination();
+     	   	    		}
+     	       		
+    	    			String filename = StringUtils.replace(filePattern, "{BRANCH_CODE}",  branchCode);
+    	    			filename = StringUtils.replace(filename,           "{BRANCH_TYPE}",  branchType);
+    					filename = StringUtils.replace(filename,           "{TABLE}",        schemeInfo.getSource().toUpperCase());
+    	    			if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType))
+    	    			{
+    	    				filename = StringUtils.replace(filename,"{YYMMDD}"		,"000000");
+    	    				filename = StringUtils.replace(filename,"{YYYYMMDD}"	,"00000000");
+    	    			}
+    	    			if (PollSchemeType.SALES_EOD.equals(pollSchemeType))
+    	    			{
+    	    				filename = StringUtils.replace(filename,"{YYMMDD}"		,dateFormat.format(bizDate));
+    	    				filename = StringUtils.replace(filename,"{YYYYMMDD}"	,dateFormat2.format(bizDate));
+    	    			}    			
+                         LogUtils.printLog(logger, "{} {} {} schemeInfo{}  source filename {} ", branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), filename);
+                         
+                		 SmbFile file = new SmbFile(rootDirectory, filename);	
+	                     if (file.exists()) {
+		                		try (InputStream in = file.getInputStream())
+		                		{
+
+			                		if (PollSchemeType.SALES_EOD.equals(pollSchemeType))
+			                		{
+				                        rs += processToStagingTable(branchScheme, schemeInfo, bizDate, in, conn,  defaultTransactionBatchSize);
+				                        LogUtils.printLog(logger, "{} {} {} schemeInfo{} insert records: {} ", branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), rs);
+			                		}
+			                		else
+			                		{
+				                        rs += processToStagingTable(branchScheme, schemeInfo, bizDate, in, conn,  defaultTransactionBatchSize);
+				                        LogUtils.printLog(logger, "{} {} {} schemeInfo{} insert records: {} ", branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), rs);
+			                        	
+			                        	// Update Status to 'P'
+			                        	int updateRow = JDBCUtils.updatePendingStatusByBranchCode(conn, schemeInfo.getDestination(), branchCode);
+				                        LogUtils.printLog(logger, "{} {} {} schemeInfo{} update status: {} ", branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), updateRow);
+			                		}
+		                    	    fileList.add(file);
+		                		}
+		                		catch (SQLException | IOException e)
+		                		{
+			                         LogUtils.printLog(logger, "{} {} {} schemeInfo{} Branch : File IO / SQL Exception Error{} ",
+			                        		 branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), filename);
+			                         taskJobLogService.createJobExceptionDetail(taskJobLog, schemeInfo.getSource(), schemeInfo.getDestination(), new FileNotFoundException(filename + " not exists"));
+			                         break;
+		                		}
+					                		
+                         } else {
+	                         LogUtils.printLog(logger, "{} {} {} schemeInfo{} File {} not exists ",
+	                        		 branchCode, clientType, pollSchemeType, schemeInfo.getDestination(), filename);
+	                         taskJobLogService.createJobExceptionDetail(taskJobLog, schemeInfo.getSource(), schemeInfo.getDestination(), new FileNotFoundException(filename + " not exists"));
+	                         isError = true ;
+	                         break;
+                         }
+                     }
+                } catch (Exception e) {
+                    LogUtils.printException(logger, MessageFormat.format("{0}->{1} process excepiton",
+                            schemeInfo.getSource(), schemeInfo.getDestination()), e);
+                    taskJobLogService.createJobExceptionDetail(taskJobLog, schemeInfo.getSource(), schemeInfo.getDestination(), e);
+                    isError = true ;
+                    break;
+                }
+            	taskJobLogService.createJobLogDetail(taskJobLog, schemeInfo.getSource(), schemeInfo.getDestination(), deleteCount, rs, 0);
+            	totalCount +=rs ;
+
+    	    }
+        } catch(Exception e) {
+        	LogUtils.printException(logger, "get connection is null");
+        	taskJobLogService.createJobExceptionDetail(taskJobLog, "", "", e);
+        }
+	       
+        // Remove the file to archive Directory
+        LogUtils.printLog(logger, "{} {} {} schemeInfo{} enableArchive {} isError {} ",
+       		 branchCode, clientType, pollSchemeType, enableArchive, isError);
+        if (enableArchive)
+        {
+        	try
+        	{
+        		smbService.archiveDataFile(branchCode, fileList, salesFileArchivePath) ;
+   			} catch (IOException e) {
+				taskJobLogService.createJobExceptionDetail(taskJobLog, "", "", e);
+   			}
+        }
+
+        LogUtils.printLog(logger, "{} {} {} {} {}", branchCode, clientType, pollSchemeType, branchScheme.getDirection(), branchScheme.getPollSchemeName());
+
+        if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType)) {
+            
+        	if (totalCount <= 0)
+        	{
+        		return null;
+        	}
+        	else
+        	{
+        		return new ArrayList<Date>();
+        	}
+        }
+		
+		
+        return procDates;
+
+	
+	}
+	
+//	
+//	private SmbFile getRootDirectory(String branchCode, BranchInfo branchInfo)
+//	{
+//		SmbFile directory = null ;
+//
+//		String user = branchInfo.getUser() ;
+//		String password = branchInfo.getPassword() ;
+////		LogUtils.printLog(" {} Branch : bdebug2 {}-{}-{}-{}", branchCode,user,password );
+////
+//		try {
+//			password = securityConfig.decrypt(password);
+//		} catch (Exception e) {
+//			LogUtils.printException("aesDecrypt error in SalesServiceFileImpl's getRootDirectory", e);
+//		}
+//		try {
+//			user = securityConfig.decrypt(user);
+//		} catch (Exception e) {
+//			LogUtils.printException("aesDecrypt error in SalesServiceFileImpl's getRootDirectory", e);
+//		}
+//		
+//		NtlmPasswordAuthentication auth = new NtlmPasswordAuthentication(null, user, password);
+//	
+//		String brachDirName =  "smb://"+branchInfo.getClientHost() +
+//				'/' +
+//				branchInfo.getClientDB() +
+//				'/';
+////		
+////		
+////		LogUtils.printLog(" {} Branch : bdebug {}-{}-{}-{}", branchCode, brachDirName,user,password );
+//
+//		try {
+//			
+//			directory = new SmbFile(brachDirName, auth);
+//			
+//    	    if(!directory.exists()){
+//        		LogUtils.printLog(" {} Branch : brachDirname not exists {} ", branchCode, brachDirName);
+//    	    	return null ;
+//    	    }
+//		} catch (MalformedURLException | SmbException e1) {
+//    		LogUtils.printLog(" {} Branch : brachDirname connet error {} ", branchCode, brachDirName);
+//        	LogUtils.printException("{"+branchCode+"} Branch Archive File Error " + brachDirName ,e1);
+//	    	return null ;
+//	    }
+//		
+//		return directory ;
+//	}
+//
+//	private void archiveDataFile(String branchCode, List<SmbFile> fileList, TaskJobLog taskJobLog, Logger logger)
+//	{
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+//        String dateSuffix = sdf.format(DateUtil.getCurrentUtilDate());
+//		byte[] bs= new byte[1024];
+//		File archiveDirectory =  new File(salesFileArchivePath, branchCode);  
+//		if (!archiveDirectory.exists())
+//		{
+//			archiveDirectory.mkdirs();
+//		}
+//
+//	    for (SmbFile file : fileList)
+//	    {
+//	    	String filename =file.getName()+"."+dateSuffix ;
+//    		   try (FileOutputStream f = new FileOutputStream( new File (archiveDirectory, filename)))
+//    		   {
+//	    		   InputStream in = file.getInputStream();
+//	    		   int i = in.read(bs);
+//	    		   while (i > 0)
+//	    		   {
+//	    			   f.write(bs, 0, i);
+//	    			   i = in.read(bs);
+//	    		   }
+//	    		   in.close();
+//	   			} catch (IOException e) {
+//	            	LogUtils.printException(logger, "{} Branch Archive File Error " + filename ,e);
+//	            	taskJobLogService.createJobExceptionDetail(taskJobLog, "", "", e);
+//					break;
+//				}
+//    		   try 
+//    		   {
+//   				file.delete();
+//   			   } catch (SmbException e) {
+//   				LogUtils.printException(logger, "{} Branch Remove File Error", file.getName(), e);
+//   				taskJobLogService.createJobExceptionDetail(taskJobLog, "", "", e);
+//   			}
+//
+//        }
+//
+//	}
+
+}

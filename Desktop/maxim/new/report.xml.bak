@@ -1,0 +1,153 @@
+
+<bean id="ExcelReport" class="XXXXXXXXXXXX">
+	<property name="reportMap">
+		<map>
+			<entry key="DAYEND_REPORT" value-ref="DayEndReportGroup"/>
+			<entry key="ERROR_REPORT" value-ref="DayEndReportGroup"/>
+			<entry key="AAA_REPORT" value-ref="DayEndReportGroup"/>
+		</map>
+	</property>
+</bean>
+
+<bean id="DayEndReportGroup">
+
+	<property name="reportTitle" value="Day End Reports"/>
+	<property name="parameter">
+	  <list>
+	  </list>
+	<property>
+
+	<property name="reportList">
+		<list>
+			<ref bean="1_Error_Count_Report" />
+			<ref bean="2_Convert_Monitor_Report" />
+			<ref bean="3_Error_Log_Report" />
+			<ref bean="4_Error_Client_Report" />
+		</list>
+	</property>
+
+</bean>
+<bean id="1_Error_Count_Report" class="maxim.ReportConfiguration">
+	<property name="reportTitle" value="dasdasd"/>
+	<property name="fileName" value="dsadsa.xlsx"/>
+	<property name="fileType" value="xlsx"/>
+	<property name="queryType" value="hsql"/>
+	<property name="query">
+		<value>
+        <![CDATA[ Select .....................
+		
+		
+		
+		]]>
+		</value>
+	</property>
+</bean>
+
+
+<bean id="2_Convert_Monitor_Report" class="maxim.ReportConfiguration">
+	<property name="reportTitle" value="dasdasd"/>
+	<property name="fileName" value="dsadsa.xlsx"/>
+	<property name="fileType" value="xlsx"/>
+	<property name="queryType" value="method"/>
+	<property name="targetObject" value-ref="reportGenreator"/>
+	<property name="targetMethod" value="getConvertMonitorReportList"/>
+</bean>
+
+<bean id="reportGenreator" class="ReportGenreator"/>
+
+
+class ReportGenreator
+{
+
+   List getConvertMonitorReportList(Date bizDate)
+   {
+       Collection convertMonitorReportList = new ArrayList<ConvertMonitorReport>();
+
+	   ConvertMonitorReport dummy1 = new ConvertMonitorReport();
+	   ConvertMonitorReport dummy2 = new ConvertMonitorReport();
+	   ConvertMonitorReport dummy3 = new ConvertMonitorReport();
+	   ConvertMonitorReport dummy4 = new ConvertMonitorReport();
+	   ConvertMonitorReport dummy5 = new ConvertMonitorReport();
+
+       convertMonitorReportList.add(dummy1);
+       convertMonitorReportList.add(dummy2);
+       convertMonitorReportList.add(dummy3);
+       convertMonitorReportList.add(dummy4);
+       convertMonitorReportList.add(dummy5);
+ 
+       return convertMonitorReportList;
+
+   }
+
+
+}
+
+
+Service s = .....
+
+Collection reportList = s.getDataList(date);
+
+
+
+   MethodInovoker mi = new MethodInovoker(s, "getDataList" ) ;
+
+   Collection reportList = s mi.invokte(date) 
+
+
+
+*************************************************************************************************************************************************
+
+Service
+
+Excel getExcel(String reportID)
+{
+
+	ReportConfiguration config = ..... // get by report ID
+
+	Stirng queryType = config.getqueryType();
+
+	if (queryType.equals("method"))
+	{
+
+		MethodInovoker mi = new MethodInovoker(config.targetObject,config.targetMethod, parameters ) ;
+
+
+
+
+		Collection reportList = mi.invokde;
+
+		xls = ExcelUtil.genXls(reportList)
+
+		 return xls
+	}
+}
+
+
+public class ConvertMonitorReport
+{
+    @ExcelColumn(name = "BRACH_CODE", index=1)
+    String getBracnCode()
+
+    @ExcelColumn(name = "TIME", index=2)
+	String getTime()
+
+    @ExcelColumn(name = "Converted Count", index=3)
+	int getCovertedCount()
+
+    @ExcelColumn(name = "Expected Count", index=4)
+	int getExpectedCount
+
+
+	Getter~~
+	Anootation.....
+	
+	
+	
+public class ErrorCountReport
+{
+    @ExcelColumn(name = "BRANCH_CODE", index=1)
+    String getBracnCode()
+
+    @ExcelColumn(name = "COUNT", index=2)
+	String getCount()
+

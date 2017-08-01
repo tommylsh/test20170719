@@ -1,0 +1,222 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:cc="http://java.sun.com/jsf/composite/components"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="/templates/main.xhtml">
+    <ui:define name="title">
+        <cc:titleText title="#{msg['pos']['taskJobLog']}"/>
+    </ui:define>
+    <ui:define name="content">
+        <style>
+            table tbody tr td.dt-nowrap {
+                max-width: 120px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow-x: hidden;
+                cursor: pointer;
+            }
+        </style>
+        <script>
+            function checkElementSelection() {
+                if (PF('taskJobLogDataTableVar').selection.length == 0) {
+                    PF('infoDialog').show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <h:form id="form">
+            <p:panel header="#{msg['common']['search']}" style="width: 100%;">
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <h:outputLabel for="name" value="#{msg['pos']['branchCode']}"/>
+                            <p:inputText id="name"
+                                         value="#{taskJobLogController.dataModel.dataModelQuery.criteria.branchCode}"
+                                         label="#{msg['common']['name']}" maxlength="100"
+                                         style="width: 164px;"/>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+
+                            <h:outputLabel for="pollSchemeType" value="#{msg['pos']['pollSchemeType']}"/>
+                            <p:selectOneMenu id="pollSchemeType"
+                                             value="#{taskJobLogController.dataModel.dataModelQuery.criteria.pollSchemeType}"
+                                             filter="false" required="false" style="width: 130px;">
+                                <f:selectItem itemLabel="Please Select" itemValue=""/>
+                                <f:selectItem itemLabel="SALES_REALTIME" itemValue="SALES_REALTIME"/>
+                                <f:selectItem itemLabel="SALES_EOD" itemValue="SALES_EOD"/>
+                                <f:selectItem itemLabel="MASTER" itemValue="MASTER"/>
+
+                            </p:selectOneMenu>
+
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <h:outputLabel for="systemDate" value="Log Date"/>
+
+                            <p:calendar id="systemDate"
+                                        value="#{taskJobLogController.dataModel.dataModelQuery.criteria.startTime}"
+                                        pattern="yyyy-MM-dd" />
+
+                            <p:commandButton id="searchButton"
+                                             value="#{msg['common']['search']}"
+                                             update="taskJobLogDataTable" icon="ui-icon-search1"
+                                             style=" margin-left: 10px;"/>
+                        </div>
+                    </div>
+
+                </div>
+            </p:panel>
+
+            <p:dataTable id="taskJobLogDataTable"
+                         widgetVar="taskJobLogDataTableVar" var="element"
+                         value="#{taskJobLogController.dataModel}"
+                         selection="#{taskJobExceptionDetailController.taskJobLog}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                         emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+                <f:facet name="header">
+                    <p:graphicImage value="/images/record16.png"/>
+                    <h:outputText value="#{msg['pos']['taskJobLog']}"/>
+                </f:facet>
+                <p:column>
+                    <p:commandButton update=":form:taskJobLogDetail"
+                                     oncomplete="PF('taskJobLogDetailDialogVar').show()"
+                                     icon="ui-icon-search" title="#{msg['pos']['taskJobLogDetail']}">
+                        <f:setPropertyActionListener value="#{element.id}"
+                                                     target="#{taskJobLogDetailController.taskJobLogId}"/>
+                    </p:commandButton>
+                    <p:commandButton update=":form:taskJobExceptionDetail"
+                                     oncomplete="PF('taskJobExceptionDetailDialogVar').show()"
+                                     icon="ui-icon-search" title="#{msg['pos']['taskJobExceptionDetail']}">
+                        <f:setPropertyActionListener value="#{element.id}"
+                                                     target="#{taskJobExceptionDetailController.taskJobLogId}"/>
+                    </p:commandButton>
+                </p:column>
+                <p:column headerText="taskJobId">
+                    <h:outputText value="#{element.id}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['branchCode']}">
+                    <h:outputText value="#{element.branchCode}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['pollSchemeType']}">
+                    <h:outputText value="#{element.pollSchemeType}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['direction']}">
+                    <h:outputText value="#{element.direction}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['startTime']}">
+                    <h:outputText value="#{element.startTime}">
+                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="#{msg['pos']['endTime']}">
+                    <h:outputText value="#{element.endTime}">
+                        <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss"/>
+                    </h:outputText>
+                </p:column>
+                <p:column headerText="#{msg['pos']['lastestJobInd']}">
+                    <h:outputText value="#{element.lastestJobInd}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['status']}">
+                    <h:outputText value="#{element.status}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['taskName']}">
+                    <h:outputText value="#{element.taskName}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['dependOn']}">
+                    <h:outputText value="#{element.dependOn}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['pollSchemeName']}">
+                    <h:outputText value="#{element.pollSchemeName}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['errorCode']}">
+                    <h:outputText value="#{element.errorCode}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['errorMsg']}">
+                    <h:outputText value="#{element.errorMsg}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['pollBranchId']}">
+                    <h:outputText value="#{element.pollBranchId}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['pollSchemedesc']}">
+                    <h:outputText value="#{element.pollSchemedesc}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog widgetVar="taskJobLogDetailDialogVar" width="80%"
+                      modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="taskJobLogDetail" style="text-align:center;">
+                    <p:dataTable id="taskJobLogDetailDataTable"
+                                 widgetVar="taskJobLogDetailDataTableVar"
+                                 rendered="#{taskJobLogDetailController.taskJobLogId != null}"
+                                 value="#{taskJobLogDetailController.dataModel}" var="element"
+                                 paginator="true" rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                                 emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+                        <f:facet name="header">
+                            <p:graphicImage value="/images/record16.png"/>
+                            <h:outputText value="#{msg['pos']['taskJobLogDetail']}"/>
+                        </f:facet>
+                        <p:column headerText="#{msg['pos']['source']}">
+                            <h:outputText value="#{element.source}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['destination']}">
+                            <h:outputText value="#{element.destination}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['numOfRecProcessed']}">
+                            <h:outputText value="#{element.numOfRecProcessed}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['numOfRecInsert']}">
+                            <h:outputText value="#{element.numOfRecInsert}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['numOfRecUpdate']}">
+                            <h:outputText value="#{element.numOfRecUpdate}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['numOfRecDelete']}">
+                            <h:outputText value="#{element.numOfRecDelete}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+            </p:dialog>
+
+            <p:dialog widgetVar="taskJobExceptionDetailDialogVar" width="80%"
+                      modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="taskJobExceptionDetail" style="text-align:center;">
+                    <p:dataTable id="taskJobExceptionDetailDataTable"
+                                 widgetVar="taskJobExceptionDetailDataTableVar"
+                                 rendered="#{taskJobExceptionDetailController.taskJobLogId != null}"
+                                 value="#{taskJobExceptionDetailController.dataModel}" var="element"
+                                 paginator="true" rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                                 emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+                        <f:facet name="header">
+                            <p:graphicImage value="/images/record16.png"/>
+                            <h:outputText value="#{msg['pos']['taskJobExceptionDetail']}"/>
+                        </f:facet>
+                        <p:column headerText="#{msg['pos']['source']}">
+                            <h:outputText value="#{element.source}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['destination']}">
+                            <h:outputText value="#{element.destination}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['exceptionContent']}" styleClass="dt-nowrap">
+                            <h:outputText value="#{element.exceptionContent}" title="#{element.exceptionContent}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+            </p:dialog>
+
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

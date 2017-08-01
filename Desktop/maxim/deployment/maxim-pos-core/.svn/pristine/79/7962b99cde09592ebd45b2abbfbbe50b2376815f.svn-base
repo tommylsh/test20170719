@@ -1,0 +1,13 @@
+package com.maxim.pos.sales.service;
+
+import org.slf4j.Logger;
+
+import java.util.Date;
+
+public interface RealTimeService {
+
+    void processStgRealTimeDataToEdw(String branchCode, Logger logger);
+
+    void processStgRealTimeDataToEdw(String branchCode, Date businessDate, Logger logger);
+
+}

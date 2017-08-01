@@ -1,0 +1,39 @@
+
+select count(1)
+from orders
+
+
+ where branch_code='1001'
+
+
+
+select count(1)
+from hist_orders
+ where branch_code='1002'
+
+
+select count(1)
+from Hist_orders_pay
+ where branch_code='1002'
+
+
+
+
+SELECT * FROM Hist_orders_pay WITH (NOLOCK)  WHERE  branch_code  = '1002'
+
+
+insert into dbo.hist_possystem 
+SELECT new  ,'2017-04-26'    ,branch_cname                                       ,branch_ename                                       ,branch_type ,
+register_count ,service_chg_rate ,gst_rate ,accum_sales           ,post_count   ,open_time ,post_time ,post_mode ,net_disc              ,disc_prod             ,
+n_cake_sale           ,cake_order            ,cake_redeem           ,input_sale            ,reserved             ,status ,last_update_time        ,rowguid                              
+FROM dbo.hist_possystem 
+join (
+SELECT distinct branch_code new FROM dbo.hist_orders) as A on 1=1
+where branch_code = '4466'
+
+
+
+SELECT distinct branch_code FROM dbo.hist_orders
+
+
+SELECT * FROM dbo.hist_orders where branch_code='1001'

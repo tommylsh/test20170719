@@ -1,0 +1,23 @@
+GENERAL.WAR_FILENAME=maxim-pos-web.war
+GENERAL.REST_FILENAME=maxim-rest.war
+GENERAL.WAR_UPLOAD_PATH=/tmp
+GENERAL.JAVA_PATH=/home/oracle/products/jdk1.8.0_101
+GENERAL.WEBLOGIC_JAR=/home/oracle/products/Oracle_Home/wlserver/server/lib/weblogic.jar
+GENERAL.DEPLOY_NAME=maxim-pos-web
+GENERAL.DEPLOY_REST_NAME=maxim-pos-web
+GENERAL.DEPLOY_SERVER=app_cluster
+GENERAL.PUTTY_PATH="C:\Program Files\PuTTY"
+
+#home/oracle/config/domains/base_domain/servers/ESB_Dev_AdminServer/upload
+
+
+UAT.SSH_USER=oracle
+UAT.SSH_PASSWORD=Passw0rd
+UAT.SSH_SERVER=10.10.33.26
+UAT.WEBLOGIC_ADMIN_URL=10.10.33.26:9001
+UAT.WEBLOGIC_USER=weblogic
+UAT.WEBLOGIC_PASSWORD=Passw0rd 
+
+UAT1.DEPLOY_SERVER=app_server_1
+UAT2.DEPLOY_SERVER=app_server_2
+

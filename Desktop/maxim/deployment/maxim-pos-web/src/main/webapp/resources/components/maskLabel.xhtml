@@ -1,0 +1,21 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+	<composite:attribute name="id" required="false" />
+	<composite:attribute name="for" required="false" />
+	<composite:attribute name="value" required="true" />
+	<composite:attribute name="style" required="false" />
+
+</composite:interface>
+
+<composite:implementation>
+
+	<h:outputLabel id="#{cc.attrs.id}" for="#{cc.attrs.for}"
+		value="* #{cc.attrs.value}" style="#{cc.attrs.style}" />
+
+</composite:implementation>
+</html>

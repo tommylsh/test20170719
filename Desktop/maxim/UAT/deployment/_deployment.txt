@@ -1,0 +1,1 @@
+/home/oracle/products/jdk1.8.0_101/bin/java -cp /home/oracle/products/Oracle_Home/wlserver/server/lib/weblogic.jar  weblogic.Deployer -url 10.10.33.26:9001 -user weblogic -password Passw0rd  -redeploy -name maxim-pos-web -targets app_cluster -source /tmp/maxim-pos-web.war

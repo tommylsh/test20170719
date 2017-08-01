@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maxim.core.mapper.OrdersMapper" >
+  <insert id="insert" parameterType="com.maxim.api.model.Orders" >
+    insert into VB_ORDERS (ROWGUID, BRANCH_CODE, BUSINESS_DATE,
+      ORDER_NO, EVENT_NO, TRANS_TYPE, 
+      ORDER_SEQ, TRANS_DATETIME, UID_CD, 
+      STATION_ID, TABLE_ID, NOP, 
+      GROSS_AMT, TOTAL_QTY, PMT_NO, 
+      DISC_OFF_RATE, DEDUCT_AMT, NET_AMT, 
+      SERV_CHG_AMT, DISC_SERV_CHG, GST_AMT, 
+      GRAND_TOTAL, DEPOSIT, REMAIN, 
+      CLOSE_DATETIME, CLOSE_UID, CLOSE_STATION_ID, 
+      RECALL, REFUND, VOID_CD, 
+      VOID_DATETIME, VOID_UID, VOID_STATION_ID, 
+      ORG_ORDER_NO, AUTH_UID, VOID_REASON, 
+      PRINT_TIMES, REMARK_TYPE, REMARKS, 
+      PENDING, RESERVED, "STATUS", 
+      LAST_UPDATE_TIME)
+    values (#{rowguid,jdbcType=VARCHAR}, #{branchCode,jdbcType=VARCHAR}, #{businessDate,jdbcType=TIMESTAMP}, 
+      #{orderNo,jdbcType=VARCHAR}, #{eventNo,jdbcType=VARCHAR}, #{transType,jdbcType=VARCHAR}, 
+      #{orderSeq,jdbcType=DECIMAL}, #{transDatetime,jdbcType=TIMESTAMP}, #{uid,jdbcType=DECIMAL}, 
+      #{stationId,jdbcType=VARCHAR}, #{tableId,jdbcType=VARCHAR}, #{nop,jdbcType=DECIMAL}, 
+      #{grossAmt,jdbcType=DECIMAL}, #{totalQty,jdbcType=DECIMAL}, #{pmtNo,jdbcType=VARCHAR}, 
+      #{discOffRate,jdbcType=DECIMAL}, #{deductAmt,jdbcType=DECIMAL}, #{netAmt,jdbcType=DECIMAL}, 
+      #{servChgAmt,jdbcType=DECIMAL}, #{discServChg,jdbcType=CHAR}, #{gstAmt,jdbcType=DECIMAL}, 
+      #{grandTotal,jdbcType=DECIMAL}, #{deposit,jdbcType=DECIMAL}, #{remain,jdbcType=DECIMAL}, 
+      #{closeDatetime,jdbcType=TIMESTAMP}, #{closeUid,jdbcType=DECIMAL}, #{closeStationId,jdbcType=VARCHAR}, 
+      #{recall,jdbcType=DECIMAL}, #{refund,jdbcType=CHAR}, #{voidVal,jdbcType=CHAR}, 
+      #{voidDatetime,jdbcType=TIMESTAMP}, #{voidUid,jdbcType=DECIMAL}, #{voidStationId,jdbcType=VARCHAR}, 
+      #{orgOrderNo,jdbcType=VARCHAR}, #{authUid,jdbcType=DECIMAL}, #{voidReason,jdbcType=VARCHAR}, 
+      #{printTimes,jdbcType=DECIMAL}, #{remarkType,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR}, 
+      #{pending,jdbcType=DECIMAL}, #{reserved,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maxim.api.model.Orders" >
+    insert into VB_ORDERS
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rowguid != null" >
+        ROWGUID,
+      </if>
+      <if test="branchCode != null" >
+        BRANCH_CODE,
+      </if>
+      <if test="businessDate != null" >
+        BUSINESS_DATE,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="eventNo != null" >
+        EVENT_NO,
+      </if>
+      <if test="transType != null" >
+        TRANS_TYPE,
+      </if>
+      <if test="orderSeq != null" >
+        ORDER_SEQ,
+      </if>
+      <if test="transDatetime != null" >
+        TRANS_DATETIME,
+      </if>
+      <if test="uid != null" >
+        "UID_CD",
+      </if>
+      <if test="stationId != null" >
+        STATION_ID,
+      </if>
+      <if test="tableId != null" >
+        TABLE_ID,
+      </if>
+      <if test="nop != null" >
+        NOP,
+      </if>
+      <if test="grossAmt != null" >
+        GROSS_AMT,
+      </if>
+      <if test="totalQty != null" >
+        TOTAL_QTY,
+      </if>
+      <if test="pmtNo != null" >
+        PMT_NO,
+      </if>
+      <if test="discOffRate != null" >
+        DISC_OFF_RATE,
+      </if>
+      <if test="deductAmt != null" >
+        DEDUCT_AMT,
+      </if>
+      <if test="netAmt != null" >
+        NET_AMT,
+      </if>
+      <if test="servChgAmt != null" >
+        SERV_CHG_AMT,
+      </if>
+      <if test="discServChg != null" >
+        DISC_SERV_CHG,
+      </if>
+      <if test="gstAmt != null" >
+        GST_AMT,
+      </if>
+      <if test="grandTotal != null" >
+        GRAND_TOTAL,
+      </if>
+      <if test="deposit != null" >
+        DEPOSIT,
+      </if>
+      <if test="remain != null" >
+        REMAIN,
+      </if>
+      <if test="closeDatetime != null" >
+        CLOSE_DATETIME,
+      </if>
+      <if test="closeUid != null" >
+        CLOSE_UID,
+      </if>
+      <if test="closeStationId != null" >
+        CLOSE_STATION_ID,
+      </if>
+      <if test="recall != null" >
+        RECALL,
+      </if>
+      <if test="refund != null" >
+        REFUND,
+      </if>
+      <if test="voidVal != null" >
+        VOID_CD,
+      </if>
+      <if test="voidDatetime != null" >
+        VOID_DATETIME,
+      </if>
+      <if test="voidUid != null" >
+        VOID_UID,
+      </if>
+      <if test="voidStationId != null" >
+        VOID_STATION_ID,
+      </if>
+      <if test="orgOrderNo != null" >
+        ORG_ORDER_NO,
+      </if>
+      <if test="authUid != null" >
+        AUTH_UID,
+      </if>
+      <if test="voidReason != null" >
+        VOID_REASON,
+      </if>
+      <if test="printTimes != null" >
+        PRINT_TIMES,
+      </if>
+      <if test="remarkType != null" >
+        REMARK_TYPE,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="pending != null" >
+        PENDING,
+      </if>
+      <if test="reserved != null" >
+        RESERVED,
+      </if>
+      <if test="status != null" >
+        "STATUS",
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rowguid != null" >
+        #{rowguid,jdbcType=VARCHAR},
+      </if>
+      <if test="branchCode != null" >
+        #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessDate != null" >
+        #{businessDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="eventNo != null" >
+        #{eventNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSeq != null" >
+        #{orderSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="transDatetime != null" >
+        #{transDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=DECIMAL},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=VARCHAR},
+      </if>
+      <if test="tableId != null" >
+        #{tableId,jdbcType=VARCHAR},
+      </if>
+      <if test="nop != null" >
+        #{nop,jdbcType=DECIMAL},
+      </if>
+      <if test="grossAmt != null" >
+        #{grossAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="totalQty != null" >
+        #{totalQty,jdbcType=DECIMAL},
+      </if>
+      <if test="pmtNo != null" >
+        #{pmtNo,jdbcType=VARCHAR},
+      </if>
+      <if test="discOffRate != null" >
+        #{discOffRate,jdbcType=DECIMAL},
+      </if>
+      <if test="deductAmt != null" >
+        #{deductAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="netAmt != null" >
+        #{netAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="servChgAmt != null" >
+        #{servChgAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="discServChg != null" >
+        #{discServChg,jdbcType=CHAR},
+      </if>
+      <if test="gstAmt != null" >
+        #{gstAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="grandTotal != null" >
+        #{grandTotal,jdbcType=DECIMAL},
+      </if>
+      <if test="deposit != null" >
+        #{deposit,jdbcType=DECIMAL},
+      </if>
+      <if test="remain != null" >
+        #{remain,jdbcType=DECIMAL},
+      </if>
+      <if test="closeDatetime != null" >
+        #{closeDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="closeUid != null" >
+        #{closeUid,jdbcType=DECIMAL},
+      </if>
+      <if test="closeStationId != null" >
+        #{closeStationId,jdbcType=VARCHAR},
+      </if>
+      <if test="recall != null" >
+        #{recall,jdbcType=DECIMAL},
+      </if>
+      <if test="refund != null" >
+        #{refund,jdbcType=CHAR},
+      </if>
+      <if test="voidVal != null" >
+        #{voidVal,jdbcType=CHAR},
+      </if>
+      <if test="voidDatetime != null" >
+        #{voidDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="voidUid != null" >
+        #{voidUid,jdbcType=DECIMAL},
+      </if>
+      <if test="voidStationId != null" >
+        #{voidStationId,jdbcType=VARCHAR},
+      </if>
+      <if test="orgOrderNo != null" >
+        #{orgOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="authUid != null" >
+        #{authUid,jdbcType=DECIMAL},
+      </if>
+      <if test="voidReason != null" >
+        #{voidReason,jdbcType=VARCHAR},
+      </if>
+      <if test="printTimes != null" >
+        #{printTimes,jdbcType=DECIMAL},
+      </if>
+      <if test="remarkType != null" >
+        #{remarkType,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="pending != null" >
+        #{pending,jdbcType=DECIMAL},
+      </if>
+      <if test="reserved != null" >
+        #{reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="delete" parameterType="com.maxim.api.model.Orders">
+    DELETE FROM VB_ORDERS
+    WHERE
+    BRANCH_CODE = #{branchCode,jdbcType=VARCHAR}
+    AND BUSINESS_DATE =  #{businessDate,jdbcType=TIMESTAMP}
+    AND  ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+  </delete>
+</mapper>

@@ -1,0 +1,156 @@
+#parse ("macro.vm")
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:cc="http://java.sun.com/jsf/composite/components"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="/templates/main.xhtml">
+    <ui:define name="title">
+        <cc:titleText title="#{msg['pos']['#toLowerCase(${entitySimpleName})']}"/>
+    </ui:define>
+    <ui:define name="content">
+        <style>
+            .#toLowerCase(${entitySimpleName})DataTable table tbody td {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+        </style>
+        <script>
+            function checkElementSelection() {
+                if (PF('#toLowerCase(${entitySimpleName})DataTableVar').selection.length == 0) {
+                    PF('infoDialog').show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <h:form id="#toLowerCase(${entitySimpleName})DataTableForm">
+            #if(${enableQueryByKeyword}=='true')
+            <p:panel header="#{msg['common']['search']}" style="width: 100%;">
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <h:outputLabel for="name" value="#{msg['pos']['#toLowerCase(${keyword})']}"/>
+                            <p:inputText id="name"
+                                         value="#{#toLowerCase(${entitySimpleName})Controller.dataModel.dataModelQuery.criteria.#toLowerCase(${keyword})Keyword}"
+                                         label="#{msg['common']['name']}" maxlength="100"
+                                         style="width: 164px;"/>
+                            <p:commandButton id="searchButton"
+                                             value="#{msg['common']['search']}"
+                                             update="#toLowerCase(${entitySimpleName})DataTable" icon="ui-icon-search1"
+                                             style=" margin-left: 10px;"/>
+                        </div>
+                    </div>
+
+                </div>
+            </p:panel>
+            <cc:spacer/>
+            #end
+            #if(${enableAdd}=='true' || ${enableUpdate}=='true' || ${enableDelete}=='true')
+            <p:toolbar id="toolbar">
+                <p:toolbarGroup align="left">
+                    #if(${enableAdd}=='true')
+                    <p:commandButton id="addBtn" value="#{msg['common']['add']}"
+                                     process="@this" action="#{#toLowerCase(${entitySimpleName})Controller.add}"
+                                     update=":#toLowerCase(${entitySimpleName})DialogForm"
+                                     oncomplete="PF('#toLowerCase(${entitySimpleName})DialogVar').show();"
+                                     icon="ui-icon-add"/>
+                    #end
+                    #if(${enableUpdate}=='true')
+                    <p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+                                     process="@form"
+                                     update=":#toLowerCase(${entitySimpleName})DialogForm"
+                                     oncomplete="PF('#toLowerCase(${entitySimpleName})DialogVar').show();" icon="ui-icon-edit"
+                                     onclick="if (!checkDatatableSelection('#toLowerCase(${entitySimpleName})DataTableVar')) return false;"/>
+                    #end
+                    #if(${enableDelete}=='true')
+                    <p:commandButton id="deleteBtn"
+                                     value="#{msg['common']['delete']}" process="@form"
+                                     action="#{#toLowerCase(${entitySimpleName})Controller.delete}"
+                                     update=":#toLowerCase(${entitySimpleName})DataTableForm:#toLowerCase(${entitySimpleName})DataTable"
+                                     icon="ui-icon-delete"
+                                     onclick="if (!confirmDeleteDatatableRecord('#toLowerCase(${entitySimpleName})DataTableVar')) return false;"
+                                     rendered="#{commonController.loginUser.isAdmin()}"/>
+                    #end
+                </p:toolbarGroup>
+            </p:toolbar>
+            <cc:spacer height="3"/>
+            #end
+            <p:dataTable id="#toLowerCase(${entitySimpleName})DataTable" styleClass="#toLowerCase(${entitySimpleName})DataTable"
+                         widgetVar="#toLowerCase(${entitySimpleName})DataTableVar" var="element"
+                         value="#{#toLowerCase(${entitySimpleName})Controller.dataModel}"
+                         selection="#{#toLowerCase(${entitySimpleName})Controller.#toLowerCase(${entitySimpleName})}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                         emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+
+                <f:facet name="header">
+                    <p:graphicImage value="/images/record16.png"/>
+                    <h:outputText value="#{msg['pos']['#toLowerCase(${entitySimpleName})']}"/>
+                </f:facet>
+                #if(${enableUpdate}=='true' || ${enableDelete}=='true')
+                <p:column selectionMode="single" style="width:16px; text-align:center"/>
+                #end
+                #foreach($name in ${fieldList})
+                <p:column headerText="#{msg['pos']['$name']}">
+                    <h:outputText value="#{element.$name}"/>
+                </p:column>
+                #end
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+    #if(${enableAdd}=='true' || ${enableUpdate}=='true')
+    <ui:define name="dialog">
+        <p:dialog id="#toLowerCase(${entitySimpleName})Dialog"
+                  widgetVar="#toLowerCase(${entitySimpleName})DialogVar" modal="true" width="600"
+                  resizable="false">
+            <f:facet name="header">
+                <p:graphicImage value="/images/element16.png"/>
+                <h:outputText value="#{msg['pos']['#toLowerCase(${entitySimpleName})']} #{msg['pos']['detail']}"/>
+            </f:facet>
+            <h:form id="#toLowerCase(${entitySimpleName})DialogForm">
+
+                <h:panelGrid id="formPanel" columns="2"
+                             columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5" style="width: 100%;"
+                             rendered="#{#toLowerCase(${entitySimpleName})Controller.#toLowerCase(${entitySimpleName}) != null}">
+                    #foreach($name in ${fieldList})
+                    <h:outputLabel for="$name" value="#{msg['pos']['$name']}"/>
+                    <p:inputText id="$name" value="#{#toLowerCase(${entitySimpleName})Controller.#toLowerCase(${entitySimpleName}).$name}"
+                                 style="width: 95%"/>
+                    #end
+                    <p:spacer/>
+                    <h:panelGroup style="width: 95%; display: inline-block; text-align: right;">
+                        <p:commandButton id="submitButton" value="#{msg['common']['save']}"
+                                         actionListener="#{#toLowerCase(${entitySimpleName})Controller.save}"
+                                         update="@form :#toLowerCase(${entitySimpleName})DataTableForm :primefaceMessages"
+                                         oncomplete="handleComplete(xhr, status, args)"
+                                         icon="ui-icon-save1" style=" margin-right: -7px;"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+        <script type="text/javascript">
+            function handleComplete(xhr, status, args) {
+                if (args.validationFailed) {
+                    PF('#toLowerCase(${entitySimpleName})DialogVar').jq.effect("shake", {
+                        times: 3
+                    }, 100);
+                } else {
+                    PF('#toLowerCase(${entitySimpleName})DialogVar').hide();
+                }
+            }
+            $(document).bind("keyup", function (evt) {
+                if (27 == evt.keyCode) {
+                    PF('#toLowerCase(${entitySimpleName})DialogVar').hide();
+                }
+            });
+        </script>
+    </ui:define>
+    #end
+</ui:composition>

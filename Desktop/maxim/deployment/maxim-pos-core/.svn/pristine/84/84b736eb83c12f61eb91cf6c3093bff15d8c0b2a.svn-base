@@ -1,0 +1,51 @@
+package com.maxim.pos.test.common.service;
+
+import com.maxim.pos.common.entity.SchemeJobLog;
+import com.maxim.pos.common.enumeration.JobProcessStatus;
+import com.maxim.pos.common.enumeration.LatestJobInd;
+import com.maxim.pos.common.service.SchedulerJobLogService;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.pos.common.value.SchemeJobLogQueryCriteria;
+import com.maxim.pos.test.common.BaseTest;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Date;
+import java.util.List;
+
+
+public class SchedulerJobLogServiceTest extends BaseTest {
+
+    @Autowired
+    private SchedulerJobLogService schedulerJobLogService;
+
+    @Test
+    public void testAddOrUpdateSchemeJobLog(){
+/*        SchemeJobLog schemeJobLog = new SchemeJobLog();
+        schemeJobLog.setId(123456789L);
+        schemeJobLog.setEndTime(new Date());
+        schemeJobLog.setScheduleJobId(6554879L);
+        schemeJobLog.setStatus(JobProcessStatus.COMPLETE);
+        schemeJobLog.setCreateTime(new Date());
+        schemeJobLog.setCreateUser("admin");
+        schemeJobLog.setLastUpdateTime(new Date());
+        schemeJobLog.setLastUpdateUser("admin");
+        schedulerJobLogService.addOrUpdateSchemeJobLog(schemeJobLog); */
+    }
+
+    @Test
+    public  void testFindLatestSchemeJobLog(){
+        SchemeJobLog schemeJobLog =  schedulerJobLogService.findLatestSchemeJobLog(123L);
+        LogUtils.printLog(logger, "id===={}: process complete", schemeJobLog.getId());
+    }
+
+    @Test
+    public  void testFindSchemeJobLogByCriteria(){
+        CommonCriteria  commonCriteria = new CommonCriteria();
+        commonCriteria.setEntityId(8L);
+         List<SchemeJobLog> list = schedulerJobLogService.findSchemeJobLogByCriteria(commonCriteria);
+        LogUtils.printLog(logger,"list.size()==={}",list.size());
+    }
+
+}

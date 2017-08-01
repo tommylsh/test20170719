@@ -1,0 +1,12 @@
+package com.maxim.pos.common.enumeration;
+
+public enum Direction {
+
+	POS_TO_STG, 
+	STG_TO_POS,
+	STG_TO_EDW,
+	EDW_TO_STG,
+	MST_TO_STG,
+	STG_TO_SMTP
+    
+}

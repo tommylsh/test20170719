@@ -1,0 +1,9 @@
+Revise Split Date Logic
+
+
+1)	Split Order to diiferent bizDate		(Use Exising SQL	SalesServiceBaseImpl-> updateBussinessDate)
+2)	Update the tables by the Order			(branch_code, business_date, order_no, recall)
+3)	Duplicate hist_possystem			(business_date, branch_code )
+4)	Get the full business date list			(Use Exisint SQL	SalesServiceBaseImpl-> getBussinessDate)
+5)	Build #hist_paysum #hist_payfig by SP Logic
+

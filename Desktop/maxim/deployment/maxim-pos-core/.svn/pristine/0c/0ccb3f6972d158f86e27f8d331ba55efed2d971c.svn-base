@@ -1,0 +1,37 @@
+package com.maxim.pos.common.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.entity.SchemeJobLog;
+import com.maxim.pos.common.persistence.SchemeJobLogDao;
+import com.maxim.pos.common.value.CommonCriteria;
+
+@Service("schedulerJobLogService")
+public class SchedulerJobLogServiceImpl implements SchedulerJobLogService {
+
+    @Autowired
+    private SchemeJobLogDao schemeJobLogDao;
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<SchemeJobLog> findSchemeJobLogByCriteria(CommonCriteria criteria) {
+       return schemeJobLogDao.findSchemeJobLogByCriteria(criteria);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public SchemeJobLog findLatestSchemeJobLog(Long schedulerJobId) {
+        return schemeJobLogDao.findLatestSchemeJobLog(schedulerJobId);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+    public SchemeJobLog addOrUpdateSchemeJobLog(SchemeJobLog schemeJobLog) {
+        return schemeJobLogDao.addOrUpdateSchemeJobLog(schemeJobLog);
+    }
+}

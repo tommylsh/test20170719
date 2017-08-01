@@ -1,0 +1,87 @@
+package com.maxim.pos.sales.persistence;
+
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.SchemeTableColumn;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import java.util.Collections;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository("realTimeDao")
+public class RealTimeDaoImpl implements RealTimeDao {
+
+    @Autowired
+    protected NamedParameterJdbcTemplate jdbcTemplate;
+
+    @Override
+    public List<Map<String, Object>> getRealTimeDataList(SchemeInfo schemeInfo, String branchCode, Date businessDate) {
+    	StringBuilder sqlTemplate = new StringBuilder("SELECT %s FROM %s WHERE status<>'C' AND branch_code=:branchCode ");
+		if (businessDate != null) {
+			sqlTemplate.append(" AND DATEDIFF(day,business_date,:businessDate)=0");
+		}
+        
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("branchCode", branchCode);
+        paramMap.put("businessDate", businessDate);
+
+        String fromTable = schemeInfo.getSource();
+        if (StringUtils.isEmpty(fromTable)) {
+            return Collections.emptyList();
+        }
+
+        List<SchemeTableColumn> tableColumns = schemeInfo.getSchemeTableColumns();
+        if (tableColumns.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        StringBuilder columns = new StringBuilder();
+        for (SchemeTableColumn tableColumn : tableColumns) {
+            if (tableColumn == null
+                    || tableColumn.getFromColumn() == null
+                    || tableColumn.getToColumn() == null) {
+                continue;
+            }
+            columns.append(tableColumn.getFromColumn())
+                    .append(" AS ")
+                    .append(removeUnderscore(tableColumn.getFromColumn()))
+                    .append(",");
+        }
+        if (StringUtils.isEmpty(columns.toString())) {
+            return Collections.emptyList();
+        }
+        if (columns.length() > 1) {
+            columns.deleteCharAt(columns.length() - 1);
+        }
+
+        String sql = String.format(sqlTemplate.toString(), columns.toString(), fromTable);
+        return jdbcTemplate.queryForList(sql, paramMap);
+    }
+
+    @Override
+    public int updateStatus(String sourceTable, String branchCode, Date businessDate) {
+    	StringBuilder sqlTemplate = new StringBuilder("UPDATE " + sourceTable + " SET status='C' WHERE status<>'C' AND branch_code=:branchCode ");
+		if (businessDate != null) {
+			sqlTemplate.append(" AND DATEDIFF(day,business_date,:businessDate)=0");
+		}
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("branchCode", branchCode);
+        paramMap.put("businessDate", businessDate);
+        return jdbcTemplate.update(sqlTemplate.toString(), paramMap);
+    }
+
+    private static String removeUnderscore(String column) {
+        StringBuilder result = new StringBuilder();
+        String[] arr = column.toLowerCase().split("_");
+        for (String str : arr) {
+            result.append(StringUtils.capitalize(str));
+        }
+        return StringUtils.uncapitalize(result.toString());
+    }
+
+}

@@ -1,0 +1,290 @@
+package com.maxim.pos.common.service;
+
+import java.util.Date;
+import java.util.List;
+import java.util.TreeSet;
+import java.util.stream.IntStream;
+
+import javax.annotation.Resource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeJobLog;
+import com.maxim.pos.common.entity.TaskJobExceptionDetail;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.entity.TaskJobLogDetail;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.ExceptionDetailStatus;
+import com.maxim.pos.common.enumeration.LatestJobInd;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.enumeration.TaskProcessStatus;
+import com.maxim.pos.common.persistence.ApplicationSettingDao;
+import com.maxim.pos.common.persistence.TaskJobLogDao;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.value.CommonCriteria;
+
+@Transactional
+@Service("taskJobLogService")
+public class TaskJobLogServiceImpl implements TaskJobLogService {
+
+    @Autowired
+    private TaskJobLogDao taskJobLogDao;
+    
+    @Resource(name="hibernateDAO")
+    HibernateDAO dao ;
+    
+    @Autowired
+    ApplicationSettingDao applicationSettingDao ;
+    
+//    @Autowired
+//    private ApplicationSettingService applicationSettingService;
+
+    @Override
+    public List<TaskJobLog> findTaskJobLogByCriteria(CommonCriteria criteria) {
+        return taskJobLogDao.findTaskJobLogByCriteria(criteria);
+    }
+
+    @Override
+    public TaskJobLog findLatestTaskJobLog(BranchScheme branchScheme) {
+        Assert.notNull(branchScheme, "'branchScheme' can't be null.");
+
+        Direction direction = branchScheme.getDirection();
+        Long branchSchemeId = branchScheme.getId();
+        PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+        Assert.notNull(direction, "'direction' can't be null.");
+        Assert.notNull(branchSchemeId, "'branchSchemeId' can't be null.");
+        Assert.notNull(pollSchemeType, "'pollSchemeType' can't be null.");
+
+//        SchemeScheduleJob schemeScheduleJob = branchScheme.getSchemeScheduleJob();
+        String branchCode = branchScheme.getBranchMaster().getBranchCode();
+//        Assert.notNull(schemeScheduleJob, "'schemeScheduleJob' can't be null.");
+//        Long schemeScheduleJobId = schemeScheduleJob.getId();
+//        Assert.notNull(schemeScheduleJobId, "'schemeScheduleJobId' can't be null.");
+        return taskJobLogDao.findLatestTaskJobLog(direction, branchSchemeId, pollSchemeType, branchCode);
+//        return taskJobLogDao.findLatestTaskJobLog(direction, branchSchemeId, pollSchemeType, schemeScheduleJob==null?null:schemeScheduleJob.getId());
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+    public TaskJobLog acquireTaskJobLog(BranchScheme branchScheme, SchemeJobLog schemeJobLog) 
+    {
+        Direction direction = branchScheme.getDirection();
+        Long branchSchemeId = branchScheme.getId();
+        PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+        String branchCode = branchScheme.getBranchMaster().getBranchCode();
+        TaskJobLog currentTaskLog = branchScheme.getTaskLog() ;
+        
+    	if (currentTaskLog != null)
+    	{
+            taskJobLogDao.purgeTaskJobLog(direction, branchSchemeId, pollSchemeType, branchCode, TaskProcessStatus.NONE);
+            taskJobLogDao.updatePendingTaskJobLog(direction, branchSchemeId, pollSchemeType, branchCode);
+            
+            if (currentTaskLog.getLastTaskJobLogId() != null)
+            {
+    			TaskJobLog lastTaskJobLog = taskJobLogDao.findByKey(currentTaskLog.getLastTaskJobLogId());
+    			currentTaskLog.setLastTaskJobLog(lastTaskJobLog);
+            }
+
+            return currentTaskLog ;
+    	}
+    	
+		LogUtils.printLog("{} branch lock{}",
+				branchCode,branchSchemeId);
+
+    	applicationSettingDao.getApplicationLock();
+
+		LogUtils.printLog("{} branch code find Latest {}",
+				branchCode,branchSchemeId);
+        TaskJobLog lastTaskJobLog = taskJobLogDao.findLatestTaskJobLog(direction, branchSchemeId, pollSchemeType, branchCode);
+        if (lastTaskJobLog != null) {
+		LogUtils.printLog("{} branch code found Latest {} {}",
+				branchCode, lastTaskJobLog.getId(), lastTaskJobLog.getStatus());
+        }
+        else
+        {
+    		LogUtils.printLog("{} branch code no Latest ",
+    				branchCode);
+        }
+       
+        if (lastTaskJobLog != null) {
+            if (lastTaskJobLog.getStatus() == TaskProcessStatus.PROGRESS || lastTaskJobLog.getStatus() == TaskProcessStatus.PENDING) {
+            	if(System.currentTimeMillis() - lastTaskJobLog.getLastUpdateTime().getTime() > 3600000){
+					LogUtils.printLog("{} branch code process continue 1 hour ,auto update status  to failed ",
+							branchCode);
+					lastTaskJobLog.setStatus(TaskProcessStatus.FAILED);
+//					lastTaskJobLog.setLastestJobInd(LatestJobInd.N);
+		            Auditer.audit(lastTaskJobLog);
+		            taskJobLogDao.update(lastTaskJobLog);
+				} else {
+					LogUtils.printLog("{} branch code process within 1 hour ,skipped ",
+							branchCode);
+					return null ;
+				}
+            }
+//            else
+//            {
+//				lastTaskJobLog.setLastestJobInd(LatestJobInd.N);
+//	            taskJobLogDao.update(lastTaskJobLog);
+//            }
+        }
+        TaskJobLog taskLog = new TaskJobLog();
+        taskLog.setLastestJobInd(LatestJobInd.P);
+        taskLog.setStatus(TaskProcessStatus.PENDING);
+        taskLog.setStartTime(new Date());
+        Auditer.audit(taskLog);
+        taskLog.setSchemeScheduleJob(branchScheme.getSchemeScheduleJob());
+        taskLog.setPollSchemeID(branchScheme.getId());
+        taskLog.setDirection(branchScheme.getDirection());
+        taskLog.setPollSchemeType(branchScheme.getPollSchemeType());
+        taskLog.setSchemeJobLog(schemeJobLog);
+        
+        taskLog.setBranchCode(branchScheme.getBranchMaster().getBranchCode());
+        taskLog.setPollBranchId(branchScheme.getBranchInfo().getId());
+        taskLog.setPollSchemeName(branchScheme.getPollSchemeName());
+        
+        taskLog = taskJobLogDao.save(taskLog);
+        
+        taskJobLogDao.purgeTaskJobLog(direction, branchSchemeId, pollSchemeType, branchCode, TaskProcessStatus.NONE);
+        taskJobLogDao.updatePendingTaskJobLog(direction, branchSchemeId, pollSchemeType, branchCode);
+
+        if (lastTaskJobLog != null)
+        {
+        	taskLog.setLastTaskJobLog(lastTaskJobLog);
+        }
+        
+        return taskLog;
+
+    }
+    
+    @Override
+    public TaskJobLog startTaskJobLog(BranchScheme branchScheme, TaskJobLog taskLog)
+    {
+    	TaskJobLog lastTaskJobLog = taskLog.getLastTaskJobLog();
+    	if (lastTaskJobLog != null)
+    	{
+			lastTaskJobLog.setLastestJobInd(LatestJobInd.N);
+	        taskJobLogDao.save(lastTaskJobLog);
+    	}
+        
+        taskLog.setLastestJobInd(LatestJobInd.Y);
+        taskLog.setStatus(TaskProcessStatus.PROGRESS);
+
+        addOrUpdateTaskJobLog(taskLog);
+
+        return taskLog;
+    }
+
+    @Override
+    public void createJobExceptionDetail(TaskJobLog taskJobLog, String fromTable, String toTable, Exception e) {
+        taskJobLog.setStatus(TaskProcessStatus.FAILED);
+        TaskJobExceptionDetail taskJobExceptionDetail = new TaskJobExceptionDetail();
+        taskJobExceptionDetail.setSource(fromTable);
+        taskJobExceptionDetail.setDestination(toTable);
+        taskJobExceptionDetail.setExceptionContent(LogUtils.getStackTrace(e));
+        taskJobExceptionDetail.setSeverity(2);
+        taskJobExceptionDetail.setStatus(ExceptionDetailStatus.P);        
+        taskJobExceptionDetail.setTaskJobLog(taskJobLog);
+        Auditer.audit(taskJobExceptionDetail);
+
+        dao.save(taskJobExceptionDetail);
+        Auditer.audit(taskJobLog);
+        taskJobLog = taskJobLogDao.update(taskJobLog);
+        // if (taskJobLog.getTaskJobExceptionDetails() == null) {
+        // taskJobLog.setTaskJobExceptionDetails(new
+        // TreeSet<TaskJobExceptionDetail>());
+        // }
+        //
+        // taskJobLog.getTaskJobExceptionDetails().add(taskJobExceptionDetail);
+    }
+    
+    /**
+     * 
+     * @param taskJobLog
+     * @param fromTable
+     * @param toTable
+     * @param row
+     * @param returnInts (must be an array length > 1 and <= 2)
+     */
+    public void createJobLogDetail(TaskJobLog taskJobLog, String fromTable, String toTable, int row, int...returnInts) {
+        TaskJobLogDetail taskJobLogDetail = new TaskJobLogDetail();
+        taskJobLogDetail.setTaskJobLog(taskJobLog);
+        taskJobLogDetail.setSource(fromTable);
+        taskJobLogDetail.setDestination(toTable);
+        taskJobLogDetail.setNumOfRecDelete(row);
+        if(returnInts != null)
+        {
+            taskJobLogDetail.setNumOfRecProcessed(IntStream.of(returnInts).sum());
+        	if ( returnInts.length > 1)
+        	{
+    	        taskJobLogDetail.setNumOfRecInsert(returnInts[0]);
+    	        taskJobLogDetail.setNumOfRecUpdate(returnInts[1]);
+        	}
+        	else
+        	{
+    	        taskJobLogDetail.setNumOfRecInsert(returnInts[0]);
+    	        taskJobLogDetail.setNumOfRecUpdate(0);
+        	}
+        }
+        else
+        {
+            taskJobLogDetail.setNumOfRecProcessed(0);
+	        taskJobLogDetail.setNumOfRecInsert(0);
+	        taskJobLogDetail.setNumOfRecUpdate(0);
+        }
+        Auditer.audit(taskJobLogDetail);
+
+        if (taskJobLog.getTaskJobLogDetails() == null) {
+            taskJobLog.setTaskJobLogDetails(new TreeSet<TaskJobLogDetail>());
+        }
+
+        dao.save(taskJobLogDetail);
+//        taskJobLog.getTaskJobLogDetails().add(taskJobLogDetail);
+    }
+
+
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+    public TaskJobLog addOrUpdateTaskJobLog(TaskJobLog taskJobLog) {
+        Assert.notNull(taskJobLog, "'taskJobLog' can't be null.");
+        Auditer.audit(taskJobLog);
+        taskJobLog=  (TaskJobLog) taskJobLogDao.save(taskJobLog);
+        return taskJobLog;
+        
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+    public TaskJobLogDetail addOrUpdateTaskJobLogDetail(TaskJobLogDetail taskJobLogDetail) {
+        Assert.notNull(taskJobLogDetail, "'taskJobLogDetail' can't be null.");
+        Auditer.audit(taskJobLogDetail);
+        return (TaskJobLogDetail) dao.save(taskJobLogDetail);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, readOnly = false)
+    public TaskJobExceptionDetail addOrUpdateTaskJobExceptionDetail(TaskJobExceptionDetail taskJobExceptionDetail) {
+        Assert.notNull(taskJobExceptionDetail, "'taskJobExceptionDetail' can't be null.");
+        Auditer.audit(taskJobExceptionDetail);
+        return (TaskJobExceptionDetail) dao.save(taskJobExceptionDetail);
+    }
+
+    @Override
+    public Long getTaskJobLogCountByCriteria(CommonCriteria criteria) {
+        return taskJobLogDao.getTaskJobLogCountByCriteria(criteria);
+    }
+    
+	public void removeTaskJobLog(TaskJobLog taskJobLog)
+	{
+        taskJobLogDao.delete(taskJobLog);
+	}
+
+
+}

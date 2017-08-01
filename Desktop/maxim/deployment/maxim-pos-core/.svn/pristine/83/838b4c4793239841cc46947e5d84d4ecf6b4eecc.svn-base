@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/task 
+       http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<context:component-scan base-package="com.maxim.dao" />
+	<context:component-scan base-package="com.maxim.pos.*.persistence" />
+	<context:component-scan base-package="com.maxim.pos.*.service" />
+	
+	<import resource="pos-core-report.xml" />
+
+	<!-- enable component scanning -->
+	<bean
+		class="com.maxim.pos.common.config.EncryptablePropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath*:jdbc.properties</value>
+				<value>classpath*:pos-config.properties</value>
+			</list>
+		</property>
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="driverClass" value="${connection.driver_class}" />
+		<property name="jdbcUrl" value="${connection.url}" />
+		<property name="user" value="${connection.username}" />
+		<property name="password" value="${connection.password}" />
+		<property name="minPoolSize" value="${connection.minActive}" />
+		<property name="maxPoolSize" value="${connection.maxActive}" />
+		<property name="initialPoolSize" value="${connection.initialSize}" />
+		<property name="maxIdleTime" value="0" />
+		<property name="acquireIncrement" value="0" />
+		<property name="acquireRetryAttempts" value="30" />
+	</bean>
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
+		<constructor-arg ref="dataSource"/>
+	</bean>
+
+	<bean id="baseEntityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
+		abstract="true">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}
+				</prop>
+				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}
+				</prop>
+				<prop key="hibernate.show_sql">${hibernate.show_sql}
+				</prop>
+				<prop key="hibernate.format_sql">
+					${hibernate.format_sql}
+				</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- define the EntityManagerFactory -->
+	<bean id="entityManagerFactory" parent="baseEntityManagerFactory">
+		<property name="packagesToScan" value="com.maxim" />
+	</bean>
+
+	<!-- transactionManager -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<!-- @Transactional Support -->
+	<tx:annotation-driven proxy-target-class="true"
+		transaction-manager="transactionManager" />
+
+	<bean id="urlWrapper" class="com.maxim.util.URLWrapper">
+		<constructor-arg type="java.net.URL" value="classpath:pos-core-query.xml" />
+	</bean>
+
+	<!-- AspectJ Annotation Support -->
+	<aop:aspectj-autoproxy />
+
+	<bean id="mapper" class="org.dozer.spring.DozerBeanMapperFactoryBean">
+		<property name="mappingFiles" value="classpath:pos-dozer-mapping.xml" />
+	</bean>
+	<bean id="beanMapper" class="com.maxim.util.BeanMapper">
+		<constructor-arg type="org.dozer.Mapper" ref="mapper" />
+	</bean>
+
+	<task:annotation-driven executor="taskExecutor" />
+	<bean id="taskExecutor"
+		class="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor">
+		<property name="corePoolSize" value="5" />
+		<property name="maxPoolSize" value="10" />
+		<property name="waitForTasksToCompleteOnShutdown" value="true" />
+	</bean>
+	
+	<bean id="messageSource" class="com.maxim.i18n.MessageSource">
+		<property name="basenames">
+			<list>
+				<value>common</value>
+				<value>POS</value>
+				<value>POS_Exception</value>
+				<value>Security</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="schedulerFactoryBean"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean" />
+
+</beans>

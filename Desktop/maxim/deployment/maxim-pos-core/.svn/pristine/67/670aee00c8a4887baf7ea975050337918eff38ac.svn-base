@@ -1,0 +1,155 @@
+package com.maxim.pos.common.service;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.text.MessageFormat;
+import java.util.List;
+import java.util.Properties;
+
+import javax.annotation.PostConstruct;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceUtils;
+import org.springframework.jdbc.support.nativejdbc.C3P0NativeJdbcExtractor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.persistence.ApplicationSettingDao;
+import com.maxim.pos.common.util.ConnectionStringHelper;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+@Service("applicationSettingService")
+public class ApplicationSettingServiceImpl implements ApplicationSettingService {
+	
+	private static final String SQL_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	private static final String ORACLE_DRIVER = "oracle.jdbc.driver.OracleDriver";
+	private static final String JTDS_DRIVER = "net.sourceforge.jtds.jdbc.Driver";
+	
+	// value of time
+	private static final String CONNECTION_RETRY_COUNT = "CONNECTION_RETRY_COUNT";
+	
+	// value in seconds
+	private static final String CONNECTION_RETRY_DELAY = "CONNECTION_RETRY_DELAY";
+	
+	private static String defaultRetryCount = "3";			//default 3
+	private static String defaultRetryDelay = "5";			//default 5s
+	private Properties connProperties = new Properties();
+	
+	@PostConstruct
+	public void init() throws Exception {
+		
+		ApplicationSetting retryCountSetting = 
+				this.findApplicationSettingByCode(CONNECTION_RETRY_COUNT);
+		ApplicationSetting retryDelaySetting = 
+				this.findApplicationSettingByCode(CONNECTION_RETRY_DELAY);
+		if(retryCountSetting != null && retryDelaySetting != null){
+			connProperties.put(CONNECTION_RETRY_COUNT, retryCountSetting.getCodeValue());
+			connProperties.put(CONNECTION_RETRY_DELAY, retryDelaySetting.getCodeValue());
+		}
+		else{
+			connProperties.put(CONNECTION_RETRY_COUNT, defaultRetryCount);
+			connProperties.put(CONNECTION_RETRY_DELAY, defaultRetryDelay);
+		}
+	
+	}
+	
+	@Autowired
+	private DataSource dataSource;
+
+	@Autowired
+	private ApplicationSettingDao applicationSettingDao;
+
+	@Transactional(readOnly = true)
+	@Override
+	public ApplicationSetting findApplicationSettingByCode(String code) {
+		return applicationSettingDao.findApplicationSettingByCode(code);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public List<ApplicationSetting> findApplicationSettingByCriteria(CommonCriteria criteria) {
+		return applicationSettingDao.findApplicationSettingByCriteria(criteria);
+	}
+
+	@Transactional(readOnly = true)
+	@Override
+	public Long getApplicationSettingCountByCriteria(CommonCriteria criteria) {
+		return applicationSettingDao.getApplicationSettingCountByCriteria(criteria);
+	}
+
+	@Override
+	public ApplicationSetting saveApplicationSetting(ApplicationSetting applicationSetting) {
+		return (ApplicationSetting) applicationSettingDao.save(applicationSetting);
+	}
+
+	@Override
+	public void deleteApplicationSettingById(Long applicationSettingId) {
+		applicationSettingDao.delete(applicationSettingDao.getSingle(ApplicationSetting.class, applicationSettingId));
+	}
+
+	@Override
+	public String getCurrentJDBCConnectionString() {
+		// TODO Auto-generated method stub
+		ComboPooledDataSource cpd = (ComboPooledDataSource) dataSource;
+		return MessageFormat.format("{0};user={1};password={2}", cpd.getJdbcUrl(), cpd.getUser(), cpd.getPassword());
+	}
+
+	@Override
+	public Connection getCurrentJDBCConnection() {
+		C3P0NativeJdbcExtractor cp30NativeJdbcExtractor = new C3P0NativeJdbcExtractor();
+		// TODO Auto-generated method stub
+		try {
+			return cp30NativeJdbcExtractor.getNativeConnection(DataSourceUtils.getConnection(dataSource));
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	@Override
+	public Connection getJDBCConection(BranchInfo info, boolean retry){
+		try{
+			Connection conn = null;
+			
+			//Default SQLDriver
+			String className = "";
+			String url = "";
+			
+			switch(info.getClientType()){
+			case ORACLE:
+				className = ORACLE_DRIVER;
+				url = ConnectionStringHelper.getOracleConnectionString(info);
+				break;
+			case SQLPOS:
+				className = JTDS_DRIVER;
+				url = ConnectionStringHelper.getJTDSConnectionString(info);
+				break;
+			default:
+				className = SQL_DRIVER;
+				url = ConnectionStringHelper.getSQLServerConnectionString(info);
+				break;
+			}
+			try{
+				Class.forName(className);
+				conn = DriverManager.getConnection(url, connProperties);
+//				conn.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
+				return conn;
+			}
+			catch(SQLException e){
+				LogUtils.printException("Connecting failed", e);
+			}
+		}catch(ClassNotFoundException e){
+			LogUtils.printException("Driver class not found ", e);
+			throw new RuntimeException(e);
+		}
+		return null;
+	}
+
+
+
+}

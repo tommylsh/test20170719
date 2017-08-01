@@ -1,0 +1,30 @@
+package com.maxim.pos.sales.service;
+
+import org.slf4j.Logger;
+
+import com.maxim.pos.common.entity.BranchScheme;
+
+public interface SalesService {
+	/**
+	 * processPosToStaging
+	 * @param branchScheme
+	 * @return  process result message
+	 */
+	public String processPosDataToStg(BranchScheme branchScheme, Logger logger);
+	
+	/**
+	 * processStagingToEdw
+	 * @param branchScheme
+	 * @return  process result message
+	 */
+	public String processStgToEdw(BranchScheme branchScheme,Logger logger);
+
+//	/**
+//	 *
+//	 * @param branchScheme
+//	 * @param logger
+//	 * @return process result
+//	 */
+//	public String processStgToEdwJDBC(BranchScheme branchScheme,TaskJobLog taskJobLog,Logger logger);
+
+}

@@ -1,0 +1,107 @@
+package com.maxim.pos.test.sales.service;
+
+import java.sql.Date;
+import java.util.List;
+
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeScheduleJob;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.service.PollBranchSchemeService;
+import com.maxim.pos.common.service.ScheduleJobService;
+import com.maxim.pos.common.service.SpringBeanUtil;
+import com.maxim.pos.sales.service.SalesService;
+import com.maxim.pos.sales.service.SalesServiceOld;
+import com.maxim.pos.test.common.BaseTest;
+
+public class SalesServiceTest extends BaseTest {
+
+//    @Autowired
+//    private SalesServiceOld salesService;
+
+    @Autowired
+    private PollBranchSchemeService pollBranchSchemeService;
+
+    @Autowired
+    private ScheduleJobService scheduleJobService;
+
+//    @Test
+//    public void testProcessPosToStaging() {
+//        SchemeScheduleJob schemeScheduleJob = scheduleJobService.getTaskById(1L);
+//        List<BranchScheme> list = pollBranchSchemeService.getBranchSchemeByScheduleJob(schemeScheduleJob);
+//        for (BranchScheme branchScheme : list) {
+//            branchScheme.setSchemeScheduleJob(schemeScheduleJob);
+//            salesService.processPosDataToStg(branchScheme, logger);
+//        }
+//    }
+    @Test
+    public void testProcessPosToStagingSQL() throws InterruptedException {
+//        SchemeScheduleJob schemeScheduleJob = scheduleJobService.getTaskById(1L);
+//        List<BranchScheme> list = pollBranchSchemeService.getBranchSchemeByScheduleJob(schemeScheduleJob);
+//        for (BranchScheme branchScheme : list) {
+//            branchScheme.setSchemeScheduleJob(schemeScheduleJob);
+//            salesService.processPosDataToStg(branchScheme, logger);
+//        }
+//        BranchScheme branchScheme = pollBranchSchemeService.getBranchScheme(PollSchemeType.SALES_REALTIME,Direction.POS_TO_STG, ClientType.SQLPOS,"1284");
+//        ((SalesService)SpringBeanUtil.context.getBean("sqlSalesService")).processPosDataToStg(branchScheme, logger);
+    	
+    	try
+    	{
+//            BranchScheme branchScheme = pollBranchSchemeService.getBranchScheme(PollSchemeType.SALES_EOD,Direction.POS_TO_STG, ClientType.DBF,"6101");
+//            ((SalesService)SpringBeanUtil.context.getBean("dbfSalesService")).processPosDataToStg(branchScheme, logger);
+//            BranchScheme branchScheme = pollBranchSchemeService.getBranchScheme(PollSchemeType.SALES_EOD,Direction.POS_TO_STG, ClientType.CSV,"4001");
+//            ((SalesService)SpringBeanUtil.context.getBean("csvSalesService")).processPosDataToStg(branchScheme, logger);
+            BranchScheme branchScheme = pollBranchSchemeService.getBranchScheme(PollSchemeType.SALES_REALTIME,Direction.POS_TO_STG, ClientType.SQLPOS,"4459");
+//            branchScheme.setReRun(true);
+//            branchScheme.setBusinessDate(Date.valueOf("2017-04-25"));
+            ((SalesService)SpringBeanUtil.context.getBean("sqlSalesService")).processPosDataToStg(branchScheme, null ,logger);
+    	}
+    	finally
+    	{
+    		Thread.sleep(10000);
+    	}
+    }
+    
+   
+//
+//    @Test
+//    public void testCopyBySQL() {
+//        SchemeScheduleJob schemeScheduleJob = scheduleJobService.getTaskById(1L);
+//        List<BranchScheme> list = pollBranchSchemeService.getBranchSchemeByScheduleJob(schemeScheduleJob);
+//        for (BranchScheme branchScheme : list) {
+//            branchScheme.setSchemeScheduleJob(schemeScheduleJob);
+//            if (branchScheme.getBranchInfo().getClientType().equals(ClientType.SQLSERVER)) {
+//                salesService.processPosDataToStg(branchScheme, logger);
+//            }
+//        }
+//    }
+//
+//    @Test
+//    public void testCopyByDBF() {
+//        SchemeScheduleJob schemeScheduleJob = scheduleJobService.getTaskById(1L);
+//        List<BranchScheme> list = pollBranchSchemeService.getBranchSchemeByScheduleJob(schemeScheduleJob);
+//        for (BranchScheme branchScheme : list) {
+//            branchScheme.setSchemeScheduleJob(schemeScheduleJob);
+//            if (branchScheme.getBranchInfo().getClientType().equals(ClientType.DBF)) {
+//                salesService.processPosDataToStg(branchScheme, logger);
+//            }
+//        }
+//    }
+//
+//    @Test
+//    public void testCopyByCSV() {
+//        SchemeScheduleJob schemeScheduleJob = scheduleJobService.getTaskById(1L);
+//        List<BranchScheme> list = pollBranchSchemeService.getBranchSchemeByScheduleJob(schemeScheduleJob);
+//        for (BranchScheme branchScheme : list) {
+//            branchScheme.setSchemeScheduleJob(schemeScheduleJob);
+//            if (branchScheme.getBranchInfo().getClientType().equals(ClientType.CSV)) {
+//                salesService.processPosDataToStg(branchScheme, logger);
+//            }
+//        }
+//    }
+
+}

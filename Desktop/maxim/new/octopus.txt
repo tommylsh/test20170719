@@ -1,0 +1,28 @@
+File Folder - Octopus
+
+Octorplus 15 minite folder by folder  (window)
+
+Source Folder :   Config in properties  (Spring )
+(Window Share Folder - SMB) 
+
+By Branch -> Destination   (Main in POLL_BRANCH_INFO)
+(Window Share Folder - SMB) 
+
+
+Master 
+Copy all file from Source to Destination
+
+Source Folder :   Config in properties  (Spring )
+(Window Share Folder - SMB) 
+
+By Branch -> Destination   (Main in POLL_BRANCH_INFO )
+(Window Share Folder - SMB) 
+
+
+
+
+
+
+
+
+

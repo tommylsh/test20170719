@@ -1,0 +1,20 @@
+1)  add field severity, status to the table dbo.TASK_JOB_EXECEPTION_DETAIL
+2)  add a schedular to lookup the table dbo.TASK_JOB_EXECEPTION_DETAIL where status -> P              (ex: 15 min)
+3)  Group all the content in the table that severity is high >= 2 to the email and send out.
+4)  Mark all the selected record  need to send status -> S
+5)  Mark all the selected record  no need to send status -> D
+
+
+
+severity 1 -> Critical
+severity 2 -> Error
+severity 3 -> Warning
+severity 4 -> Info
+severity 5 -> None
+
+status P -> Pending
+status S -> Sent
+status D -> Done
+
+
+

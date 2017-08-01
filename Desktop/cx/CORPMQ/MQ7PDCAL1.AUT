@@ -1,0 +1,239 @@
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.CAL' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.CAL' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.CAL' -t channel -g staff +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST' -t topic -g calidris +pub 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.BASE.TOPIC' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.CAL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.CAL' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.CAL' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.MSRW' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.MSRW' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.OUT' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.OUT' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.STATISTICS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.CLUSTER.HISTORY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CUST' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CUST' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.REQUESTER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.CHANNEL.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.CAL' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.CAL' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.CAL' -t channel -g staff +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.COPY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.COPY' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.COPY' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEAD.LETTER.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.BROKER.CONTROL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.COPY' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.COPY' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.COPY' -t channel -g staff +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CUPR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CUPR' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.COPY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.COPY' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.COPY' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.CICS.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.BROKER.DEFAULT.SUBPOINT' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.CAL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.CAL' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.CAL' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.COPY' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.COPY' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST.COPY' -t channel -g staff +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.QPUBSUB.QUEUE.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.LOBA' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.LOBA' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.CAL' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.CAL' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.CAL' -t channel -g staff +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKTR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKTR' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.CLUSTER.TRANSMIT.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.FLDE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.FLDE' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.COPY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.COPY' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.COPY' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKTE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKTE' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKTE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKTE' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.FLST' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.FLST' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTST' -t topic -g calidris +pub 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKST' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKST' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CUST' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CUST' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.SELECTION.EVALUATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.MSRE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.MSRE' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKRE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKRE' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.TTST' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.TTST' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.REMOTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.SELECTION.VALIDATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.COPY' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.COPY' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ.COPY' -t channel -g staff +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.TOPIC' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.AUTR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.AUTR' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.TKST' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.TKST' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.INTER.QMGR.FANREQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.MSRW' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.MSRW' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.FLDE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.FLDE' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.FLST' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.FLST' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.MEAC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.MEAC' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CUTE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CUTE' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.MSRE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.MSRE' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.AUTH.DATA.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.BROKER.DEFAULT.STREAM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DURABLE.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.AUTO.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CLSQ' -t topic -g calidris +pub 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g mqm +chg +dlt +dsp 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.RETAINED.PUB.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.BROKER.DEFAULT.STREAM' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.PERFM.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.IN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.IN' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.LOGGER.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.DLQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.MEAC' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.MEAC' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKA2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKA2' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CUPR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CUPR' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKAN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKAN' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKTE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKTE' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CUTE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CUTE' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.CHANNEL.INITQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKRE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKRE' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.AUTO.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.FLTE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.FLTE' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.QPUBSUB.SUBPOINT.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DURABLE.SUBSCRIBER.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKAN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKAN' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CUAN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CUAN' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.SENDER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.SENDER' -t channel -g calidris +none 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BOOK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BOOK' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.MQSC.REPLY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.TKTE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.TKTE' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTTE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TTTE' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.CHANNEL.SYNCQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.TTTE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.TTTE' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.CLUSTER.REPOSITORY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.CLUSRCVR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.COMMAND.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.XMITQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.SERVICE' -t service -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.PROCESS' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.HIERARCHY.STATE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CUAN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.CUAN' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.CLUSTER.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.TRACE.ROUTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKA2' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKA2' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.SERVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.PENDING.DATA.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.BROKER.ADMIN.STREAM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.FLTE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.FLTE' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g calidris +none 
+setmqaut -m MQ7PDCAL1 -t qmgr -g mqm +altusr +chg +connect +dlt +dsp +inq +set +setall +setid +system 
+setmqaut -m MQ7PDCAL1 -t qmgr -g calidris +connect +dsp +inq 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.BROKER.ADMIN.STREAM' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.ACTIVITY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.CONFIG.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.INTER.QMGR.CONTROL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.FSSQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.FSSQ' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g calidris +none 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g staff +none 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqbrkrs +none 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.AUTHINFO.OCSP' -t authinfo -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.PROCESS' -t process -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.INTERNAL.REPLY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.NDURABLE.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -t qmgr -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -t qmgr -g calidris +none 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.SENDER' -t channel -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.SENDER' -t channel -g calidris +none 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.SENDER' -t channel -g staff +none 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEF.CLUSSDR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.ACCOUNTING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.TOPIC' -t topic -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.TOPIC' -t topic -g calidris +none 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.ADMIN.QMGR.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CLSQ' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.CLSQ' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.FSSQ' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.FSSQ' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.SERVICE' -t service -g mqm +crt 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.DEFAULT.ALIAS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKTR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BKTR' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKST' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.BKST' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.AUTR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.AUTR' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.CAL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.CAL' -t queue -g calidris +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.TKST.CAL' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQ7PDCAL1 -n 'SYSTEM.INTER.QMGR.PUBS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BOOK' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'MQ7PDCAL1.CAL.BOOK' -t channel -g calidris +dsp +ctrl +ctrlx 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.LOBA' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ7PDCAL1 -n 'TSG.CAL.CX.LOBA' -t queue -g calidris +browse +get +inq +put 

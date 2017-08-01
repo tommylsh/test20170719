@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="cacheEnabled" value="true"/>
+    </settings>
+
+    <typeAliases>
+        <!--
+        <typeAlias alias="_byte" type="byte"/>
+        <typeAlias alias="_long" type="long"/>
+        <typeAlias alias="_short" type="short"/>
+        <typeAlias alias="_int" type="int"/>
+        <typeAlias alias="_integer" type="int"/>
+        <typeAlias alias="_double" type="double"/>
+        <typeAlias alias="_float" type="float"/>
+        <typeAlias alias="_boolean" type="boolean"/>
+        <typeAlias alias="string" type="String"/>
+        <typeAlias alias="byte" type="Byte"/>
+        <typeAlias alias="long" type="Long"/>
+        <typeAlias alias="short" type="Short"/>
+        <typeAlias alias="int" type="Integer"/>
+        <typeAlias alias="integer" type="Integer"/>
+        <typeAlias alias="double" type="Double"/>
+        <typeAlias alias="float" type="Float"/>
+        <typeAlias alias="boolean" type="Boolean"/>
+        <typeAlias alias="date" type="Date"/>
+        <typeAlias alias="decimal" type="BigDecimal"/>
+        <typeAlias alias="bigdecimal" type="BigDecimal"/>
+        <typeAlias alias="object" type="Object"/>
+        <typeAlias alias="map" type="Map"/>
+        <typeAlias alias="hashmap" type="HashMap"/>
+        <typeAlias alias="list" type="List"/>
+        <typeAlias alias="arraylist" type="ArrayList"/>
+        <typeAlias alias="collection" type="Collection"/>
+        <typeAlias alias="iterator" type="Iterator"/>
+        -->
+        <!--<package name="com.maxim.api.model"/>-->
+    </typeAliases>
+
+    <mappers>
+        <!--<package name="com.maxim.core.mapper" />-->
+    </mappers>
+
+</configuration>

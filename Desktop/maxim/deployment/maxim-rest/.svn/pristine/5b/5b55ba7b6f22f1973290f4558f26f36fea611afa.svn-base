@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.maxim.core.mapper.ext.OrdersExtMapper">
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ORDERS (ROWGUID, BRANCH_CODE, BUSINESS_DATE,
+        ORDER_NO, EVENT_NO, TRANS_TYPE,
+        ORDER_SEQ, TRANS_DATETIME, UID_CD,
+        STATION_ID, TABLE_ID, NOP,
+        GROSS_AMT, TOTAL_QTY, PMT_NO,
+        DISC_OFF_RATE, DEDUCT_AMT, NET_AMT,
+        SERV_CHG_AMT, DISC_SERV_CHG, GST_AMT,
+        GRAND_TOTAL, DEPOSIT, REMAIN,
+        CLOSE_DATETIME, CLOSE_UID, CLOSE_STATION_ID,
+        RECALL, REFUND, VOID,
+        VOID_DATETIME, VOID_UID, VOID_STATION_ID,
+        ORG_ORDER_NO, AUTH_UID, VOID_REASON,
+        PRINT_TIMES, REMARK_TYPE, REMARKS,
+        PENDING, RESERVED, "STATUS",
+        LAST_UPDATE_TIME)
+        <foreach collection="list" item="item" index="index" separator=" UNION ALL ">
+            SELECT
+            #{item.rowguid,jdbcType=VARCHAR},
+            #{item.branchCode,jdbcType=VARCHAR},
+            #{item.businessDate,jdbcType=TIMESTAMP},
+            #{item.orderNo,jdbcType=VARCHAR},
+            #{item.eventNo,jdbcType=VARCHAR},
+            #{item.transType,jdbcType=VARCHAR},
+            #{item.orderSeq,jdbcType=DECIMAL},
+            #{item.transDatetime,jdbcType=TIMESTAMP},
+            #{item.uid,jdbcType=DECIMAL},
+            #{item.stationId,jdbcType=VARCHAR},
+            #{item.tableId,jdbcType=VARCHAR},
+            #{item.nop,jdbcType=DECIMAL},
+            #{item.grossAmt,jdbcType=DECIMAL},
+            #{item.totalQty,jdbcType=DECIMAL},
+            #{item.pmtNo,jdbcType=VARCHAR},
+            #{item.discOffRate,jdbcType=DECIMAL},
+            #{item.deductAmt,jdbcType=DECIMAL},
+            #{item.netAmt,jdbcType=DECIMAL},
+            #{item.servChgAmt,jdbcType=DECIMAL},
+            #{item.discServChg,jdbcType=CHAR},
+            #{item.gstAmt,jdbcType=DECIMAL},
+            #{item.grandTotal,jdbcType=DECIMAL},
+            #{item.deposit,jdbcType=DECIMAL},
+            #{item.remain,jdbcType=DECIMAL},
+            #{item.closeDatetime,jdbcType=TIMESTAMP},
+            #{item.closeUid,jdbcType=DECIMAL},
+            #{item.closeStationId,jdbcType=VARCHAR},
+            #{item.recall,jdbcType=DECIMAL},
+            #{item.refund,jdbcType=CHAR},
+            #{item.voidVal,jdbcType=CHAR},
+            #{item.voidDatetime,jdbcType=TIMESTAMP},
+            #{item.voidUid,jdbcType=DECIMAL},
+            #{item.voidStationId,jdbcType=VARCHAR},
+            #{item.orgOrderNo,jdbcType=VARCHAR},
+            #{item.authUid,jdbcType=DECIMAL},
+            #{item.voidReason,jdbcType=VARCHAR},
+            #{item.printTimes,jdbcType=DECIMAL},
+            #{item.remarkType,jdbcType=VARCHAR},
+            #{item.remarks,jdbcType=VARCHAR},
+            #{item.pending,jdbcType=DECIMAL},
+            #{item.reserved,jdbcType=VARCHAR},
+            'C',
+            #{item.lastUpdateTime,jdbcType=TIMESTAMP}
+            FROM DUAL
+        </foreach>
+    </insert>
+    <delete id="deleteBatch" parameterType="java.util.List">
+        DELETE FROM ORDERS WHERE ROWGUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.rowguid,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+</mapper>

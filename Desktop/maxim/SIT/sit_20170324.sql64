@@ -1,0 +1,99 @@
+select * from dbo.POLL_SCHEME_JOB_LOG where convert(date, create_time) = '2017-03-24'
+select * from  dbo.POLL_BRANCH_MASTER where branch_code='4117' 
+11
+
+select * from dbo.POLL_BRANCH_SCHEME where poll_branch_master_id =11
+
+
+select * from dbo.TASK_JOB_LOG 
+where convert(date, create_time) = '2017-03-24' and poll_scheme_id = 39
+
+
+select * from dbo.TASK_JOB_LOG_DETAIL where convert(date, create_time) = '2017-03-24'
+and TASK_JOB_LOG_ID =4703
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL where convert(date, create_time) = '2017-03-24'
+and TASK_JOB_LOG_ID =4703
+
+select * from dbo.POLL_SCHEME_INFO where source='hist_sessioninfo'
+
+
+select * from dbo.POLL_SCHEME_INFO where POLL_SCHEME_TYPE='SALES_EOD' and client_type='ORACLE'
+and destination='HIST_REDEEMED_COUPON'
+
+
+
+drop TABLE [dbo].[POLL_SCHEME_INFO_20170324];
+
+
+CREATE TABLE [dbo].[POLL_SCHEME_INFO_20170324](
+     [POLL_SCHEME_INFO_ID] [numeric](19, 0)   NOT NULL ,
+     [CREATE_TIME] [datetime] NOT NULL ,
+     [CREATE_USER] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+     [LAST_UPDATE_TIME] [datetime] NOT NULL ,
+     [LAST_UPDATE_USER] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+     [CLIENT_TYPE] [varchar](20) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [DELIMITER] [varchar](10) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [DESTINATION] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [IS_OVERRIDE] [tinyint] NULL ,
+     [POLL_SCHEME_TYPE] [varchar](20) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [SOURCE] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [IS_CONSISTENT_STRUCTURE] [tinyint] NULL ,
+     [DEST_CHECK_SUM_COLS] [varchar](200) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [DEST_KEY_COLUMNS] [varchar](200) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [SRC_CHECK_SUM_COLS] [varchar](200) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [SRC_KEY_COLUMNS] [varchar](200) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [CHECK_SUM_COLUMNS] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [SPLIT_DATE_REQUIRED] [tinyint] NULL 
+) ON [PRIMARY]
+
+
+
+CREATE TABLE [dbo].[POLL_SCHEME_TABLE_COLUMN_20170324](
+     [POLL_SCHEME_TABLE_COLUMN_ID] [numeric](19, 0)   NOT NULL ,
+     [CREATE_TIME] [datetime] NOT NULL ,
+     [CREATE_USER] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+     [LAST_UPDATE_TIME] [datetime] NOT NULL ,
+     [LAST_UPDATE_USER] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NOT NULL ,
+     [FROM_COLUMN] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [FROM_COLUMN_FORMAT] [varchar](20) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [FROM_COLUMN_LENGTH] [smallint] NULL ,
+     [SEQ] [int] NOT NULL ,
+     [TO_COLUMN] [varchar](50) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [TO_COLUMN_FORMAT] [varchar](20) COLLATE Chinese_Taiwan_Stroke_CI_AS NULL ,
+     [TO_COLUMN_LENGTH] [smallint] NULL ,
+     [POLL_SCHEME_INFO_ID] [numeric](19, 0) NOT NULL ,
+     [FROM_COLUMN_PRECISION] [smallint] NULL ,
+     [TO_COLUMN_PRECISION] [smallint] NULL 
+) ON [PRIMARY]
+
+
+
+insert into dbo.POLL_SCHEME_INFO_20170324  select * from dbo.POLL_SCHEME_INFO ;
+insert into dbo.POLL_SCHEME_TABLE_COLUMN_20170324  select * from dbo.POLL_SCHEME_TABLE_COLUMN ;
+
+
+select * from dbo.POLL_SCHEME_INFO where POLL_SCHEME_TYPE='SALES_EOD' and client_type='ORACLE'
+and destination='HIST_REDEEMED_COUPON'
+select * from dbo.POLL_SCHEME_TABLE_COLUMN where POLL_SCHEME_INFO_ID=1589
+
+delete from dbo.POLL_SCHEME_TABLE_COLUMN where POLL_SCHEME_INFO_ID=1589
+
+delete  dbo.POLL_SCHEME_INFO where POLL_SCHEME_TYPE='SALES_EOD' and client_type='ORACLE'
+and destination='HIST_REDEEMED_COUPON'
+
+
+
+update dbo.POLL_SCHEME_JOB_LOG SET STATUS='PROGRESS' where convert(date, create_time) = '2017-03-20'
+
+update dbo.POLL_SCHEME_JOB_LOG SET STATUS = 'COMPLETE'
+where convert(date, create_time) = '2017-03-20'
+and STATUS = 'PROGRESS'
+
+
+select * from dbo.POLL_SCHEME_JOB_LOG 
+where convert(date, create_time) = '2017-03-20'
+and STATUS = 'PROGRESS'
+
+
+

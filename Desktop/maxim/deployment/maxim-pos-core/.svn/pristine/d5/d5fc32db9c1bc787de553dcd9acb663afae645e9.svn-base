@@ -1,0 +1,40 @@
+#Created by JInto - www.guh-software.de
+#Mon Jan 23 14:38:32 CST 2017
+aesKey=90206f7a4fc149b592a14b7629caad5e
+defaultSystemModule.alias=maxim
+indexPageUrl=/faces/index.faces
+reservedUserIds=CG_SYSTEM
+
+sales.enableArchive=true
+sales.fileArchivePath=/repos/archive
+sales.csvTempDirectory=/repos/temp/csv
+sales.batchSize=1000
+sales.enableWebservice=false
+sales.textFileMaxScanDay=7
+sales.textFileDefaultScanDayIfNoControl=7
+sales.sqlMaxScanDay=-1
+sales.sqlDefaultScanDayIfNoControl=1
+
+sales.dbfFileMethod=PROPPERTIES
+sales.dbfFilePattern=M{BRANCH_CODE}_{YYMMDD}_{TABLE}.DBF
+sales.csvFileMethod=PROPPERTIES
+sales.csvFilePattern={BRANCH_CODE}/{YYYYMMDD}/{TABLE}.TXT
+
+file.octopusSourcePath.username=lotic
+file.octopusSourcePath.password=Lw5Z3wFcL0qy32SPgB2siA==
+file.octopusSourcePath.clientHost=192.168.1.17
+#resource path
+file.octopusSourcePath.directory=share
+#from share download to localDir position
+file.octopusSourcePath.localDir=D:/Share/o_o
+
+security.encryptUsername=false
+security.encryptPassword=true
+
+master.folder.configrationFile=C:/UserData/weblogic/pos-core-local.xml
+system.userId=MAX_POS_SYSTEM
+system.numberOfMachine=2
+system.eod.batchProcessSize=10
+system.realTime.batchProcessSize=50
+system.master.batchProcessSize=10
+system.other.batchProcessSize=100

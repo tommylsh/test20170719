@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	   
+	<parent>
+		<groupId>com.maxim</groupId>
+		<artifactId>maxim-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../maxim-parent</relativePath>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>maxim-pos-parent</artifactId>
+	<packaging>pom</packaging>
+
+    <modules>  
+        <module>../maxim-pos-core</module>
+        <module>../maxim-pos-web</module>
+    <module>../maxim-pos-sql</module>
+  </modules> 
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.linuxense</groupId>
+			<artifactId>javadbf</artifactId>
+			<version>0.4.0</version>
+		</dependency>		
+			<dependency>
+				<groupId>com.oracle</groupId>
+				<artifactId>ojdbc6</artifactId>
+				<version>11.2.0.1.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>net.sourceforge.jtds</groupId>
+		    <artifactId>jtds</artifactId>
+		    <version>1.3.1</version>
+		</dependency>		
+	</dependencies>
+</project>

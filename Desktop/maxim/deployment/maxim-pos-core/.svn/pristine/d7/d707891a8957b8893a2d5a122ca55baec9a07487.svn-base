@@ -1,0 +1,14 @@
+package com.maxim.pos.common.service;
+
+import java.util.Date;
+
+public interface PosSystemService {	
+	/**
+	 * check EOD is Complete
+	 *  select HIST_POS_SYSTEM by branchCode and businessDate= date
+	 * @param branchCode
+	 * @param date
+	 * @return if exist record return true  else return false
+	 */
+	public boolean checkEodComplete(String branchCode,Date date);
+}

@@ -1,0 +1,271 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/templates/main.xhtml">
+
+	<ui:define name="title">
+		<cc:titleText title="#{msg['security']['user']}" />
+	</ui:define>
+
+	<ui:define name="content">
+
+		<style>
+<!--
+.panel-grid-col1 {
+	vertical-align: top;
+	width: 80px;
+}
+
+.panel-grid-col2 {
+	vertical-align: top;
+}
+
+.roleDataListClass .ui-widget-content {
+	border: none;
+}
+
+.userDataTable table tbody td {
+	white-space: normal;
+	word-wrap: break-word;
+}
+-->
+</style>
+
+		<script>
+			
+		</script>
+
+		<h:form id="userDataTableForm">
+
+			<p:panel header="#{msg['security']['searchUser']}"
+				style="width: 100%;">
+				<div class="ui-grid ui-grid-responsive">
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-8">
+							<h:outputLabel for="userId" value="#{msg['security']['userId']}" />
+							<h:inputText id="userId"
+								value="#{userManagementController.dataModel.dataModelQuery.criteria.userIdKeyword}"
+								label="#{msg['security']['userId']}" size="30" maxlength="20" />
+						</div>
+					</div>
+
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-8">
+							<h:outputLabel for="username"
+								value="#{msg['security']['userName']}" />
+							<h:inputText id="username"
+								value="#{userManagementController.dataModel.dataModelQuery.criteria.userNameKeyword}"
+								label="#{msg['security']['userName']}" size="30" maxlength="20" />
+
+							<p:commandButton id="searchButton"
+								value="#{msg['common']['search']}" update="userDataTable"
+								icon="ui-icon-search1" style=" margin-left: 10px;" />
+						</div>
+					</div>
+				</div>
+			</p:panel>
+
+			<sec:authorize ifAnyGranted="CREATE_USER,EDIT_USER,DELETE_USER">
+				<p:toolbar id="toolbar">
+					<p:toolbarGroup align="left">
+
+						<sec:authorize ifAnyGranted="CREATE_USER">
+							<p:commandButton id="addBtn" value="#{msg['common']['add']}"
+								process="@this" action="#{userManagementController.add}"
+								update=":userDialogForm"
+								oncomplete="PF('userDialogVar').show();" icon="ui-icon-add" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="EDIT_USER">
+							<p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+								process="@form" action="#{userManagementController.edit}"
+								update=":userDialogForm"
+								oncomplete="PF('userDialogVar').show();" icon="ui-icon-edit"
+								onclick="if (!checkDatatableSelection('userDataTableVar')) return false;" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="DELETE_USER">
+							<p:commandButton id="deleteBtn"
+								value="#{msg['common']['delete']}" process="@form"
+								action="#{userManagementController.delete}"
+								update=":userDataTableForm:userDataTable" icon="ui-icon-delete"
+								onclick="if (!confirmDeleteDatatableRecord('userDataTableVar')) return false;" />
+						</sec:authorize>
+
+					</p:toolbarGroup>
+				</p:toolbar>
+			</sec:authorize>
+
+			<p:dataTable id="userDataTable" styleClass="userDataTable"
+				widgetVar="userDataTableVar" var="element"
+				value="#{userManagementController.dataModel}"
+				selection="#{userManagementController.userObject}" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+				emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+
+				<f:facet name="header">
+					<p:graphicImage value="/images/record16.png" />
+					<h:outputText value="#{msg['security']['user']}" />
+				</f:facet>
+
+				<p:column selectionMode="single"
+					style="width:16px; text-align:center" />
+
+				<p:column headerText="#{msg['security']['userId']}" width="200px;">
+					<h:outputText value="#{element.userId}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['userName']}" width="200px;">
+					<h:outputText value="#{element.userName}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['isAdminUser']}"
+					width="100px;" style="text-align: center;">
+					<h:outputText value="#{msg['common']['yes']}"
+						rendered="#{element.admin}" />
+					<p:graphicImage value="/images/enabled16.png"
+						rendered="#{element.admin}" />
+
+					<h:outputText value="#{msg['common']['no']}"
+						rendered="#{!element.admin}" />
+					<p:graphicImage value="/images/disabled16.png"
+						rendered="#{!element.admin}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['userRole']}" width="300px;">
+
+					<p:dataList value="#{element.roles.toArray()}" var="roleVar"
+						styleClass="roleDataListClass" emptyMessage=""
+						rendered="#{element.roles.size() &gt; 0}">
+						<h:outputText value="#{roleVar.name}" />
+					</p:dataList>
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+
+	<ui:define name="dialog">
+		<style>
+.ui-datatable tbody td {
+	border-color: #d5d5d5;
+}
+
+.operation-btn-grid tr {
+	border: 0px !important;
+}
+
+.operation-btn-grid tr td {
+	border: 0px !important;
+}
+
+.operation-btn-grid .ui-button {
+	width: 80px;
+}
+</style>
+
+		<p:dialog id="userDialog" widgetVar="userDialogVar" modal="true"
+			width="700" height="400" resizable="false">
+			<f:facet name="header">
+				<p:graphicImage value="/images/element16.png" />
+				<h:outputText value="#{msg['security']['userDetail']}" />
+			</f:facet>
+			<h:form id="userDialogForm">
+				<h:panelGrid id="formPanel1" columns="2"
+					columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5"
+					style="width: 100%;"
+					rendered="#{userManagementController.userObject != null}">
+
+					<h:outputLabel for="username" value="#{msg['security']['userId']}" />
+					<p:inputText id="username"
+						value="#{userManagementController.userObject.userId}"
+						label="#{msg['security']['userId']}" maxlength="50"
+						style="width: 95%" required="true"
+						validatorMessage="The format of User Id is incorrect!">
+						<f:validateRegex
+							pattern="(^[a-z0-9]{4,20}$)|(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)" />
+					</p:inputText>
+
+					<h:outputLabel for="userName"
+						value="#{msg['security']['userName']}" />
+					<p:inputText id="userName"
+						value="#{userManagementController.userObject.userName}"
+						label="#{msg['security']['userName']}" maxlength="20"
+						style="width: 95%" required="true" />
+
+					<h:outputLabel for="superAdmin"
+						value="#{msg['security']['isAdminUser']}" />
+					<p:selectBooleanCheckbox id="superAdmin"
+						value="#{userManagementController.userObject.admin}"
+						label="#{msg['security']['superAdmin']}">
+						<p:ajax listener="#{userManagementController.onSuperAdminChange}"
+							event="change" process="@this" update="formPanel2" global="false" />
+					</p:selectBooleanCheckbox>
+				</h:panelGrid>
+
+				<h:panelGrid id="formPanel2" columns="2"
+					columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5"
+					style="width: 100%;"
+					rendered="#{userManagementController.userObject != null}">
+
+					<h:outputText value="#{msg['security']['role']}"
+						rendered="#{userManagementController.userObject != null and !userManagementController.userObject.admin}" />
+					<p:pickList id="rolePickList"
+						value="#{userManagementController.roleListModel}" var="roleVar"
+						itemLabel="#{roleVar.name}(#{roleVar.alias})"
+						itemValue="#{roleVar}" style="width: 95%; "
+						converter="#{entityConverter}"
+						rendered="#{userManagementController.userObject != null and !userManagementController.userObject.admin}" />
+
+				</h:panelGrid>
+
+
+				<h:panelGrid id="formPanel3" columns="2"
+					columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5"
+					style="width: 100%;"
+					rendered="#{userManagementController.userObject != null}">
+
+					<p:spacer />
+					<h:panelGroup
+						style="width: 95%; display: inline-block; text-align: right;">
+						<p:commandButton id="submitButton"
+							value="#{msg['common']['save']}"
+							actionListener="#{userManagementController.save}"
+							update="@form :userDataTableForm :primefaceMessages"
+							oncomplete="handleComplete(xhr, status, args)"
+							icon="ui-icon-save1" style=" margin-right: -7px;" />
+					</h:panelGroup>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<script type="text/javascript">
+			function handleComplete(xhr, status, args) {
+				if (args.validationFailed) {
+					PF('userDialogVar').jq.effect("shake", {
+						times : 3
+					}, 100);
+				} else {
+					PF('userDialogVar').hide();
+				}
+			}
+
+			$(document).bind("keyup", function(evt) {
+				if (27 == evt.keyCode) {
+					PF('userDialogVar').hide();
+				}
+			});
+		</script>
+
+	</ui:define>
+
+</ui:composition>

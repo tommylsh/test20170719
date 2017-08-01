@@ -1,0 +1,965 @@
+
+
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG where schedule_job_id=30 order  by create_time desc
+    select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG where schedule_job_id=30 and create_time < '2017-07-15' order  by create_time desc
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG where schedule_job_id=31 order  by create_time desc
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG where schedule_job_id=32 order  by create_time desc
+
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG where schedule_job_id=33 order  by create_time desc
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG where schedule_job_id=36 order  by create_time desc
+
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG order  by create_time desc
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where schedule_job_id=30 order  by create_time desc
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where POLL_SCHEME_JOB_LOG_ID =112046 order  by create_time desc
+
+select * from dbo.POLL_SCHEME_SCHEDULE_JOB
+
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL  e
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+where exception_content not like  '%Login failed%' 
+and exception_content not like  '%Network error IOException%' 
+and exception_content not like  '%Unknown server host name%'
+and exception_content not like  '%permission denied%'
+and exception_content not like  '%Login fails.%' 
+and exception_content not like  '%the Connection object is closed.%' 
+and exception_content not like  '%by another process.%' 
+and e.create_time > '2017-07-19 20:00:00'
+order  by e.create_time desc
+
+
+select * from poll_branch_master
+select * from poll_branch_scheme
+#
+select * from hist_orders_pay where branch_code = '4670' and business_date  = '2017-07-18'
+select * from hist_orders where branch_code = '3420'
+select * from hist_orders where branch_code = '3420'
+select * from hist_payfig where branch_code = '4670' order by business_date
+
+
+ SELECT * FROM payment p (NOLOCK) 
+    		 where  p.branch_code = '4670'  
+             and p.reserved <> 'DEL' 
+             and p.bank_in = '1'  ;
+
+ SELECT cury_no, pay_code , bank_in FROM payment p (NOLOCK) 
+    		 where  p.branch_code = '4670'  
+             and ( ( p.cury_no = '000' and  exists (select 1 from currency c where p.branch_code = c.branch_code 
+                 and c.base_cury = '1' and c.reserved <> 'DEL' ) )   
+             or ( exists (select 1 from currency c where p.cury_no = c.cury_no and p.branch_code = c.branch_code  
+                  and c.reserved <> 'DEL' ) ) ) 
+             and p.reserved <> 'DEL' 
+             and p.bank_in = '1'  ;
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='4412' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='4012' order  by create_time desc
+
+
+    select
+        polleodcon0_.POLL_EOD_CONTROL_ID as POLL1_5_,
+        polleodcon0_.CREATE_TIME as CREATE2_5_,
+        polleodcon0_.CREATE_USER as CREATE3_5_,
+        polleodcon0_.LAST_UPDATE_TIME as LAST4_5_,
+        polleodcon0_.LAST_UPDATE_USER as LAST5_5_,
+        polleodcon0_.BRANCH_CODE as BRANCH6_5_,
+        polleodcon0_.BUSINESS_DATE as BUSINESS7_5_,
+        polleodcon0_.STATUS as STATUS5_ 
+    from
+        POLL_EOD_CONTROL polleodcon0_ 
+    where
+        1=1 
+        and polleodcon0_.BRANCH_CODE='4412'
+        and (
+            polleodcon0_.STATUS='P' 
+            and polleodcon0_.LAST_UPDATE_TIME>'2017-07-17 12:13:06.66'
+            or polleodcon0_.STATUS='C'
+        ) 
+    order by
+        polleodcon0_.BUSINESS_DATE desc,
+        polleodcon0_.LAST_UPDATE_TIME desc
+
+select * from   dbo.POLL_EOD_CONTROL where branch_code='4412'
+order by create_time
+
+select * from   dbo.POLL_EOD_CONTROL  order by (LAST_UPDATE_TIME - create_time)  desc
+
+delete from   dbo.POLL_EOD_CONTROL where business_date = '2017-07-19' and branch_code='2899'
+order by create_time
+
+
+select * from   dbo.POLL_EOD_CONTROL where business_date = '2017-07-19'
+order by create_time
+
+select * from   dbo.POLL_EOD_CONTROL where business_date = '2017-07-18' and status <> 'C'
+order by create_time
+
+select * from item where branch_code='4459' order by last_update_time desc
+7105791	2017-07-17 08:45:59.627	MAX_POS_SYSTEM_2	2017-07-17 08:45:59.820	MAX_POS_SYSTEM_2	4459		STG_TO_POS
+7105026	2017-07-17 08:35:47.497	MAX_POS_SYSTEM_2	2017-07-17 08:36:00.233	MAX_POS_SYSTEM_2	4459		STG_TO_POS
+7105020	2017-07-17 08:35:20.693	MAX_POS_SYSTEM_2	2017-07-17 08:35:47.383	MAX_POS_SYSTEM_2	4459		MST_TO_STG
+7104639	2017-07-17 08:31:13.080	MAX_POS_SYSTEM_2	2017-07-17 08:32:17.890	MAX_POS_SYSTEM_2	4459		STG_TO_POS
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where poll_scheme_type='MASTER'  and direction ='MST_TO_STG' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7539938;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7275460;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7275459;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7275452;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7275455;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7275453;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7275461;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7275457;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7275454;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7539934
+;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7787767
+;select TOP 1000 * from dbo.TASK_JOB_LOG where  task_job_log_id=7787767
+;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7696150;
+select TOP 1000 * from dbo.TASK_JOB_EXECEPTION_DETAIL where  task_job_log_id=7696150;
+
+
+
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7794414;
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=7104639;
+select TOP 1000 * from dbo.TASK_JOB_LOG where  depend_on=7104625;
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=8208361;
+select TOP 1000 * from dbo.TASK_JOB_EXECEPTION_DETAIL where  task_job_log_id=8208361;
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=8236415;
+select TOP 1000 * from dbo.TASK_JOB_EXECEPTION_DETAIL where  task_job_log_id=8236415;
+
+8236599
+8236415
+8208361
+
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='1121' and poll_scheme_type='SALES_REALTIME' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='1121' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='1298' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3420' and poll_scheme_type='SALES_REALTIME' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3420' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3135' and poll_scheme_type='SALES_REALTIME' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3751' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='4312' and poll_scheme_type='MASTER' order  by create_time desc
+3135
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3737' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select * from hist_trans where branch_code='1823' and business_date='2017-07-10' order by trans_datetime 
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=8088543;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=5732534;
+select TOP 1000 * from dbo.TASK_JOB_EXECEPTION_DETAIL where  task_job_log_id=5732534;
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=5606866 order by create_time;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=5607809 order by create_time;
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='1121' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=5593943;
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='6101' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=5604681;
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3320' and poll_scheme_type='SALES_EOD' order  by create_time desc
+
+
+select TOP 1000 * from dbo.TASK_JOB_LOG with(nolock) where  poll_scheme_type='SALES_EOD' and poll_branch_id=5 order  by create_time desc
+
+select TOP 1000 (select count(distinct source) from task_job_log_detail d where  d.task_job_log_id = task_job_log.task_job_log_id ), * from dbo.TASK_JOB_LOG with(nolock) 
+where  poll_scheme_type='SALES_EOD' and poll_branch_id=5 and status  in ('PROGRESS', 'COMPLETE') and direction='POS_TO_STG' 
+and start_time > '2017-07-13 14:21:02'
+order  by TASK_JOB_LOG.create_time desc
+PROGRESS
+
+and ( select count(distinct source) from task_job_log_detail d where  d.task_job_log_id = task_job_log.task_job_log_id ) < 17 
+order  by TASK_JOB_LOG.create_time desc
+
+
+hist_stock_movement
+hist_coupon_sales
+hist_stock_movement
+hist_trans_modifier
+hist_supp
+hist_orders_extra
+hist_trans
+hist_orders
+hist_trans_modifier
+hist_stock_movement
+hist_trans_ecard
+hist_paysum
+hist_voidtrans
+hist_redeemed_coupon
+hist_orders_pay
+hist_item
+hist_coupon_sales
+
+ delete from dbo.POLL_EOD_CONTROL where   branch_code='1121' and business_date='2017-07-12'
+ select *  from dbo.POLL_EOD_CONTROL where   branch_code='1121' and business_date='2017-07-12'
+ select *  from dbo.POLL_EOD_CONTROL where   branch_code='3420' and business_date='2017-07-12'
+ select *  from dbo.POLL_EOD_CONTROL where   branch_code='3420' and business_date='2017-07-10'
+ 
+  select *  from dbo.POLL_EOD_CONTROL where   business_date='2017-07-13' and status='P' order by create_time
+  delete  from dbo.POLL_EOD_CONTROL where   business_date='2017-07-13' and status='P' and create_time < '2017-07-13 21:00:02'
+  
+  select *  from dbo.POLL_EOD_CONTROL where  branch_code='4683'
+  
+ 
+4683
+ delete from dbo.POLL_EOD_CONTROL where   create_user<>'SYSTEM' and create_time > '2017-07-13 12:31:02'
+ select *  from dbo.POLL_EOD_CONTROL where   create_user<>'SYSTEM' and create_time > '2017-07-13 12:31:02'
+
+
+delete from  POLL_EOD_CONTROL   where   exists 
+ 
+( select 1 from dbo.POLL_EOD_CONTROL p1  where   create_user<>'SYSTEM' 
+ and not exists (select 1 from   dbo.POLL_EOD_CONTROL p2 
+ where p1.branch_code=p2.branch_code and p1.business_date = DATEADD(day, 1, p2.business_date))
+ and business_date <> (select min(business_date) from  dbo.POLL_EOD_CONTROL p2 
+ where p1.branch_code=p2.branch_code)
+    and POLL_EOD_CONTROL.branch_code = p1.branch_code
+    and POLL_EOD_CONTROL.business_date >= p1.business_date)
+    
+ order by branch_code,  business_date       
+    
+    
+ select create_user,branch_code,  business_date , status from dbo.POLL_EOD_CONTROL p1  where   create_user<>'SYSTEM' 
+ and not exists (select 1 from   dbo.POLL_EOD_CONTROL p2 
+ where p1.branch_code=p2.branch_code and p1.business_date = DATEADD(day, 1, p2.business_date))
+ and business_date <> (select min(business_date) from  dbo.POLL_EOD_CONTROL p2 
+ where p1.branch_code=p2.branch_code)
+order by branch_code,  business_date 
+ 
+
+
+select * from dbo.hist_possystem h  where   branch_code='3135'
+
+select * from dbo.POLL_SCHEME_INFO where client_type='DBF' and poll_scheme_type='SALES_EOD'
+
+
+select distinct business_date from dbo.hist_supp h  where   branch_code='6101'
+
+
+delete from   dbo.POLL_EOD_CONTROL where branch_code='6101'  and create_user<>'SYSTEM'
+
+from   dbo.POLL_EOD_CONTROL where branch_code='6101'  and create_user<>'SYSTEM'
+order by create_time
+
+
+delete from   dbo.POLL_EOD_CONTROL where branch_code='1121'  and create_user<>'SYSTEM'
+
+select * from   dbo.POLL_EOD_CONTROL where branch_code='1121'  and create_user<>'SYSTEM'
+order by create_time
+
+
+
+select m.branch_code, i.client_type , c.business_date from POLL_BRANCH_SCHEME s
+join POLL_BRANCH_info i on s.POLL_BRANCH_INFO_ID = i.POLL_BRANCH_INFO_ID
+join POLL_BRANCH_master m on s.POLL_BRANCH_MASTER_ID = m.POLL_BRANCH_MASTER_ID
+join poll_EOD_CONTROL c on c.branch_code = m.branch_code
+where POLL_SCHEME_type='SALES_EOD' 
+and direction= 'STG_TO_EDW'
+order by m.branch_code, c.business_date
+
+select * from   dbo.POLL_EOD_CONTROL where business_date = '2017-07-13'
+order by create_time
+
+select * from dbo.POLL_APPLICATION_SETTING
+
+
+POLL_BRANCH_INFO_ID   POLL_BRANCH_MASTER_ID 
+
+
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG  order  by create_time desc
+
+select * from   dbo.hist_supp where branch_code ='4334'  and business_date >= '2017-07-08'
+select * from   dbo.hist_orders where branch_code ='4334'  and business_date >= '2017-07-08'
+
+
+select * from   dbo.POLL_EOD_CONTROL where branch_code ='4423'  and business_date >= '2017-07-08'
+
+
+delete from dbo.POLL_EOD_CONTROL where branch_code ='4423'  and business_date > '2017-07-08'
+
+select * from dbo.POLL_BRANCH_SCHEME where poll_scheme_desc like '%6155%'
+select * from dbo.POLL_BRANCH_SCHEME where poll_scheme_desc like '%3320%'
+select * from dbo.POLL_BRANCH_SCHEME where poll_scheme_desc like '%4364%'
+
+
+select *  from dbo.POLL_EOD_CONTROL where branch_code ='4423'  and business_date >= '2017-07-08'
+
+select CONVERT(varchar(16),business_date,23) from hist_orders_pay where  branch_code ='4423' 
+and CONVERT(varchar(16),business_date,23) > '2017-07-08' and CONVERT(varchar(16),business_date,23) <= '2017-07-09' 
+
+
+update dbo.POLL_SCHEME_JOB_LOG  set status='FAILED' where status like 'P% '
+
+order  by create_time desc
+4670
+
+
+select poll_scheme_info.* , (select SRC_KEY_COLUMNS from poll_scheme_info i1 where poll_scheme_type='MASTER' and client_type='SQLPOS' and i1.source = poll_scheme_info.source)
+from poll_scheme_info where poll_scheme_type='MASTER' and client_type='SQLSERVER'
+
+
+select poll_scheme_info.* , (select SRC_KEY_COLUMNS from poll_scheme_info i1 where poll_scheme_type='MASTER' and client_type='SQLPOS' and i1.source = poll_scheme_info.source)
+update  poll_scheme_info 
+set SRC_KEY_COLUMNS  = (select SRC_KEY_COLUMNS from poll_scheme_info i1 where poll_scheme_type='MASTER' and client_type='SQLPOS' and i1.source = poll_scheme_info.source),
+ DEST_KEY_COLUMNS  = (select DEST_KEY_COLUMNS from poll_scheme_info i1 where poll_scheme_type='MASTER' and client_type='SQLPOS' and i1.source = poll_scheme_info.source)
+where poll_scheme_type='MASTER' and client_type='SQLSERVER'
+
+
+
+
+select * from poll_scheme_info where poll_scheme_type = 'SALES_REALTIME' order by client_type
+
+select * from dbo.POLL_BRANCH_INFO
+select * from dbo.POLL_BRANCH_SCHEME where poll_branch_info_id=3008
+
+
+
+
+
+select * from dbo.POLL_APPLICATION_SETTING
+
+update  dbo.POLL_APPLICATION_SETTING set code_value='LOCK' where code='SCHEDULE'
+
+update  dbo.POLL_APPLICATION_SETTING set code_value='DISPLAY' where code='SALES_REALTIME'
+
+Primary key		
+
+select * from poll_scheme_info where destination='orders' and client_type<>'ORACLE'
+update poll_scheme_info SET SRC_KEY_COLUMNS = 'branch_code,order_no,order_seq,recall' , DEST_KEY_COLUMNS = 'branch_code,order_no,order_seq,recall' 
+where destination='orders' and client_type<>'ORACLE'
+
+update poll_scheme_info SET SRC_KEY_COLUMNS = 'BRANCH_CODE,ORDER_NO,ORDER_SEQ,RECALL' , DEST_KEY_COLUMNS = 'BRANCH_CODE,ORDER_NO,ORDER_SEQ,RECALL' 
+where destination='orders' and client_type='ORACLE'
+
+commit
+
+select * from poll_scheme_info where destination='orders_pay' and client_type<>'ORACLE'
+update poll_scheme_info SET SRC_KEY_COLUMNS = 'branch_code,order_no,pay_seq,recall' , DEST_KEY_COLUMNS = 'branch_code,order_no,pay_seq,recall' 
+where destination='orders_pay' and client_type<>'ORACLE'
+
+update poll_scheme_info SET SRC_KEY_COLUMNS = 'BRANCH_CODE,ORDER_NO,PAY_SEQ,RECALL' , DEST_KEY_COLUMNS = 'BRANCH_CODE,ORDER_NO,PAY_SEQ,RECALL' 
+where destination='orders_pay' and client_type='ORACLE'
+
+	
+
+
+select * from poll_scheme_info where poll_scheme_type='SALES_REALTIME'
+
+
+Primary key	branch_code, order_no, pay_seq, recall	
+
+
+
+
+1575
+update dbo.TASK_JOB_LOG set LASTTEST_JOB_IND='Y'where task_job_log_id = 4445514
+update dbo.TASK_JOB_LOG set LASTTEST_JOB_IND='Y'where task_job_log_id = 4449104
+4449104
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where poll_scheme_type='MASTER'  order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4449104
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4445515
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4445514
+select TOP 1000 * from dbo.TASK_JOB_EXECEPTION_DETAIL where  task_job_log_id=4445515
+
+
+
+select TOP 1000 * from dbo.TASK_JOB_LOG order  by create_time desc
+
+
+
+select * from dbo.poll_branch_master
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code like'4674%' and poll_scheme_type='SALES_EOD'  order  by create_time desc
+
+
+
+select * from POLL_EOD_CONTROL 
+where business_date='2017-07-13'
+order by create_time
+
+
+4407025
+4403421
+4398836
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code like'136%' and poll_scheme_type='SALES_EOD' and DIRECTION='POS_TO_STG' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code like'4678%' and poll_scheme_type='SALES_EOD' and DIRECTION='POS_TO_STG' order  by create_time desc
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4403418
+
+
+select count(1) as count from POLL_EOD_CONTROL
+
+select status, count(1) from POLL_EOD_CONTROL 
+where business_date='2017-07-09'
+and create_user <>'system'
+group by status
+
+
+
+select * from dbo.POLL_EOD_CONTROL where business_date='2017-07-17'
+order by last_update_time desc
+
+select * from POLL_EOD_CONTROL 
+where business_date='2017-07-09'
+and create_user <>'system'
+and status='P'
+order by last_update_time desc
+
+ branch_code , business_date
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3708' and poll_scheme_type='SALES_REALTIME' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3708' and poll_scheme_type='SALES_EOD' order  by create_time desc
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3709' and poll_scheme_type='SALES_REALTIME' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3709' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3709' and poll_scheme_type='SALES_EOD' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_EXECEPTION_DETAIL where  task_job_log_id=4862508;
+
+
+1748276
+1744561
+1741032
+
+
+select * from dbo.POLL_EOD_CONTROL order by branch_code, business_date
+
+
+delete from dbo.POLL_EOD_CONTROL where branch_code ='1362'  and business_date = '2017-07-03'
+delete from dbo.POLL_EOD_CONTROL where branch_code like'138%'  and business_date = '2017-07-03' and branch_code<>'1387'
+delete from dbo.POLL_EOD_CONTROL where brajnch_code like'136%'  and business_date = '2017-07-03'
+select * from dbo.POLL_EOD_CONTROL where branch_code like'138%'  and business_date = '2017-07-03'
+select * from dbo.POLL_EOD_CONTROL where branch_code like'1823%'  and business_date = '2017-07-03'
+delete from dbo.POLL_EOD_CONTROL where branch_code like'1823%'  and business_date = '2017-07-03'
+
+
+select * from dbo.POLL_EOD_CONTROL where status='P'
+
+
+
+select * from dbo.POLL_EOD_CONTROL where branch_code like'138%'  and business_date = '2017-07-03'
+select * from dbo.POLL_EOD_CONTROL where  business_date = '2017-07-04' and status='P' order by create_time
+select * from dbo.POLL_EOD_CONTROL where  business_date = '2017-07-05' order by create_time desc
+
+
+select * from dbo.POLL_EOD_CONTROL where  business_date = '2017-07-06'order by create_time desc
+
+
+select * from dbo.POLL_EOD_CONTROL where  business_date = '2017-07-04' and branch_code='1361'
+delete from dbo.POLL_EOD_CONTROL where  business_date = '2017-07-04' and branch_code='1388'
+
+delete from dbo.TASK_JOB_LOG where status = 'PENDING'  
+
+delete from poll_branch_scheme where poll_branch_scheme_id= 16753
+select * from poll_branch_scheme where poll_scheme_desc like '%1298%'
+delete from dbo.TASK_JOB_LOG where branch_code='1298' and status = 'NONE' and poll_scheme_id= 16753
+
+
+
+
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='4006' and status = 'NONE' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4612168;
+select TOP 1000 * from dbo.TASK_JOB_EXECEPTION_DETAIL where  task_job_log_id=4612168;
+
+
+select * from poll_branch_info
+
+select * from poll_branch_scheme where poll_branch_info_id in (3007,3009)
+
+
+
+select * from dbo.TASK_JOB_LOG where status = 'NONE'  order  by create_time desc
+
+select * from dbo.TASK_JOB_LOG where status = 'PENDING'  order  by create_time desc
+delete from dbo.TASK_JOB_LOG where status = 'PENDING' 
+select *  from dbo.TASK_JOB_LOG where status = 'PENDING' order  by create_time desc
+select *  from dbo.TASK_JOB_LOG where status = 'PROGRESS' order  by create_time desc
+update dbo.TASK_JOB_LOG set status='FAILED' where status = 'PROGRESS' 
+
+
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG where schedule_job_id=30 order  by create_time desc
+select TOP 1000 * from dbo.POLL_SCHEME_JOB_LOG where schedule_job_id=31 order  by create_time desc
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where schedule_job_id=30 order  by create_time desc
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='1298' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3737' order  by create_time desc
+select * from hist_trans where branch_code='1823' and business_date='2017-07-10' order by trans_datetime 
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4929963;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4929911;
+
+
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4781697;
+select TOP 1000 * from dbo.TASK_JOB_LOG_DETAIL where  task_job_log_id=4781406;
+
+
+
+
+select * from dbo.TASK_JOB_LOG with (NOLOCK)where poll_scheme_job_log_id = 108587 and DIRECTION='POS_TO_STG' and status='PENDING'
+
+
+select * from dbo.TASK_JOB_LOG with (NOLOCK)where poll_scheme_job_log_id = 108587 and DIRECTION='POS_TO_STG' and status='PENDING'
+
+
+select * from dbo.POLL_BRANCH_INFO
+
+select * from task_job_log where branch)
+
+select TOP 1000 * from dbo.TASK_JOB_LOG with (NOLOCK)where poll_scheme_job_log_id = 102036                  and DIRECTION='POS_TO_STG' order by end_time desc
+
+
+select status, count(1) from dbo.TASK_JOB_LOG with (NOLOCK)where poll_scheme_job_log_id = 99653 and DIRECTION='POS_TO_STG'  group by status
+
+select TOP 1000 * from dbo.TASK_JOB_LOG with (NOLOCK)where poll_scheme_job_log_id = 103466 and DIRECTION='POS_TO_STG' and status='PROGRESS'
+
+select TOP 1000 * from dbo.TASK_JOB_LOG with (NOLOCK)where poll_scheme_job_log_id = 103466 and DIRECTION='POS_TO_STG' and status='PENDING'
+
+
+98439	2017-07-03 18:35:00.023	MAX_POS_SYSTEM_2	2017-07-03 18:35:09.227	MAX_POS_SYSTEM_2
+
+
+
+update dbo.TASK_JOB_LOG  set status='FAILED' where status like 'P%'
+98440
+98439
+
+select * from dbo.POLL_EOD_CONTROL where branch_code like'1823%'  and business_date = '2017-07-03'
+
+
+select TOP 1000 * from dbo.TASK_JOB_LOG with (NOLOCK)where poll_scheme_job_log_id = 99653 and DIRECTION='POS_TO_STG' order by end_time desc
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='3252' and poll_scheme_type='SALES_REALTIME' order  by create_time desc
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='1361' and poll_scheme_type='SALES_EOD' order  by create_time desc
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='1823' and poll_scheme_type='SALES_EOD' and status like 'P%'
+
+
+select * from hist_orders_pay where branch_code='4423' 
+select * from dbo.POLL_EOD_CONTROL where branch_code ='4423'  and business_date >= '2017-07-08'
+
+select TOP 1000 * from dbo.TASK_JOB_LOG where branch_code='1121' and poll_scheme_type='SALES_EOD' order  by create_time desc
+
+
+select * from hist_supp
+where branch_code='1388'
+and CONVERT(varchar(16),business_date,23) > '2017-07-08' and CONVERT(varchar(16),business_date,23) <= '2017-07-09' 
+
+select * from hist_supp
+where branch_code='1388'
+and CONVERT(varchar(16),business_date,23) > '2017-07-09' and CONVERT(varchar(16),business_date,23) <= '2017-07-10' 
+
+
+select * from TASK_JOB_LOG where task_job_log_id = 2601618
+
+delete from dbo.TASK_JOB_LOG where status ='PENDING'
+
+
+99376
+99375
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL where task_job_log_id=4110665
+
+
+select TOP 1000 * from dbo.TASK_JOB_LOG with (NOLOCK)where poll_scheme_type='SALES_EOD' and DIRECTION='POS_TO_STG' order by end_time desc
+
+
+select * from dbo.POLL_EOD_CONTROL where branch_code='3719'
+
+
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL where exception_content like  '%Unknown server host name%' order  by create_time desc
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL where exception_content not like  '%Login failed%' order  by create_time desc
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL  e
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+where exception_content not like  '%Login failed%' 
+and exception_content not like  '%Network error IOException%' 
+and exception_content not like  '%Unknown server host name%'
+and exception_content not like  '%permission denied%'
+and exception_content not like  '%Login fails.%' 
+and exception_content not like  '%the Connection object is closed.%' 
+and exception_content not like  '%by another process.%' 
+and e.create_time > '2017-07-19 20:00:00'
+order  by e.create_time desc
+
+and branch_code='4006'
+7787767
+
+7770282 2807
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL  e
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+where exception_content like  '%permission denied%'
+and e.create_time > '2017-07-14 08:00:00'
+order  by e.create_time desc
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL  e
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+where exception_content like  '%login failed%' 
+and e.create_time > '2017-07-14 08:00:00'
+order  by e.create_time desc
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL  e
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+where exception_content like  '%Login failed%' 
+and e.create_time > '2017-07-14 08:00:00'
+order  by e.create_time desc
+
+select branch_code, max(j.create_time) as t  from dbo.TASK_JOB_EXECEPTION_DETAIL e join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id where exception_content like  '%Login failed%'
+group by branch_code
+order  by t  desc
+
+
+
+select branch_code, max(j.create_time) as t  from dbo.TASK_JOB_EXECEPTION_DETAIL e join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id
+where exception_content like  '%Network error IOException%'
+group by branch_code
+order  by t  desc
+
+select j.branch_code, i.client_host, i.client_db, i.client_type, max(j.create_time) as t  from dbo.TASK_JOB_EXECEPTION_DETAIL e 
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+join poll_branch_scheme s on s.poll_branch_scheme_id = j.poll_scheme_id
+join poll_branch_info i on s.poll_branch_info_id = i.poll_branch_info_id
+where exception_content like  '%Network error IOException%'
+and e.create_time > '2017-07-14 08:00:00'
+group by j.branch_code, i.client_host, i.client_db, i.client_type
+order by j.branch_code
+
+select j.branch_code, i.client_host, i.client_db, i.client_type, max(j.create_time) as t  from dbo.TASK_JOB_EXECEPTION_DETAIL e 
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+join poll_branch_scheme s on s.poll_branch_scheme_id = j.poll_scheme_id
+join poll_branch_info i on s.poll_branch_info_id = i.poll_branch_info_id
+where exception_content like  '%Login fails.%' 
+and e.create_time > '2017-07-13 12:00:00'
+group by j.branch_code, i.client_host, i.client_db, i.client_type
+order by j.branch_code
+
+order  by t  desc
+
+select j.branch_code, i.client_host, i.client_db, i.client_type, max(j.create_time) as t  from dbo.TASK_JOB_EXECEPTION_DETAIL e 
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+join poll_branch_scheme s on s.poll_branch_scheme_id = j.poll_scheme_id
+join poll_branch_info i on s.poll_branch_info_id = i.poll_branch_info_id
+where exception_content like  '%Unexpected end of ZLIB input stream%' 
+and e.create_time > '2017-07-17 12:00:00'
+group by j.branch_code, i.client_host, i.client_db, i.client_type
+order by j.branch_code
+
+
+select j.branch_code, i.client_host, i.client_db, i.client_type, max(j.create_time) as t  from dbo.TASK_JOB_EXECEPTION_DETAIL e 
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+join poll_branch_scheme s on s.poll_branch_scheme_id = j.poll_scheme_id
+join poll_branch_info i on s.poll_branch_info_id = i.poll_branch_info_id
+where exception_content like  '%Unknown server host name%'
+and e.create_time > '2017-07-14 08:00:00'
+group by j.branch_code, i.client_host, i.client_db, i.client_type
+order by j.branch_code
+order  by t  desc
+
+select j.branch_code, i.client_host, i.client_db, i.client_type, max(j.create_time) as t  from dbo.TASK_JOB_EXECEPTION_DETAIL e 
+join TASK_JOB_LOG j on j.task_job_log_id = e.task_job_log_id 
+join poll_branch_scheme s on s.poll_branch_scheme_id = j.poll_scheme_id
+join poll_branch_info i on s.poll_branch_info_id = i.poll_branch_info_id
+where exception_content like  '%permission denied%'
+and e.create_time > '2017-07-14 08:00:00'
+group by j.branch_code, i.client_host, i.client_db, i.client_type
+order by j.branch_code
+order  by t  desc
+
+ 
+
+select * from poll_branch_scheme
+
+java.lang.RuntimeException: Fail [0,08S01] to Get Connection Retry[2] to pos@M2949:1433
+	at com.maxim.pos.common.service.ApplicationSettingServiceImpl.getJDBCConection(ApplicationSettingServiceImpl.java:291)
+	at com.maxim.pos.common.service.ApplicationSettingServiceImpl$$FastClassBySpringCGLIB$$82880826.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:204)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:649)
+	at com.maxim.pos.common.service.ApplicationSettingServiceImpl$$EnhancerBySpringCGLIB$$78e31f22.getJDBCConection(<generated>)
+	at com.maxim.pos.sales.service.SalesServiceSqlImpl.doGetPosProcessDate(SalesServiceSqlImpl.java:60)
+	at com.maxim.pos.sales.service.SalesServiceBaseImpl.processPosDataToStg(SalesServiceBaseImpl.java:391)
+	at com.maxim.pos.common.service.BranchSchemeExecutor.call(BranchSchemeExecutor.java:92)
+	at com.maxim.pos.common.service.BranchSchemeExecutor.run(BranchSchemeExecutor.java:182)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: Network error IOException: No route to host
+	at net.sourceforge.jtds.jdbc.JtdsConnection.<init>(JtdsConnection.java:436)
+	at net.sourceforge.jtds.jdbc.Driver.connect(Driver.java:184)
+	at java.sql.DriverManager.getConnection(DriverManager.java:664)
+	at java.sql.DriverManager.getConnection(DriverManager.java:208)
+	at com.maxim.pos.common.service.ApplicationSettingServiceImpl.getJDBCConection(ApplicationSettingServiceImpl.java:276)
+	... 13 more
+Caused by: java.net.NoRouteToHostException: No route to host
+	at java.net.PlainSocketImpl.socketConnect(Native Method)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at net.sourceforge.jtds.jdbc.SharedSocket.createSocketForJDBC3(SharedSocket.java:288)
+	at net.sourceforge.jtds.jdbc.SharedSocket.<init>(SharedSocket.java:251)
+	at net.sourceforge.jtds.jdbc.JtdsConnection.<init>(JtdsConnection.java:331)
+	... 17 more
+
+
+, j.create_time
+
+
+
+insert into dbo.POLL_SCHEME_INFO
+select CREATE_TIME             ,CREATE_USER                                        ,LAST_UPDATE_TIME        ,LAST_UPDATE_USER,
+'SQLSERVER'          ,DELIMITER  ,DESTINATION                                        ,IS_OVERRIDE ,POLL_SCHEME_TYPE     ,
+SOURCE                                             ,IS_CONSISTENT_STRUCTURE ,
+DEST_CHECK_SUM_COLS ,
+ DEST_KEY_COLUMNS, 
+ SRC_CHECK_SUM_COLS ,                                                                                                                                                                                      
+ SRC_KEY_COLUMNS  ,                                                                                                                                                                                        
+ CHECK_SUM_COLUMNS ,                                 
+ SPLIT_DATE_REQUIRED 
+ from dbo.POLL_SCHEME_INFO where  client_type='SQLPOS' and poll_scheme_type like 'SALES%'
+
+
+
+select 1
+
+
+
+
+
+update dbo.POLL_SCHEME_INFO 
+set DEST_KEY_COLUMNS ='BRANCH_CODE,ROWGUID', SRC_KEY_COLUMNS='branch_code,rowguid'
+where client_type='ORACLE'
+
+TASK_JOB_LOG_ID       CREATE_TIME             CREATE_USER                                        LAST_UPDATE_TIME        LAST_UPDATE_USER                                   BRANCH_CODE                                                                                                                                                                                                                                                     DEPEND_ON             DIRECTION                                                                                                                                                                                                                                                       END_TIME                ERROR_CODE                                                                                                                                                                                                                                                      ERROR_MSG                                                                                                                                                                                                                                                       LASTTEST_JOB_IND                                                                                                                                                                                                                                                POLL_SCHEME_ID        POLL_SCHEME_NAME                                                                                                                                                                                                                                                POLL_SCHEME_TYPE                                                                                                                                                                                                                                                START_TIME              STATUS                                                                                                                                                                                                                                                          TASK_NAME                                                                                                                                                                                                                                                       SCHEDULE_JOB_ID       POLL_BRANCH_ID        POLL_SCHEME_DESC                                                                                                                                                                                         POLL_SCHEME_JOB_LOG_ID 
+--------------------- ----------------------- -------------------------------------------------- ----------------------- -------------------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ----------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- --------------------- --------------------- -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- ---------------------- 
+2242290               2017-07-05 14:50:01.130 MAX_POS_SYSTEM_1                                   2017-07-05 14:51:26.647 MAX_POS_SYSTEM_1                                   4001                                                                                                                                                                                                                                                            NULL                  POS_TO_STG                                                                                                                                                                                                                                                      2017-07-05 14:51:26.647 NULL                                                                                                                                                                                                                                                            NULL                                                                                                                                                                                                                                                            Y                                                                                                                                                                                                                                                               13919                 SALES_REALTIME                                                                                                                                                                                                                                                  SALES_REALTIME                                                                                                                                                                                                                                                  2017-07-05 14:51:23.677 NONE                                                                                                                                                                                                                                                            NULL                                                                                                                                                                                                                                                            30                    3004                  BRANCH-4001 POS_TO_STG RT                                                                                                                                                                                100886                 
+
+1 Row(s) affected
+
+
+
+select * from task_job_log j where status = 'NONE'
+and exists (select 1 from task_job_log_detail d where  d.task_job_log_id = j.task_job_log_id)
+order by CREATE_TIME 
+
+
+
+update task_job_log 
+set status = 'FAILED' 
+where status = 'NONE'
+and exists (select 1 from task_job_log_detail d where  d.task_job_log_id = task_job_log.task_job_log_id)
+
+
+
+
+select * from task_job_log_detail j  with (nolock) where 1=1
+and exists (select 1 from task_job_log d with (nolock) where  d.task_job_log_id = j.task_job_log_id and status = 'NONE')
+order by CREATE_TIME 
+
+select * from task_job_log j where status = 'NONE'
+and exists (select 1 from TASK_JOB_EXECEPTION_DETAIL d where  d.task_job_log_id = j.task_job_log_id)
+order by CREATE_TIME 
+
+
+select * from task_job_log j where status = 'NONE'
+and exists (select 1 from task_job_log_detail d where  d.task_job_log_id = j.task_job_log_id)
+order by CREATE_TIME 
+
+delete from task_job_log_detail  where
+exists (select 1 from task_job_log j where  task_job_log_detail.task_job_log_id = j.task_job_log_id and  status = 'NONE')
+
+select * from dbo.TASK_JOB_EXECEPTION_DETAIL where task_job_log_id  =2242290
+
+select * from task_job_log where branch_code= '4001' and status = 'NONE'
+
+
+
+
+
+
+
+				SELECT PBS.POLL_BRANCH_SCHEME_ID, PBS.IS_ENABLED AS SCHEME_ENABLED, PBI.ENABLE AS INFO_ENABLED, PBS.START_TIME, PBS.END_TIME, 
+				    PBM.BRANCH_CODE, PBS.POLL_BRANCH_INFO_ID, PBS.POLL_SCHEME_NAME, PBS.POLL_SCHEME_DESC,
+				    TJLS.TASK_JOB_LOG_ID AS LAST_JOB_LOG_ID, TJLS.LAST_UPDATE_TIME, TJLS.STATUS AS LAST_STATUS,  TJL.TASK_JOB_LOG_ID, TJL2.TASK_JOB_LOG_ID AS TASK_JOB_LOG_ID2, TJL.STATUS, TJL2.STATUS AS STATUS2
+				FROM POLL_BRANCH_SCHEME PBS
+				LEFT JOIN POLL_BRANCH_MASTER PBM ON PBM.POLL_BRANCH_MASTER_ID = PBS.POLL_BRANCH_MASTER_ID
+				LEFT JOIN POLL_BRANCH_INFO PBI ON PBI.POLL_BRANCH_INFO_ID = PBS.POLL_BRANCH_INFO_ID
+				LEFT JOIN TASK_JOB_LOG TJL WITH (NOLOCK)
+				ON TJL.DIRECTION=PBS.DIRECTION
+				and TJL.POLL_SCHEME_TYPE = PBS.POLL_SCHEME_TYPE
+				and TJL.BRANCH_CODE = PBM.BRANCH_CODE	
+				and TJL.BRANCH_CODE <> 'NONE'
+	            and TJL.LAST_UPDATE_TIME = (
+		            select  max(LAST_UPDATE_TIME)
+		            from TASK_JOB_LOG TJLM WITH (NOLOCK)      
+		            where TJL.DIRECTION=TJLM.DIRECTION     
+		            and TJL.POLL_SCHEME_TYPE = TJLM.POLL_SCHEME_TYPE     
+		            and TJL.BRANCH_CODE = TJLM.BRANCH_CODE   
+		            AND TJL.LASTTEST_JOB_IND  = 'Y'
+		            and TJL.STATUS <> 'NONE' ) 
+				LEFT JOIN TASK_JOB_LOG TJLS WITH (NOLOCK)
+				ON TJLS.DIRECTION=PBS.DIRECTION
+				and TJLS.POLL_SCHEME_TYPE = PBS.POLL_SCHEME_TYPE
+				and TJLS.BRANCH_CODE = PBM.BRANCH_CODE	
+	            and TJLS.LAST_UPDATE_TIME = (
+		            select  max(LAST_UPDATE_TIME)
+		            from TASK_JOB_LOG TJLSM WITH (NOLOCK)      
+		            where TJLS.DIRECTION=TJLSM.DIRECTION     
+		            and TJLS.POLL_SCHEME_TYPE = TJLSM.POLL_SCHEME_TYPE     
+		            and TJLS.BRANCH_CODE = TJLSM.BRANCH_CODE     )
+				LEFT JOIN TASK_JOB_LOG TJL2 WITH (NOLOCK)
+				ON TJL2.DEPEND_ON=TJL.TASK_JOB_LOG_ID
+				where PBS.DIRECTION='POS_TO_STG'
+				and PBS.POLL_SCHEME_TYPE = 'SALES_REALTIME'
+				ORDER BY TJLS.LAST_UPDATE_TIME 
+
+
+
+
+sp_lock
+
+
+
+update dbo.TASK_JOB_EXECEPTION_DETAIL set status='S'
+select * from dbo.hist_payfig where  branch_code = '4670'
+order by business_date
+
+
+SELECT pay_code , bank_in FROM payment p (NOLOCK)
+where  p.branch_code = '4670'
+             and (  (p.cury_no = '000'  and  exists (select 1 from currency c where p.branch_code = c.branch_code 
+                             and c.base_cury = '1' and c.reserved <> 'DEL' ) ) 
+               or ( exists (select 1 from currency c where p.cury_no = c.cury_no and p.branch_code = c.branch_code 
+                             and c.reserved <> 'DEL' ))) 
+             and p.reserved <> 'DEL' 
+             and bank_in = '1'
+ 
+
+SELECT pay_code , bank_in FROM payment p (NOLOCK)
+where  p.branch_code = '4670'
+             and (  
+                ( exists (select 1 from currency c where p.cury_no = c.cury_no and p.branch_code = c.branch_code 
+                             and c.reserved <> 'DEL' ))) 
+             and p.reserved <> 'DEL' 
+             
+             
+             
+
+select * from payment where branch_code = '4670'
+and cury_no = '000' and reserved <> 'DEL'
+
+select * from currency where branch_code = '4670' and reserved <> 'DEL' and base_cury = '1'
+
+344
+
+
+select A.cury_no, sum(A.amt), sum(A.local_amt)
+from
+(
+  SELECT op.cury_no,
+    		 ISNULL(SUM( (tender + tips) * case when p.bank_in = 1 or p2.bank_in =1 then case when refund = '0' then 1 when refund = '1' then -1 else 0 end else 0 end ), 0) as amt,
+    		 ISNULL(SUM( (pay_amt + op.change) * case when p.bank_in = 1 or p2.bank_in =1 then case when refund = '0' then 1 when refund = '1' then -1 else 0 end else 0 end ), 0) as local_amt
+  
+    		 FROM hist_orders_pay op (NOLOCK)   
+    		 left join payment p on p.branch_code = op.branch_code and p.cury_no = op.cury_no and p.pay_code = op.pay_code
+    		                     and p.reserved <> 'DEL' and p.bank_in='1'
+    		                     and exists (select 1 from currency c where p.cury_no = c.cury_no and p.branch_code = c.branch_code 
+                                             and c.reserved <> 'DEL' )
+    		 left join payment p2 on p2.branch_code = op.branch_code and p2.cury_no = '000' and p2.pay_code = op.pay_code
+    		                     and p2.reserved <> 'DEL' and p2.bank_in='1'
+    		                     and exists (select 1 from currency c where op.cury_no = c.cury_no and p2.branch_code = c.branch_code 
+                                             and c.base_cury = '1' and c.reserved <> 'DEL' )
+    		 WHERE recall = 0 AND void = '0'  
+    		 AND op.branch_code = '4670'
+    		 AND op.business_date = '2017-07-18'
+
+    		 GROUP BY op.business_date, op.cury_no
+    	
+    	union	 
+
+  SELECT c.cury_no,
+    		 ISNULL(SUM( op.change * case when refund = '0' then -1 when refund = '1' then 1 else 0 end ), 0) as change,
+    		 ISNULL(SUM( op.change * case when refund = '0' then -1 when refund = '1' then 1 else 0 end ), 0) as local_change
+  
+    		 FROM hist_orders_pay op (NOLOCK)   
+    		 join currency c on op.branch_code = c.branch_code and c.base_cury = '1' and c.reserved <> 'DEL' 
+    		 WHERE recall = 0 AND void = '0'  
+    		 AND op.branch_code = '4670'
+    		 AND op.business_date = '2017-07-18'
+    		 group by c.cury_no
+) AS A
+,
+ (SELECT TOP 1 *
+    		FROM HIST_PAYFIG (NOLOCK) 
+    		WHERE branch_code = '4670' 
+    		AND business_date = '2017-07-18'
+    		AND type like 'B%' and void = 0 ) AS B
+
+  group by A.cury_no  		 
+    		 
+    		 
+    		 
+
+
+  SELECT op.business_date, op.cury_no, op.pay_code,p.bank_in, p2.bank_in,
+    		 ISNULL(SUM( (tender + tips) * case when p.bank_in = 1 or p2.bank_in =1 then case when refund = '0' then 1 when refund = '1' then -1 else 0 end else 0 end ), 0) as amt,  
+    		 ISNULL(SUM( (pay_amt + op.change) * case when refund = '0' then 1 when refund = '1' then -1 else 0 end), 0) as local_amt,  
+    		 ISNULL(SUM( op.change * case when p.bank_in = 1 or p2.bank_in =1 then case when refund = '0' then -1 when refund = '1' then 1 else 0 end else 0 end), 0) as change   
+  
+    		 FROM hist_orders_pay op (NOLOCK)   
+    		 left join payment p on p.branch_code = op.branch_code and p.cury_no = op.cury_no and p.pay_code = op.pay_code
+    		                     and p.reserved <> 'DEL' and p.bank_in='1'
+    		                     and exists (select 1 from currency c where p.cury_no = c.cury_no and p.branch_code = c.branch_code 
+                                             and c.reserved <> 'DEL' )
+    		 left join payment p2 on p2.branch_code = op.branch_code and p2.cury_no = '000' and p2.pay_code = op.pay_code
+    		                     and p2.reserved <> 'DEL' and p2.bank_in='1'
+    		                     and exists (select 1 from currency c where op.cury_no = c.cury_no and p2.branch_code = c.branch_code 
+                                             and c.base_cury = '1' and c.reserved <> 'DEL' )
+    		 WHERE recall = 0 AND void = '0'  
+    		 AND op.branch_code = '4670'
+    		 AND op.business_date = '2017-07-18'
+
+    		 GROUP BY op.business_date, op.cury_no,op.pay_code ,p.bank_in, p2.bank_in
+             order by op.pay_code
+    		 
+    		 
+    		 and pay_code in 
+    		 (
+    		     SELECT pay_code FROM payment p (NOLOCK)
+where  p.branch_code = '4670'
+             and (p.cury_no = '000' or ( exists (select 1 from currency c where p.cury_no = c.cury_no and p.branch_code = c.branch_code 
+             and c.base_cury = '1' and c.reserved <> 'DEL' ))) 
+             and p.reserved <> 'DEL' 
+             and bank_in='1'
+    		     )
+
+
+
+  SELECT business_date,''''+cury_no, ''''+pay_code,
+    		 ISNULL(SUM( (tender + tips) * case when refund = '0' then 1 when refund = '1' then -1 else 0 end), 0) as amt,  
+    		 ISNULL(SUM( (pay_amt + change) * case when refund = '0' then 1 when refund = '1' then -1 else 0 end), 0) as local_amt,  
+    		 ISNULL(SUM(change * case when refund = '0' then -1 when refund = '1' then 1 else 0 end), 0) as change   
+    		 FROM hist_orders_pay (NOLOCK)   
+    		 WHERE recall = 0 AND void = '0'  
+    		 AND branch_code = '3235'
+    		 AND business_date = '2017-07-12'
+
+    		 GROUP BY business_date, cury_no,pay_code ;
+
+
+    		     SELECT * FROM payment p (NOLOCK)
+where  p.branch_code = '3235'
+             and (p.cury_no = '000' or ( exists (select 1 from currency c where p.cury_no = c.cury_no and p.branch_code = c.branch_code 
+             and c.base_cury = '1' and c.reserved <> 'DEL' ))) 
+             and p.reserved <> 'DEL' 
+             and bank_in

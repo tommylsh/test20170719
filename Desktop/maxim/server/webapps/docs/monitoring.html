@@ -1,0 +1,1097 @@
+<html><head><META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"><title>Apache Tomcat 7 (7.0.47) - Monitoring and Managing Tomcat</title><style type="text/css" media="print">
+            .noPrint {display: none;}
+            td#mainBody {width: 100%;}
+        </style><style type="text/css">
+            code {background-color:rgb(224,255,255);padding:0 0.1em;}
+            code.attributeName, code.propertyName {background-color:transparent;}
+        </style><style type="text/css">
+            .wrapped-source code { display: block; background-color: transparent; }
+            .wrapped-source div { margin: 0 0 0 1.25em; }
+            .wrapped-source p { margin: 0 0 0 1.25em; text-indent: -1.25em; }
+        </style><style type="text/css">
+            p.notice {
+                border: 1px solid rgb(255, 0, 0);
+                background-color: rgb(238, 238, 238);
+                color: rgb(0, 51, 102);
+                padding: 0.5em;
+                margin: 1em 2em 1em 1em;
+            }
+        </style></head><body bgcolor="#ffffff" text="#000000" link="#525D76" alink="#525D76" vlink="#525D76"><table border="0" width="100%" cellspacing="0"><!--PAGE HEADER--><tr><td><!--PROJECT LOGO--><a href="http://tomcat.apache.org/"><img src="./images/tomcat.gif" align="right" alt="
+      The Apache Tomcat Servlet/JSP Container
+    " border="0"></a></td><td><h1><font face="arial,helvetica,sanserif">Apache Tomcat 7</font></h1><font face="arial,helvetica,sanserif">Version 7.0.47, Oct 18 2013</font></td><td><!--APACHE LOGO--><a href="http://www.apache.org/"><img src="./images/asf-logo.gif" align="right" alt="Apache Logo" border="0"></a></td></tr></table><table border="0" width="100%" cellspacing="4"><!--HEADER SEPARATOR--><tr><td colspan="2"><hr noshade size="1"></td></tr><tr><!--LEFT SIDE NAVIGATION--><td width="20%" valign="top" nowrap class="noPrint"><p><strong>Links</strong></p><ul><li><a href="index.html">Docs Home</a></li><li><a href="http://wiki.apache.org/tomcat/FAQ">FAQ</a></li><li><a href="#comments_section">User Comments</a></li></ul><p><strong>User Guide</strong></p><ul><li><a href="introduction.html">1) Introduction</a></li><li><a href="setup.html">2) Setup</a></li><li><a href="appdev/index.html">3) First webapp</a></li><li><a href="deployer-howto.html">4) Deployer</a></li><li><a href="manager-howto.html">5) Manager</a></li><li><a href="realm-howto.html">6) Realms and AAA</a></li><li><a href="security-manager-howto.html">7) Security Manager</a></li><li><a href="jndi-resources-howto.html">8) JNDI Resources</a></li><li><a href="jndi-datasource-examples-howto.html">9) JDBC DataSources</a></li><li><a href="class-loader-howto.html">10) Classloading</a></li><li><a href="jasper-howto.html">11) JSPs</a></li><li><a href="ssl-howto.html">12) SSL</a></li><li><a href="ssi-howto.html">13) SSI</a></li><li><a href="cgi-howto.html">14) CGI</a></li><li><a href="proxy-howto.html">15) Proxy Support</a></li><li><a href="mbeans-descriptor-howto.html">16) MBean Descriptor</a></li><li><a href="default-servlet.html">17) Default Servlet</a></li><li><a href="cluster-howto.html">18) Clustering</a></li><li><a href="balancer-howto.html">19) Load Balancer</a></li><li><a href="connectors.html">20) Connectors</a></li><li><a href="monitoring.html">21) Monitoring and Management</a></li><li><a href="logging.html">22) Logging</a></li><li><a href="apr.html">23) APR/Native</a></li><li><a href="virtual-hosting-howto.html">24) Virtual Hosting</a></li><li><a href="aio.html">25) Advanced IO</a></li><li><a href="extras.html">26) Additional Components</a></li><li><a href="maven-jars.html">27) Mavenized</a></li><li><a href="security-howto.html">28) Security Considerations</a></li><li><a href="windows-service-howto.html">29) Windows Service</a></li><li><a href="windows-auth-howto.html">30) Windows Authentication</a></li><li><a href="jdbc-pool.html">31) Tomcat's JDBC Pool</a></li><li><a href="web-socket-howto.html">32) WebSocket</a></li></ul><p><strong>Reference</strong></p><ul><li><a href="RELEASE-NOTES.txt">Release Notes</a></li><li><a href="config/index.html">Configuration</a></li><li><a href="api/index.html">Tomcat Javadocs</a></li><li><a href="servletapi/index.html">Servlet Javadocs</a></li><li><a href="jspapi/index.html">JSP 2.2 Javadocs</a></li><li><a href="elapi/index.html">EL 2.2 Javadocs</a></li><li><a href="http://tomcat.apache.org/connectors-doc/">JK 1.2 Documentation</a></li></ul><p><strong>Apache Tomcat Development</strong></p><ul><li><a href="building.html">Building</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="http://wiki.apache.org/tomcat/TomcatVersions">Status</a></li><li><a href="developers.html">Developers</a></li><li><a href="architecture/index.html">Architecture</a></li><li><a href="funcspecs/index.html">Functional Specs.</a></li><li><a href="tribes/introduction.html">Tribes</a></li></ul></td><!--RIGHT SIDE MAIN BODY--><td width="80%" valign="top" align="left" id="mainBody"><h1>Monitoring and Managing Tomcat</h1><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Table of Contents"><!--()--></a><a name="Table_of_Contents"><strong>Table of Contents</strong></a></font></td></tr><tr><td><blockquote>
+<ul><li><a href="#Introduction">Introduction</a></li><li><a href="#Enabling_JMX_Remote">Enabling JMX Remote</a></li><li><a href="#Manage_Tomcat_with_JMX_remote_Ant_Tasks">Manage Tomcat with JMX remote Ant Tasks</a></li><li><a href="#JMXAccessorOpenTask_-_JMX_open_connection_task">JMXAccessorOpenTask - JMX open connection task</a></li><li><a href="#JMXAccessorGetTask:__get_attribute_value_Ant_task">JMXAccessorGetTask:  get attribute value Ant task</a></li><li><a href="#JMXAccessorSetTask:__set_attribute_value_Ant_task">JMXAccessorSetTask:  set attribute value Ant task</a></li><li><a href="#JMXAccessorInvokeTask:__invoke_MBean_operation_Ant_task">JMXAccessorInvokeTask:  invoke MBean operation Ant task</a></li><li><a href="#JMXAccessorQueryTask:__query_MBean_Ant_task">JMXAccessorQueryTask:  query MBean Ant task</a></li><li><a href="#JMXAccessorCreateTask:__remote_create_MBean_Ant_task">JMXAccessorCreateTask:  remote create MBean Ant task</a></li><li><a href="#JMXAccessorUnregisterTask:__remote_unregister_MBean_Ant_task">JMXAccessorUnregisterTask:  remote unregister MBean Ant task</a></li><li><a href="#JMXAccessorCondition:__express_condition">JMXAccessorCondition:  express condition</a></li><li><a href="#JMXAccessorEqualsCondition:__equals_MBean_Ant_condition">JMXAccessorEqualsCondition:  equals MBean Ant condition</a></li><li><a href="#Using_the_JMXProxyServlet">Using the JMXProxyServlet</a></li></ul>
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Introduction"><strong>Introduction</strong></a></font></td></tr><tr><td><blockquote>
+
+  <p>Monitoring is a key aspect of system administration. Looking inside a
+     running server, obtaining some statistics or reconfiguring some aspects of
+     an application are all daily administration tasks.</p>
+
+  </blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Enabling JMX Remote"><!--()--></a><a name="Enabling_JMX_Remote"><strong>Enabling JMX Remote</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p><strong>Note:</strong> This configuration is needed only if you are
+    going to monitor Tomcat remotely. It is not needed if you are going
+    to monitor it locally, using the same user that Tomcat runs with.</p>
+
+    <p>The Oracle website includes the list of options and how to configure
+    JMX Remote on Java 6:
+        <a href="http://docs.oracle.com/javase/6/docs/technotes/guides/management/agent.html">
+        http://docs.oracle.com/javase/6/docs/technotes/guides/management/agent.html</a>.
+    </p>
+    <p>The following is a quick configuration guide for Java 6:</p>
+    <p>Add the following parameters to <code>setenv.bat</code> script of your
+    Tomcat (see <a href="RUNNING.txt">RUNNING.txt</a> for details).<br>
+    <em>Note:</em> This syntax is for Microsoft Windows. The command has
+    to be on the same line. It is wrapped to be more readable. If Tomcat is
+    running as a Windows service, use its configuration dialog to set
+    java options for the service.
+    For un*xes remove <code>"set "</code> from beginning of the line.
+    </p>
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
+set CATALINA_OPTS=-Dcom.sun.management.jmxremote
+  -Dcom.sun.management.jmxremote.port=%my.jmx.port%
+  -Dcom.sun.management.jmxremote.ssl=false
+  -Dcom.sun.management.jmxremote.authenticate=false
+</pre></td><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr></table></div>
+
+    <ol>
+    <li>If you require authorization, add and change this:
+<div align="left"><table cellspacing="4" cellpadding="0" border="0"><tr><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#023264" width="1" height="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td></tr><tr><td bgcolor="#023264" width="1"><img src="./images/void.gif" alt="" width="1" height="1" vspace="0" hspace="0" border="0"></td><td bgcolor="#ffffff" height="1"><pre>
+"Ü€[ÍÀ}­wÁÖ.ðÞwQ»¼]Óîmµ'Ú³ìÕöFûkû€o—tª:uxÿÞ+À|GœŸœÇN·2YG÷5·Ÿ;É!™lƒë{Í½N^o”7Á›í-ôÖy™ÞAï„×ÊoïÇùýü©È%‹ü4ü}YÎ%†ˆ­~g•ªÊK
+U:)Ý”þÊ;Ê‡ÊÇÊr$üóÊå>’]èÁ8u¨¾/³ÜnŒ ‘ãžÀÇ#´ºš#×ºF'?Ö6iÛ´ï´cÚí®¬—Ò}¨Y'hÙ(}‚>½´Eß©ÔOèaFY¹Ã¿kwÔùyn`‰qÐ8e\Ar.cV4_D­¿l¾zëoÎ¿m2wš'Íæ-ÔyR…Ô'„ô%É(2™,'«É6²œAÊ¾‹:¯¯‰FÚN¤Ã¸“ét=Í¤ßÑû´p%FXê¼+ÀÞGÏfß°ƒì»ÌŠò’²Î=ÞŒwäÝùtþ1R×:~ã÷ŠY¥¬*V]«³õº•`D­/±V£Ö÷[G­+V¾pŠ9PÕžÓ}×ÝItÆ:3'Ô}Æ­îÖs_F=÷pßr'€y¢ïrÜ³¨çûn¯ŠWß#^Œ×Å{ÓKô–z_x_¡¦Õÿîù•üò$T‚?‰lº/Ö;2ýïäN¯?åülH \Ø·AOi£tA_ŽT¦)sÑ—›•}Êaä¬bj5BõÔf Šîðü1êLÔôAõ˜*öe‰L^M«£Ei­ Ö½µ™Ú|­`§ôI(ö-Mì:©|ÐMSG£ª/CMï@_þ,i1ÒhÍŽFÝ0F“Œ…Æ
+c3øàšñÀ(ŽÚSM—j¾Œ<1Íü
+‰ìóŒù»DÂÉó¤±I+Ò}9“,$+È·àôÓäú²(-O«Ñ6´}ý9“Î¥ËèZš§ú™^¥XVŸ9¬-ëÅØ»²7WB·Å<Iˆœ[Ü®Çÿ‡¹¿rô_×vú2­æ¢B¤¿ßR¶©ýÅå+q!rže•9nÌzòYÖçöOÄéÁ¡Îpg¤“äLp¦8Ó]«Zí¤;›ß¾sN ûÜv‚ÜÒnŒË[æ}íýˆ~®
+Í¦~ÿ¨X?M‘sME”geo¾©V
+«ÕUŠ<J¬~¬.Qu­\bß‚x }¯Ïb·Ø~Éú‰&ÎíãÆƒ¡ÃÝÿþþ§täÇw»›ù·P9î÷ÉÊ!2dkõXô}œÞGÿOÏg­Ð·ë)¦Ò{ª¹ËœO:Ñ»È×/1Q¶å±ÇÈuø2$Þ6ö>»˜{„³Üé$rHrˆ\,©Ü–ºÓIÝ¢öÕª5Hã#Ò|	)t“Ù†ž 9rfX/[½ ¤+­Xûuää‰öTûC{„ó§3u•âîtçA©Ï~T©¨¾©ŽG^åÊWke´úZ3ímÞê5}š~tõ§b2ÒŒu ªÕüœvŸÚü/kG&wìmv;§ƒ–œë:Þ8äÔ]^¹æ"Ïu0¨è"e"fÃÚ©CÀ}©ê25ì—§–×Ök›¡ÇåªuYÝÖéyúýŒQø¾ÂfŠùÈíšY†X$š´&1¨…XtZì>=DŽ#m¾@ÇÁ‰ÎÑ4
+ê5—m™4à>ÁwñzVs«‹5ÙZüo3
+uìÅv¦s©@õ›ùýe‘y¬Ž’¥ÿC©¤ÖÃÈj£vUßR'ªÓÐVÕ>\ÞÇúÄYçœvÇ{1FKƒ)ºøWÁè!2#G(qJµ¶ÖBµ(«»æ s²êH
+B*lU´,«•ÕÑênÍ¶–Zk¬}hÉJ¶fG€Ø-‰N¾£"‰îq#¼·½U^Y9×úl"ç¯ÞCF9‘ïY¬¶Çl
+imÄ‚Ù÷FæB¤d‘ošEÈ—H£}ìx;Ya¨=Ü.˜»©ïòCdæÛ©>áe¬šàµ6Vk5Ú¢Nœ·[\f¯m¦Eñ¼´Õí7Ì	Fýwû{½¥g—û)+hCµ9Úím}³þ’‘fHÇ…èlÚ‹ýhm²ƒ¨÷;x«pÛlw1*lƒ»ß½âþæVòšÀ¡—z+1:oz%ý²ÐõÎ`³‰þÿJÁy›ˆââÈg T|¡’%OÆýªEå»ju!RD!d‡9Z:FÓ!í¼¤ÓKêSŒUPÚoŒÆ%#Ø,a†›ÍÌÞ qÚš‚ÿ»’ÑäcpÍnèX€Z4Š–d¯²8¶†mdá¼·øX>ŸW³>‚›m³vËÊ7­JvuÔV¼ÝÕåìqræF» !¼õÞo¨¿Uè”R\Îe4P~P.(¿+íÕ=ê³Z#í5(ÓûP¦uZc½µ<ù	á12"T™K.âYZÓt„7Õëá€«}æîïð÷ÂÓòÄî¡@ ª¸ô´"Ê[J¢²tÚ#´Ÿ:HM‚.Dm]UoªbsŒÖEÈózu]Ñ©LPãõ©`}p¦ÇºÈ¯}ðýÅÌ
+f³¾©C£bÌæ8s=FÎu0`9R‰ÜƒÛ”‚ÛˆŒÐüðM €ÖÐMôÍ¡7Øï’*óšœó($îü>’Ed°ùu³µµ'h ¸]l÷ºÝê4¼¿ÓnëtGŒ´¿ÂYë|ïüàTvkºÜn®P.7ËKñÖ€çÅÍçþp’l•§ëà1Å¥G-QV)9ÂÜâ
+þ÷Ÿä9j3H,.sîn|îlw³—¶ G‘çh’Š¶Ä¾Ù³JC5^m¨¹ÚËZW­¯öŽöPûT^ÂH@-]5Ÿ%ý¡8çƒhZ¢cé,ºµípîëbð¯Yí¿æÄÉ—‘é/"]ç7yrýI+`Û!v˜-ö4ö±×ÛIŽéö–ç1…×äºÝ<·1õ¡÷÷[l²˜?—g)^ÍVŠ¨ß©÷ÕZÚ5ÍÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸œß(¬D(Üârné8«„ìr“··&YyVu»«}Iõu´Aúç€Ÿíós#rý‹¨T±>X\žéœ¢¬TºªÙê)õŸûl‚ôòz½‹~Õ~`Ÿ²=LÌ†E[ÿ\¹.8©|Ö¹*úÓyÆ­ŒÖUÀ,£A+S>‡rÚÞ·Þo§w^‰=[û”ÇJ”š¬æªaÚxmªVÎ¨hTF¦¨b¨o(†a0Ã1¢Œÿè_­iŒ7ûÉ2zˆêàû‡<ÞÏª­/!×**%Õª«}®}£]ÖŠâ]l=‰¦»þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf1U2ŸÜbX(´ï%¤£öü¾lï®wÏ»U0¦„^—ã§²ZF{Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u[«¯Ï×‹ïcé!:³ßùßÑÄtËÛí’ž±³2V™ ¾®ß×£O¯ýÌ£f!¼ùx’‰UY)™·&rí >žûV2øù¡5ÞþÞ^îîÑö‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1,#ÉfZ©³Tl¦UÄ~É^gq\Œ¢ÉÐÝ{Å»èó}±c8È-xï¢J,Î5VÛ¨]Ðšê·õú9³æ?h?ž$D2”'#I)ƒ„º—~ÃÖò7kN¨»Åíì½ë”º[BÎßÕVÆ+Áj%äúõHe´¥PÞ	zaè_¼QÄ|Õ|ÇœbÞ3ïI:•æÓÏàŽ{ø}žgýfõv–8þ±³ýŸcn·û#YÌ3>ëÕ‘§Åc¼î^‚7mTúõÜqÈ	ˆýîÁ¨Ï©\R[!õìQ{h3µ-Ú­¦ÞX÷ŒaÆhãC3L"'HaÊhcvƒ5äoòtÂGÖa«(²U"Úí²=l”:úÐ™ç,Bf^ãlq¶;ß€“Ž;§œ‹Ò!îÃ}‹¹eÜ
+xJ±[Ùp}TC'·x{\x†û	ríz$Šx‡î¯î-÷‰[Ü{Æ«‚ž¯ïQ¯©×Ù‹÷ÞCÏ/Âˆßéôžx•@Z1þz_¶kx¨<_PM©­4T#ÕÅ+#”™Êb¹ãAìwˆPhiõCŒˆµj­·¶P;¦å@orµ‹Zžv]Ë×ýïûKGê3tj´•ó\ŸÀê'_€YQ®u÷2ß7?6›[ÌïÌŸÍ[æCsßïxn3wˆáwé¡òìl¥šÙÊL†6o4Ó	£MiKÚ¬ú6EÒetÆËú3½Fïƒ‡ž§Õc-YPÚûP¿HŸ±• ÿì û‰=ÑVà¼.RdKÞ•÷æÃù>‰Ïàsø¾žö¿Âóùï’p+XV]Ë°<8x$ðÁUÿÌ™­ûÖ£!½Šö;õo§ëþ~aµwbÎ='È-ëVuw@ÓFz{½†È¡ÒK:)Ÿ(­áY5WÿÎ8f´!iàÒ»¤(­L5zWziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒ¤")ÝÑ"ÑëôúEó }ÑzË.†ˆ	•¬Ü_‰Ð&êõŒê¨•…&GN#¸Ð‚ß·ÔZi“Å$ub¨¬Ý”õjà_VÎ—iiÚj¨×¿î.Îþ·ñª7@z˜ Mì(|*)TÎ}#EÎ2[7Èvr‡¼I'Ð<ÔÞçìÁØ½áþýÚ2è|Á»MU*qêxµ+tc˜á ½a	¼Žc#wþâäºï‰ÏO•w£µR†bì>«Ru0Rý*õ4²º¯½®ÍÀÓ5Ð»êýôx¦±×ÈBzÌFçgþÃ}I0NƒÍ3¹RÜt²	î¤Y‹D’úD!™Nf“3Èí‰Ñ·ƒþ„Q×
+#­UÖÒ%ó@*ùÖÿdlüóæ®5ÿÙ<Z	17”*™v¹ñ–Yš4ž¦CØrvˆ…aävà¯órÖi+Ö.æÞs{z[½@f¨Ìéí KÉÊ%EY ¤ÊS×«•tdÔf¨ÜÉ Œ´½ˆÉÌ‰ð±"„‘ä"}ÈŠ@—ŽóÆàÓòÜÈ6{x^œ…hg•:<br>
+   <em>Note:</em> The <code>¨BBë§bôæÂ…J©@ÚX¬~hx–µŽ”j-îÑú‹¾’ ÇaPcAWb/Þ_é*^¦*±Šñ—þæÈ[·Äïe´FË&@kEv*XÉØdÞ²	vÜ"¨E0Ë_ó”‚V2ž®ed“ Zµ2R‰ò–ê5ê%Z4MžUYDìMš†öL"Îé6E
+é(÷"d™?¶ÿmU#­Yí)VÇ„:uÃHô!nyC¬`nGÖ+–CÿÙ<Z	bì>«RóÆà"
+      xmlns:l­ûÖ#­UÖ:org.apache.5ÿÙ<Z	.aÊÇÊr$ü"
+      default="state"
+      bat²ié(÷."&gt;
+  ÃHô!nperty`nGÖ+–jmx.server.nGÖ"hx–="loîÃ}host" /&gt;
+  ÃHô!nperty`nGÖ+–jmx.server.ÂGÖ"hx–="9012" /&gt;
+  ÃHô!nperty`nGÖ+–cluster.server.ÿìress"hx–="192.168.1.75" /&gt;
+  ÃHô!nperty`nGÖ+–cluster.server.ÂGÖ"hx–="9025" /&gt;
+
+  ÃHôtarget nGÖ+–state" descript›[="Show óÆàÓCluster state"&gt;
+    ÃHôjmx:Ï©\
+      host="${jmx.server.nGÖ}"
+      port="${jmx.server.port}"
+      ÎßÕVnGÖ+–cï®wÏ»U0¦„"
+      p\Œ¢ÉÐÝ="to¨¬Ý"/&gt;
+    ÃHôjmx:get
+      nGÖ+
+–CÿÙ<Z	:type=IDataSenE
+é,host=loîÃ}host,
+senE
+éAìress=${cluster.server.ÿìress},senE
+éPort=${cluster.server.port}"
+      J©@ÚX¬~="connected"
+      result!nperty="IDataSenE
+é.backup.connected"
+      echo="false"
+    /&gt;
+    ÃHôjmx:get
+      nGÖ+–CÿÙ<Z	:type=ClusterSenE
+é,host=loîÃ}host"
+      J©@ÚX¬~="senE
+éObyC¬Names"
+      result!nperty="senE
+éObyC¬Names"
+      echo="false"
+    /&gt;
+    ÃHô‚õ2 get current}IxActiveS?ž$ÒnŒYš4ClusterTest application
+       echo it ØdÞì>«Rò–p–Ðšê·stñ—þæat
+       !nperty`ÃHôem&gt;clustertest.IxActiveS?ž$Òns.org<Z	lÃHô/em&gt;
+    --&gt;
+    ÃHôjmx:get
+      nGÖ+–CÿÙ<Z	:type=Manager,context=/ClusterTest,host=loîÃ}host"
+      J©@ÚX¬~="IxActiveS?ž$Òns"
+      result!nperty="clustertest.IxActiveS?ž$Òns.org<Z	l"
+      echo="ux"
+    /&gt;
+    ÃHô‚õ2 ¯½®ÍIxActiveS?ž$ÒnØdÞ100
+    --&gt;
+    ÃHôjmx:set
+      nGÖ+–CÿÙ<Z	:type=Manager,context=/ClusterTest,host=loîÃ}host"
+      J©@ÚX¬~="IxActiveS?ž$Òns"
+      hx–="100"
+      type="int"
+    /&gt;
+    ÃHô‚õ2 get vÜ"s?ž$ÒnsÐšê·split resultÕÅ+#”™limiter ÃHôem&gt;SPACEÃHô/em&gt; for easy
+       ]«Zí¤;›Ü"s?ž$Òn id+#”eÜ
+ctú9³£µR†bì>«R!nperty`s?ž$Òns.[0..n].
+    --&gt;
+    ÃHôjmx:invoke
+      nGÖ+–CÿÙ<Z	:type=Manager,context=/ClusterTest,host=loîÃ}host"
+      operation="l•ó\S?ž$ÒnIds"
+      result!nperty="sež$Òns"
+      echo="false"
+     #”™limiter=" "
+    /&gt;
+    ÃHô‚õ2 òÜÈ6{"s?ž$Òn J©@ÚX¬~ÃHôem&gt;HŸ±•oÃHô/em&gt; fYš4first s?ž$Òn.
+    --&gt;
+    ÃHôjmx:invoke
+      nGÖ+–CÿÙ<Z	:type=Manager,context=/ClusterTest,host=loîÃ}host"
+      operation="getS?ž$ÒnAJ©@ÚX¬~"
+      result!nperty="HŸ±•o"
+      echo="false"
+    &gt;
+      ÃHôarg hx–="${s?ž$Òns.0}"/&gt;
+      ÃHôarg hx–="HŸ±•o"/&gt;
+    ÃHô/jmx:invoke&gt;
+    ÃHô‚õ2 Query for Ü"application manager.of the server fYš4Ü"hosts
+       ]šê·bišê·Ü"aJ©@ÚX¬~s fYš4Ü"found manager MBeans.
+    --&gt;
+    ÃHôjmx:query
+      nGÖ+–CÿÙ<Z	:type=Manager,*"
+      result!nperty="manager"
+      echo="ux"
+      J©@ÚX¬~bišê û‰=ux"
+    /&gt;
+    ÃHô‚õ2 echo the create !nperti~s --&gt;
+ÃHôecho&gt;
+senE
+éObyC¬Names: ${s?nE
+éObyC¬Names.0}
+IDataSenE
+é.backup.connected: ${IDataSenE
+é.backup.connected}
+sež$Òn: ${s?ž$Òns.0}
+manager.length: ${manager.length}
+manager.0.nGÖ: ${manager.0.nGÖ}
+manager.1.nGÖ: ${manager.1.nGÖ}
+hŸ±•o: ${HŸ±•o}
+manager.ClusterTest.0.nGÖ: ${manager.ClusterTest.0.nGÖ}
+manager.ClusterTest.0.activeS?ž$Òns: ${manager.ClusterTest.0.activeS?ž$Òns}
+manager.ClusterTest.0.counterSenE_EVT_SESSION_EXPIRED:
+ ${manager.ClusterTest.0.counterSenE_EVT_SESSION_EXPIRED}
+manager.ClusterTest.0.counterSenE_EVT_GET_ALL_SESSIONS:
+ ${manager.ClusterTest.0.counterSenE_EVT_GET_ALL_SESSIONS}
+ÃHô/echo&gt;
+
+  ÃHô/target&gt;
+
+ÃHô/!nyC¬&gt;
+Aÿ9¼‰™?¶ÿr‡¼I'Ð<Ô
+AÿMiKÚ¬í‰Ñ·ƒþ„Q×a	¼ort:Ò%ó I	¼ortÈŠ@—ŽóÆàÓòÜÈ6{x^PnyC¬`£µR†
+   <em>ÃHôa	¼ort{Å»è="${¦CØrvˆ….½@f¨}/biš/5ÿÙ<Z	1tasks.xml" /&gt;</em> ]šê
+   referenceÈŠ@—ŽÐ»êýô£µR†b<em>jmxOpen</em>,b<em>jmxSet</em>,b<em>jmxGet</em>,
+   <em>jmxQuery</em>,b<em>jmxInvoke</em>,b<em>jmxEquals</em> ]šêb<em>jmxCondition</em>.</p>
+
+  </blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorOpenTask - JMX open connection taskziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorOpenTask_-_JMX_open_connection_task">N#¸Ð‚ßJMXAccessorOpenTask - JMX open connection task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+  <tr>
+    <Yd>url</td>
+    <Yd>Se«RóÆà connection URL - <em>service:l:rmi:///jndi/rmi://loîÃ}host:8050[l²mi</em>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>host</td>
+    <Yd>Se«RŠ@—Žhost,„‘ärtcu«RŠ@—Žvery long URL syntax.ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂloîÃ}hostBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>port</td>
+    <Yd>Se«RŠ@—Žremote connection portïÌŸÍ[æCstd>
+    <Yd>C§bôæÂ8050Bë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>ÎßÕVnGÖCstd>
+    <Yd>remote óÆà connection ÎßÕVÆnGÖ.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>p)^ÍVŠ¨ßtd>
+    <Yd>remote óÆà connection N^o”7Á›íïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>Name of the internal connection reference. WµR†bthis J©@ÚX¬~q¶;ßcan
+       î-÷‰[Ü{Æ«‚žŠñ—þæthe one connection inside Ë_ó”‚V2ž®ì>«R!nyC¬.ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo the command ‰ÏO•w(for «Zí¤;›nalysis or debugging)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>ifCstd>
+    <Yd>Oú9³execX¬~if=l”:perty`of the givenÆnGÖÉfZexistsÒ%ó iE0Ë_ó”current}!nyC¬.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>Înl¬~¬.td>
+    <Yd>Oú9³execX¬~if=l”:perty`of the givenÆnGÖÉfZnot existsÒ%ó iE0Ë_ó”current}!nyC¬.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+EÉÌ‰ð±"„to open åMew óÆà connection<br>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:Ï©\
+    host="${jmx.server.nGÖ}"
+    port="${jmx.server.port}"
+  /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u[«¯Ï×‹ïcé!:³ß¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+<p>
+EÉÌ‰ð±"„to open åóÆà connection fYš4URL,	î¤Y‹D’ß¾sN ûÜv‚ÜÒn]šê
+stñ—þæat oË_ór referenceÈ<br>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:Ï©\
+    url="service:l:rmi:///jndi/rmi://loîÃ}host:9024[l²mi"
+    ref="jmx.server.9024"
+    ÎßÕVnGÖ+–cï®wÏ»U0¦„"
+    p\Œ¢ÉÐÝ="to¨¬Ý"
+  /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u[K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+
+<p>
+EÉÌ‰ð±"„to open åóÆà connection fYš4URL,	î¤Y‹D’ß¾sN ûÜv‚ÜÒn]šê
+stñ—þæat oË_ór reference, ÚX¬·õú9³Bf^ãl”:perty`<em>jmx.ifCsem> exists]šê
+<em>jmx.Înl¬~¬.em> not existsÒbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:Ï©\
+    url="service:l:rmi:///jndi/rmi://loîÃ}host:9024[l²mi"
+    ref="jmx.server.9024"
+    ÎßÕVnGÖ+–cï®wÏ»U0¦„"
+    p\Œ¢ÉÐÝ="to¨¬Ý"
+   if="jmx.¥›
+    Înl¬~="jmx.Înl¬~"
+  /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+<p><b>NoteÒ%ó@*All !nperti~s fYš4<em>jmxOpen</em> task-xÖso exists]t vÜ
+oË_ór Ð»êýôand conditions.
+</p>
+
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorGetTask:  get attribute value Ant taskziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorGetTask:__get_attribute_value_Ant_task">N#¸Ð‚ßJMXAccessorGetTask:  get attribute value Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+  <tr>
+    <Yd>nGÖCstd>
+    <Yd>Full qualifiedåóÆà ObyC¬Name -- <em>CÿÙ<Z	:type=ServerBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>aJ©@ÚX¬~</td>
+    <Yd>Exist´½MBean attribute (see ub¨¬Ý”MBean descript›[ above)ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>óÆàÓConnection referenceïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo command ‰ÏO•w(«Zí¤;›nd result)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>result!nperty</td>
+    <Yd>S“Ž;§resultÕÅtbthis !nyC¬`!npertyïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>”™limiter</td>
+    <Yd>Split resultÕî¤Y‹D”™limiter (java.util.StringTokenizier)
+       îand ‰Ïe result!npertyÕÅ+#9¼Šx‡to stñ—þætokens.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>separatearrayresult~¬.td>
+    <Yd>Wf^ãlreturn value is n array, s“Ž;§resultÕÅsl”:perty`l•ó\
+    (×ÛIŽéresult!nperty.[0..N]</em> ]šêb<em>éresult!nperty.length</em>)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂuxBë§bôæÂCstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+EÉÌ‰ð±"„to get remote MBean attribute fYš4defaultåóÆà connection Òbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:get
+    nGÖ+–CÿÙ<Z	:type=Manager,context=/servlets-examples,host=loîÃ}host"
+    J©@ÚX¬~="IxActiveS?ž$Òns"
+    result!nperty="servlets-examples.IxActiveS?ž$Òns"
+  /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+<p>
+EÉÌ‰ð±"„to get and result arrayÐšê·split itÕÅtbseparate !nperti~sÒbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:get
+      nGÖ+–CÿÙ<Z	:type=ClusterSenE
+é,host=loîÃ}host"
+      J©@ÚX¬~="senE
+éObyC¬Names"
+      result!nperty="senE
+éObyC¬Names"
+  /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1òÜÈ6{"the senE
+éObyC¬Names !nperti~s î¤Y‹ZÚ5ÍÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ${s?nE
+éObyC¬Names.length} give"the number oflreturned senE
+é`l•ó\.Üf  ${s?nE
+éObyC¬Names.[0..N]}"found Ü"s?nE
+é`obyC¬`nGÖÛ´ï´cÚí®¬—Ò}¨Y'hÙ(}‚>½´Eß©ÔOèaFY¹Ã¿kwÔùyn`‰qÐ8e\Ar.cV4_D­¿l¾zëoÎ¿m2wš'Íæ-ÔyR…Ô'„ô%É(2™,'«É6²œAÊ¾‹:¯¯‰FÚN¤Ã¸“ét=Í¤ßÑû´p%FXê¼+ÀÞGÏfß°ƒì»ÌŠò’²Î=ÞŒwäÝùtþ1R×:~ã÷ŠY¥¬*V]«³õº•`D­/±V£Ö÷[G­+V¾pŠ9PÕžÓ}×ÝItÆ:3'Ô}Æ­îÖs_F=÷pßr'€y¢ïrÜ³¨çûnÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+
+<p>
+EÉÌ‰ð±"„to get IDataSenE
+é attribute connected·õú9³Bf^ãlcluster is configured.<br>
+<em>Note:</em> The <code>¨BBë§bôæÂ…J©@ÚX¬~hx–µŽ”j-îÑú‹¾’ ÇaPcAWb/Þ_é*^Šñ—þæÈ[·Äïe´FË&@kEv*XÉØdÞ²	vÜ"¨E0Ë_ó”‚V2ž®ed“ Zµ2R‰ò–ê5ê%Z41</p>
+<Ò_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:query
+    failonerrí“Œ	false"
+    nGÖ+–CÿÙ<Z	:type=Cluster,host=${tomcat.application.host}"
+    result!nperty="cluster"
+  /&gt;
+  ÃHôjmx:get
+    nGÖ+
+–CÿÙ<Z	:type=IDataSenE
+é,host=${tomcat.application.host},
+senE
+éAìress=${cluster.backup.ÿìress},senE
+éPort=${cluster.backup.port}"
+    J©@ÚX¬~="connected"
+    result!nperty="datasenE
+é.connected"
+    if="cluster.0.nGÖ" /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorSetTask:  set attribute value Ant taskziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorSetTask:__set_attribute_value_Ant_task">N#¸Ð‚ßJMXAccessorSetTask:  set attribute value Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+  <tr>
+    <Yd>nGÖCstd>
+    <Yd>Full qualifiedåóÆà ObyC¬Name -- <em>CÿÙ<Z	:type=ServerBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>aJ©@ÚX¬~</td>
+    <Yd>Exist´½MBean attribute (see ub¨¬Ý”MBean descript›[ above)ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>hx–</td>
+    <Yd>hx–çgþÃ}set ØdÞattributeïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>typeCstd>
+    <Yd>type`of the attribute.ïÌŸÍ[æCstd>
+    <Yd>java.lang.StringCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>óÆàÓConnection referenceïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo command ‰ÏO•w(«Zí¤;›nd result)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+EÉÌ‰ð±"„to set remote MBean attribute hx–<br>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:set
+    nGÖ+–CÿÙ<Z	:type=Manager,context=/servlets-examples,host=loîÃ}host"
+    J©@ÚX¬~="IxActiveS?ž$Òns"
+    hx–="500"
+    type="int"
+  /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorInvokeTask:  invoke MBean operation Ant taskziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorInvokeTask:__invoke_MBean_operation_Ant_task">N#¸Ð‚ßJMXAccessorInvokeTask:  invoke MBean operation Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+  <tr>
+    <Yd>nGÖCstd>
+    <Yd>Full qualifiedåóÆà ObyC¬Name -- <em>CÿÙ<Z	:type=ServerBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>operation</td>
+    <Yd>Exist´½MBean operation (see ub¨¬Ý
+       îˆµj­·¶P;funcspecs/fs-admin-operïûKGê3tjfuncspecs/fs-admin-operïûKGê3</a>)íïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>óÆàÓConnection referenceïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo command ‰ÏO•w(«Zí¤;›nd result)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>result!nperty</td>
+    <Yd>S“Ž;§resultÕÅtbthis !nyC¬`!npertyïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>”™limiter</td>
+    <Yd>Split resultÕî¤Y‹D”™limiter (java.util.StringTokenizier)
+       îand ‰Ïe result!npertyÕÅ+#9¼Šx‡to stñ—þætokens.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>separatearrayresult~¬.td>
+    <Yd>Wf^ãlreturn value is n array, s“Ž;§resultÕÅsl”:perty`l•ó\
+    (×ÛIŽéresult!nperty.[0..N]</em> ]šêb<em>éresult!nperty.length</em>)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂuxBë§bôæÂCstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+stñp an application <br>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:invoke
+    nGÖ+–CÿÙ<Z	:type=Manager,context=/servlets-examples,host=loîÃ}host"
+    operation="stñp"/&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1Nowq¶;ßcan fišê·the sež$ÒnidÕÅtb<em>é{s?ž$Òns.[0..N}</em> !nperti~s ]šêbaòÜÈ6{"the count
+î¤Y‹Dé{s?ž$Òns.length} !nperty.1</p>
+<p>
+EÉÌ‰ð±"„to get aÜ"s?ž$Ònid+#<br>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:invoke
+    nGÖ+–CÿÙ<Z	:type=Manager,context=/servlets-examples,host=loîÃ}host"
+    operation="l•ó\S?ž$ÒnIds"
+    result!nperty="sež$Òns"
+    ”™limiter=" "
+  /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1Nowq¶;ßcan fišê·the sež$ÒnidÕÅtb<em>é{s?ž$Òns.[0..N}</em> !nperti~s ]šêbaòÜÈ6{"the count
+î¤Y‹Dé{s?ž$Òns.length} !nperty.1</p>
+<p>
+EÉÌ‰ð±"„to get remote MBean s?ž$Òn J©@ÚX¬~fYš4s?ž$Òn é{s?ž$Òn¦ùž0}<br>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:invoke
+    nGÖ+–CÿÙ<Z	:type=Manager,context=/ClusterTest,host=loîÃ}host"
+    operation="getS?ž$ÒnAJ©@ÚX¬~"
+    result!nperty="hŸ±•o"&gt;
+     ÃHôarg hx–="${s?ž$Òn¦ùž0}"/&gt;
+     ÃHôarg hx–="HŸ±•o" /&gt;
+  ÃHô/jmx:invoke&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+<p>
+EÉÌ‰ð±"„to create åMew aòÜÈ6{"logger hx–vþæat vhostb<em>loîÃ}hostBëem>ïÌšÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf ÃHôjmx:invoke
+         nGÖ+–CÿÙ<Z	:type=MBeanFactory"
+         operation="createAccessLoggerVx–vþ"
+         result!nperty="accessLoggerObyC¬Name"
+ &gt;
+     ÃHôarg hx–="CÿÙ<Z	:type=Host,host=loîÃ}host"/&gt;
+ ÃHô/jmx:invoke&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1Nowq¶;ßcan fišê·Mew MBean î¤Y‹DnGÖÉstñ—þdÕÅtb<em>é{accessLoggerObyC¬Name}Bëem>ïÌ!nperty.1</p>
+
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorQueryTask:  query MBean Ant taskziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorQueryTask:__query_MBean_Ant_task">N#¸Ð‚ßJMXAccessorQueryTask:  query MBean Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+  <tr>
+    <Yd>nGÖCstd>
+    <Yd>óÆàÓ ObyC¬Name query string -- <em>CÿÙ<Z	:type=Manager,*Bëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>óÆàÓConnection referenceïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo command ‰ÏO•w(«Zí¤;›nd result)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>result!nperty</td>
+    <Yd>P9¼Šx‡!nyC¬`!npertyDnGÖÉØdÞaÜ"foundþdÕMBeans (×ÛIŽmbeans.[0..N].obyC¬nGÖCsem>)ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>aJ©@ÚX¬~bišêuingCstd>
+    <Yd>bišê·ALL MBean attributes iE0additÒnØdÞ×ÛIŽnGÖCsem>ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>”™limiter</td>
+    <Yd>Split resultÕî¤Y‹D”™limiter (java.util.StringTokenizier)
+       îand ‰Ïe result!npertyÕÅ+#9¼Šx‡to stñ—þætokens.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>separatearrayresult~¬.td>
+    <Yd>Wf^ãlreturn value is n array, s“Ž;§resultÕÅsl”:perty`l•ó\
+    (×ÛIŽéresult!nperty.[0..N]</em> ]šêb<em>éresult!nperty.length</em>)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂuxBë§bôæÂCstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+Get aÜ"Manager ObyC¬Names fYš4Ü"service;›nd Host+#<br>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:query
+    nGÖ+–CÿÙ<Z	:type=Manager,*
+    result!nperty="manager" /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1Nowq¶;ßcan fišê·the S?ž$ÒnManager Åtb<em>é{manager.[0..N].name}Bëem>ïÌ!nperti~s ]šêbaòÜÈ6{"the resultÕobyC¬`counter î¤Y‹Dé{manager.length} !nperty.1</p>
+<p>
+EÉÌ‰ð±"„to get the Manager fYš4<em>servlet-examples</em> ]pplication an bišê·Ü"MBean !nperti~sÒbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:query
+    nGÖ+–CÿÙ<Z	:type=Manager,context=/servlet-examples,host=loîÃ}host*"
+    J©@ÚX¬~bišê û‰=ux"
+    result!nperty="manager.servletEÉÌ‰ð±"s" /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1Nowq¶;ßcan fišê·the manager Åtb<em>é{manager.servletEÉÌ‰ð±"s.0.nGÖ}</em> !nperty
+and cn a«Zí¤;›ll !nperti~s fYš4this manager £µR†b<em>é{manager.servletEÉÌ‰ð±"s.0.[manager Åt©@ÚX¬~nGÖÛ]</em>}.1The resultÕobyC¬`counter fYš4MBeans is stñ—þdÕÅdDé{manager.length} !nperty.1</p>
+
+<p>
+EÉÌ‰ð±"„to get aÜ"MBeans fYš4 server Ðšê·stñ—þæinside n external XMLl”:perty`Å»èÒbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜfÃHô!nyC¬`nGÖ+–jmx.query"
+            xmlns:l="antlib:org.aw Ûhe.5ÿÙ<Z	.ant.l"
+            default="query-aÜ·Ö;asedi“Œ	."&gt;
+ÃHô!npertyDnGÖ+–jmx.host" hx–="loîÃ}host"/&gt;
+ÃHô!npertyDnGÖ+–jmx.port" hx–="8050"/&gt;
+ÃHô!npertyDnGÖ+–jmx.ÎßÕVnGÖ" hx–="cï®wÏ»U0¦„"/&gt;
+ÃHô!npertyDnGÖ+–jmx.p\Œ¢ÉÐÝ" hx–="to¨¬Ý"/&gt;
+
+ÃHôtargetDnGÖ+–query-aÜ·Ödescript›[="Query aÜ"MBeans of4 server"&gt;
+  ÃHô!--ÓCon[Ü{Æ«‚žconnection --&gt;
+  ÃHôjmx:Ï©\
+    host="${jmx.host}"
+    port="${jmx.port}"
+    ref="jmx.server"
+    ÎßÕVnGÖ+–${jmx.ÎßÕVnGÖ}"
+    p\Œ¢ÉÐÝ="${jmx.p\Œ¢ÉÐÝ}"/&gt;
+
+  ÃHô!--ÓQuery MBean l•ó\ --&gt;
+  ÃHôjmx:query
+    nGÖ+–*:*"
+    result!nperty="mbeans"
+    J©@ÚX¬~bišê û‰=false"/&gt;
+
+  ÃHôecho!nperti~s
+    ”™stÅ»è="mbeans.!nperti~s"
+    p9¼Šx="mbeans."
+    format="xml"/&gt;
+
+  ÃHô!--ÓPrint results --&gt;
+  ÃHôecho ÖÛÏO•=
+    "Number oflMBeans in server ${jmx.host}:${jmx.port} is é{mbeans.length}"/&gt;
+ÃHô/target&gt;
+ÃHô/!nyC¬&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1Nowq¶;ßcan fišê·aÜ"MBeans inside Ë_ó”Å»è ×ÛIŽmbeans.!nperti~sÒ/em>.1</p>
+
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorCreateTask:  remote create MBean Ant taskziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorCreateTask:__remote_create_MBean_Ant_task">N#¸Ð‚ßJMXAccessorCreateTask:  remote create MBean Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+  <tr>
+    <Yd>nGÖCstd>
+    <Yd>Full qualifiedåóÆà ObyC¬Name -- <em>CÿÙ<Z	:type=MBeanFactoryBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>cl\Œ¢NGÖCstd>
+    <Yd>Exist´½MBean full qualifiedåcl\Œ¢DnGÖÉ(see ub¨¬Ý”MBean descript›[ above)ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>cl\Œ¢Loader</td>
+    <Yd>ObyC¬Name of server or £eb ]pplication cl\Œ¢loader#<br>
+    ( <em>CÿÙ<Z	:type=ServerCl\Œ¢Loader,Mu“ê#[server,common,sha—þd]</em> or<br>
+     <em>CÿÙ<Z	:type=Web]ppCl\Œ¢Loader,context=/my]pps,host=loîÃ}hostCsem>)ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>óÆàÓConnection referenceïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo command ‰ÏO•w(«Zí¤;›nd result)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+EÉÌ‰ð±"„to create remote MBeanÒbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:create
+    ref="${jmx.reference}"
+    nGÖ+–CÿÙ<Z	:type=MBeanFactory"
+    cl\Œ¢NGÖ="org.aw Ûhe.5ommons.mbôæler.BaseMbôælMBean"
+    cl\Œ¢Loader+–CÿÙ<Z	:type=ServerCl\Œ¢Loader,Mu“ê#server"&gt;
+    ÃHôarg hx–="org.aw Ûhe.5ÿÙ<Z	.mbeans.MBeanFactory" /&gt;
+  ÃHô/jmx:create&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+<p>
+    <b>WarningCs%ó@*Many ub¨¬Ý”MBeansßcan'tÞ²	Ù<Zkedåto Ë_óir pa—þn¬·õce<br>
+    created. The Vx–vþ, Cluster›nd Realš4MBeans a—þ not automatically<br>
+    connected·£µR†bË_óir pa—þn¬. Use Ë_ó”<em>MBeanFacroryBëem> create<br>
+    operation instead.1</p>
+
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorUnregisterTask:  remote unregister MBean Ant taskziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorUnregisterTask:__remote_unregister_MBean_Ant_task">N#¸Ð‚ßJMXAccessorUnregisterTask:  remote unregister MBean Ant task</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+  <tr>
+    <Yd>nGÖCstd>
+    <Yd>Full qualifiedåóÆà ObyC¬Name -- <em>CÿÙ<Z	:type=MBeanFactoryBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>óÆàÓConnection referenceïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo command ‰ÏO•w(«Zí¤;›nd result)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+EÉÌ‰ð±"„to unregister remote MBeanÒbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜf  ÃHôjmx:unregister
+    nGÖ+–CÿÙ<Z	:type=MBeanFactory"
+  /&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+<p>
+    <b>WarningCs%ó@*A lot of ub¨¬Ý”MBeansßcan'tÞ²	unregister.<br>
+    The MBeans a—þ not unÙ<ZkedåfYš4thóir pa—þn¬. Use <em>MBeanFacroryBëem><br>
+    remove operation instead.1</p>
+
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorConditÒn:  express conditÒnziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorConditÒn:__express_conditÒnziþN#¸Ð‚ßJMXAccessorConditÒn:  express conditÒn</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+ <tr>
+    <Yd>urlCstd>
+    <Yd>SetåóÆà connection URL -4<em>service:l:rmi:///jndi/rmi://loîÃ}host:8050/jmxrmiBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>hostCstd>
+    <Yd>SetåË_ó”host, shortcutåË_ó”very long URL syntax.ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂloîÃ}hostCs§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>portCstd>
+    <Yd>SetåË_ó”remote connection portïÌŸÍ[æCstd>
+    <Yd>C§bôæÂ8050Cs§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>ÎßÕVnGÖCstd>
+    <Yd>remote óÆà connection ÎßÕVåMu“ê.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>p\Œ¢ÉÐÝCstd>
+    <Yd>remote óÆà connection p\Œ¢ÉÐÝíïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>Name of Ë_ó”internal connection reference. WµR†bË_is t©@ÚX¬~q¶;ßcan
+        con[Ü{Æ«‚žŠñ—þæË_ó”one connection inside Ë_ó”‚V2ž®Ant !nyC¬.ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>nGÖCstd>
+    <Yd>Full qualifiedåóÆà ObyC¬Name -- <em>CÿÙ<Z	:type=ServerBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo conditÒn ‰ÏO•w(«Zí¤;›nd result)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>ifCstd>
+    <Yd>Oú9³execX¬~if4 !npertyDof Ë_ó”givenDnGÖÉ<b>existsCs%ó in the cur—þn¬·!nyC¬.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>Înlí¤;Cstd>
+    <Yd>Oú9³execX¬~if4 !npertyDof Ë_ó”givenDnGÖÉ<b>not existsCs%ó in the cur—þn¬·!nyC¬.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>value (requiered)Cstd>
+    <Yd>Second arg for operationïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>typeCstd>
+    <Yd>Vx–çype`to express operation (supportb<em>longCsem> ]šêb<em>douöL</em>)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂlongCs§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>operation</td>
+    <Yd> express oneïÌŸÍ[æCul>
+    <li>==  equalsCsli>
+    <li>!=  not equalsCsli>
+    <li>&gt; greaterçgþn (&Ì‰ð;gt;)Csli>
+    <li>&gt;= greaterçgþn or equals (&Ì‰ð;gt;=)Csli>
+    <li>&Hô lí¤;erçgþn (&Ì‰ð;lt;)Csli>
+    <li>&lt;= lí¤;erçgþn or equals (&Ì‰ð;lt;=)Csli>
+    </ul>
+    <std>
+    <Yd>C§bôæÂ==Bë§bôæÂCstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+Wait for server connection ašê·thÝ”cluster backup node is «Zí¤;iKÚÒbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜfÃHôtargetDnGÖ+–wait"&gt;
+  ÃHôwaitfor maxwait="${maxwait}" maxwaitunit="second" timeout!nperty="server.timeout" &gt;
+    ÃHôand&gt;
+      ÃHôsocket server="${s?rver.nGÖ}" port="${s?rver.port}"/&gt;
+      ÃHôhttp url="${url}"/&gt;
+      ÃHôjmx:conditÒn
+        operation="=="
+        host="loîÃ}host"
+        port="9014"
+        ÎßÕVnGÖ+–cï®wÏ»U0¦„"
+        p\Œ¢ÉÐÝ="to¨¬Ý"
+        nGÖ+
+–CÿÙ<Z	:type=IDataSenE
+é,host=loîÃ}host,senE
+éAìress=192.168.111.1,senE
+éPort=9025"
+        J©@ÚX¬~="connected"
+        hx–="tx"
+      /&gt;
+    ÃHô/and&gt;
+  ÃHô/waitfor&gt;
+  ÃHôfail if="server.timeout" ÖÛÏO•="Server ${url} don'tÞanswer inside ${maxwait} sec" /&gt;
+  ÃHôecho ÖÛÏO•="Server ${url} ÿÙ<v" /&gt;
+ÃHô/target&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œˆ)!çvÛ)£”pÕ‡Óg"‘i´z¤‰þfº9‚Þ¡ÛØh¸{¸Õ4¡Ù=ì™öU»;Fåq§¶û˜ì¶Ü§PBrCe¸ÚÝDïR­F^F–ˆ¦Uáz“Ø2<Ëc6Ç"¹´JÙÑöèÀkÎ'ùú=ä²“î«^;è&>(±„äÒg•–ê8µFô}­ºÞV¹õ=cf60û™™gÍ†à´OÉRTj0c1,•]e*ŸÂ[XÃQ·Ù–oÿn¿élsJ»¤‚g<‚”u‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="JMXAccessorEqualsConditÒn:  equals MBean Ant conditÒnziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒJMXAccessorEqualsConditÒn:__equals_MBean_Ant_conditÒnziþN#¸Ð‚ßJMXAccessorEqualsConditÒn:  equals MBean Ant conditÒn</strong></a></font></td></tr><tr><td><blockquote>
+<p>
+List of AJ©@ÚX¬~s<br>
+š†öL"Îé6E
+é(÷" cellpadding="5">
+
+  <tr>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">AJ©@ÚX¬~</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Descript›[</th>
+    <Y‹D’MÉxÒcenter" bgcolor="aqua">Default hx–</th>
+  'Ð<Ô
+
+ <tr>
+    <Yd>urlCstd>
+    <Yd>SetåóÆà connection URL -4<em>service:l:rmi:///jndi/rmi://loîÃ}host:8050/jmxrmiBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>hostCstd>
+    <Yd>SetåË_ó”host, shortcutåË_ó”very long URL syntax.ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂloîÃ}hostCs§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>portCstd>
+    <Yd>SetåË_ó”remote connection portïÌŸÍ[æCstd>
+    <Yd>C§bôæÂ8050Cs§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>ÎßÕVnGÖCstd>
+    <Yd>remote óÆà connection ÎßÕVåMu“ê.ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>p\Œ¢ÉÐÝCstd>
+    <Yd>remote óÆà connection p\Œ¢ÉÐÝíïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>refCstd>
+    <Yd>Name of Ë_ó”internal connection reference. WµR†bË_is t©@ÚX¬~q¶;ßcan
+        con[Ü{Æ«‚žŠñ—þæË_ó”one connection inside Ë_ó”‚V2ž®Ant !nyC¬.ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂjmx.serverBë§bôæÂCstd>
+  'Ð<Ô
+
+  <tr>
+    <Yd>nGÖCstd>
+    <Yd>Full qualifiedåóÆà ObyC¬Name -- <em>CÿÙ<Z	:type=ServerBëem>ïÌŸÍ[æCstd>
+    <Yd>Cstd>
+  'Ð<Ô
+
+
+  <tr>
+    <Yd>echoCstd>
+    <Yd>Echo conditÒn ‰ÏO•w(«Zí¤;›nd result)ïÌŸÍ[æCstd>
+    <Yd>C§bôæÂfalseBë§bôæÂCstd>
+  'Ð<Ô
+
+AÿMiKÚ¬</p>
+<p>
+Wait for server connection ašê·thÝ”cluster backup node is «Zí¤;iKÚÒbr>
+šÒ_1šMÉxÒx¾’¬Ïv±ZÈhcy
+_ÍÏò)ÖŒì/­­ î›Ö³v¤ÝÀ6í×0²ß¶¿µ´OÛ¹öey&¤è-üVÛiè4‚Ç·u^Co¥8KÑ_¨ƒCpïBnm÷%ÔB¬Ûû¶û®;
+u1ÍýÈWýÂÝÍ8ë^uË{µ=ÍãèÕ6^Oo¤·ÂÛ‡”v9­%ê¾úvŒ¿Îÿ•$öÄR‹K^i¨ŠƒDÖ£~˜2NE¦ý‚Üä©]á¨I
+¯"2w:êÿ¸¢¼­½J7ÐšâZŽÌ‚ÏXÄ?¶VÙƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quO¹ÿýDæú_£å÷E”k¨”-ÊM¯¾¥›¤ÎU×«´Ú¯Z}²¼³Š¡;ùŒåëV{9òb%dæþàÎùNMw Ûéa‚·Ö;à–k…%dßŒP.ÃEb‘â—«u@Š_éâí“Œ	Æ¹¯m»±ß8mÜ”ûÚê›¹«`q¹ÒÜfÃHôtargetDnGÖ+–wait"&gt;
+  ÃHôwaitfor maxwait="${maxwait}" maxwaitunit="second" timeout!nperty="server.timeout" &gt;
+    ÃHôand&gt;
+      ÃHôsocket server="${s?rver.nGÖ}" port="${s?rver.port}"/&gt;
+      ÃHôhttp url="${url}"/&gt;
+      ÃHôjmx:equals
+        host="loîÃ}host"
+        port="9014"
+        ÎßÕVnGÖ+–cï®wÏ»U0¦„"
+        p\Œ¢ÉÐÝ="to¨¬Ý"
+        nGÖ+
+–CÿÙ<Z	:type=IDataSenE
+é,host=loîÃ}host,senE
+éAìress=192.168.111.1,senE
+éPort=9025"
+        J©@ÚX¬~="connected"
+        hx–="tx"
+      /&gt;
+    ÃHô/and&gt;
+  ÃHô/waitfor&gt;
+  ÃHôfail if="server.timeout" ÖÛÏO•="Server ${url} don'tÞanswer inside ${maxwait} sec" /&gt;
+  ÃHôecho ÖÛÏO•="Server ${url} ÿÙ<v" /&gt;
+ÃHô/target&gt;
+Aÿ9¼‰j¾f0_'Aì;všÕæx	øÿ ŒàÅö.{«óŒ÷œý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)þ†¾Ö8HnCÃz°Él5è°?ÿ­ö)¼·¦-N¤quOƒ¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ô¼±O‹Q¯»½Ÿ¼?¼òÐÿFÈóNr#»¸‡NäzÕü·ÄŽŸÔÒ×û+»@‡]KhMµOµ{ÚzÀh`Œ3Æ€X3Ç˜:YI÷QŸ½ÂÞfŸ³¼£µüð¡½Ñ¾fwF.úÍ©çàº3ÓÏòéïßSùM©¢¶UG¨»Ôº šâ ðæÆûðâ¶d0ù\¬ý±ïÙë;«Š=Ð>kà’ËÝo‘–k{ ¦ùžïÇH–-xÖ+ª¢ÅjƒA¡†.Öâº"‹5n§ÍoàëEX;à^½¼èõ†ãï“P'Sþ¶ÎŠ$–æ­öÒ½õþPˆ<“™]06?U¶)ƒÁ5 kwµ“úxc£1</p>
+
+</blockquote></td></tr></table><table border="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="Us´½Ë_ó”óÆàProxyServletziþ‚õ2¾ãS±&*×ŽåMu“ê#ƒUs´_Ë_ó_óÆàProxyServletziþstrong>Us´½Ë_ó”óÆàProxyServlet</strong></a></font></td></tr><tr><td><blockquote>
+
+    <p>
+      ub¨¬Ý”offers n alternative„to us´½remote (or evenDloîÃ})”óÆà
+      connections wh»è still giv´½q¶;ßaòÜÈ6{"to everyË_i´½óÆà ha{"to offer:
+      ub¨¬Ý's
+      ˆµj­·¶P;api/org/aw Ûhe/5ÿÙ<Z	/manager/óÆàProxyServletûKGê3tjóÆàProxyServlet</a>.ïÌŸÍ[æCsp>
+    
+    <p>
+      u_ó”óÆàProxyServlet·aÜows ”cliþn¬·to issue óÆà queri~s via n HTTP
+      interface. This technique”offers Ë_ó”ÅoÜowi´½advanta‘–k over us´
+      óÆà directly fYš4 cliþn¬·!ngram:ïÌŸÍ[æCsp>
+ïÌŸÍ[æCul>
+      <li>Y¶;ßdon'tÞhave„to launch4 full JVM ašê·make åremote óÆà connection
+      justÉØdÞask for one smll !iece of dÿ fYš4 runing serverBëli>
+      <li>Y¶;ßdon'tÞhave„to know how„to ÉÐk·£µR†bóÆà connectionsBëli>
+      <li>Y¶;ßdon'tÞneþdÕÅnyDof Ë_ó”co‰ð±"x con[Ü{Æ«ation coverþdÕin the res
+      of Ë_is !a‘–Bëli>
+      <li>Y¶;r cliþn¬·!ngramßdo–k not have„to be written in JavaCsli>
+    </ul>
+
+    <p>
+      A perfyC¬`example of óÆà overkill can be seen in Ë_ó”case of popular
+      server-monitoring softwa—þ such4s Nagios or Ic_i´a:if4q¶;ßwan¬·to
+      monitor 10 items via óÆà,4q¶;ßwill have„to launch410 JVMs,·make 10 JÆà
+      connections, ašê·then shutåË_óš4Ü"down every few minX¬~s. WµR†bË_e
+      óÆàProxyServlet,q¶;ßcan make 10 HTTP connections ašê·be done £µR†bit.ïÌŸÍ[æCsp>
+    
+    <p>
+      Y¶;ßcan fišê·outžŠñ—þæinformat›[ aboutåË_ó”óÆàProxyServlet·in Ë_ó
+      documþn¬at›[ for Ë_ó”
+      ˆµj­·¶P;manager-howtoûKGê3#Us´_Ë_ó_óÆà_Proxy_Servletziub¨¬Ý
+      manager</a>.ïÌŸÍ[æCsp>
+  </blockquote></td></tr></table></td></tr><tr cl\Œ¢="noPrint"><td ƒA¡†.Öâ20%" hx–ÉxÒtñp" nowrap cl\Œ¢="noPrint"><çàº3ÓƒA¡†.Öâ80%" hx–ÉxÒtñp" šMÉxÒx¾’¬Ïv±ZÈhcborder="0" cellspacing="0" cellpadding="2"><tr><td bgcolor="#525D76"><font color="#ffffff" face="arial,helvetica.sanserif"><a name="commþn¬s_section" id="commþn¬s_section"iþstrong>Commþn¬s</strong></a></font></td></tr><tr><td><blockquote><p cl\Œ¢="notice"iþstrong>Notice: </strong>This commþn¬s section collectsq¶;r sug‘–ktions
+              on im!nv´½documþn¬at›[ for Aw Ûhe ub¨¬Ý.<br><br>
+              If4q¶;ßhave„trouöL ašê·neþdÕhelp, read
+              ˆµj­·¶P;http://to¨¬Ý.aw Ûhe.org/fišêhelpûKGê3tjFišê·Help</a> !a‘–
+              ]šêbask q¶;r quektion on Ë_ó”to¨¬Ý-ÎßÕVs
+              ˆµj­·¶P;http://to¨¬Ý.aw Ûhe.org/l•ó\ïûKGê3tjmail´½l•ó\</a>.ïÌŸÍ[æææææææææææDo not ask such4quektionsÕhere. This ik not a Q&Ì‰ð;A section.<br><br>
+              u_ó”Aw Ûhe Commþn¬s System ik explainþdÕˆµj­·¶P;./commþn¬sûKGê3tjhere</a>.ïÌŸÍ[æææææææææææCommþn¬s may·be removed byDo;r mbôæ«ators if Ë_óy a—þ eµR†erïÌŸÍ[æææææææææææimplemþn¬ed or considerþdÕinhx–Éd/off-tñpic.Csp><scriptçypeÒtext/javascriptziþ‚õ2//S±&![CDATA[//iþ‚õ2ïÌŸÍ[ææææææææææævar commþn¬s_shortnGÖÉ= 'to¨¬Ý';ïÌŸÍ[ææææææææææævar commþn¬s_identifierÉ= 'http://to¨¬Ý.aw Ûhe.org/to¨¬Ý-7.0-doc/monitoringûKGê3';ïÌŸÍ[æææææææææææ(function(w, d) {ïÌŸÍ[æææææææææææææææif (w.loîÃtion.hostMu“ê.toLowerCase() == "to¨¬Ý.aw Ûhe.org") {ïÌŸÍ[æææææææææææææææææææd.write('šÒ_1id="commþn¬s_threadziþ\“úxc£');ïÌŸÍ[ææææææææææææææææææævar sÉ= d.createElemþn¬('script');ïÌŸÍ[æææææææææææææææææææs.ype`= 'text/javascript';ïÌŸÍ[æææææææææææææææææææs.async`= tx;ïÌŸÍ[æææææææææææææææææææs.=Ð>É= 'https://commþn¬sûaw Ûhe.org/show_commþn¬sûlua?site=' + commþn¬s_shortnGÖÉ+ '&!a‘–=' + commþn¬s_identifier;ïÌŸÍ[æææææææææææææææææææ(ùžïetElemþn¬sByTagName('head')[0] || ùžïetElemþn¬sByTagName('body')[0])ûawpendCh»èd(s);ïÌŸÍ[æææææææææææææææ}ïÌŸÍ[æææææææææææææææelse {ïÌŸÍ[æææææææææææææææææææd.write('šÒ_1id="commþn¬s_threadziþstrong>Commþn¬s a—þ di;iKÚd for Ë_is !a‘– Åtbthe momþn¬.þ\“strong><\“úxc£');ïÌŸÍ[æææææææææææææææ}ïÌŸÍ[æææææææææææ})(wi´dow,½documþn¬);ïÌŸÍ[æææææææææææ//S±&!]]></script></blockquote></td></tr></table></td></tr><‚õ2FOOTER SEPARATORS±&tr><td colspan="2"><hr noshadþ size¬ý±ïÙ/td></tr><‚õ2PAGE FOOTERS±&tr><td colspan="2"><Ò_1šMÉxÒcenter"><font color="#525D76" size¬ý-±ïÙem>ïÌŸÍ[æææææCopyrn§Í &copy; 1999-2013,”Aw Ûhe Softwa—þ Foundation
+        </em></font></úxc£</td></tr></table></body></KGê3>

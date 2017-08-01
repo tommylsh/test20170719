@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.maxim.core.mapper.ext.OrdersPayExtMapper">
+
+    <insert id="insertBatch" parameterType="java.util.List">
+        INSERT INTO ORDERS_PAY (ROWGUID, BRANCH_CODE, BUSINESS_DATE,
+        ORDER_NO, PAY_SEQ, TRANS_DATETIME,
+        "UID", STATION_ID, PAY_CODE,
+        PAY_CDESC, PAY_EDESC, PRN_CDESC,
+        PRN_EDESC, CURY_NO, TENDER,
+        EXCH_RATE, PAY_QTY, PAY_AMT,
+        TIPS, "CHANGE", CARD_TYPE,
+        SUB_CARD_TYPE, ENTRY_MODE, CARD_NO,
+        CARD_HOLDER_NAME, REQUEST_CODE, RESPONSE_CODE,
+        BATCH_NO, TRACE_NO, APPROVAL_CODE,
+        PRV_VAL, NEW_VAL, CURY_PRV_VAL,
+        CURY_NEW_VAL, RECALL, REFUND,
+        VOID, PENDING, RESERVED,
+        "STATUS", LAST_UPDATE_TIME)
+        <foreach collection="list" item="item" index="index" separator=" UNION ALL ">
+            SELECT
+            #{item.rowguid,jdbcType=VARCHAR},
+            #{item.branchCode,jdbcType=VARCHAR},
+            #{item.businessDate,jdbcType=TIMESTAMP},
+            #{item.orderNo,jdbcType=VARCHAR},
+            #{item.paySeq,jdbcType=DECIMAL},
+            #{item.transDatetime,jdbcType=TIMESTAMP},
+            #{item.uid,jdbcType=DECIMAL},
+            #{item.stationId,jdbcType=VARCHAR},
+            #{item.payCode,jdbcType=VARCHAR},
+            #{item.payCdesc,jdbcType=VARCHAR},
+            #{item.payEdesc,jdbcType=VARCHAR},
+            #{item.prnCdesc,jdbcType=VARCHAR},
+            #{item.prnEdesc,jdbcType=VARCHAR},
+            #{item.curyNo,jdbcType=CHAR},
+            #{item.tender,jdbcType=DECIMAL},
+            #{item.exchRate,jdbcType=DECIMAL},
+            #{item.payQty,jdbcType=DECIMAL},
+            #{item.payAmt,jdbcType=DECIMAL},
+            #{item.tips,jdbcType=DECIMAL},
+            #{item.change,jdbcType=DECIMAL},
+            #{item.cardType,jdbcType=VARCHAR},
+            #{item.subCardType,jdbcType=VARCHAR},
+            #{item.entryMode,jdbcType=VARCHAR},
+            #{item.cardNo,jdbcType=VARCHAR},
+            #{item.cardHolderName,jdbcType=VARCHAR},
+            #{item.requestCode,jdbcType=VARCHAR},
+            #{item.responseCode,jdbcType=VARCHAR},
+            #{item.batchNo,jdbcType=VARCHAR},
+            #{item.traceNo,jdbcType=VARCHAR},
+            #{item.approvalCode,jdbcType=VARCHAR},
+            #{item.prvVal,jdbcType=DECIMAL},
+            #{item.newVal,jdbcType=DECIMAL},
+            #{item.curyPrvVal,jdbcType=DECIMAL},
+            #{item.curyNewVal,jdbcType=DECIMAL},
+            #{item.recall,jdbcType=DECIMAL},
+            #{item.refund,jdbcType=CHAR},
+            #{item.voidVal,jdbcType=CHAR},
+            #{item.pending,jdbcType=DECIMAL},
+            #{item.reserved,jdbcType=VARCHAR},
+            'C',
+            #{item.lastUpdateTime,jdbcType=TIMESTAMP}
+            FROM DUAL
+        </foreach>
+    </insert>
+
+    <delete id="deleteBatch" parameterType="java.util.List">
+        DELETE FROM ORDERS_PAY WHERE ROWGUID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.rowguid,jdbcType=VARCHAR}
+        </foreach>
+    </delete>
+
+</mapper>

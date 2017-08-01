@@ -1,0 +1,84 @@
+package com.maxim.pos.sales.service;
+
+import java.util.List;
+
+import javax.validation.executable.ExecutableType;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.TaskJobExceptionDetail;
+import com.maxim.pos.common.enumeration.ExceptionDetailStatus;
+import com.maxim.pos.common.enumeration.Severity;
+import com.maxim.pos.common.service.ApplicationSettingService;
+import com.maxim.pos.common.service.TaskJobExceptionDetailService;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.util.mail.MailSendUtil;
+import com.maxim.pos.common.util.mail.MailSenderInfo;
+
+@Service("smtpService")
+@Transactional
+public class SmtpServiceImpl implements SmtpService {
+
+	@Autowired
+	private ApplicationSettingService applicationSettingService; 
+	
+	@Autowired 
+	private TaskJobExceptionDetailService taskJobExceptionDetailService;
+	
+	@Override
+	public boolean sendMail(Logger logger) {
+		boolean result = false;
+		try {
+			ApplicationSetting applicationSetting = applicationSettingService.findApplicationSettingByCode("SMTP");
+			MailSenderInfo mailSenderInfo = new MailSenderInfo(); 
+			String info = applicationSetting.getCodeValue();
+			String[] arr = info.split(";");
+			String host = "",port = "",username = "",password = "",toAddress = "";
+			for (String str : arr) {
+				String temp = str.split("=")[0];
+				String value = str.split("=")[1];
+				if (temp.equals("Host")) {
+					host = value;
+				} else if(temp.equalsIgnoreCase("Port")) {
+					port = value;
+				} else if(temp.equalsIgnoreCase("UserName")) {
+					username = value;
+				} else if(temp.equalsIgnoreCase("Password")) {
+					password = value;
+				} else if(temp.equalsIgnoreCase("ToAddress")) {
+					toAddress = value;
+				}
+			}
+			mailSenderInfo.setMailServerHost(host);
+			mailSenderInfo.setMailServerPort(port);
+			mailSenderInfo.setValidate(true);
+			mailSenderInfo.setUserName(username);
+//			ochmehxvnajbgjje
+			mailSenderInfo.setPassword(password); 
+			mailSenderInfo.setFromAddress(username);
+			mailSenderInfo.setToAddress(toAddress);
+			List<TaskJobExceptionDetail> list = taskJobExceptionDetailService.findTaskJobExeptionDetailByStatusAndSeverity(ExceptionDetailStatus.P, Severity.ERROR);
+			mailSenderInfo.setSubject("TaskJobExceptionDetail");
+			StringBuffer sb = new StringBuffer();
+			for (TaskJobExceptionDetail taskExceptionDetail : list) {
+				sb.append(taskExceptionDetail.getExceptionContent()+"\n");
+			}
+			mailSenderInfo.setContent(sb.toString()); 
+			result = MailSendUtil.sendTextMail(mailSenderInfo);
+			if(result){
+				for (TaskJobExceptionDetail taskExceptionDetail : list) {
+					taskExceptionDetail.setStatus(ExceptionDetailStatus.S);
+					taskJobExceptionDetailService.update(taskExceptionDetail);
+				}
+			}
+		} catch (Exception e) {
+			LogUtils.printException(logger, "send email result is {}", result);
+		}
+		return result;
+	}
+
+}

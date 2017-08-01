@@ -1,0 +1,392 @@
+package com.maxim.pos.sales.service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.service.PosSystemService;
+import com.maxim.pos.common.util.JDBCUtils;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.util.PosClientUtils;
+
+
+/**
+ * Class SalesServiceSqlImpl
+ * 
+ * Created by Tommy Leung
+ * Created on 12 Apr 2017
+ *  
+ * Amendment History
+ * 
+ * Name                  Modified on  Comment
+ * --------------------  -----------  ----------------------------------------
+ * 
+ * 
+ */
+
+
+@Service("sqlSalesService")
+public class SalesServiceSqlImpl extends  SalesServiceBaseImpl {
+	
+    @Autowired
+	private PosSystemService posSystemService;
+
+	@Override
+    protected int getDefaultScanDayIfNoControl()
+	{
+		return sqlDefaultScanDayIfNoControl ;
+	}
+	@Override
+    protected int getMaxScanDay()
+    {
+		return sqlMaxScanDay ;
+    }
+
+	@Override
+	protected List<Date> doGetPosProcessDate(BranchScheme branchScheme, List<SchemeInfo> schemeList,
+			java.sql.Date currentDate, java.sql.Date yesterdayDate, java.sql.Date controlDate, Logger logger) {
+		
+		List<Date> procDates = posSystemService.getPosEODBusinessDateList(branchScheme,controlDate,logger);
+		
+        if (PollSchemeType.SALES_REALTIME.equals(branchScheme.getPollSchemeType())) {
+        	procDates.add(REALTIME_DATE);
+        }
+        
+        return procDates ;
+	}
+
+	@Override
+	protected List<Date> doFilterStockTakeReady (List<Date> dates, BranchScheme branchScheme, List<SchemeInfo> schemeList, java.sql.Date currentDate, java.sql.Date yesterdayDate, java.sql.Date controlDate,Logger logger)	  
+	{
+		List<Date> returnDates = new ArrayList<Date>();
+		if (dates.isEmpty())
+		{
+			return returnDates ;
+		}
+        try (Connection connection = applicationSettingService.getJDBCConection(branchScheme, true)) {
+        	
+            String branchCode = branchScheme.getBranchMaster().getBranchCode();
+            
+        	int idx = 0;
+        	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        	StringBuffer dateStrBuf = new StringBuffer("(");
+        	for (Date date : dates)
+        	{
+        		dateStrBuf.append("'").append(df.format(date));
+        		if (++idx == dates.size())
+        		{
+        			dateStrBuf.append("')");
+        		}
+        		else
+        		{
+        			dateStrBuf.append("',");
+        		}
+        	}
+        	StringBuffer dateConditionStrBuf = new StringBuffer("CONVERT(varchar(16),business_date,23) in ").append(dateStrBuf);
+        	String dateConditionStr = dateConditionStrBuf.toString();
+
+        	
+            String query = "select distinct business_date from hist_itemstock where branch_code = '" + branchCode + "' and " + dateConditionStr + " order by business_date asc";
+            List<Map<String, Object>> list = PosClientUtils.execCliectQuery(connection, query, false);
+            if (list.size() > 0 && !list.isEmpty()) {
+                for (Map<String, Object> map : list) {
+                	Date date = (Date) map.get("business_date");;
+                	returnDates.add(date);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return returnDates ;
+	}
+
+	@Override
+    protected List<Date> doProcessPosDataToStg(BranchScheme branchScheme, List<SchemeInfo> schemeList, 
+    		List<Date> procDates, List<Date> stDates, List<Date> nonStDoneDates, List<Date> stDoneDates, List<Date> stReady,
+    		java.sql.Date currentDate, java.sql.Date yesterdayDate, java.sql.Date controlDate, TaskJobLog taskJobLog, Logger logger){
+
+        PollSchemeType pollSchemeType	= branchScheme.getPollSchemeType();
+//        BranchInfo branchInfo			= branchScheme.getBranchInfo();
+        String branchCode				= branchScheme.getBranchMaster().getBranchCode();
+        
+		int totalCount = 0;
+        try (Connection toConn = applicationSettingService.getCurrentJDBCConnection(); 
+        		Connection fromConn = applicationSettingService.getJDBCConection(branchScheme, true)) {
+        	
+            LogUtils.printLog(logger, "{} {} Ready to copy data from: \r\ndatasource: '{}' to \r\n datasource: '{}'", branchCode, pollSchemeType, fromConn, toConn);
+
+            // Real Time (SQL Server)
+            // Lookup the table name configured in database.
+            // Get the records with status = '' and specific branch code
+            if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType)) {
+            	
+                LogUtils.printLog(logger, "{} REAL_TIME processSqlToStg {} ", branchCode, schemeList.size());
+
+                String[] conditions = {" LTRIM(RTRIM(status)) = \'P'", " branch_code  = \'" + branchCode + "\'"};
+                for (SchemeInfo schemeInfo : schemeList) 
+                {
+                    String fromTable = schemeInfo.getSource();
+                    String toTable = schemeInfo.getDestination();
+                    try 
+                    {
+                    	// Update the record to Pending State '' -> 'P'
+                    	int row = JDBCUtils.updatePendingStatusByBranchCodeAndStatus(fromConn, fromTable, branchCode,"");
+                        LogUtils.printLog(logger, "{} REAL_TIME schemeInfo{} row:{} : {} -> {} ", branchCode, schemeInfo.getId(), row, schemeInfo.getSource(), schemeInfo.getDestination());
+                        if (row > 0)
+                        {
+                            int[] returnInts = {0,0};
+                        	String conversion = JDBCUtils.CONV_NONE ;
+                        	if (JDBCUtils.CONV_CHI_BRANCH_LIST.contains(branchCode))
+                        	{
+                        		conversion = JDBCUtils.CONV_SIMPLIFIED_TO_TRADTION ;
+                        	}
+
+//	                        if (schemeInfo.isConsistentStructure()) {
+                            
+	                        	returnInts = JDBCUtils.structureConsistentBulkCopy(fromConn
+	                            		,toConn
+	                            		,schemeInfo
+	                            		,defaultTransactionBatchSize
+	                            		,conditions,conversion);
+	                        	returnInts = new int[]{returnInts[0], returnInts[1], row, returnInts[0]+returnInts[1]};
+//	                        } else {
+//	                        	returnInts = JDBCUtils.bulkCopyFromSQLConn(fromConn, toConn, schemeInfo, null, null, conditions);
+//	                        	returnInts = new int[]{returnInts[0], returnInts[1], row, returnInts[0]+returnInts[1]};
+//	                        }
+                            LogUtils.printLog(logger, "{} REAL_TIME schemeInfo{} insert records: {}; update records:{} ", branchCode, schemeInfo.getDestination(), returnInts);
+                            taskJobLogService.createJobLogDetail(taskJobLog, fromTable, toTable, 0, returnInts);
+
+                            // format checkSum criteria for POS data process (status
+                            // = 'P', and branchCode = pos branch)
+                            boolean passCheckSum = JDBCUtils.checkSumBySchemeInfo(fromConn, toConn, branchCode, schemeInfo,
+                                    conditions);
+                            LogUtils.printLog(logger, "{} REAL_TIME schemeInfo{} passCheckSum {}", branchCode, schemeInfo.getDestination(), passCheckSum);
+                            if (!passCheckSum) {
+                                throw new RuntimeException("checkSumColumn false");
+                            }
+
+                            // Update Status to 'C'
+                            if (IntStream.of(returnInts).sum() > 0) {
+                                int count = JDBCUtils.updateCompleteStatusByBranchCodeAndStatus(fromConn, fromTable, branchCode,"P");
+                                LogUtils.printLog(logger, "{} REAL_TIME schemeInfo{} completeRecord {}", branchCode, schemeInfo.getDestination(),count);
+                                
+                            	totalCount +=row ;
+    						}
+                        }
+                    } catch (Exception e) {
+                        LogUtils.printException(logger, "Task execte exception: ", e);
+                        taskJobLogService.createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+                    }
+                }
+            } else if (PollSchemeType.SALES_EOD.equals(pollSchemeType)) {
+            	
+                LogUtils.printLog(logger, "{} SALES_EOD processSqlToStg {} ", branchCode, schemeList.size());
+
+            	int idx = 0;
+            	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            	StringBuffer dateStrBuf = new StringBuffer("(");
+            	StringBuffer nonStockTakeDateStrBuf = new StringBuffer("(");
+            	StringBuffer stockTakeDateStrBuf = new StringBuffer("(");
+            	String minDate	= controlDate.toString() ;
+            	String maxDate	= null ;
+            	String stDate	= null ;
+            	for (Date date : procDates)
+            	{
+//            		if (idx == 0)
+//            		{
+//            			minDate=df.format(date);
+//            		}
+            		dateStrBuf.append("'").append(df.format(date));
+            		
+            		if (procDates.size() != stReady.size())
+            		{
+	            		if (stReady.contains(date))
+	            		{
+	            			nonStockTakeDateStrBuf.append("'").append(df.format(date)).append("',");
+	            		}
+	            		else
+	            		{
+	            			stockTakeDateStrBuf.append("'").append(df.format(date)).append("',");
+	                		stDate=df.format(date);
+	            		}
+            		}
+            		
+            		if (++idx == procDates.size())
+            		{
+            			dateStrBuf.append("')");
+            		}
+            		else
+            		{
+            			dateStrBuf.append("',");
+            		}
+            		if (idx == procDates.size())
+            		{
+            			maxDate=df.format(date);
+            		}
+            	}
+            	
+            	StringBuffer dateConditionStrBuf = new StringBuffer("CONVERT(varchar(16),business_date,23) in ").append(dateStrBuf);
+            	String dateConditionStr = dateConditionStrBuf.toString();
+            	
+            	StringBuffer nonStockTakeDateConditionStrBuf = new StringBuffer("CONVERT(varchar(16),business_date,23) in ").append(nonStockTakeDateStrBuf);
+            	String nonStockTakeDateStr = nonStockTakeDateConditionStrBuf.toString();
+            	nonStockTakeDateStr = nonStockTakeDateStr.substring(0, nonStockTakeDateStr.length() - 1) + ")";
+
+//            	StringBuffer stockTakeDateConditionStrBuf = new StringBuffer("CONVERT(varchar(16),business_date,23) in ").append(stockTakeDateStrBuf);
+//            	String stockTakeDateDateStr = stockTakeDateConditionStrBuf.toString();
+//            	stockTakeDateDateStr = stockTakeDateDateStr.substring(0, stockTakeDateDateStr.length() - 1) + ")";
+
+            	
+            	String deleteDateConditionStr = "CONVERT(varchar(16),business_date,23) > '"+minDate+"' and CONVERT(varchar(16),business_date,23) <= '"+maxDate+"'"; 
+            	String nonStockTakeDeleteDateConditionStr = "CONVERT(varchar(16),business_date,23) > '"+minDate+"' and CONVERT(varchar(16),business_date,23) <= '"+stDate+"'"; 
+//            	String stockTakeDeleteDateConditionStr = "CONVERT(varchar(16),business_date,23) > '"+stDate+"' and CONVERT(varchar(16),business_date,23) <= '"+maxDate+"'"; 
+            	
+            	String[] conditions = null ;
+            	String   deleteCondition = null ;
+//                String[] conditions = new String[]{" branch_code  = \'" + branchCode + "\'",
+//                		dateConditionStr};
+                
+                for (SchemeInfo schemeInfo : schemeList) {
+                    
+                    LogUtils.printLog(logger, "{} SALES_EOD schemeInfo{}  : {} -> {} ", branchCode, schemeInfo.getId(), schemeInfo.getSource(), schemeInfo.getDestination());
+
+                    String fromTable = schemeInfo.getSource();
+                    String toTable = schemeInfo.getDestination();
+//    		List<Date> procDates, List<Date> stDates, List<Date> nonStDoneDates, List<Date> stDoneDates, List<Date> stReady,
+                    
+            		if (stDates.size() > 0)
+            		{
+            			if (stTableList.contains(toTable.toLowerCase()))
+            			{
+                    		if (procDates.size() != stReady.size())
+            				{
+                				if (procDates.size() == 1)
+                				{
+                					continue ;
+                				}
+                                conditions = new String[]{" branch_code  = \'" + branchCode + "\'",
+                                		nonStockTakeDeleteDateConditionStr};
+                                deleteCondition = nonStockTakeDeleteDateConditionStr ;
+            				}
+            				else
+            				{
+                        		if (procDates.size() == stDoneDates.size())
+                        		{
+                        			continue ;
+                        		}
+            					conditions = new String[]{" branch_code  = \'" + branchCode + "\'",
+            	                		dateConditionStr};
+                                deleteCondition = deleteDateConditionStr ;
+            				}
+            			}
+            			else
+            			{
+                    		if (procDates.size() == nonStDoneDates.size())
+                    		{
+                    			continue ;
+                    		}
+                    		if (procDates.size() == stDoneDates.size())
+                    		{
+                    			continue ;
+                    		}
+        					conditions = new String[]{" branch_code  = \'" + branchCode + "\'",
+        	                		dateConditionStr};
+                            deleteCondition = deleteDateConditionStr ;
+            			}
+            		}
+            		else
+            		{
+    					conditions = new String[]{" branch_code  = \'" + branchCode + "\'",
+    	                		dateConditionStr};
+            		}
+                    
+                    try {
+                        int[] returnInts = {0,0};
+                        int deleteCount = JDBCUtils.deleteByBranchAndBizDate(toConn, schemeInfo.getDestination(),
+                    			branchScheme.getBranchMaster().getBranchCode(), deleteCondition);
+                        LogUtils.printLog(logger, "{} SALES_EOD schemeInfo{} delete table :{} {} ", branchCode, schemeInfo.getDestination(), deleteCount, deleteDateConditionStr);
+                    	String conversion = JDBCUtils.CONV_NONE ;
+                    	if (JDBCUtils.CONV_CHI_BRANCH_LIST.contains(branchCode))
+                    	{
+                    		conversion = JDBCUtils.CONV_SIMPLIFIED_TO_TRADTION ;
+                    	}
+
+//                        if (schemeInfo.isConsistentStructure()) {
+                        	returnInts = JDBCUtils.structureConsistentBulkCopy(fromConn
+                            		,toConn
+                            		,schemeInfo
+                            		,defaultTransactionBatchSize
+                            		, conditions
+                            		, false,conversion);
+//                        } 
+//                        else 
+//                        {
+//                        	returnInts = JDBCUtils.bulkCopyFromSQLConn(fromConn, toConn, schemeInfo, defaultTransactionBatchSize, null, conditions);
+//                        }
+                        LogUtils.printLog(logger, "{} SALES_EOD schemeInfo{} insert records: {}; update records:{} ", branchCode, schemeInfo.getDestination(), returnInts);
+
+                        // Update the Pos Status to Complete(C) 
+                        int updateCount = JDBCUtils.updateCompleteStatusByBranchCode(fromConn, fromTable, branchCode);
+        				LogUtils.printLog(logger, " {} Branch update Source Status Count : {}", branchCode, updateCount) ;
+
+                        // Update the Pos Status to Complete(C) 
+                        int toUpdateCount = JDBCUtils.updateBlankStatusByBranchCode(toConn, fromTable, branchCode);
+        				LogUtils.printLog(logger, " {} Branch update Target Status Count : {}", branchCode, toUpdateCount) ;
+                        
+                        // Create Job Log Detail for each Table
+        				taskJobLogService.createJobLogDetail(taskJobLog, fromTable, toTable, deleteCount, returnInts);
+
+                        // format checkSum criteria for POS data process branchCode = pos branch)
+                        boolean passCheckSum = JDBCUtils.checkSumBySchemeInfo(fromConn, toConn, branchCode, schemeInfo,
+                                conditions);
+                        LogUtils.printLog(logger, "{} SALES_EOD schemeInfo{} passCheckSum {}", branchCode, schemeInfo.getDestination(), passCheckSum);
+                        if (!passCheckSum) {
+                            throw new RuntimeException("checkSumColumn false");
+                        }
+
+                    } catch (Exception e) {
+                        LogUtils.printException(logger, "Task execte exception: ", e);
+                        taskJobLogService.createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+                    }
+                }
+            }
+        } catch(Exception e) {
+        	e.printStackTrace();
+        	LogUtils.printException(logger, "get connection is null",e);
+        	taskJobLogService.createJobExceptionDetail(taskJobLog, "", "", e);
+        	procDates = null;
+        }
+        LogUtils.printLog(logger, "{} {} {} {}", branchCode, pollSchemeType, branchScheme.getDirection(), branchScheme.getPollSchemeName());
+        
+        if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType)) {
+        
+        	if (totalCount <= 0)
+        	{
+        		return null;
+        	}
+        	else
+        	{
+        		return new ArrayList<Date>();
+        	}
+        }
+
+        return procDates ;
+	}
+
+
+
+}

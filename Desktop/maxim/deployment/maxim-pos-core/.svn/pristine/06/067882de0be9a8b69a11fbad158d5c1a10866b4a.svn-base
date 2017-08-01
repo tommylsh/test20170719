@@ -1,0 +1,8 @@
+package com.maxim.pos.common.enumeration;
+
+public enum PollSchemeType {
+	SALES_REALTIME,
+	SALES_EOD,
+	MASTER,
+	SMTP
+}

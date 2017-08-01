@@ -1,0 +1,26 @@
+#parse ("macro.vm")
+package com.maxim.pos.core.value;
+
+import com.maxim.pos.common.value.CommonCriteria;
+
+public class ${entitySimpleName}QueryCriteria extends CommonCriteria {
+
+    private String #toLowerCase(${keyword});
+    private String #toLowerCase(${keyword})Keyword;
+    
+    public String get#toUpperCase(${keyword})() {
+        return #toLowerCase(${keyword});
+    }
+    
+    public void set#toUpperCase(${keyword})(String #toLowerCase(${keyword})) {
+        this.#toLowerCase(${keyword}) = #toLowerCase(${keyword});
+    }
+    
+    public String get#toUpperCase(${keyword})Keyword() {
+        return #toLowerCase(${keyword})Keyword;
+    }
+    
+    public void set#toUpperCase(${keyword})Keyword(String #toLowerCase(${keyword})Keyword) {
+        this.#toLowerCase(${keyword})Keyword = #toLowerCase(${keyword})Keyword;
+    }
+}

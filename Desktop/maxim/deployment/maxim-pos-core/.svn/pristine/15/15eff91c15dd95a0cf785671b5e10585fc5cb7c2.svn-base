@@ -1,0 +1,645 @@
+package com.maxim.pos.sales.service;
+
+import java.io.File;
+import java.sql.Connection;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
+
+import com.maxim.pos.common.util.*;
+
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.pos.common.Auditer;
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.entity.BranchInfo;
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.entity.PollEodControl;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.TaskJobExceptionDetail;
+import com.maxim.pos.common.entity.TaskJobLog;
+import com.maxim.pos.common.entity.TaskJobLogDetail;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.Direction;
+import com.maxim.pos.common.enumeration.LatestJobInd;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.enumeration.TaskProcessStatus;
+import com.maxim.pos.common.service.ApplicationSettingService;
+import com.maxim.pos.common.service.FtpService;
+import com.maxim.pos.common.service.PollBranchSchemeService;
+import com.maxim.pos.common.service.PollEodControlService;
+import com.maxim.pos.common.service.PollSchemeInfoService;
+import com.maxim.pos.common.service.ProcessStgToEdwService;
+import com.maxim.pos.common.service.SpringBeanUtil;
+import com.maxim.pos.common.service.TaskJobLogService;
+import com.maxim.rest.ResponseData;
+
+import javax.annotation.PostConstruct;
+
+@Service("salesService")
+@Transactional
+public class SalesServiceImpl implements SalesService {
+
+    private static PollThreadPoolExecutor pool;
+
+    private static final String BRANCH_EXECUTE_THREADPOOL_SIZE = "BRANCH_EXECUTE_THREADPOOL_SIZE";
+
+    @PostConstruct
+    public void init() throws Exception {
+        ApplicationSetting applicationSetting = applicationSettingService
+                .findApplicationSettingByCode(BRANCH_EXECUTE_THREADPOOL_SIZE);
+        int poolSize = 100;
+        if (applicationSetting != null) {
+            String pool = applicationSetting.getCodeValue();
+            try {
+                poolSize = Integer.parseInt(pool);
+            } catch (Exception e) {
+                LogUtils.printException("SalesServiceImpl init...", e);
+            }
+        }
+        pool = new PollThreadPoolExecutor(poolSize, poolSize, 60,
+                TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+    }
+
+    @Autowired
+    private PollSchemeInfoService pollSchemeInfoService;
+
+//    @Autowired
+//    private DataSource dataSource;
+
+    @Autowired
+    private ApplicationSettingService applicationSettingService;
+
+    @Autowired
+    private TaskJobLogService taskJobLogService;
+
+    @Autowired
+    private FtpService ftpService;
+
+    @Autowired
+    private PollBranchSchemeService pollBranchSchemeService;
+
+    @Autowired
+    private RealTimeService realTimeService;
+
+    @Autowired
+    private PollEodControlService pollEodControlService;
+    
+    @Override
+    public String processPosDataToStg(BranchScheme branchScheme, Logger logger) {
+    	
+    	// Create the Task Job Log by the Scheme
+        TaskJobLog taskLog = createTaskJobLog(branchScheme);
+        if (taskLog == null) {
+            LogUtils.printLog(logger, "BranchScheme {}=={} PROGRESS ING...", branchScheme.getId(),
+                    branchScheme.getBranchMaster().getBranchCode());
+            return "";
+        }
+        
+        ClientType clientType = branchScheme.getBranchInfo().getClientType();
+        TaskJobLog taskLogEdw = null;
+        try {
+	        switch (clientType) {
+	            case SQLPOS:
+//	                try {
+	            	taskLogEdw = processSqlToStg(branchScheme, taskLog, logger);
+//	                } catch (Exception e) {
+//	//				createJobExceptionDetail(taskLog, "", "", e);
+//	                    taskLog.setStatus(TaskProcessStatus.FAILED);
+//	                    updateTaskJobLog(taskLog);
+//	                    throw new RuntimeException(e);
+//	                }
+	                break;
+	            case CSV:
+	                processCsvToStg(branchScheme, taskLog, logger);
+	                break;
+	            case TEXT:
+	                processTextToStg(branchScheme, taskLog, logger);
+	                break;
+	            case DBF:
+	                processDbfToStg(branchScheme, taskLog, logger);
+	                break;
+	            default:
+	                createJobExceptionDetail(taskLog, "", "", new RuntimeException());
+	                taskLog.setStatus(TaskProcessStatus.FAILED);
+//	                updateTaskJobLog(taskLog);
+	                LogUtils.printLog("Unsupported Client Type");
+	                break;
+	        }
+        } catch (Exception e) {
+            createJobExceptionDetail(taskLog, "", "", e);
+            taskLog.setStatus(TaskProcessStatus.FAILED);
+            throw new RuntimeException(e);
+        }
+        finally
+        {
+            updateTaskJobLog(taskLog);
+        }
+
+
+
+    // process  stg to edw
+//        if(branchScheme.getPollSchemeType().equals(PollSchemeType.SALES_REALTIME)){
+//	        for (SchemeInfo schemeInfo : list) {
+//	            String toTable = schemeInfo.getDestination();
+//	            if (StringUtils.isNotBlank(toTable) && SalesRealTimeTable.fromTableName(toTable) == null) {
+//	                // Stg To EDW (JDBC)
+//	            	 BranchScheme branchSchemeToEdw = pollBranchSchemeService.getBranchScheme(branchScheme.getPollSchemeType(),
+//	                         Direction.STG_TO_EDW, ClientType.ORACLE, branchScheme.getBranchMaster().getBranchCode());
+//	                 TaskJobLog taskLogEdw = createTaskJobLog(branchSchemeToEdw);
+//	                 processStgToEdwJDBC(branchSchemeToEdw, taskLogEdw, logger);
+//	            }
+//	        }
+//        }
+        BranchScheme branchSchemeToEdw = pollBranchSchemeService.getBranchScheme(branchScheme.getPollSchemeType(),
+                Direction.STG_TO_EDW, ClientType.ORACLE, branchScheme.getBranchMaster().getBranchCode());
+//        TaskJobLog taskLogEdw = createTaskJobLog(branchSchemeToEdw);
+        processStgToEdwJDBC(branchSchemeToEdw, taskLogEdw, logger);
+        return null;
+    }
+
+    public TaskJobLog processSqlToStg(BranchScheme branchScheme, TaskJobLog taskJobLog, Logger logger) throws Exception {
+        PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+        ClientType clientType = branchScheme.getBranchInfo().getClientType();
+        BranchInfo branchInfo = branchScheme.getBranchInfo();
+        String branchCode = branchScheme.getBranchMaster().getBranchCode();
+        TaskJobLog taskLogEdw = null;
+        // POS
+//		String fromUrl = ConnectionStringHelper.getSQLServerConnectionString(branchInfo);
+        // Staging
+        Connection toDS = applicationSettingService.getCurrentJDBCConnection();
+        try (Connection fromDS = applicationSettingService.getJDBCConection(branchInfo, true)) {
+            LogUtils.printLog("Ready to copy data from: \r\ndatasource: '{}' to \r\n datasource: '{}'", fromDS, toDS);
+            List<SchemeInfo> list = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(pollSchemeType,
+                    clientType);
+            
+            // Real Time (SQL Server)
+            // 
+            // Lookup the table name configured in database.
+            // Get the records with status <> 'C' and specific branch code
+            //
+            //            
+            if (PollSchemeType.SALES_REALTIME.equals(pollSchemeType)) {
+                for (SchemeInfo schemeInfo : list) {
+                    LogUtils.printLog(logger, "schemeInfo.id: {}", schemeInfo.getId());
+                    String fromTable = schemeInfo.getSource();
+                    String toTable = schemeInfo.getDestination();
+                    String[] conditions = {" LTRIM(RTRIM(status)) <> \'C\'", " branch_code  = \'" + branchCode + "\'"};
+                    try {
+                        LogUtils.printLog("Ready to copy data from table: '{}' to table: '{}'", fromTable, toTable);
+                        int rs = 0;
+                        String selectSQL = MessageFormat.format("SELECT count(*) as ss FROM {0} {1}", schemeInfo.getSource(),
+                				SQLStmtUtils.getCriteriaString(conditions));
+                        List<Map<String, Object>> execCliectQuery = PosClientUtils.execCliectQuery(fromDS, selectSQL, false);
+                        Object obj = execCliectQuery.get(0).get("ss");
+                        if(Integer.parseInt(obj.toString())>0){
+	                        if (schemeInfo.isConsistentStructure()) {
+	                            rs = JDBCUtils.StructureConsistentbulkCopy(fromDS, toDS, schemeInfo, conditions);
+	
+	                            LogUtils.printLog(logger, "insert: {} ", rs);
+	//                            LogUtils.printLog(logger, "update: {}", rs[1]);
+	                        } else {
+	                            rs = JDBCUtils.bulkCopyFromSQLConn(fromDS, toDS, schemeInfo, null, null, conditions);
+	                            LogUtils.printLog(logger, "insert: {} ", rs);
+	//                            LogUtils.printLog(logger, "update: {}", rs[1]);
+	                        }
+                        } else {
+                        	continue;
+                        }
+                        // Create the Job Log Detail for specific table
+                        createJobLogDetail(taskJobLog, fromTable, toTable, rs, 0);
+
+                        LogUtils.printLog("taskJobLog.details.size: {}", taskJobLog.getTaskJobLogDetails().size());
+
+                        // format checkSum criteria for POS data process (status
+                        // = 'P', and branchCode = pos branch)
+                        boolean passCheckSum = JDBCUtils.checkSumBySchemeInfo(fromDS, toDS, branchCode, schemeInfo,
+                                conditions);
+                        if (!passCheckSum) {
+                            throw new RuntimeException("checkSumColumn false");
+                        }
+                        LogUtils.printLog(logger, " checkSumColumn is {} :Complete!", passCheckSum);
+
+                        // Update Status to 'C'
+                        String fromSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable, conditions);
+//                        String toSql = SQLStmtUtils.getUpdateSqlByStatus(toTable, conditions);
+//                        if (rs[0] > 0 || rs[1] > 0) {
+                            PosClientUtils.updateTable(fromDS, fromSql, false);
+//							PosClientUtils.updateTable(toDS, toSql, false);
+//                        }
+                    } catch (Exception e) {
+                        LogUtils.printException(logger, "Task execte exception: ", e);
+                        createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+                        updateTaskJobLog(taskJobLog);
+                        throw new RuntimeException(e);
+                    }
+//					 processStgToEdw(branchCode, pollSchemeType, new Date(),
+//					 logger);
+                }
+//                realTimeService.processStgRealTimeDataToEdw(branchCode, logger);
+
+                // for (SchemeInfo schemeInfo : list) {
+                //     String toTable = schemeInfo.getDestination();
+                //     if (StringUtils.isNotBlank(toTable) && SalesRealTimeTable.fromTableName(toTable) == null) {
+                //         // Stg To EDW (JDBC)
+                //         processStgToEdwJDBC(branchScheme, taskJobLog, logger);
+                //     }
+                // }
+
+                // Stg To EDW (WS)
+                try {
+                    BranchScheme branchSchemeToEdw = pollBranchSchemeService.getBranchScheme(branchScheme.getPollSchemeType(),
+                            Direction.STG_TO_EDW, ClientType.ORACLE, branchScheme.getBranchMaster().getBranchCode());
+                    taskLogEdw = createTaskJobLog(branchSchemeToEdw);
+                    ResponseData responseData = realTimeService.processStgRealTimeDataToEdw(branchCode, logger);
+                    if(responseData.isSuccess()){
+                    	int count = Integer.parseInt(responseData.getData().toString());
+                        LogUtils.printLog(logger, "Process data from Stg to EDW Success, insert {} data", responseData.getData());
+                    	createJobLogDetail(taskLogEdw, "webService", "webService", count, 0);
+                    } else {
+                        LogUtils.printLog(logger, "Process data from Stg to EDW transmission failure.");
+                    	createJobExceptionDetail(taskLogEdw, "webService", "webService", new Exception(responseData.getMessage()));
+                    }
+                } catch (Exception e) {
+                	createJobExceptionDetail(taskLogEdw, "webService", "webService", e);
+                    updateTaskJobLog(taskLogEdw);
+                    LogUtils.printLog(logger, "Process data from Stg to EDW failure.", e);
+                }
+
+            } else if (PollSchemeType.SALES_EOD.equals(pollSchemeType)) {
+                for (SchemeInfo schemeInfo : list) {
+                    LogUtils.printLog(logger, "schemeInfo.id: {}", schemeInfo.getId());
+                    String fromTable = schemeInfo.getSource();
+                    String toTable = schemeInfo.getDestination();
+                    String[] conditions = {" LTRIM(RTRIM(status)) <> \'C\'", " branch_code  = \'" + branchCode + "\'",
+                            " CONVERT(varchar(16),business_date,23)  = \'"
+                                    + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "\'"};
+                    try {
+                        int rs = 0;
+                        int row = 0;
+                        String selectSQL = MessageFormat.format("SELECT count(*) as ss FROM {0} {1}", schemeInfo.getSource(),
+                				SQLStmtUtils.getCriteriaString(conditions));
+                        List<Map<String, Object>> execCliectQuery = PosClientUtils.execCliectQuery(fromDS, selectSQL, false);
+                        Object obj = execCliectQuery.get(0).get("ss");
+                        if(Integer.parseInt(obj.toString())>0){
+                        	row = JDBCUtils.deleteByBranchAndBizDate(toDS, schemeInfo.getDestination(),
+                                    branchScheme.getBranchMaster().getBranchCode(), new Date());
+                            LogUtils.printLog("del: {} row data", row);
+                        } else 	{
+                        	LogUtils.printLog("resource is not found record");
+                        	continue;
+                        }
+                        if (schemeInfo.isConsistentStructure()) {
+                            rs = JDBCUtils.StructureConsistentbulkCopy(fromDS, toDS, schemeInfo, conditions);
+                            LogUtils.printLog(logger, "insert: {} ", rs);
+//                            LogUtils.printLog(logger, "update: {}", rs[1]);
+                        } else {
+                            rs = JDBCUtils.bulkCopyFromSQLConn(fromDS, toDS, schemeInfo, null, null, conditions);
+                            LogUtils.printLog(logger, "insert: {} ", rs);
+//                            LogUtils.printLog(logger, "update: {}", rs[1]);
+                        }
+                        /*************************transDate --> businessDate*********************************/
+                        if(schemeInfo.isSplitDateRequired()){
+	                        String query = "select rowguid,trans_datetime from " + toTable + " where LTRIM(RTRIM(status)) <> \'C\' AND branch_code  = \'" + branchCode + "\' AND "
+	                        		+ "CONVERT(varchar(16),business_date,23) = \'"
+	                                    + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "\'";
+	                        List<Map<String, Object>> maps = PosClientUtils.execCliectQuery(toDS, query, false);
+	                        for (Map<String, Object> map : maps) {
+	                        	 Date date = (Date)map.get("trans_datetime");
+	                        	 Object rowguid = map.get("rowguid");
+	                        	 if (date != null) {
+//	                        		 String updateQuery = "update " + toTable + " set business_date = '" + obj +"' where rowguid = '" + map.get("rowguid") + "'";
+//	                            	 PosClientUtils.updateTable(toDS, updateQuery, false);
+	                        		 PosClientUtils.updateTable(toDS, toTable, false, date, rowguid);
+	                        	 }
+							}
+                        }
+                        createJobLogDetail(taskJobLog, fromTable, toTable, rs, row);
+
+                        LogUtils.printLog("taskJobLog.details.size: {}", taskJobLog.getTaskJobLogDetails().size());
+
+                        // format checkSum criteria for POS data process (status
+                        // = 'P', and branchCode = pos branch)
+                        boolean passCheckSum = JDBCUtils.checkSumBySchemeInfo(fromDS, toDS, branchCode, schemeInfo,
+                                conditions);
+                        if (!passCheckSum) {
+                            throw new RuntimeException("checkSumColumn false");
+                        }
+                        
+                        LogUtils.printLog(logger, " checkSumColumn is {} :Complete!", passCheckSum);
+
+                        String fromSql = SQLStmtUtils.getUpdateSqlByStatus(fromTable, conditions);
+//                        String toSql = SQLStmtUtils.getUpdateSqlByStatus(toTable, conditions);
+//                        if (rs[0] > 0 || rs[1] > 0) {
+                            PosClientUtils.updateTable(fromDS, fromSql, false);
+//							PosClientUtils.updateTable(toDS, toSql, false);
+//                        }
+                    } catch (Exception e) {
+                        LogUtils.printException(logger, "Task execte exception: ", e);
+                        createJobExceptionDetail(taskJobLog, fromTable, toTable, e);
+                    }
+                }
+                insertPollEodControl(branchCode);
+            }
+        } catch(Exception e) {
+        	LogUtils.printException(logger, "get connection is null");
+            createJobExceptionDetail(taskJobLog, "", "", e);
+        }
+//        updateTaskJobLog(taskJobLog);
+        LogUtils.printLog(logger, "={}=={}=={}=={}= ", branchScheme.getPollSchemeName(),
+                branchScheme.getBranchMaster().getBranchCode(), pollSchemeType, branchScheme.getDirection());
+        return taskLogEdw;
+    }
+
+    private void insertPollEodControl(String branchCode) {
+    	PollEodControl pollEodControl = new PollEodControl();
+        pollEodControl.setCreateTime(new Date());
+        pollEodControl.setCreateUser("ESB_SYSTEM");
+        pollEodControl.setLastUpdateTime(new Date());
+        pollEodControl.setLastUpdateUser("ESB_SYSTEM");
+        pollEodControl.setBranchCode(branchCode);
+        pollEodControl.setBusinessDate(new Date());
+        pollEodControl.setStatus("C");
+        pollEodControlService.saveOrUpdateConvertLog(pollEodControl);
+	}
+
+	public void processCsvToStg(BranchScheme branchScheme, TaskJobLog taskJobLog, Logger logger) {
+//        try {
+            PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+            String branchCode = branchScheme.getBranchMaster().getBranchCode();
+            ClientType clientType = branchScheme.getBranchInfo().getClientType();
+            List<SchemeInfo> list = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(pollSchemeType,
+                    clientType);
+
+            BranchInfo branchInfo = branchScheme.getBranchInfo();
+            Connection conn = applicationSettingService.getCurrentJDBCConnection();
+            String destinationPath = JDBCUtils.getCSVFilePath(branchInfo.getClientDB(),
+                    branchScheme.getBranchMaster().getBranchCode(), new Date());
+            List<File> files = ftpService.downloadFile(branchInfo, destinationPath);
+            String[] conditions = {" LTRIM(RTRIM(status)) <> \'C\'", " branch_code  = \'" + branchCode + "\'",
+                    " CONVERT(varchar(16),business_date,23)  = \'"
+                            + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "\'"};
+            for (SchemeInfo schemeInfo : list) {
+
+                for (File file : files) {
+                    try {
+                        LogUtils.printLog(logger, "=={}=={}=={}", schemeInfo.getSource(), branchInfo.getClientType(),
+                                file.getAbsolutePath());
+                        if (StringUtils.equalsIgnoreCase(schemeInfo.getSource() + ".txt", file.getName())) {
+                            String filePath = file.getAbsolutePath();
+                            int row = 0;
+//                            if (schemeInfo.isOverride()) {
+                            	String selectSQL = MessageFormat.format("SELECT count(*) as ss FROM {0} {1}", schemeInfo.getSource(),
+                        				SQLStmtUtils.getCriteriaString(conditions));
+                                List<Map<String, Object>> execCliectQuery = PosClientUtils.execCliectQuery(applicationSettingService.getJDBCConection(branchInfo, true), selectSQL, false);
+                                Object obj = execCliectQuery.get(0).get("ss");
+                                if(Integer.parseInt(obj.toString())>0){
+                                	row = JDBCUtils.deleteByBranchAndBizDate(conn, schemeInfo.getDestination(),
+                                            branchScheme.getBranchMaster().getBranchCode(), new Date());
+                                    LogUtils.printLog("del: {} row data", row);
+                                } else {
+                                	LogUtils.printLog("resource is not found record");
+                                	continue;
+                                }
+//                            	row = JDBCUtils.deleteByBranchAndBizDate(conn, schemeInfo.getDestination(),
+//                                        branchScheme.getBranchMaster().getBranchCode(), new Date());
+//                                LogUtils.printLog("del: {} row data", row);
+//                            }
+
+                            int rs = JDBCUtils.bulkCopyFromCSVConn(filePath, conn, JDBCUtils.DEFAULT_CSV_ENCODING, schemeInfo,
+                                    null, null, false);
+
+                            createJobLogDetail(taskJobLog, schemeInfo.getSource(), schemeInfo.getDestination(), rs, row);
+                            LogUtils.printLog("taskJobLog.details.size: {}", taskJobLog.getTaskJobLogDetails().size());
+                        } else {
+                            continue;
+                        }
+                    } catch (Exception e) {
+                        LogUtils.printException(logger, MessageFormat.format("{0}->{1} process excepiton",
+                                schemeInfo.getSource(), schemeInfo.getDestination()), e);
+                        createJobExceptionDetail(taskJobLog, schemeInfo.getSource(), schemeInfo.getDestination(), e);
+                    }
+
+                }
+
+            }
+//            try {
+//                // send to stg
+//                BranchScheme branchSchemeToEdw = pollBranchSchemeService.getBranchScheme(pollSchemeType,
+//                        Direction.STG_TO_EDW, ClientType.ORACLE, branchCode);
+//                processStgToEdwJDBC(branchSchemeToEdw, taskJobLog, logger);
+//            } catch (Exception e) {
+//                LogUtils.printException(logger, "processStgToEdwJDBC exception", e);
+//            }
+
+//        } catch (Exception e) {
+//            createJobExceptionDetail(taskJobLog, "", "", e);
+//            taskJobLog.setStatus(TaskProcessStatus.FAILED);
+//            updateTaskJobLog(taskJobLog);
+//            throw new RuntimeException(e);
+//        }
+//        updateTaskJobLog(taskJobLog);
+
+    }
+
+    public void processTextToStg(BranchScheme branchScheme, TaskJobLog taskJobLog, Logger logger) {
+
+    }
+
+    public void processDbfToStg(BranchScheme branchScheme, TaskJobLog taskJobLog, Logger logger) {
+//        try {
+            PollSchemeType pollSchemeType = branchScheme.getPollSchemeType();
+            String branchCode = branchScheme.getBranchMaster().getBranchCode();
+            ClientType clientType = branchScheme.getBranchInfo().getClientType();
+            List<SchemeInfo> list = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(pollSchemeType,
+                    clientType);
+            BranchInfo branchInfo = branchScheme.getBranchInfo();
+            String destinationPath = JDBCUtils.getCSVFilePath(branchInfo.getClientDB(),
+                    branchScheme.getBranchMaster().getBranchCode(), new Date());
+            List<File> files = ftpService.downloadFile(branchInfo, destinationPath);
+            Connection conn = applicationSettingService.getCurrentJDBCConnection();
+            String[] conditions = {" LTRIM(RTRIM(status)) <> \'C\'", " branch_code  = \'" + branchCode + "\'",
+                    " CONVERT(varchar(16),business_date,23)  = \'"
+                            + new SimpleDateFormat("yyyy-MM-dd").format(new Date()) + "\'"};
+            for (SchemeInfo schemeInfo : list) {
+
+                for (File file : files) {
+                    try {
+                        String filePath = file.getAbsolutePath();
+                        LogUtils.printLog(logger, "=={}=={}=={}", schemeInfo.getSource(), branchInfo.getClientType(),
+                                filePath);
+
+                        if (StringUtils.equalsIgnoreCase(
+                                JavaDBFUtils.getDbfFileName(branchScheme.getBranchMaster().getBranchCode(),
+                                        schemeInfo.getSource(), new Date()),
+                                file.getName())) {
+                        	int row = 0;
+//                            if (schemeInfo.isOverride()) {
+                        	String selectSQL = MessageFormat.format("SELECT count(*) as ss FROM {0} {1}", schemeInfo.getSource(),
+                    				SQLStmtUtils.getCriteriaString(conditions));
+                            List<Map<String, Object>> execCliectQuery = PosClientUtils.execCliectQuery(applicationSettingService.getJDBCConection(branchInfo, true), selectSQL, false);
+                            Object obj = execCliectQuery.get(0).get("ss");
+                            if(Integer.parseInt(obj.toString())>0){
+                            	row = JDBCUtils.deleteByBranchAndBizDate(conn, schemeInfo.getDestination(),
+                                        branchScheme.getBranchMaster().getBranchCode(), new Date());
+                                LogUtils.printLog("del: {} row data", row);
+                            } else {
+                            	LogUtils.printLog("resource is not found record");
+                            	continue;
+                            }
+
+                            int rs = JavaDBFUtils.bulkCopyFromDBFToSQL(filePath, conn, schemeInfo, null, null);
+
+                            createJobLogDetail(taskJobLog, schemeInfo.getSource(), schemeInfo.getDestination(), rs, row);
+                            LogUtils.printLog("taskJobLog.details.size: {}", taskJobLog.getTaskJobLogDetails().size());
+                        } else {
+                            continue;
+                        }
+
+                    } catch (Exception e) {
+                        LogUtils.printException(logger, MessageFormat.format("{0}->{1} process excepiton",
+                                schemeInfo.getSource(), schemeInfo.getDestination()), e);
+                        createJobExceptionDetail(taskJobLog, schemeInfo.getSource(), schemeInfo.getDestination(), e);
+                    }
+                }
+
+            }
+            // send to stag
+//            try {
+//                BranchScheme branchSchemeToEdw = pollBranchSchemeService.getBranchScheme(pollSchemeType,
+//                        Direction.STG_TO_EDW, ClientType.ORACLE, branchCode);
+//                processStgToEdwJDBC(branchSchemeToEdw, taskJobLog, logger);
+//            } catch (Exception e) {
+//                LogUtils.printException(logger, "processStgToEdwJDBC exception", e);
+//            }
+//        } catch (Exception e) {
+//            createJobExceptionDetail(taskJobLog, "", "", e);
+//            taskJobLog.setStatus(TaskProcessStatus.FAILED);
+//            updateTaskJobLog(taskJobLog);
+//            throw new RuntimeException(e);
+//        }
+//
+//        updateTaskJobLog(taskJobLog);
+
+    }
+
+    @Override
+    public String processStgToEdw(BranchScheme branchScheme, Logger logger) {
+
+        ApplicationSetting applicationSetting = applicationSettingService
+                .findApplicationSettingByCode("MAXIM_REST_BASE_URI");
+        if (applicationSetting == null || StringUtils.isBlank(applicationSetting.getCodeValue())) {
+            throw new RuntimeException(
+                    "Can't get the value of 'MAXIM_REST_BASE_URI' from application settings, please contact the administrator.");
+        }
+        String restBaseURI = applicationSetting.getCodeValue();
+
+        LogUtils.printLog(logger, "{}:{} process complete", branchScheme.getPollSchemeType(),
+                branchScheme.getDirection());
+        return branchScheme.getPollSchemeType() + ":" + branchScheme.getDirection() + " process success!";
+    }
+
+    @Override
+    public String processStgToEdwJDBC(BranchScheme branchScheme, TaskJobLog taskJobLog, Logger logger) {
+        if (branchScheme != null && branchScheme.isEnabled()) {
+            LogUtils.printLog(logger, "processStgRealTimeDataToEdw thread submit...");
+            ProcessStgToEdwService processStgToEdwService = SpringBeanUtil.context.getBean(ProcessStgToEdwService.class);
+            processStgToEdwService.setBranchScheme(branchScheme);
+            processStgToEdwService.setTaskJobLog(taskJobLog);
+            processStgToEdwService.setLogger(logger);
+//            processStgToEdwService.run();
+            pool.execute(processStgToEdwService);
+        } else {
+            LogUtils.printLog(logger, "processStgToEdwJDBC invalid branchScheme");
+        }
+        return null;
+    }
+    private TaskJobLog createTaskJobLog(BranchScheme branchScheme) {
+        TaskJobLog taskJobLog = taskJobLogService.findLatestTaskJobLog(branchScheme);
+        if (taskJobLog != null) {
+            if (taskJobLog.getStatus() == TaskProcessStatus.PROGRESS) {
+                return null;
+            }
+            taskJobLog.setLastestJobInd(LatestJobInd.N);
+            Auditer.audit(taskJobLog);
+            taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+        }
+
+        TaskJobLog taskLog = new TaskJobLog();
+        taskLog.setLastestJobInd(LatestJobInd.Y);
+        taskLog.setStatus(TaskProcessStatus.PROGRESS);
+        taskLog.setStartTime(new Date());
+        Auditer.audit(taskLog);
+        taskLog.setSchemeScheduleJob(branchScheme.getSchemeScheduleJob());
+        taskLog.setPollSchemeID(branchScheme.getId());
+        taskLog.setDirection(branchScheme.getDirection());
+        taskLog.setPollSchemeType(branchScheme.getPollSchemeType());
+        
+        taskLog.setBranchCode(branchScheme.getBranchMaster().getBranchCode());
+        taskLog.setPollBranchId(branchScheme.getBranchInfo().getId());
+        
+        taskLog = taskJobLogService.addOrUpdateTaskJobLog(taskLog);
+
+        return taskLog;
+    }
+
+    private void updateTaskJobLog(TaskJobLog taskJobLog) {
+        if (TaskProcessStatus.PROGRESS.equals(taskJobLog.getStatus())) {
+            taskJobLog.setStatus(TaskProcessStatus.COMPLETE);
+        }
+        taskJobLog.setEndTime(new Date());
+        taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+
+    }
+
+    private void createJobLogDetail(TaskJobLog taskJobLog, String fromTable, String toTable, int rs, int row) {
+        TaskJobLogDetail taskJobLogDetail = new TaskJobLogDetail();
+        taskJobLogDetail.setTaskJobLog(taskJobLog);
+        taskJobLogDetail.setSource(fromTable);
+        taskJobLogDetail.setDestination(toTable);
+        taskJobLogDetail.setNumOfRecDelete(row);
+        taskJobLogDetail.setNumOfRecProcessed(null);
+        taskJobLogDetail.setNumOfRecInsert(rs);
+        taskJobLogDetail.setNumOfRecUpdate(rs);
+        Auditer.audit(taskJobLogDetail);
+
+        if (taskJobLog.getTaskJobLogDetails() == null) {
+            taskJobLog.setTaskJobLogDetails(new TreeSet<TaskJobLogDetail>());
+        }
+
+        taskJobLogService.addOrUpdateTaskJobLogDetail(taskJobLogDetail);
+        // taskJobLog.getTaskJobLogDetails().add(taskJobLogDetail);
+    }
+    
+    private void createJobExceptionDetail(TaskJobLog taskJobLog, String fromTable, String toTable, Exception e) {
+        taskJobLog.setStatus(TaskProcessStatus.FAILED);
+        TaskJobExceptionDetail taskJobExceptionDetail = new TaskJobExceptionDetail();
+        taskJobExceptionDetail.setSource(fromTable);
+        taskJobExceptionDetail.setDestination(toTable);
+        taskJobExceptionDetail.setExceptionContent(LogUtils.getStackTrace(e));
+        taskJobExceptionDetail.setTaskJobLog(taskJobLog);
+        Auditer.audit(taskJobExceptionDetail);
+
+        taskJobLogService.addOrUpdateTaskJobExceptionDetail(taskJobExceptionDetail);
+        Auditer.audit(taskJobLog);
+        taskJobLogService.addOrUpdateTaskJobLog(taskJobLog);
+        // if (taskJobLog.getTaskJobExceptionDetails() == null) {
+        // taskJobLog.setTaskJobExceptionDetails(new
+        // TreeSet<TaskJobExceptionDetail>());
+        // }
+        //
+        // taskJobLog.getTaskJobExceptionDetails().add(taskJobExceptionDetail);
+    }
+
+
+
+}

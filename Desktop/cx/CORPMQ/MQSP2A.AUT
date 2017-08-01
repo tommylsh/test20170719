@@ -1,0 +1,315 @@
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCREW.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCREW.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'IBMMSG.CIP.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'IBMMSG.CIP.TELEX' -t queue -g crms +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP2B.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'MQSP1A.MQSP2A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MAPPRAISE.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MAPPRAISE.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP1B.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'ACP1.MQSP2A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CIP.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CIP.IBMMSG.TELEX' -t queue -g crms +browse +get +inq +put 
+setmqaut -m MQSP2A -n 'CCS.KAENII.POSDUTPT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.KAENII.POSDUTPT' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.STATISTICS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.MROSDATA.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.MROSDATA.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQPXUQK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g inframws +dsp +get +inq 
+setmqaut -m MQSP2A -n 'SYSTEM.DEF.REQUESTER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.CHANNEL.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.ACRWBAT.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.ACRWBAT.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'CRMS.CUBIC.EC5BRS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CRMS.CUBIC.EC5BRS' -t queue -g crms +browse +inq +put 
+setmqaut -m MQSP2A -n 'ENII.CCS.MCRWMSG.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.CCS.MCRWMSG.QL' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'SYSTEM.DEAD.LETTER.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.DEAD.LETTER.QUEUE' -t queue -g aslsup +browse +setall 
+setmqaut -m MQSP2A -n 'SYSTEM.DEAD.LETTER.QUEUE' -t queue -g staff +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'LOUISE.FACTS.MFLTPOST.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'LOUISE.FACTS.MFLTPOST.QR' -t queue -g louise +put 
+setmqaut -m MQSP2A -n 'MQSP2A.ACP1.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'BK70QMPD1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'IIBQMPD4.MQSP2A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'CCS.LOUISE.AFLTPOST.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.LOUISE.AFLTPOST.QL' -t queue -g louise +browse +get +inq 
+setmqaut -m MQSP2A -n 'CCS.LOUISE.AFLTPOST.QL' -t queue -g ccs +put 
+setmqaut -m MQSP2A -n 'IIBQMPD3.MQSP2A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'CCS.CCPM.AFLTPOST.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.CCPM.AFLTPOST.QL' -t queue -g ccpm +browse +get +inq 
+setmqaut -m MQSP2A -n 'CCS.ENII.MCRWMSG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.MCRWMSG' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'FACTS.LOUISE.AFLTPOST.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.LOUISE.AFLTPOST.QL' -t queue -g louise +get +inq 
+setmqaut -m MQSP2A -n 'ENII.CCS.ENQUIRY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.CCS.ENQUIRY' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'SYSTEM.CICS.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'KAENII.CCS.POSDUTPT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'KAENII.CCS.POSDUTPT' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'SYSTEM.BROKER' -t service -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQSP2A -n 'FACTS.ENII.ASIGNIN.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.ASIGNIN.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.ENII' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'FACTS.ENII.AAPPRAISE.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.AAPPRAISE.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'CCS.ENII.MCRWNUPD.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.MCRWNUPD.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQPXUQK_MQPCBSA' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'MQPCBSA_MQPXUQK' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'TAPS.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.CCS.MCRWMSG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.CCS.MCRWMSG' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'SYSTEM.CLUSTER.TRANSMIT.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MCRWNUPD.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MCRWNUPD.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MCRWNUPD.QL' -t queue -g ccd +get +inq 
+setmqaut -m MQSP2A -n 'MQSP1B' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CUBIC.CRMS.EC5BRQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CUBIC.CRMS.EC5BRQ' -t queue -g crms +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQSP2A -n 'APTSCS.ENII.DELTACHG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'APTSCS.ENII.DELTACHG' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'CBFI.SEASONSSM.START' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CBFI.SEASONSSM.START' -t queue -g cubic +put 
+setmqaut -m MQSP2A -n 'BK70QMPD2' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.REMOTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g inframws +dsp +inq +put 
+setmqaut -m MQSP2A -n 'LOUISE.FACTS.MCHINAGD.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'LOUISE.FACTS.MCHINAGD.QR' -t queue -g louise +put 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP1A.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'PDBK01QM.TO.MQSP2A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'MQSP2A.TO.BK70QMPD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'MQSP2A.IIBQMPD3' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'KASWAPSTAT.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'MQSP2A.TO.BK70QMPD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCREWLT.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCREWLT.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'MQSP2A.IIBQMPD4' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'BKQMP01.TO.MQSP2A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'CCPM.CCS.MFLTPOST.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCPM.CCS.MFLTPOST.QL' -t queue -g ccpm +inq +put 
+setmqaut -m MQSP2A -n 'IBMMSG.CRMS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'IBMMSG.CRMS.TELEX' -t queue -g crms +browse +get +inq 
+setmqaut -m MQSP2A -n 'CCS.ENII.ACREWLT.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.ACREWLT.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.IPOSS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP1A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'ENII.CCS.MCREW.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.CCS.MCREW.QL' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'SYSTEM.AUTO.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g mqm +chg +dlt +dsp 
+setmqaut -m MQSP2A -n 'MQSP1B.MQSP2A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.PERFM.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'KAENII.CCS.ENQUIRY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'KAENII.CCS.ENQUIRY' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'MQSP2A.CCPM' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.LOGGER.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.ACREWLT.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.ACREWLT.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'ENII.QI' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.QI' -t queue -g enii +get 
+setmqaut -m MQSP2A -n 'CCS.ENII.MROSTER.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.MROSTER.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'CCS.LOUISE.MCHINAGD.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.LOUISE.MCHINAGD.QL' -t queue -g louise +browse +get +inq 
+setmqaut -m MQSP2A -n 'SYSTEM.CHANNEL.INITQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'LOUISE.CCS.MFLTPOST.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'LOUISE.CCS.MFLTPOST.QL' -t queue -g louise +put 
+setmqaut -m MQSP2A -n 'CUBIC.QI' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.AUTO.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.DEF.SENDER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.MQSC.REPLY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.CHANNEL.SYNCQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.CLUSTER.REPOSITORY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.DEF.CLUSRCVR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'BK70QMPD1.TO.MQSP2A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'EC5BSY.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'ACP1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCRWNUPD.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCRWNUPD.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCRWNUPD.QR' -t queue -g ccd +put 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.SERVICE' -t service -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.PROCESS' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'SYSTEM.CLUSTER.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MSIGNIN.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MSIGNIN.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'LOUISE.CCS.MCHINAGD.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'LOUISE.CCS.MCHINAGD.QL' -t queue -g louise +put 
+setmqaut -m MQSP2A -n 'CCS.ENII.MCRWSTUS.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.MCRWSTUS.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'CCS.ENII.POSDUTPT.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.POSDUTPT.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'CCS.ENII.POSDUTPT.QL' -t queue -g ccs +put 
+setmqaut -m MQSP2A -n 'CCS.ENII.POSDUTPT.QL' -t queue -g imcc +put 
+setmqaut -m MQSP2A -n 'CCS.KAENII.MCRWSTUS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.KAENII.MCRWSTUS' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.KAENII' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'IIBQMPD4' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP1B.VERIFY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.TRACE.ROUTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'IIBQMPD3' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP2B.VERIFY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'MQSP2B' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCRWBAT.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MCRWBAT.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'KAENII.QI' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'KAENII.QI' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.ACP1.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.DEF.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'MQSP2A.LOUISE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'EC5BRQ.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'EBBKQMP1.TO.MQSP2A' -t channel -g nobody +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'EBBKQMP1.TO.MQSP2A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.DEF.SERVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.PENDING.DATA.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'EBBKQMP2.TO.MQSP2A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'ENII.CCS.MSIGNIN.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.CCS.MSIGNIN.QL' -t queue -g enii +browse +get +inq +put 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CUPAC.CBSA.SUBMIT.API' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MROSTER.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MROSTER.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MROSTER.QL' -t queue -g ccd +get +inq 
+setmqaut -m MQSP2A -t qmgr -g mqm +altusr +chg +connect +dlt +dsp +inq +set +setall +setid 
+setmqaut -m MQSP2A -t qmgr -g enii +connect +inq 
+setmqaut -m MQSP2A -t qmgr -g louise +connect +inq 
+setmqaut -m MQSP2A -t qmgr -g ccd +connect +inq 
+setmqaut -m MQSP2A -t qmgr -g aslsup +connect +inq +setall 
+setmqaut -m MQSP2A -t qmgr -g staff +altusr +chg +connect +dlt +dsp +inq +set +setall +setid 
+setmqaut -m MQSP2A -t qmgr -g ccpm +connect +inq +setall 
+setmqaut -m MQSP2A -t qmgr -g inframws +connect +dsp +inq 
+setmqaut -m MQSP2A -t qmgr -g crms +altusr +chg +connect +dlt +dsp +inq +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.POSDUTPT.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.POSDUTPT.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'ENII.CCS.POSDUTPT.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.CCS.POSDUTPT.QL' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'ENII.CCS.POSDUTPT.QL' -t queue -g ccs +browse +get +inq 
+setmqaut -m MQSP2A -n 'ENII.CCS.POSDUTPT.QL' -t queue -g imcc +browse +get +inq 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.ACTIVITY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.POSDUTPT.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.POSDUTPT.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'FACTS.ENII.POSDUTPT.QL' -t queue -g iposs +get +inq 
+setmqaut -m MQSP2A -n SYSTEM.DEF.CLNTCONN -t clntconn -g mqm +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEF.CLNTCONN -t clntconn -g staff +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEF.CLNTCONN -t clntconn -g inframws +none 
+setmqaut -m MQSP2A -n SYSTEM.DEF.CLNTCONN -t clntconn -g crms +crt 
+setmqaut -m MQSP2A -n 'MQPCBSA' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.ACREW.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.ACREW.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'MQSP1B.MQSP2A.CH2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'PIP.IPOW.PNRCHG' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'PIP.IPOW.PNRCHG' -t queue -g iposs +browse +get +inq 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g mqm +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g enii +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g louise +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g ccd +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g iposs +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g nobody +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g imcc +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g ccs +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g aslsup +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g staff +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g ccpm +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g crms +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g cubic +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g inframws +none 
+setmqaut -m MQSP2A -n 'SWAPSTAT.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MROSDATA.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MROSDATA.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MROSDATA.QR' -t queue -g ccd +put 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MROSDATA.QR' -t queue -g imcc +put 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MCRWSTUS.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MCRWSTUS.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MCRWSTUS.QL' -t queue -g ccd +get +inq 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MROSDATA.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MROSDATA.QL' -t queue -g enii +get +inq 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MROSDATA.QL' -t queue -g ccd +get +inq 
+setmqaut -m MQSP2A -n 'FACTS.ENII.MROSDATA.QL' -t queue -g imcc +browse +get +inq 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.NAMELIST -t namelist -g mqm +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.NAMELIST -t namelist -g staff +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.NAMELIST -t namelist -g inframws +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.NAMELIST -t namelist -g crms +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.PROCESS -t process -g mqm +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.PROCESS -t process -g staff +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.PROCESS -t process -g inframws +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.PROCESS -t process -g crms +crt 
+setmqaut -m MQSP2A -n 'ENII.CCS.MCREWLT.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.CCS.MCREWLT.QL' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'MQSP2B.MQSP2A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQSP2A -n 'PAXLOAD.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'CCS.ENII.MCRWMSG.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.MCRWMSG.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -t qmgr -g mqm +crt 
+setmqaut -m MQSP2A -t qmgr -g enii +none 
+setmqaut -m MQSP2A -t qmgr -g louise +none 
+setmqaut -m MQSP2A -t qmgr -g ccd +none 
+setmqaut -m MQSP2A -t qmgr -g aslsup +none 
+setmqaut -m MQSP2A -t qmgr -g staff +crt 
+setmqaut -m MQSP2A -t qmgr -g ccpm +none 
+setmqaut -m MQSP2A -t qmgr -g inframws +none 
+setmqaut -m MQSP2A -t qmgr -g crms +crt 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MROSTER.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MROSTER.QR' -t queue -g enii +put 
+setmqaut -m MQSP2A -n 'ENII.FACTS.MROSTER.QR' -t queue -g ccd +put 
+setmqaut -m MQSP2A -n SYSTEM.DEF.SENDER -t channel -g mqm +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEF.SENDER -t channel -g nobody +none 
+setmqaut -m MQSP2A -n SYSTEM.DEF.SENDER -t channel -g staff +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEF.SENDER -t channel -g inframws +none 
+setmqaut -m MQSP2A -n SYSTEM.DEF.SENDER -t channel -g crms +crt 
+setmqaut -m MQSP2A -n 'XUQK_FR_EZQ3_P1_DAS_RESP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'MQSP2A.CRMS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.AUTHINFO.CRLLDAP -t authinfo -g mqm +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.AUTHINFO.CRLLDAP -t authinfo -g staff +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.AUTHINFO.CRLLDAP -t authinfo -g inframws +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.AUTHINFO.CRLLDAP -t authinfo -g crms +crt 
+setmqaut -m MQSP2A -n 'SYSTEM.DEF.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'SYSTEM.DEF.CLUSSDR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n 'VERIFICATION' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP1A.VERIFY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.ACCOUNTING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'SYSTEM.ADMIN.QMGR.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.LOUISE.MCHINAGD.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FACTS.LOUISE.MCHINAGD.QL' -t queue -g louise +get +inq 
+setmqaut -m MQSP2A -n 'IBMMSG.TAPS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LISTENER.TCP -t listener -g mqm +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LISTENER.TCP -t listener -g staff +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LISTENER.TCP -t listener -g inframws +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.LISTENER.TCP -t listener -g crms +crt 
+setmqaut -m MQSP2A -n 'MQSP1A' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.KAENII.ENQUIRY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.KAENII.ENQUIRY' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.SERVICE -t service -g mqm +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.SERVICE -t service -g staff +crt 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.SERVICE -t service -g inframws +none 
+setmqaut -m MQSP2A -n SYSTEM.DEFAULT.SERVICE -t service -g crms +crt 
+setmqaut -m MQSP2A -n 'SYSTEM.DEFAULT.ALIAS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CUBIC.CRMS.EC5ASY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CUBIC.CRMS.EC5ASY' -t queue -g crms +browse +get +inq 
+setmqaut -m MQSP2A -n 'FSS.ENII.KAFIDS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'FSS.ENII.KAFIDS' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'CUBIC.CRMS.EC5BSY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CUBIC.CRMS.EC5BSY' -t queue -g crms +browse +get +inq 
+setmqaut -m MQSP2A -n 'CCS.ENII.ACREW.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.ACREW.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP2B.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'CCS.ENII.ASIGNIN.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP2A -n 'CCS.ENII.ASIGNIN.QL' -t queue -g enii +browse +get +inq 
+setmqaut -m MQSP2A -n 'MQSP2A.MQSP1B.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP2A -n 'BK70QMPD2.TO.MQSP2A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP2A -n '**' -t clntconn -g inframws +dsp 
+setmqaut -m MQSP2A -n '**' -t queue -g inframws +browse +dsp 
+setmqaut -m MQSP2A -n '**' -t namelist -g inframws +dsp 
+setmqaut -m MQSP2A -n '**' -t process -g inframws +dsp 
+setmqaut -m MQSP2A -n '**' -t channel -g inframws +dsp 
+setmqaut -m MQSP2A -n '**' -t authinfo -g inframws +dsp 
+setmqaut -m MQSP2A -n '**' -t listener -g inframws +dsp 
+setmqaut -m MQSP2A -n '**' -t service -g inframws +dsp 

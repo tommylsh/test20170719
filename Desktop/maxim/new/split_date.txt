@@ -1,0 +1,57 @@
+Revise Split Date Logic
+
+
+1)     Split Order to diiferent bizDate                                                                                       (Use Exising SQL        SalesServiceBaseImpl-> updateBussinessDate)
+                
+    
+2)     Get the full business date list from order                                                               ( business date > last control date )
+
+
+3)     Update the tables bizdate by the Order                                                                         (branch_code, business_date, order_no, recall)
+
+        Update tableXXX 
+    Set biz_date = ( select biz_date from order where join by branch_code, business_date, order_no, recall)
+where exists ( select 1 from order where join by branch_code, business_date, order_no, recall and business date > last control date and business date <> original business date)
+
+
+4)     Duplicate hist_possystem accoding to Split business date list                                       (business_date, branch_code )
+
+5)     Build #hist_paysum #hist_payfig by SP Logic accoding to full business date list          (the splited date and the original process date)
+
+
+
+Below is the existing code,  green part will be keep and the yellow need to amend.
+
+
+                 if (prcDates != null && branchScheme.getPollSchemeType() == PollSchemeType.SALES_EOD) {
+                     Set<Date> processDates = new TreeSet<Date>(prcDates);
+                     java.sql.Date lastControlDate = new java.sql.Date(controlDate.getTime());
+                     for (Date date : prcDates) {
+                         java.sql.Date businessDate = new java.sql.Date(date.getTime());
+                         for (SchemeInfo schemeInfo : schemeList) {
+                             if (schemeInfo.isSplitDateRequired()) {
+                                 try {
+                                     int splitDateCount = this.updateBussinessDate(branchCode, schemeInfo.getDestination(), cutOffTime, lastControlDate, businessDate, logger);
+                                   LogUtils.printLog(logger, " {} {} schemeInfo{} splitDateCount :{}"
+                                           ,branchCode, pollSchemeType, schemeInfo.getDestination(), splitDateCount);
+                                   if (splitDateCount > 0)
+                                   {
+                                       processDates.addAll(getBussinessDate(branchCode, schemeInfo.getDestination(), controlDate, logger));
+                                   }
+                                 } catch (SQLException e) {
+                                     prcDates = null;
+                                     LogUtils.printLog(logger, "SQLException : ", e);
+                                     taskJobLogService.createJobExceptionDetail(taskLog, "", "", e);
+                                 }
+                                 
+                             }
+                         }
+                         lastControlDate = businessDate;
+                     }
+                     prcDates = new ArrayList<Date>(processDates) ;
+                 }
+
+
+Rgs
+Tommy
+

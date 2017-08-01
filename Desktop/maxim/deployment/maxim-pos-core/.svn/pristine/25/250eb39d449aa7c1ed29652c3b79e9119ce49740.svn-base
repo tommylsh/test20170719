@@ -1,0 +1,23 @@
+#Created by JInto - www.guh-software.de
+#Thu Feb 16 09:44:38 CST 2017
+pos.applicationSetting=Application Setting
+pos.code=Code
+pos.codeDescription=Code Description
+pos.codeValue=Code Value
+pos.detail=Detail
+pos.management=Management
+pos.branchScheme=Branch Scheme
+pos.branchCode=Branch Code
+pos.pollSchemeType=Poll Scheme Type
+pos.direction=Direction
+pos.pollSchemeName=Poll Scheme Name
+pos.pollSchemeDesc=Poll Scheme Desc
+pos.pollSchemeStartTime=Start Time
+pos.pollSchemeEndTime=End Time
+pos.enabled=Enabled
+pos.schemeScheduleJob=Scheme Schedule Job
+pos.jobName=Job Name
+pos.jobDesc=Job Desc
+pos.jobGroup=Job Group
+pos.enable=Enable
+pos.cronExpression=Cron Expression

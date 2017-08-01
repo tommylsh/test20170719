@@ -1,0 +1,50 @@
+package com.maxim.pos.common.service;
+
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.maxim.pos.common.entity.BranchScheme;
+import com.maxim.pos.common.persistence.PosSystemDao;
+import com.maxim.pos.common.util.PosClientUtils;
+
+@Service("posSystemService")
+public class PosSystemServiceImpl implements PosSystemService {
+
+	@Autowired
+	private PosSystemDao posSystemDao;
+	
+	@Autowired
+	private ApplicationSettingService applicationSettingService;
+	
+	@Override
+	public boolean checkEodComplete(BranchScheme branchScheme, Logger logger) {
+		boolean b1 = false;
+		boolean b2 = false;
+		String branchCode = branchScheme.getBranchMaster().getBranchCode();
+		b2 = posSystemDao.findPollEodControlByBranchCodeAndDate(branchCode);
+		if(b2){
+			return true;
+		}
+		logger.info("SAKES_EOD is : "+b2+" , not found POLL_EOD_CONTROL DATA by "+branchCode);
+		try(Connection connection = applicationSettingService.getJDBCConection(branchScheme.getBranchInfo(), true)){
+			String query = "select * from hist_possystem where branch_code = '"+branchCode+"'";
+			List<Map<String, Object>> posSystemList = PosClientUtils.execCliectQuery(connection, query, false);
+			if(posSystemList.size()>0 && !posSystemList.isEmpty()) {
+				b1 = true;
+			} else {
+				logger.info("SAKES_EOD is : "+b1+" , not found hist_possystem Data by "+ branchCode);
+			} 
+		} catch (SQLException e) {
+			logger.error("Connection is Exception Or execute fail:"+e);
+		}
+		return b1;
+	}
+
+}

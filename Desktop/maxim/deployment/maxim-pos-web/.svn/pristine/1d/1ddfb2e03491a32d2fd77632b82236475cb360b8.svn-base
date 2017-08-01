@@ -1,0 +1,36 @@
+package com.maxim.pos.rest;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.module.jaxb.JaxbAnnotationModule;
+
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.ext.ContextResolver;
+import javax.ws.rs.ext.Provider;
+import java.text.SimpleDateFormat;
+
+@Provider
+@Produces({MediaType.APPLICATION_JSON})
+public class JacksonResolver implements ContextResolver<ObjectMapper> {
+
+    private static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
+
+    private ObjectMapper mapper = new ObjectMapper();
+
+    public JacksonResolver() {
+        mapper.registerModule(new JaxbAnnotationModule())
+                .setDateFormat(new SimpleDateFormat(DATETIME_PATTERN))
+                .setSerializationInclusion(JsonInclude.Include.NON_EMPTY)
+                .enable(SerializationFeature.WRITE_ENUMS_USING_TO_STRING)
+                .enable(DeserializationFeature.READ_ENUMS_USING_TO_STRING)
+                .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+    }
+
+    @Override
+    public ObjectMapper getContext(Class<?> type) {
+        return mapper;
+    }
+}

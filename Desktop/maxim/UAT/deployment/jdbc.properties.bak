@@ -1,0 +1,24 @@
+# Oracle DEV
+#jdbc.driver=oracle.jdbc.OracleDriver
+#jdbc.url=jdbc:oracle:thin:@192.168.1.56:1521:orcl
+#jdbc.username=maxim_edw
+#jdbc.password=/anJDPIbwHMUXlQ/FfKOZA==
+# Oracle SIT
+ jdbc.driver=oracle.jdbc.OracleDriver
+ jdbc.url=jdbc\:oracle\:thin\:@//10.10.33.45\:1521/EDWUAT
+ #jdbc.url=jdbc:oracle:thin:@10.10.33.45:1521:orcl
+ jdbc.username=BUS_SYS
+ jdbc.password=JiVTFjWbla5wI9Hs20LHag==
+
+
+# MySQL
+# jdbc.driver=com.mysql.jdbc.Driver
+# jdbc.url=jdbc:mysql://127.0.0.1:3306/maxim
+# jdbc.username=root
+# jdbc.password=lUVofLibMFP3j8Bd8O1oOg==
+
+# SQLServer
+# jdbc.driver=com.microsoft.sqlserver.jdbc.SQLServerDriver
+# jdbc.url=jdbc:sqlserver://127.0.0.1:1433;DatabaseName=jframe;SelectMethod=Cursor
+# jdbc.username=sa
+# jdbc.password=lUVofLibMFP3j8Bd8O1oOg==

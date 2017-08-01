@@ -1,0 +1,8 @@
+package com.maxim.pos.sales.persistence;
+
+import com.maxim.dao.HibernateDAO;
+
+public class BranchInfoDao extends HibernateDAO {
+	public static final String HQL_findBranchInfoBybranchSchemeId = "findSchemeInfoBybranchSchemeId";
+
+}

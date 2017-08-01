@@ -1,0 +1,56 @@
+package com.maxim.pos.common.persistence;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.Query;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.dao.HibernateEntityDAO;
+import com.maxim.pos.common.entity.ApplicationSetting;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+
+@Repository("applicationSettingDao")
+@Transactional
+public class ApplicationSettingDao extends HibernateEntityDAO<ApplicationSetting, Long>  {
+
+    public static final String HQL_findApplicationSettingByCode = "findApplicationSettingByCode";
+    public static final String HQL_findApplicationSettingByCriteria = "findApplicationSettingByCriteria";
+
+    public ApplicationSetting findApplicationSettingByCode(String code) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("code", code);
+//        PosDaoCmd cmd = new PosDaoCmd(HQL_findApplicationSettingByCode, paramMap);
+        
+        Query query = createQueryByQueryKey(HQL_findApplicationSettingByCode, paramMap);
+
+        return (ApplicationSetting) getSingle(query);
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<ApplicationSetting> findApplicationSettingByCriteria(CommonCriteria criteria) {
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        
+//        PosDaoCmd cmd = new PosDaoCmd(HQL_findApplicationSettingByCriteria, paramMap);
+//
+//        protected List<? extends Object> getPaginatedListByCriteriaAndType(DaoCmd cmd, Map<String, Object> paramMap, Class<?> clazz) {
+//            return getList(cmd, clazz, (Integer) paramMap.get(START_FROM_KEY), (Integer) paramMap.get(MAX_RESULT_KEY));
+//        }
+        return (List<ApplicationSetting>) getListByQueryKey(HQL_findApplicationSettingByCode, paramMap);
+        
+//        return (List<ApplicationSetting>) getPaginatedListByCriteriaAndType(cmd, paramMap, Permission.class);
+    }
+
+    public Long getApplicationSettingCountByCriteria(CommonCriteria criteria) {
+        criteria.setQueryRecord(false);
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+//        PosDaoCmd cmd = new PosDaoCmd(HQL_findApplicationSettingByCriteria, paramMap);
+
+        return (Long) getSingleByQueryKey(HQL_findApplicationSettingByCriteria, paramMap);
+    }
+
+}

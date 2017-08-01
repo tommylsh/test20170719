@@ -1,0 +1,41 @@
+package com.maxim.pos.test.common.service;
+
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.service.PollSchemeInfoService;
+import com.maxim.pos.common.util.LogUtils;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.pos.common.value.SchemeInfoQueryCriteria;
+import com.maxim.pos.test.common.BaseTest;
+import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
+
+
+public class PollSchemeInfoServiceTest extends BaseTest {
+
+    @Autowired
+    private PollSchemeInfoService pollSchemeInfoService;
+
+    @Test
+    public void testFindSchemeInfoByCriteria(){
+        SchemeInfoQueryCriteria commonCriteria = new SchemeInfoQueryCriteria();
+        //commonCriteria.setEntityId(9L);
+        commonCriteria.setPollSchemeType(PollSchemeType.SALES_REALTIME);
+        commonCriteria.setClientType(ClientType.SQLSERVER);
+        List<SchemeInfo> list = pollSchemeInfoService.findSchemeInfoByCriteria(commonCriteria);
+        PollSchemeType pollSchemeType = null;
+        for(SchemeInfo s:list){
+             pollSchemeType = s.getPollSchemeType();
+        }
+        LogUtils.printLog(logger,"===={}==={}==",pollSchemeType,list.size());
+    }
+
+    @Test
+    public void testFindSchemeInfoBySchemeTypeAndClientType(){
+        List<SchemeInfo> schemeInfos = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(PollSchemeType.SALES_REALTIME, ClientType.SQLSERVER);
+        LogUtils.printLog(logger,"===={}====",schemeInfos.size());
+    }
+}

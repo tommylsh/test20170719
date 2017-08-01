@@ -1,0 +1,155 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:cc="http://java.sun.com/jsf/composite/components"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="/templates/main.xhtml">
+    <ui:define name="title">
+        <cc:titleText title="#{msg['pos']['branchMaster']}"/>
+    </ui:define>
+    <ui:define name="content">
+        <style>
+            .branchMasterDataTable table tbody td {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+        </style>
+        <script>
+            function checkElementSelection() {
+                if (PF('branchMasterDataTableVar').selection.length == 0) {
+                    PF('infoDialog').show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <h:form id="branchMasterDataTableForm">
+            <p:panel header="#{msg['common']['search']}" style="width: 100%;">
+                <div class="ui-grid ui-grid-responsive">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-8">
+                            <h:outputLabel for="name" value="#{msg['pos']['branchCode']}"/>
+                            <p:inputText id="name"
+                                         value="#{branchMasterController.dataModel.dataModelQuery.criteria.branchCode}"
+                                         label="#{msg['common']['name']}" maxlength="100"
+                                         style="width: 164px;"/>
+                            <p:commandButton id="searchButton"
+                                             value="#{msg['common']['search']}"
+                                             update="branchMasterDataTable" icon="ui-icon-search1"
+                                             style=" margin-left: 10px;"/>
+                        </div>
+                    </div>
+
+                </div>
+            </p:panel>
+            <cc:spacer/>
+            <p:toolbar id="toolbar">
+                <p:toolbarGroup align="left">
+                    <p:commandButton id="addBtn" value="#{msg['common']['add']}"
+                                     process="@this" action="#{branchMasterController.add}"
+                                     update=":branchMasterDialogForm"
+                                     oncomplete="PF('branchMasterDialogVar').show();"
+                                     icon="ui-icon-add"/>
+                    <p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+                                     process="@form"
+                                     update=":branchMasterDialogForm"
+                                     oncomplete="PF('branchMasterDialogVar').show();" icon="ui-icon-edit"
+                                     onclick="if (!checkDatatableSelection('branchMasterDataTableVar')) return false;"/>
+                    <p:commandButton id="deleteBtn"
+                                     value="#{msg['common']['delete']}" process="@form"
+                                     action="#{branchMasterController.delete}"
+                                     update=":branchMasterDataTableForm:branchMasterDataTable"
+                                     icon="ui-icon-delete"
+                                     onclick="if (!confirmDeleteDatatableRecord('branchMasterDataTableVar')) return false;"
+                                     rendered="#{commonController.loginUser.isAdmin()}"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <cc:spacer height="3"/>
+            <p:dataTable id="branchMasterDataTable" styleClass="branchMasterDataTable"
+                         widgetVar="branchMasterDataTableVar" var="element"
+                         value="#{branchMasterController.dataModel}"
+                         selection="#{branchMasterController.branchMaster}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                         emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+
+                <f:facet name="header">
+                    <p:graphicImage value="/images/record16.png"/>
+                    <h:outputText value="#{msg['pos']['branchMaster']}"/>
+                </f:facet>
+                <p:column selectionMode="single" style="width:16px; text-align:center"/>
+                <p:column headerText="#{msg['pos']['branchCode']}">
+                    <h:outputText value="#{element.branchCode}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['branchCname']}">
+                    <h:outputText value="#{element.branchCname}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['branchEname']}">
+                    <h:outputText value="#{element.branchEname}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['branchType']}">
+                    <h:outputText value="#{element.branchType}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+    <ui:define name="dialog">
+        <p:dialog id="branchMasterDialog"
+                  widgetVar="branchMasterDialogVar" modal="true" width="600"
+                  resizable="false">
+            <f:facet name="header">
+                <p:graphicImage value="/images/element16.png"/>
+                <h:outputText value="#{msg['pos']['branchMaster']} #{msg['pos']['detail']}"/>
+            </f:facet>
+            <h:form id="branchMasterDialogForm">
+
+                <h:panelGrid id="formPanel" columns="2"
+                             columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5" style="width: 100%;"
+                             rendered="#{branchMasterController.branchMaster != null}">
+                    <h:outputLabel for="branchCode" value="#{msg['pos']['branchCode']}"/>
+                    <p:inputText id="branchCode" value="#{branchMasterController.branchMaster.branchCode}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="branchCname" value="#{msg['pos']['branchCname']}"/>
+                    <p:inputText id="branchCname" value="#{branchMasterController.branchMaster.branchCname}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="branchEname" value="#{msg['pos']['branchEname']}"/>
+                    <p:inputText id="branchEname" value="#{branchMasterController.branchMaster.branchEname}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="branchType" value="#{msg['pos']['branchType']}"/>
+                    <p:inputText id="branchType" value="#{branchMasterController.branchMaster.branchType}"
+                                 style="width: 95%"/>
+                    <p:spacer/>
+                    <h:panelGroup style="width: 95%; display: inline-block; text-align: right;">
+                        <p:commandButton id="submitButton" value="#{msg['common']['save']}"
+                                         actionListener="#{branchMasterController.save}"
+                                         update="@form :branchMasterDataTableForm :primefaceMessages"
+                                         oncomplete="handleComplete(xhr, status, args)"
+                                         icon="ui-icon-save1" style=" margin-right: -7px;"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+        <script type="text/javascript">
+            function handleComplete(xhr, status, args) {
+                if (args.validationFailed) {
+                    PF('branchMasterDialogVar').jq.effect("shake", {
+                        times: 3
+                    }, 100);
+                } else {
+                    PF('branchMasterDialogVar').hide();
+                }
+            }
+            $(document).bind("keyup", function (evt) {
+                if (27 == evt.keyCode) {
+                    PF('branchMasterDialogVar').hide();
+                }
+            });
+        </script>
+    </ui:define>
+</ui:composition>

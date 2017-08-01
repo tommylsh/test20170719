@@ -1,0 +1,4 @@
+127.0.0.1 - - [01/Mar/2017:19:23:33 +0800] "GET / HTTP/1.1" 404 951
+0:0:0:0:0:0:0:1 - - [01/Mar/2017:19:23:39 +0800] "GET /maxim-pos-web/faces/security/user/user-list.faces HTTP/1.1" 404 1049
+0:0:0:0:0:0:0:1 - - [01/Mar/2017:19:23:52 +0800] "GET /maxim-pos-web/faces/security/user/user-list.faces HTTP/1.1" 404 1049
+0:0:0:0:0:0:0:1 - - [01/Mar/2017:19:23:56 +0800] "GET /maxim-pos-web/ HTTP/1.1" 404 979

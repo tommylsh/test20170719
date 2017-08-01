@@ -1,0 +1,24 @@
+#parse ("macro.vm")
+<?xml version="1.0" encoding="UTF-8"?>
+
+<queries>
+
+    <find${entitySimpleName}ByCriteria type="hql">
+        <![CDATA[
+            SELECT
+            <\#if queryRecord = true??>
+                e
+            <\#else>
+                count(e.id)
+            </\#if>
+            FROM ${entitySimpleName} e
+            WHERE 1 = 1
+            #if(${enableQueryByKeyword}=='true')
+            <\#if #toLowerCase(${keyword})Keyword??>
+                AND e.#toLowerCase(${keyword}) LIKE (:percentChar + :#toLowerCase(${keyword})Keyword + :percentChar)
+            </\#if>
+            #end
+        ]]>
+    </find${entitySimpleName}ByCriteria>
+
+</queries>

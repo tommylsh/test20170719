@@ -1,0 +1,53 @@
+package com.maxim.pos.common.persistence;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.BranchMaster;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.util.BeanUtil;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository("branchMasterDao")
+public class BranchMasterDao extends HibernateDAO {
+
+    private static final String HQL_FIND_BRANCH_MASTER = "findBranchMaster";
+
+    public static final String HQL_findBranchMasterByCriteria = "findBranchMasterByCriteria";
+
+    public List<BranchMaster> getBranchMasterList() {
+        return getList(new PosDaoCmd(HQL_FIND_BRANCH_MASTER), BranchMaster.class);
+    }
+
+    public List<BranchMaster> getBranchMasterList(String branchType) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("branchType", branchType);
+        return getList(new PosDaoCmd(HQL_FIND_BRANCH_MASTER, params), BranchMaster.class);
+    }
+
+    public BranchMaster getBranchMaster(String branchCode) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("branchCode", branchCode);
+        return getSingle(new PosDaoCmd(HQL_FIND_BRANCH_MASTER, params), BranchMaster.class);
+    }
+
+    public BranchMaster getById(Long id) {
+        return getSingle(BranchMaster.class, id);
+    }
+
+    public List<BranchMaster> findBranchMasterByCriteria(CommonCriteria criteria) {
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findBranchMasterByCriteria, paramMap);
+        return (List<BranchMaster>) getPaginatedListByCriteriaAndType(cmd, paramMap, BranchMaster.class);
+    }
+
+    public Long getBranchMasterCountByCriteria(CommonCriteria criteria) {
+        criteria.setQueryRecord(false);
+        Map<String, Object> paramMap = BeanUtil.transBeanToMap(criteria);
+        PosDaoCmd cmd = new PosDaoCmd(HQL_findBranchMasterByCriteria, paramMap);
+        return getSingle(cmd, Long.class);
+    }
+
+}

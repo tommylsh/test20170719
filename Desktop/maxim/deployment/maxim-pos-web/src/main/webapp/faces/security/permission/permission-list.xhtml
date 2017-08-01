@@ -1,0 +1,222 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/templates/main.xhtml">
+
+	<ui:define name="title">
+		<cc:titleText title="#{msg['security']['permissionManagement']}" />
+	</ui:define>
+
+	<ui:define name="content">
+
+		<style>
+<!--
+-->
+</style>
+
+		<script>
+			function checkElementSelection() {
+				if (PF('permissionDataTableVar').selection.length == 0) {
+					PF('infoDialog').show();
+					return false;
+				} else {
+					return true;
+				}
+			}
+		</script>
+
+		<h:form id="permissionDataTableForm">
+
+			<p:panel header="#{msg['common']['search']}" style="width: 100%;">
+				<div class="ui-grid ui-grid-responsive">
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-4">
+							<h:outputLabel for="name" value="#{msg['common']['name']}" />
+							<p:inputText id="name"
+								value="#{permissionManagementController.dataModel.dataModelQuery.criteria.nameKeyword}"
+								label="#{msg['common']['name']}" maxlength="30"
+								style="width: 164px;" />
+						</div>
+					</div>
+					<div class="ui-grid-row">
+						<div class="ui-grid-col-8">
+							<h:outputLabel for="aliasKeyword"
+								value="#{msg['security']['alias']}" />
+							<p:inputText id="aliasKeyword"
+								value="#{permissionManagementController.dataModel.dataModelQuery.criteria.aliasKeyword}"
+								label="#{msg['common']['name']}" maxlength="30"
+								style="width: 164px;" />
+								
+							<p:commandButton id="searchButton"
+									value="#{msg['common']['search']}" update="permissionDataTable"
+									icon="ui-icon-search1" style=" margin-left: 10px;" />
+						</div>
+					</div>
+				</div>
+			</p:panel>
+
+			<cc:spacer />
+
+			<sec:authorize
+				ifAnyGranted="CREATE_PERMISSION,EDIT_PERMISSION,DELETE_PERMISSION">
+				<p:toolbar id="toolbar">
+					<p:toolbarGroup align="left">
+
+						<sec:authorize ifAnyGranted="CREATE_PERMISSION">
+							<p:commandButton id="addBtn" value="#{msg['common']['add']}"
+								process="@this" action="#{permissionManagementController.add}"
+								update=":permissionDialogForm"
+								oncomplete="PF('permissionDialogVar').show();"
+								icon="ui-icon-add" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="EDIT_PERMISSION">
+							<p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+								process="@form" action="#{permissionManagementController.edit}"
+								update=":permissionDialogForm"
+								oncomplete="PF('permissionDialogVar').show();"
+								icon="ui-icon-edit"
+								onclick="if (!checkDatatableSelection('permissionDataTableVar')) return false;" />
+						</sec:authorize>
+
+						<sec:authorize ifAnyGranted="DELETE_PERMISSION">
+							<p:commandButton id="deleteBtn"
+								value="#{msg['common']['delete']}" process="@form"
+								action="#{permissionManagementController.delete}"
+								update=":permissionDataTableForm:permissionDataTable"
+								icon="ui-icon-delete"
+								onclick="if (!confirmDeleteDatatableRecord('permissionDataTableVar')) return false;" />
+						</sec:authorize>
+
+					</p:toolbarGroup>
+				</p:toolbar>
+			</sec:authorize>
+
+			<cc:spacer height="3" />
+
+			<p:dataTable id="permissionDataTable"
+				widgetVar="permissionDataTableVar" var="element"
+				value="#{permissionManagementController.dataModel}"
+				selection="#{permissionManagementController.permissionObject}"
+				paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+				emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+
+				<f:facet name="header">
+					<p:graphicImage value="/images/record16.png" />
+					<h:outputText value="#{msg['security']['permission']}" />
+				</f:facet>
+
+				<p:column selectionMode="single"
+					style="width:16px; text-align:center" />
+
+				<p:column headerText="#{msg['security']['name']}">
+					<h:outputText value="#{element.name}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['alias']}">
+					<h:outputText value="#{element.alias}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['enabled']}">
+					<p:graphicImage value="/images/enabled16.png"
+						rendered="#{element.enabled}" />
+					<p:graphicImage value="/images/disabled16.png"
+						rendered="#{!element.enabled}" />
+				</p:column>
+
+				<p:column headerText="#{msg['security']['description']}">
+					<h:outputText value="#{element.description}" />
+				</p:column>
+
+			</p:dataTable>
+
+		</h:form>
+
+	</ui:define>
+
+
+	<ui:define name="dialog">
+		<p:dialog id="permissionDialog" widgetVar="permissionDialogVar"
+			modal="true" width="600" resizable="false">
+			<f:facet name="header">
+				<p:graphicImage value="/images/element16.png" />
+				<h:outputText value="#{msg['security']['permissionDetail']}" />
+			</f:facet>
+			<h:form id="permissionDialogForm">
+
+
+				<h:panelGrid id="formPanel" columns="2"
+					columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5"
+					style="width: 100%;"
+					rendered="#{permissionManagementController.permissionObject != null}">
+
+					<h:outputLabel for="name" value="#{msg['security']['name']}" />
+					<p:inputText id="name"
+						value="#{permissionManagementController.permissionObject.name}"
+						label="#{msg['security']['name']}" maxlength="100"
+						style="width: 95%" required="true" />
+
+					<h:outputLabel for="alias" value="#{msg['security']['alias']}" />
+					<p:inputText id="alias"
+						value="#{permissionManagementController.permissionObject.alias}"
+						label="#{msg['security']['alias']}" maxlength="100"
+						style="width: 95%" required="true" />
+
+					<h:outputLabel for="enabled" value="#{msg['security']['enabled']}" />
+					<p:selectBooleanCheckbox id="enabled"
+						value="#{permissionManagementController.permissionObject.enabled}"
+						label="#{msg['common']['enabled']}" required="true" />
+
+					<h:outputLabel for="description"
+						value="#{msg['security']['description']}" />
+					<p:inputText id="description"
+						value="#{permissionManagementController.permissionObject.description}"
+						label="#{msg['security']['description']}" maxlength="500"
+						style="width: 95%" />
+
+
+					<p:spacer />
+					<h:panelGroup
+						style="width: 95%; display: inline-block; text-align: right;">
+						<p:commandButton id="submitButton"
+							value="#{msg['common']['save']}"
+							actionListener="#{permissionManagementController.save}"
+							update="@form :permissionDataTableForm :primefaceMessages"
+							oncomplete="handleComplete(xhr, status, args)"
+							icon="ui-icon-save1" style=" margin-right: -7px;" />
+					</h:panelGroup>
+
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+
+		<script type="text/javascript">
+			function handleComplete(xhr, status, args) {
+
+				if (args.validationFailed) {
+					PF('permissionDialogVar').jq.effect("shake", {
+						times : 3
+					}, 100);
+
+				} else {
+					PF('permissionDialogVar').hide();
+				}
+			}
+
+			$(document).bind("keyup", function(evt) {
+				if (27 == evt.keyCode) {
+					PF('permissionDialogVar').hide();
+				}
+			});
+		</script>
+
+	</ui:define>
+
+</ui:composition>

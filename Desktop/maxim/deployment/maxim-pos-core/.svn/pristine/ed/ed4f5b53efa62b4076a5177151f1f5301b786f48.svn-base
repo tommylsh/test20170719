@@ -1,0 +1,1201 @@
+package com.maxim.pos.common.util;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.BatchUpdateException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.SchemeTableColumn;
+import com.maxim.pos.common.enumeration.ColumnFormat;
+import com.maxim.util.DateUtil;
+import com.microsoft.sqlserver.jdbc.SQLServerBulkCSVFileRecord;
+import com.microsoft.sqlserver.jdbc.SQLServerBulkCopy;
+import com.microsoft.sqlserver.jdbc.SQLServerBulkCopyOptions;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
+public class JDBCUtils {
+
+	private static final Logger logger = LoggerFactory.getLogger(JDBCUtils.class);
+	
+	public static final String DEFAULT_CSV_ENCODING = "UTF-16";
+	
+    public static final char TAB = '\t';
+    
+    public static final String COMMA = ",";
+    
+    public static final String[] DEFAULT_ID = {"ROWGUID"};
+
+	/**
+	 * 
+	 * @param from
+	 *            source
+	 * @param to
+	 *            destination
+	 * @param schemeInfo
+	 * @param criteria
+	 *            select condition eg:"status='C'"
+	 * @return int[0]= add record count,int[1] = update record count
+	 * @throws Exception
+	 */
+	public static int StructureConsistentbulkCopy(Connection fromConn, Connection toConn, SchemeInfo schemeInfo,
+			String[] criteria) throws Exception {
+		int returnInts = StructureConsistentJDBCCopy(fromConn,toConn,schemeInfo,criteria);
+		return returnInts;
+
+	
+		
+//		try{
+//			returnInts = handleDuplicatedRecords(fromConn, toConn, schemeInfo, criteria);
+//		}
+//		catch(SQLException e){
+//			throw new RuntimeException(e);
+//		}
+		
+//		try (Statement stmt = fromConn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);) {
+//
+//			String selectSQL = SQLStmtUtils.getSelectAllStmt(schemeInfo.getSource(),criteria);
+//
+//			try (ResultSet rsSourceData = stmt.executeQuery(selectSQL)){
+//				
+//				try(SQLServerBulkCopy bulkCopy = new SQLServerBulkCopy(toConn)){
+//					bulkCopy.setDestinationTableName(schemeInfo.getDestination());
+//	
+//					SQLServerBulkCopyOptions copyOptions = new SQLServerBulkCopyOptions();
+//					copyOptions.setKeepIdentity(true);
+//					copyOptions.setBatchSize(100);
+//					
+//					// copyOptions.setUseInternalTransaction(true);
+//					bulkCopy.setBulkCopyOptions(copyOptions);
+//					copyOptions.setBulkCopyTimeout(0);
+//	
+//					bulkCopy.writeToServer(rsSourceData);
+//				}
+//				catch (Exception e) {
+////					LogUtils.printException("SQLServerBulkCopy excepiton",e);
+//					if(rsSourceData !=null) {
+//						StructureConsistentJDBCCopy(fromConn,toConn,schemeInfo,criteria);
+//					}
+//				}
+//			}
+//		}				
+//		return returnInts;
+	}
+	
+	
+	public static int StructureConsistentJDBCCopy(Connection from, Connection to, SchemeInfo schemeInfo
+			,String[] criteria) throws Exception {
+		
+		String selectSQL = MessageFormat.format("SELECT * FROM {0} {1}", schemeInfo.getSource(),
+				SQLStmtUtils.getCriteriaString(criteria));
+		String insert = "insert into {0} ({1}) values ({2})" ;
+		Statement stmt = from.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
+		ResultSet rsSourceData = stmt.executeQuery(selectSQL) ;
+		delRepeatingData(to, schemeInfo.getDestination(),
+				schemeInfo.getSrcKeyColumns().split(COMMA),
+				schemeInfo.getDestKeyColumns().split(COMMA), 
+				rsSourceData);
+		StringBuffer sb  =new StringBuffer();
+		StringBuffer sb1  =new StringBuffer();		
+		int coulumnCount = -1;
+		PreparedStatement prest = null;
+		try{
+		while (rsSourceData.next()) {
+					coulumnCount = rsSourceData.getMetaData().getColumnCount();
+					if(sb.length()>0){
+						
+						for(int i=1;i<=coulumnCount;i++){				
+							prest.setObject(i, rsSourceData.getObject(i));											
+						}
+						prest.addBatch();
+					
+					} else {
+						for(int i=1;i<=coulumnCount;i++){
+							
+							sb.append(rsSourceData.getMetaData().getColumnLabel(i));
+							rsSourceData.getMetaData().getColumnType(i);
+							sb1.append("?");
+							if(i!=coulumnCount){
+								sb.append(COMMA);
+								sb1.append(COMMA);
+							}						
+						}
+						
+						String insertStmt= MessageFormat.format(insert, schemeInfo.getDestination(),sb.toString(),sb1.toString());
+						 prest = to.prepareStatement(insertStmt, 
+								ResultSet.TYPE_SCROLL_SENSITIVE,
+								ResultSet.CONCUR_READ_ONLY);
+						 
+						 for(int i=1;i<=coulumnCount;i++){
+							    // "" => " " 
+							    Object obj = rsSourceData.getObject(i);
+							    if(obj instanceof String) {
+							    	if(StringUtils.isBlank((String) obj)){
+							    		prest.setObject(i, obj+" ");
+							    	} else{
+							    		prest.setObject(i, rsSourceData.getObject(i));
+							    	}
+							 	} else {
+							 		prest.setObject(i, rsSourceData.getObject(i));	
+							 	}
+																			
+							}
+							prest.addBatch();
+					}
+		}
+		if(prest!=null){
+			int[] rscount = prest.executeBatch();
+			return rscount.length;
+		} else {
+			return 0;
+		}
+
+
+		}finally {
+			if(stmt!=null){
+				stmt.close();
+			}
+			if(rsSourceData!=null){
+				rsSourceData.close();
+			}
+			if(prest!=null){
+				prest.close();
+			}
+		}
+		
+	
+		
+		
+		
+		
+	}
+
+	private static int delRepeatingData(Connection conn, String destinationTable,
+				String[] srcKeys, String [] destKeys, ResultSet rs) throws SQLException {
+		int delCount = 0;
+		String deleteSQL = SQLStmtUtils.getDeleteByKeysStmt(destinationTable, destKeys);
+
+		PreparedStatement prest = null;
+		try  {
+			int count=0;
+			while (rs.next()) {
+				if(prest==null) {
+					prest = conn.prepareStatement(deleteSQL, ResultSet.TYPE_SCROLL_SENSITIVE,
+							ResultSet.CONCUR_READ_ONLY);
+					LogUtils.printLog(logger, "delRepeatingData: {}", deleteSQL);
+				}
+				try {
+					for(int i = 0; i < srcKeys.length; i++){
+						LogUtils.printLog("Add record deletion: " + srcKeys[i] + "=" + rs.getString(srcKeys[i]));
+						prest.setString(i + 1, rs.getString(srcKeys[i]));
+					}
+					prest.addBatch();
+					count++;
+					if(count>1000){
+						int[] is = prest.executeBatch();
+						for (int i : is) {
+							if (i > 0) {
+								delCount++;
+							}
+						}
+						count=0;
+					}
+				} catch (Exception e) {
+					LogUtils.printLog("ResultSet no rowguid field");
+					return delCount;
+				}
+			}
+			int[] is = new int[]{};
+			if(prest!=null){
+				 is = prest.executeBatch();
+			}
+
+			for (int i : is) {
+				if (i > 0) {
+					delCount++;
+				}
+			}
+
+		}finally {
+			rs.beforeFirst();
+			if(prest!=null){
+				prest.close();
+			}
+		}
+
+
+		return delCount;
+	}
+	
+	/**
+	 *            select condition eg:"status='C'"
+	 * @return int[0]= add record count,int[1] = update record count
+	 * @throws Exception
+	 */
+	public static int[] bulkCopyFromSQL(String fromDS, String toDS, SchemeInfo schemeInfo, Integer blockSize,
+			String batchId, String[] criteria) throws SQLServerException, SQLException {
+		
+		int[] returnInts = new int[2];
+		
+		if (null == schemeInfo) {
+			LogUtils.printException(logger, "SchemeInfo in Bulk Copy from SQL cannot be NULL");
+			throw new RuntimeException("Invalid SchemeInfo");
+		}
+
+		if (schemeInfo.getSchemeTableColumns().isEmpty()) {
+			LogUtils.printException(logger, "Poll Scheme {} is not properly setup", schemeInfo.getId());
+			throw new RuntimeException("Table column list is null");
+		}
+
+		try (Connection fromConn = DriverManager.getConnection(fromDS);
+			 Connection toConn = DriverManager.getConnection(toDS))
+		{
+			returnInts = handleDuplicatedRecords(fromConn, toConn, schemeInfo, criteria);
+			bulkCopyFromSQLConn(fromConn, toConn, schemeInfo, blockSize, batchId, criteria);
+		}
+		catch (Exception e) {
+			LogUtils.printException(logger, "Exception occurs in Bulk Copy from SQL process", e);
+			throw new RuntimeException(e);
+		}
+		
+		return returnInts;
+
+	}
+	/**
+	 *
+	 * @param toConn
+	 * @param schemeInfo
+	 * @param blockSize
+	 * @param batchId
+	 * @param criteria
+	 * @throws SQLServerException
+	 * @throws SQLException
+	 */
+	public static int bulkCopyFromSQLConn(Connection fromConn, Connection toConn, SchemeInfo schemeInfo, Integer blockSize,
+			String batchId, String[] criteria) 
+					throws SQLServerException, SQLException, IllegalArgumentException {
+
+		int returnInts = 0;
+		
+		if (null == schemeInfo
+				|| fromConn == null
+				|| toConn == null) {
+			LogUtils.printException(logger, "Invalid parameters input");
+			throw new IllegalArgumentException("Invalid Parameters");
+		}
+
+		if (schemeInfo.getSchemeTableColumns().isEmpty()) {
+			LogUtils.printException(logger, "Poll Scheme {} is not properly setup", schemeInfo.getId());
+			throw new RuntimeException("Table column list is null");
+		}
+		
+//		try{
+//			fromConn.isValid(0);
+//			toConn.isValid(0);
+//		}catch(SQLServerException e){
+//			LogUtils.printException(logger, "SQL Bulk Copy Connection is not valid", e);
+//			throw new RuntimeException(e);
+//		}
+		
+		// initialize source and destination info
+		List<String> sourceCols = new ArrayList<String>();
+		List<String> destinationCols = new ArrayList<String>();
+		String sourceTable = schemeInfo.getSource();
+		String destinationTable = schemeInfo.getDestination();
+		List<SchemeTableColumn> colEntities = schemeInfo.getSchemeTableColumns();
+
+		for (SchemeTableColumn e : colEntities) {
+			sourceCols.add(e.getFromColumn());
+			destinationCols.add(e.getToColumn());
+		}
+
+		
+//		returnInts = handleDuplicatedRecords(fromConn, toConn, schemeInfo, criteria);
+		// bulk copy process
+		boolean copyWithBatch = batchId != null && !batchId.isEmpty();
+
+		// bulk copy process
+
+		try (Statement sourceStmt = fromConn.createStatement(
+				ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_READ_ONLY)) {
+
+			// perform an initial count on the source table
+			long countSource = 0;
+			try (ResultSet sourceRowCount = sourceStmt.executeQuery(SQLStmtUtils.getCountTableStmt(sourceTable))) {
+				sourceRowCount.next();
+				countSource = sourceRowCount.getInt(1);
+				LogUtils.printLog(logger, "Row count = {}", countSource);
+
+			}
+
+			// get data from the source table as a ResultSet
+			try (ResultSet rsSourceData = sourceStmt.executeQuery(
+				copyWithBatch ? SQLStmtUtils.getSelectStmtByCols(sourceTable, sourceCols, batchId, criteria)
+						: SQLStmtUtils.getSelectStmtByCols(sourceTable, sourceCols, criteria))) {
+
+				Statement destinationStmt = toConn.createStatement();
+				long countDestinationBeforeCopy = 0;
+				try (ResultSet rsRowCount = destinationStmt
+						.executeQuery(SQLStmtUtils.getCountTableStmt(destinationTable))) {
+					rsRowCount.next();
+					countDestinationBeforeCopy = rsRowCount.getInt(1);
+					// logger.info("Starting row count = " +
+					// countDestinationBeforeCopy);
+					LogUtils.printLog(logger, "Starting row count =  {}", countDestinationBeforeCopy);
+				}
+
+				try (SQLServerBulkCopy bulkCopy = new SQLServerBulkCopy(toConn)) {
+
+					// destination connection
+					SQLServerBulkCopyOptions copyOptions = new SQLServerBulkCopyOptions();
+
+					// if block size is defined, set into bulk copy
+					// options
+					if (null != blockSize) {
+						copyOptions.setBatchSize(blockSize.intValue());
+					}
+					// keep IDs from original result set
+					copyOptions.setKeepIdentity(true);
+					copyOptions.setCheckConstraints(true);
+					copyOptions.setUseInternalTransaction(true);
+					copyOptions.setBulkCopyTimeout(0);
+
+					// To destination table
+					bulkCopy.setDestinationTableName(destinationTable);
+
+					// Format batch ID in destination table
+					// batch ID handling
+					if (copyWithBatch) {
+						bulkCopy.addColumnMapping(SQLStmtUtils.BATCH_ID_COLUMN_NAME,
+								SQLStmtUtils.BATCH_ID_COLUMN_NAME);
+					}
+
+					for (int i = 0; i < sourceCols.size(); i++) {
+						bulkCopy.addColumnMapping(sourceCols.get(i), destinationCols.get(i));
+					}
+
+					bulkCopy.writeToServer(rsSourceData);
+
+					try (ResultSet destinationRowCount = destinationStmt
+							.executeQuery(SQLStmtUtils.getCountTableStmt(destinationTable))) {
+						destinationRowCount.next();
+						long countDestinationAfterCopy = destinationRowCount.getInt(1);
+
+						LogUtils.printLog(logger, "Ending row count = {}", countDestinationAfterCopy);
+
+						LogUtils.printLog(logger, "{} rows were added.",
+								countDestinationAfterCopy - countDestinationBeforeCopy);
+						returnInts = (int) (countDestinationAfterCopy - countDestinationBeforeCopy);
+					}
+
+				}
+
+			}
+			
+		} catch (Exception e) {
+			LogUtils.printException(logger, "Exception occurs in Bulk Copy from SQL process", e);
+			throw new RuntimeException(e);
+		}
+		
+		return returnInts;
+	}
+
+	public static void bulkCopyFromSQL(String fromDS, String toDS, String fromTable, String toTable,
+			List<String> sourceCols, List<String> destinationCols, Integer blockSize, String batchId,
+			String... criteria) throws Exception {
+
+		if (fromDS.isEmpty() || toDS.isEmpty() || fromTable.isEmpty() || toTable.isEmpty()) {
+			LogUtils.printException(logger, "Bulk Copy process info is missing {}-{}-{}-{}", fromDS, toDS, fromTable,
+					toTable);
+			throw new RuntimeException("Bulk Copy process info is missing.");
+		}
+
+		boolean copyWithBatch = batchId != null && !batchId.isEmpty();
+
+		// initialize source and destination info
+		String sourceTable = fromTable;
+		String destinationTable = toTable;
+
+		// bulk copy process
+
+		// Class.forName(sqlDriverClass);
+		try (Connection sourceConnection = DriverManager.getConnection(fromDS)) {
+			try (Statement sourceStmt = sourceConnection.createStatement()) {
+
+				// perform an initial count on the source table
+				long countSource = 0;
+				try (ResultSet sourceRowCount = sourceStmt.executeQuery(SQLStmtUtils.getCountTableStmt(sourceTable))) {
+					sourceRowCount.next();
+					countSource = sourceRowCount.getInt(1);
+					LogUtils.printLog(logger, "Row count = {}", countSource);
+
+				}
+
+				// get data from the source table as a ResultSet
+				try (ResultSet rsSourceData = sourceStmt.executeQuery(
+						copyWithBatch ? SQLStmtUtils.getSelectStmtByCols(sourceTable, sourceCols, batchId, criteria)
+								: SQLStmtUtils.getSelectStmtByCols(sourceTable, sourceCols, criteria))) {
+
+					try (Connection destConn = DriverManager.getConnection(toDS)) {
+
+						try(Statement destinationStmt = destConn.createStatement()){
+							
+
+							long countDestinationBeforeCopy = 0;
+							try (ResultSet rsRowCount = destinationStmt
+									.executeQuery(SQLStmtUtils.getCountTableStmt(destinationTable))) {
+								rsRowCount.next();
+								countDestinationBeforeCopy = rsRowCount.getInt(1);
+								// logger.info("Starting row count = " +
+								// countDestinationBeforeCopy);
+								LogUtils.printLog(logger, "Starting row count =  {}", countDestinationBeforeCopy);
+							}
+	
+							try (SQLServerBulkCopy bulkCopy = new SQLServerBulkCopy(destConn)) {
+	
+								// destination connection
+								SQLServerBulkCopyOptions copyOptions = new SQLServerBulkCopyOptions();
+	
+								// if block size is defined, set into bulk copy
+								// options
+								if (null != blockSize) {
+									copyOptions.setBatchSize(blockSize.intValue());
+								}
+								// keep IDs from original result set
+								copyOptions.setKeepIdentity(true);
+								copyOptions.setCheckConstraints(true);
+								copyOptions.setUseInternalTransaction(true);
+								copyOptions.setBulkCopyTimeout(0);
+	
+								// To destination table
+								bulkCopy.setDestinationTableName(destinationTable);
+	
+								// Format batch ID in destination table
+								// batch ID handling
+								if (copyWithBatch) {
+									bulkCopy.addColumnMapping(SQLStmtUtils.BATCH_ID_COLUMN_NAME,
+											SQLStmtUtils.BATCH_ID_COLUMN_NAME);
+								}
+	
+								for (int i = 0; i < sourceCols.size(); i++) {
+									bulkCopy.addColumnMapping(sourceCols.get(i), destinationCols.get(i));
+								}
+	
+								bulkCopy.writeToServer(rsSourceData);
+	
+								try (ResultSet destinationRowCount = destinationStmt
+										.executeQuery(SQLStmtUtils.getCountTableStmt(destinationTable))) {
+									destinationRowCount.next();
+									long countDestinationAfterCopy = destinationRowCount.getInt(1);
+	
+									LogUtils.printLog(logger, "Ending row count = {}", countDestinationAfterCopy);
+	
+									LogUtils.printLog(logger, "{} rows were added.",
+											countDestinationAfterCopy - countDestinationBeforeCopy);
+								}
+	
+							}
+						}
+
+					}
+					
+				}
+				
+			}
+
+		}
+
+	}
+	
+	/*
+	 * Param1 file path Param2 target data source connection Param3 encoding
+	 * (can be null) Param4 delimiter string Param5 conditions array (length can
+	 * be 0) Param6 block size (can be null)
+	 */
+	public static void bulkCopyFromCSV(String filePath, String toDS, String encoding, SchemeInfo schemeInfo,
+			Integer blockSize, String batchId, boolean skipFirstLine)
+			throws SQLServerException, SQLException, IOException {
+		
+		if(filePath == null
+				|| toDS == null
+				|| schemeInfo == null){
+			LogUtils.printException(logger, "Input Parameters contain null values");
+			throw new IllegalArgumentException();
+		}
+		
+		File csvFile = new File(filePath);
+		if(csvFile.isDirectory() || !csvFile.exists()){
+			LogUtils.printException(logger, "Failed to open DBF File from path {}", toDS);
+			throw new IOException();
+		}
+		
+		SQLServerBulkCSVFileRecord csvFileRecord = null;
+		List<SchemeTableColumn> cols = schemeInfo.getSchemeTableColumns();
+
+		try {
+			csvFileRecord = new SQLServerBulkCSVFileRecord(filePath
+					,encoding==null ? DEFAULT_CSV_ENCODING : encoding
+					,schemeInfo.getDelimiter()
+					,skipFirstLine);
+
+			for (SchemeTableColumn col : cols) {
+				/*
+				 * addColumnMetadata param1 position param2 column name param3
+				 * jdbcType param3 precision param4 scale
+				 */
+				LogUtils.printLog("CSV Column Metadata: {}-{}({})-{}-{}",col.getSeq()+1,
+						col.getToColumnFormat(),
+						ColumnFormat.valueOf(col.getToColumnFormat()).getValue(),
+						col.getToColumnLength().intValue(),
+						col.getToColumnPrecision().intValue());
+				
+				csvFileRecord.addColumnMetadata(col.getSeq() + 1, null
+						,ColumnFormat.valueOf(col.getToColumnFormat()).getValue()
+						,col.getToColumnLength().intValue()
+						,col.getToColumnPrecision()==null? 0
+								:col.getToColumnPrecision().intValue()<0 ? 0
+										:col.getToColumnPrecision().intValue()
+						);
+
+			}
+
+			// Class.forName(sqlDriverClass);
+			try (Connection destConn = DriverManager.getConnection(toDS)) {
+
+				try (Statement destinationStmt = destConn.createStatement()) {
+					// performance initial count
+					long countDestinationBeforeCopy = 0;
+
+					try (ResultSet rsRowCount = destinationStmt
+							.executeQuery(SQLStmtUtils.getCountTableStmt(schemeInfo.getDestination()))) {
+						rsRowCount.next();
+						countDestinationBeforeCopy = rsRowCount.getInt(1);
+						LogUtils.printLog(logger, "Starting row count = {}", countDestinationBeforeCopy);
+					}
+
+					try (SQLServerBulkCopy bulkCopy = new SQLServerBulkCopy(destConn)) {
+						bulkCopy.setDestinationTableName(schemeInfo.getDestination());
+						{
+
+							try {
+								// Write from the source to the destination.
+								bulkCopy.writeToServer(csvFileRecord);
+							} catch (Exception e) {
+								// Handle any errors that may have occurred.
+								LogUtils.printException(logger, String.format(
+										"Bulk Copy from CSV[%s] to DB[%s] has encountered error.", filePath, toDS), e);
+								throw new RuntimeException(e);
+							}
+						}
+
+						// Perform a final count on the destination
+						// table to see how many rows were added.
+						long countDestinationAfterCopy = 0;
+						try (ResultSet rsRowCount = destinationStmt
+								.executeQuery(SQLStmtUtils.getCountTableStmt(schemeInfo.getDestination()))) {
+							rsRowCount.next();
+							countDestinationAfterCopy = rsRowCount.getInt(1);
+							LogUtils.printLog(logger, "Ending row count = {}.", 
+									countDestinationAfterCopy);
+							LogUtils.printLog(logger, "{} rows were added.",
+									(countDestinationAfterCopy - countDestinationBeforeCopy));
+						}
+					}
+				}
+			}
+
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (csvFileRecord != null) {
+				try {
+					csvFileRecord.close();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+				;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param filePath
+	 * @param destConn
+	 * @param encoding
+	 * @param schemeInfo
+	 * @param blockSize
+	 * @param batchId
+	 * @param skipFirstLine
+	 * @throws SQLServerException
+	 * @throws SQLException
+	 * @throws IOException
+	 */
+	public static int bulkCopyFromCSVConn(String filePath, Connection destConn, String encoding, SchemeInfo schemeInfo,
+			Integer blockSize, String batchId, boolean skipFirstLine) 
+					throws SQLServerException, SQLException, IOException{
+		int rs = 0;
+		
+		File csvFile = new File(filePath);
+		if(csvFile.isDirectory() || !csvFile.exists()){
+			LogUtils.printException(logger, "Failed to open DBF File from path {}", filePath);
+			throw new IOException();
+		}
+		
+		SQLServerBulkCSVFileRecord csvFileRecord = null;
+		List<SchemeTableColumn> cols = schemeInfo.getSchemeTableColumns();
+
+		try {
+			csvFileRecord = new SQLServerBulkCSVFileRecord(filePath
+					,encoding==null ? DEFAULT_CSV_ENCODING : encoding
+					,schemeInfo.getDelimiter()
+					,skipFirstLine);
+
+			for (SchemeTableColumn col : cols) {
+				/*
+				 * addColumnMetadata param1 position param2 column name param3
+				 * jdbcType param3 precision param4 scale
+				 */
+				LogUtils.printLog("CSV Column Metadata: {}-{}({})-{}-{}",col.getSeq()+1,
+						col.getToColumnFormat(),
+						ColumnFormat.valueOf(col.getToColumnFormat()).getValue(),
+						col.getToColumnLength().intValue(),
+						col.getToColumnPrecision().intValue());
+				
+				csvFileRecord.addColumnMetadata(col.getSeq() + 1, null
+						,ColumnFormat.valueOf(col.getToColumnFormat()).getValue()
+						,col.getToColumnLength().intValue()
+						,col.getToColumnPrecision().intValue()
+						);
+
+			}
+
+			try (Statement destinationStmt = destConn.createStatement()) {
+				
+
+				// performance initial count
+				long countDestinationBeforeCopy = 0;
+				try (ResultSet rsRowCount = destinationStmt
+						.executeQuery(SQLStmtUtils.getCountTableStmt(schemeInfo.getDestination()))) {
+					rsRowCount.next();
+					countDestinationBeforeCopy = rsRowCount.getInt(1);
+					LogUtils.printLog(logger, "Starting row count = {}", countDestinationBeforeCopy);
+				}
+
+				try (SQLServerBulkCopy bulkCopy = new SQLServerBulkCopy(destConn)) {
+					bulkCopy.setDestinationTableName(schemeInfo.getDestination());
+					{
+
+						try {
+							// Write from the source to the destination.
+							bulkCopy.writeToServer(csvFileRecord);
+						} catch (Exception e) {
+							// Handle any errors that may have occurred.
+							LogUtils.printException(logger, "Bulk Copy from CSV [{}] to DB[{}] has encountered error.", 
+									filePath, destConn.getClientInfo(), e);
+							throw new RuntimeException(e);
+						}
+					}
+
+					// Perform a final count on the destination
+					// table to see how many rows were added.
+					long countDestinationAfterCopy = 0;
+					try (ResultSet rsRowCount = destinationStmt
+							.executeQuery(SQLStmtUtils.getCountTableStmt(schemeInfo.getDestination()))) {
+						rsRowCount.next();
+						countDestinationAfterCopy = rsRowCount.getInt(1);
+						LogUtils.printLog(logger, "Ending row count = {}.", 
+								countDestinationAfterCopy);
+						LogUtils.printLog(logger, "{} rows were added.",
+								(countDestinationAfterCopy - countDestinationBeforeCopy));
+						rs = (int) (countDestinationAfterCopy - countDestinationBeforeCopy);
+					}
+				}
+			}
+			return rs;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		} finally {
+			if (csvFileRecord != null) {
+				try {
+					csvFileRecord.close();
+				} catch (Exception e) {
+					throw new RuntimeException(e);
+				}
+				;
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param fromConn - a SQL Server JDBC Connection
+	 * @param toConn - a Oracle JDBC Connnection
+	 * @param schemeInfo
+	 * @param blockSize
+	 * @param batchId
+	 * @param criteria
+	 * @return int[3]
+	 * 			0 - source record count; 1 - add record count; 2 delete record count
+	 * @throws SQLServerException
+	 * @throws SQLException
+	 * @throws IllegalArgumentException
+	 */
+	public static int[] bulkCopyFromSQLToOracle(Connection fromConn, Connection toConn
+			,SchemeInfo schemeInfo, Integer blockSize
+			,String batchId, String[] criteria) 
+					throws SQLServerException, SQLException, BatchUpdateException, IllegalArgumentException{
+		// Null parameter validation 
+		if(fromConn == null
+				|| toConn == null
+				|| schemeInfo == null
+				|| criteria == null
+				|| criteria.length < 1){
+			LogUtils.printException(logger, "Input Parameters contain null values");
+			throw new IllegalArgumentException();
+		}
+		
+		// Connection validity validation
+		try{
+			fromConn.isValid(0);
+			toConn.isValid(0);
+		}
+		catch(SQLServerException e){
+			LogUtils.printException(logger, "SQL Bulk Copy Connection is not valid", e);
+			throw new RuntimeException(e);
+		}
+		
+		int[] returnInts = new int[2];
+		
+//		try{
+//			returnInts = handleDuplicatedRecords(fromConn, toConn, schemeInfo, criteria);
+//		}catch(SQLException e){
+//			 throw new RuntimeException(e);
+//		}
+		
+		try (Statement sourceStmt = fromConn.createStatement(
+				ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_READ_ONLY)) {
+
+			long countSource = 0;
+			String sourceTable = schemeInfo.getSource();
+			String destinationTable = schemeInfo.getDestination();
+			List<String> sourceCols = new ArrayList<String>();
+			List<String> destinationCols = new ArrayList<String>();
+			List<SchemeTableColumn> tableCols = schemeInfo.getSchemeTableColumns();
+			
+			if (tableCols.isEmpty()) {
+				LogUtils.printException(logger,
+						"Scheme Table Columns List is empty");
+				throw new RuntimeException("Scheme Table Columns List is empty");
+			}
+			
+			try (ResultSet rsRowCount = sourceStmt.executeQuery(SQLStmtUtils
+					.getCountTableStmt(sourceTable, criteria))) {
+				rsRowCount.next();
+				countSource = rsRowCount.getInt(1);
+				LogUtils.printLog(logger,
+						"Totally {} Records from table {} need to copy",
+						countSource, sourceTable);
+			}
+
+			// process result set
+			Object[][] data;
+
+			// format column name list
+			for (SchemeTableColumn col : tableCols) {
+				sourceCols.add(col.getFromColumn()); 
+				destinationCols.add(col.getToColumn());
+			}
+
+			try (ResultSet rowData = sourceStmt.executeQuery(SQLStmtUtils
+					.getSelectStmt(sourceTable, sourceCols, false, criteria))) {
+				LogUtils.printLog(logger, "Start to process SQL Select Result Set.");
+
+				// initialize two-dimensional array for result set
+				rowData.last();
+				int numCols = rowData.getMetaData().getColumnCount(); 
+				
+				int numRows = rowData.getRow();
+				rowData.beforeFirst();
+				data = new Object[numRows][numCols];
+
+				try (PreparedStatement insertStmt = toConn
+						.prepareStatement(SQLStmtUtils.getOracleInsertStmtByCols(destinationTable, destinationCols, batchId));
+						Statement destinationStmt = toConn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
+					) {
+					
+					// process result set into target connection
+					long countDestinationBeforeCopy = 0;
+					try (ResultSet rsRowCount = destinationStmt.executeQuery(SQLStmtUtils.getCountTableStmtForOracle(destinationTable))) {
+						rsRowCount.next();
+						countDestinationBeforeCopy = rsRowCount.getInt(1);
+						LogUtils.printLog(logger,"Starting row count = {}", countDestinationBeforeCopy);
+					}
+					
+					int i = 0;
+					// process from Conn Result Set
+					while (rowData.next()) {
+						Object[] row = new Object[numCols];
+						for (int j = 1; j <= numCols; j++) {
+							Object object = rowData.getObject(j);
+							row[j - 1] = (object == null) ? null : object;
+							
+							if (object == null) {
+								insertStmt.setNull(j, ColumnFormat.JDBC_NULL.getValue());
+							} else {
+								insertStmt.setObject(j, object);
+							}
+						}
+						
+						data[i] = row;
+						++i;
+						
+						insertStmt.addBatch();
+					}
+					
+					int[] executeBatch = insertStmt.executeBatch();
+					logger.info("executeBatch: {}", executeBatch.length);
+
+					try (ResultSet destinationRowCount = destinationStmt
+							.executeQuery(SQLStmtUtils.getCountTableStmtForOracle(destinationTable))) {
+						destinationRowCount.next();
+						long countDestinationAfterCopy = destinationRowCount
+								.getInt(1);
+
+                        LogUtils.printLog(logger, "Ending row count = "
+                                + countDestinationAfterCopy);
+                        LogUtils.printLog(logger, (countDestinationAfterCopy - countDestinationBeforeCopy)
+                                + " rows were added.");
+
+					}
+	
+					LogUtils.printLog(logger, "End of process Result Set output.");
+				}
+			}
+		}
+		catch(Exception e){
+			LogUtils.printException(logger, "JDBCUtils.bulkCopyFromSQLToOracle() encounter exception.", e);
+			throw new RuntimeException(e);
+		}
+		
+		return returnInts;
+	}
+	
+	/**
+	 * @param target Connection
+	 * @param tabe ame 
+	 * @param conditions
+	 *            select condition eg:"status='C'"
+	 * @return int = number of record deleted
+	 * @throws SQLException 
+	 * @throws Exception
+	 */	
+	public static int deleteByBranchAndBizDate(Connection conn, String table, 
+				String branchCode, Date businessDate) 
+						throws SQLException, SQLServerException, IllegalArgumentException{
+		if(conn == null
+				|| table == null
+				|| branchCode == null
+				|| businessDate == null){
+			LogUtils.printException(logger, "Input Parameters contain null values");
+			throw new IllegalArgumentException();
+		}
+		
+		try{
+			conn.isValid(0);
+		}
+		catch(SQLException e){
+			throw e;
+		}
+		
+		String branCode = String.format("BRANCH_CODE = \'%s\'",branchCode);
+		String bizDate = String.format("CONVERT(VARCHAR(8),BUSINESS_DATE,112) = \'%s\'", DateUtil.format(businessDate, "yyyyMMdd"));
+		String deleteStmt = SQLStmtUtils.getDeleteSQL(table, branCode, bizDate);
+		int deleteCount = 0;
+		
+		LogUtils.printLog(logger, "Start to execute delete Stmt [{}]", deleteStmt);
+		try(Statement stmt = conn.createStatement()){
+			deleteCount = stmt.executeUpdate(deleteStmt);
+		}
+		
+		LogUtils.printLog(logger, "{} records deleted from table [{}]", deleteCount, table);
+		
+		return deleteCount;
+	}
+	
+	
+	/**
+	 * @param target Connection
+	 * @param tabe ame 
+	 * @param conditions
+	 *            select condition eg:"status='C'"
+	 * @return int = number of record deleted
+	 * @throws SQLException 
+	 * @throws Exception
+	 */	
+	public static int deleteByBranchAndBizDateOracle(Connection oracleConn, String table, 
+				String branchCode, Date businessDate) 
+						throws SQLException, SQLServerException, IllegalArgumentException{
+		if(oracleConn == null
+				|| table == null
+				|| branchCode == null
+				|| businessDate == null){
+			LogUtils.printException(logger, "Input Parameters contain null values");
+			throw new IllegalArgumentException();
+		}
+		
+		try{
+			oracleConn.isValid(0);
+		}
+		catch(SQLException e){
+			throw e;
+		}
+		
+		String branCode = String.format("BRANCH_CODE = \'%s\'",branchCode);
+		String bizDate = String.format("TO_CHAR(BUSINESS_DATE,\'yyyyMMdd\') = \'%s\'", DateUtil.format(businessDate, "yyyyMMdd"));
+		String deleteStmt = SQLStmtUtils.getDeleteSQL(table, branCode, bizDate);
+		int deleteCount = 0;
+		
+		LogUtils.printLog(logger, "Start to execute delete Stmt [{}]", deleteStmt);
+		try(Statement stmt = oracleConn.createStatement()){
+			deleteCount = stmt.executeUpdate(deleteStmt);
+		}
+		
+		LogUtils.printLog(logger, "{} records deleted from table [{}]", deleteCount, table);
+		
+		return deleteCount;
+	}
+	
+	
+	public static int deleteByConditions(Connection conn, String table, String[] conditions)
+			throws SQLException, SQLServerException, IllegalArgumentException
+	{
+		
+		//parameters checking
+		if(conn == null
+				|| table == null
+				|| conditions == null){
+			LogUtils.printException(logger, "Input Parameters contain null values");
+			throw new IllegalArgumentException();
+		}
+		
+		//connection checking
+		try{
+			conn.isValid(0);
+		}
+		catch(SQLException e){
+			throw e;
+		}
+		
+		String deleteStmt = SQLStmtUtils.getDeleteSQL(table, conditions);
+		int deleteCount = 0;
+		
+		LogUtils.printLog(logger, "Start to execute delete Stmt [{}]", deleteStmt);
+		
+		try(Statement stmt = conn.createStatement()){
+			deleteCount = stmt.executeUpdate(deleteStmt);
+		}
+		
+		LogUtils.printLog(logger, "{} records deleted from table [{}]", deleteCount, table);
+		
+		return deleteCount;
+	}
+	
+	public static int[] handleDuplicatedRecords(Connection fromConn, Connection toConn, SchemeInfo info, String...criteria) 
+			throws SQLException{
+		int[] returnInts = new int[2];
+		
+		try(Statement stmt = fromConn.createStatement(
+				ResultSet.TYPE_SCROLL_INSENSITIVE,
+				ResultSet.CONCUR_READ_ONLY)){
+			
+			String selectSQL = SQLStmtUtils.getSelectStmt(info.getSource(), 
+											Arrays.asList(info.getSrcKeyColumns() == null ? 
+													DEFAULT_ID:info.getSrcKeyColumns().split(COMMA)), 
+											false, criteria);
+			LogUtils.printLog(logger, "HandleDuplicatedRecords: {}", selectSQL);
+			
+			String countSQL = SQLStmtUtils.getCountTableStmt(info.getSource(),criteria);
+			LogUtils.printLog(logger, "HandleDuplicatedRecords: {}", countSQL);
+			
+			int rowCount = 0;
+			try (ResultSet rsRowCount = stmt.executeQuery(countSQL)) {
+				rsRowCount.next();
+				rowCount = rsRowCount.getInt(1);
+				LogUtils.printLog("BulkCopyFromSQL Extraction data SQL: {},row count ={} ", countSQL, rowCount);
+			}
+			
+			try (ResultSet rsSourceData = stmt.executeQuery(selectSQL)){
+				int updateCount = delRepeatingData(toConn, info.getDestination(),
+						info.getSrcKeyColumns().split(COMMA),
+						info.getDestKeyColumns().split(COMMA), 
+						rsSourceData);
+				
+				returnInts[0] = rowCount - updateCount;
+				returnInts[1] = updateCount;
+			}
+			catch(SQLException e){
+				LogUtils.printException(logger, "Destination table {} does not have ROWGUID", info.getDestination());
+			}
+		}
+		return returnInts;
+	}
+	
+   public static boolean checkSumBySchemeInfo(Connection fromConn, Connection toConn, 
+		   String branchCode, SchemeInfo schemeInfo, String...criteria)
+   			throws SQLServerException, SQLException, IllegalArgumentException {
+
+		//parameters checking
+		if(fromConn == null
+			|| toConn == null
+			|| schemeInfo == null
+			|| branchCode == null){
+		LogUtils.printException(logger, "Input Parameters contain null values");
+			throw new IllegalArgumentException();
+		}
+		
+		//connection checking
+//		try{
+////			fromConn.isValid(0);
+////			toConn.isValid(0);
+//		}
+//		catch(SQLException e){
+//			LogUtils.printException(logger, "SQL Bulk Copy Connection is not valid", e);
+//			throw new RuntimeException(e);
+//		}
+		String srcCheckSumCols = schemeInfo.getSrcCheckSumCols();
+        String destCheckSumCols = schemeInfo.getDestCheckSumCols();
+        
+        if (null == srcCheckSumCols || null == destCheckSumCols) {
+            return true;
+        }
+        
+        String toSql = SQLStmtUtils.getCheckSumStmt(destCheckSumCols, schemeInfo.getDestination(), criteria);
+        String fromSql = SQLStmtUtils.getCheckSumStmt(srcCheckSumCols, schemeInfo.getSource(), criteria);
+        LogUtils.printLog(logger, "toSql : {}    fromSql : {}", toSql, fromSql);
+
+        try (PreparedStatement toPs = toConn.prepareStatement(toSql);
+             PreparedStatement fromPs = fromConn.prepareStatement(fromSql);
+             ResultSet toRs = toPs.executeQuery();
+             ResultSet fromRs = fromPs.executeQuery();
+        ) {
+            int col = toRs.getMetaData().getColumnCount();
+            StringBuffer toCol = new StringBuffer();
+            StringBuffer fromCol = new StringBuffer();
+            while (toRs.next()) {
+                for (int i = 0; i < col; i++) {
+                    toCol.append(toRs.getString(i + 1));
+                }
+            }
+            while (fromRs.next()) {
+                for (int j = 0; j < col; j++) {
+                    fromCol.append(fromRs.getString(j + 1));
+                }
+            }
+            String toSumCol = toCol.toString();
+            String fromSumCol = fromCol.toString();
+            if (toSumCol.equals(fromSumCol)) {
+                LogUtils.printLog(logger, "   End : {}=={}  checkSumColumn Success!", toSumCol, fromSumCol);
+                return true;
+            } else {
+                LogUtils.printLog(logger, "   End : {}=={}  checkSumColumn false!", toSumCol, fromSumCol);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("checkSumColumn ERROR!");
+        }
+        return false;
+    }
+	   
+	public static void backupDataByBatchId(String ds, String originalTable, String histTable, String batchId)
+			throws SQLServerException, SQLException {
+
+	}
+
+	public static void backupDataByConditions(String ds, String originalTable, String histTable, String... conditions)
+			throws SQLServerException, SQLException {
+
+	}
+	
+	public static String getCSVFilePath(String fileRoot, String branchCode, String table, Date fileDate){
+		return MessageFormat.format("{0}{1}\\{2}\\{3}.txt", 
+						fileRoot, 
+						branchCode,
+						DateUtil.format(fileDate, "yyyyMMdd")
+						,table);
+	}
+	
+	public static String getCSVFilePath(String fileRoot,String branchCode, Date fileDate){
+		return MessageFormat.format("{0}{1}{2}{3}{4}", 
+						fileRoot,
+						File.separator,
+						branchCode,
+						File.separator,
+						DateUtil.format(fileDate, "yyyyMMdd")
+						);
+	}
+	
+	public static String getBusinessDate(Date date){
+		Date startDate = DateUtil.trimTimePart(date);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, 4);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+		
+		Date cutOffDate = cal.getTime();
+		
+		if(DateUtil.compareDate(startDate, cutOffDate, date)){
+			cal.setTime(date);
+			cal.add(Calendar.DATE, -1);
+			return DateUtil.format(cal.getTime(),"yyyyMMdd");
+		}
+		else{
+			return DateUtil.format(date,"yyyyMMdd");
+		}
+		
+	}
+
+
+	public static Date splitDate(Date date){
+		Date startDate = DateUtil.trimTimePart(date);
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, 4);
+		cal.set(Calendar.MINUTE, 0);
+		cal.set(Calendar.SECOND, 0);
+		cal.set(Calendar.MILLISECOND, 0);
+
+		Date cutOffDate = cal.getTime();
+
+		if(DateUtil.compareDate(startDate, cutOffDate, date)){
+			cal.setTime(date);
+			cal.add(Calendar.DATE, -1);
+			return cal.getTime();
+		}
+		else{
+			return date;
+		}
+
+	}
+	
+}
+

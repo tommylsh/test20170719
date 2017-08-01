@@ -1,0 +1,587 @@
+setmqaut -m MQSP1A -n 'AIROPS.IBMMSG.ATELEX.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'GRPWISE.QI' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'GRPWISE.QI' -t queue -g grpwise +get 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.EBBKQMP2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP2A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.EARS.MTELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.EARS.MTELEX.QL' -t queue -g ecx +browse +get +inq 
+setmqaut -m MQSP1A -n 'GWP41.PRD1_MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'WBS.MW.DGL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.DGL' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'CPSL_CX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CSS.ELP.TRANSHP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CSS.ELP.TRANSHP' -t queue -g cubic +browse +get +inq +put 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.CCS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'AIROPS.FSS.MFLAFLB.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIROPS.FSS.MFLAFLB.QR' -t queue -g airops +put 
+setmqaut -m MQSP1A -n 'JAOTYBP1.MQSP1A.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.STATISTICS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.ULD' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.ULD' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.AIROPS.MTELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AIROPS.MTELEX.QL' -t queue -g airops +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.PLNAIX.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.PLNAIX.TELEX' -t queue -g schedadm +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.AIROPS.ATELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AIROPS.ATELEX.QL' -t queue -g airops +get +inq 
+setmqaut -m MQSP1A -n 'SHARE.AIROPS.MDATA.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SHARE.AIROPS.MDATA.QL' -t queue -g airops +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g inframws +dsp +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.DEF.REQUESTER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.CHANNEL.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MSS.TELEX.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MSS.TELEX.IN' -t queue -g cubic +put 
+setmqaut -m MQSP1A -n 'MSS.TELEX.IN' -t queue -g fsis +put 
+setmqaut -m MQSP1A -n 'MW.WBS.LSR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.LSR' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.DLD.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.DLD.TELEX' -t queue -g dld +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.REFRESH.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.REFRESH.IN' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'AHKDHL.MW.LSH' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'BAGNGATE.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCSKA.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCSKA.TELEX' -t queue -g aptscs +browse +get +inq 
+setmqaut -m MQSP1A -n 'FSS.WOS.ASM' -t queue -g aslsup +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FSS.WOS.ASM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.JAOTYBP1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.APHTLX.TELEX' -t queue -g aslsup +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APHTLX.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APHTLX.TELEX' -t queue -g eagle +browse +get +inq 
+setmqaut -m MQSP1A -n 'APHTLX.IBMMSG.TELEX' -t queue -g aslsup +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APHTLX.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APHTLX.IBMMSG.TELEX' -t queue -g eagle +put 
+setmqaut -m MQSP1A -n 'IBMMSG.CUDOS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.CUDOS.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'RECEIVEMAIL.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'RECEIVEMAIL.IN' -t queue -g schedadm +put 
+setmqaut -m MQSP1A -n 'MQSP1A_GWP43.PRD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MW.WBS.ASM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.ASM' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.DEAD.LETTER.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.DEAD.LETTER.QUEUE' -t queue -g staff +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CIA.QI' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CIA.QI' -t queue -g cia +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.AIRPATH.MTELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AIRPATH.MTELEX.QL' -t queue -g eagle +get +inq 
+setmqaut -m MQSP1A -n 'CUBIC.FLC.NOTOC.PSR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'BK70QMPD1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'ELP.WOS.FRTPLN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'ELP.WOS.FRTPLN' -t queue -g cubic +browse +inq +put 
+setmqaut -m MQSP1A -n 'WOS.ELP.FRTPLN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WOS.ELP.FRTPLN' -t queue -g cubic +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCSKA.TELEX.ACK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCSKA.TELEX.ACK' -t queue -g aptscs +browse +get +inq 
+setmqaut -m MQSP1A -n 'RTOW.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'RTOW.IBMMSG.TELEX' -t queue -g fop +put 
+setmqaut -m MQSP1A -n 'CXIP.AIROPS.CKIS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CXIP.AIROPS.CKIS' -t queue -g airops +browse +get +inq +put +set 
+setmqaut -m MQSP1A -n 'MW.WBS.LDW' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.LDW' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'TEST.TMPTELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.CICS.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SHAREIN.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'FSS.FLC.FLA.FGR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FSS.FLC.FLA.FGR' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.BROKER' -t service -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQSP1A -n '1A.CLUSTER.PRD1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.GRPWISE.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.GRPWISE.TELEX' -t queue -g grpwise +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.EXCHGE' -t channel -g aslsup +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.EXCHGE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'DLD.FLC.UWSX.FGR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'DLD.FLC.UWSX.FGR' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.EARS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.APTSCS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'GWP42.PRD1_MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'NBES.EBUY.AEBLOG.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'NBES.EBUY.AEBLOG.QL' -t queue -g ebuy +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'BK70QMPD1.TO.MQSP1A' -t channel -g aslsup +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'BK70QMPD1.TO.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'EBUY.NBES.MEBLOG1.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EBUY.NBES.MEBLOG1.QL' -t queue -g ebuy +get +inq +put 
+setmqaut -m MQSP1A -n 'IBMMSG.EXCHGE.TELEX' -t queue -g aslsup +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.EXCHGE.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.EXCHGE.TELEX' -t queue -g grpwise +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.WORLDTRA' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'EBUY.NBES.MMRCV.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EBUY.NBES.MMRCV.QR' -t queue -g ebuy +put 
+setmqaut -m MQSP1A -n 'EBUY.NBES.MGRCV.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EBUY.NBES.MGRCV.QR' -t queue -g ebuy +put 
+setmqaut -m MQSP1A -n 'AIRPATH.IBMMSG.MTELEX.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIRPATH.IBMMSG.MTELEX.QR' -t queue -g eagle +put 
+setmqaut -m MQSP1A -n 'COMPONENT.QI' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.OVFAX' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'SHARE.POPCX.ACCTRATE.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SHARE.POPCX.ACCTRATE.QL' -t queue -g hrms +browse +get +inq 
+setmqaut -m MQSP1A -n 'SHARE.POPCX.ACCTRATE.QL' -t queue -g cia +put 
+setmqaut -m MQSP1A -n 'IBMMSG.LDCMS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.LDCMS.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'SYSTEM.CLUSTER.TRANSMIT.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AHQMVT.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AHQMVT.IBMMSG.TELEX' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'CUBIC.FLC.NOTOC.FGR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CUBIC.FLC.NOTOC.FGR' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.FACTS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.FACTS.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'JAOTYBP1.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.ACP1.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'NBES.EAGLE.MPADD.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'NBES.EAGLE.MPADD.QL' -t queue -g eagle +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1B' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.MEL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.MEL' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP2A' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'GRPWISE.TELEX.ERROR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIROPS.QI' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIROPS.QI' -t queue -g airops +get 
+setmqaut -m MQSP1A -n 'CPSL_CX.TO.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'BK70QMPD2' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'BK70QMPD2' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'BK70QMPD2' -t queue -g airops +put 
+setmqaut -m MQSP1A -n 'BK70QMPD2' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'BK70QMPD2' -t queue -g worldtra +put 
+setmqaut -m MQSP1A -n 'DLD.FLC.UWSX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'DLD.FLC.UWSX' -t queue -g cubic +inq +put 
+setmqaut -m MQSP1A -n 'DLD.FLC.UWSX' -t queue -g flcusr +browse +get +inq 
+setmqaut -m MQSP1A -n 'APTSCS.IBMMSG.MTELEX.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APTSCS.IBMMSG.MTELEX.QR' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'MENG.IBMMSG.MTELEX.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MENG.IBMMSG.MTELEX.QR' -t queue -g teffmq +put 
+setmqaut -m MQSP1A -n 'RTOW.IBMMSG.MTELEX.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'RTOW.IBMMSG.MTELEX.QR' -t queue -g fop +put 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.REMOTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'UTILIT.COMPONENT.JAVAMAIL.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'UTILIT.COMPONENT.JAVAMAIL.QL' -t queue -g crs +inq +put 
+setmqaut -m MQSP1A -n 'UTILIT.COMPONENT.JAVAMAIL.QL' -t queue -g ccs +put 
+setmqaut -m MQSP1A -n 'MW.WBS.FLA' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.FLA' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'WBS.MW.LDM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.LDM' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP2B.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.BKQMP01' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'DHLAVI.CX_MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.LDM.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.LDM.TELEX' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g inframws +dsp +inq +put 
+setmqaut -m MQSP1A -n 'MW.WBS.WABI' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.WABI' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP1B.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'APTSCS.IBMMSG.ATELEX.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APTSCS.IBMMSG.ATELEX.QR' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'NBES.EAGLE.AAUDIT.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'NBES.EAGLE.AAUDIT.QL' -t queue -g eagle +get +inq 
+setmqaut -m MQSP1A -n 'CIA.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'WBS.MW.UCM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.UCM' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'APTSCS.AIROPS.BAYNGATE.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APTSCS.AIROPS.BAYNGATE.QR' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'MW.WBS.UWS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.UWS' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQ70PD1.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.AIROPS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.CUBICDM.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.CUBICDM.TELEX' -t queue -g cubic +browse +get +inq 
+setmqaut -m MQSP1A -n 'WBS.MW.AZFW' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.AZFW' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'WBS.MW.EZFW' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.EZFW' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'IBMMSG.AMADEUS.TELEX.ERROR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.OVFAX.MTELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.OVFAX.MTELEX.QL' -t queue -g grpwise +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.MHBR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP2B.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.CPCS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.CPCS.TELEX' -t queue -g cpcs +browse +get +inq 
+setmqaut -m MQSP1A -n 'BKQMP01.TO.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'AHKDHL.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.CPSL_CX' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'ACP1.MQSP1A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP2A.MQSP1A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP1B.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'GWP43.PRD1_MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.EBUY' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'SYSTEM.AUTO.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'WBS.MW.MVT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.MVT' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'WBS.MW.CPM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.CPM' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'MQSP1A.LDM' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.AMADEUS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'JAOTYBP1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.OVFAX.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.OVFAX.TELEX' -t queue -g grpwise +browse +get +inq 
+setmqaut -m MQSP1A -n 'NBES.EBUY.AEBLOG1.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'ESBMSG.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'ESBMSG.IBMMSG.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'AIRPATH.EFF.FLIGHTPLAN.EN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIRPATH.EFF.FLIGHTPLAN.EN' -t queue -g eagle +get +put 
+setmqaut -m MQSP1A -n 'AIRPATH.EFF.FLIGHTPLAN.EN' -t queue -g eff +get +put 
+setmqaut -m MQSP1A -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g mqm +chg +dlt +dsp 
+setmqaut -m MQSP1A -n 'NBES.EBUY.AGRCV.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'NBES.EBUY.AGRCV.QL' -t queue -g ebuy +browse +get +inq +put 
+setmqaut -m MQSP1A -n 'EBUY.NBES.MEBLOG.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EBUY.NBES.MEBLOG.QL' -t queue -g ebuy +get +inq +put 
+setmqaut -m MQSP1A -n 'AIROPS.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIROPS.IBMMSG.TELEX' -t queue -g airops +get +put 
+setmqaut -m MQSP1A -n 'MQSP1A.FLC' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.EBBKQMP1.PR' -t process -g nobody +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.EBBKQMP1.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'CIA.HRMS.MDATA.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CIA.HRMS.MDATA.QL' -t queue -g cia +get +inq 
+setmqaut -m MQSP1A -n 'CIA.HRMS.MDATA.QL' -t queue -g hrms +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCSCX.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCSCX.TELEX' -t queue -g aptscs +browse +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.PERFM.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.CPCS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'FLC.DLD.UWSX.ACK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FLC.DLD.UWSX.ACK' -t queue -g cubic +browse +get +inq 
+setmqaut -m MQSP1A -n 'FLC.DLD.UWSX.ACK' -t queue -g flcusr +inq +put 
+setmqaut -m MQSP1A -n 'WBS.MW.FDR_OUT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.FDR_OUT' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'MQSP1B.MQSP1A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'FLC.DUMMY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FLC.DUMMY' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.LOGGER.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'JAVAMAIL.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'IBMMSG.FSS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.FSS.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'MQSP1A.JAVAMAIL' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.CIA' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'FSS.FLC.FLA.PSR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FSS.FLC.FLA.PSR' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'EBBKQMP1.TO.MQSP1A' -t channel -g nobody +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'EBBKQMP1.TO.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MENG.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MENG.IBMMSG.TELEX' -t queue -g teffmq +put 
+setmqaut -m MQSP1A -n 'FACTS.AIROPS.MDATA.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FACTS.AIROPS.MDATA.QL' -t queue -g airops +get +inq 
+setmqaut -m MQSP1A -n 'AIRPATH.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIRPATH.IBMMSG.TELEX' -t queue -g eagle +put 
+setmqaut -m MQSP1A -n 'PLNAIX.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'PLNAIX.IBMMSG.TELEX' -t queue -g schedadm +put 
+setmqaut -m MQSP1A -n 'IBMMSG.WORLDTRA.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.WORLDTRA.TELEX' -t queue -g worldtra +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.ACP1.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'EBBKQMP2.TO.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'WBS.MW.FRF' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.FRF' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'AIRPATH.FBX.FLTPLN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIRPATH.FBX.FLTPLN' -t queue -g eagle +put 
+setmqaut -m MQSP1A -n 'SYSTEM.CHANNEL.INITQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.AUTO.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'ULTRA.EAGLE.MPADD.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'ULTRA.EAGLE.MPADD.QL' -t queue -g eagle +get +inq 
+setmqaut -m MQSP1A -n 'PCX.PUBSUB' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'PCX.PUBSUB' -t queue -g hrms +browse +get +inq 
+setmqaut -m MQSP1A -n 'SHARE.CIA.MDATA.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SHARE.CIA.MDATA.QL' -t queue -g cia +get +inq 
+setmqaut -m MQSP1A -n 'SHARE.CIA.MDATA.QL' -t queue -g hrms +inq +put 
+setmqaut -m MQSP1A -n 'MQSP1A.IIBQMPD3' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.IIBQMPD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'SYSTEM.DEF.SENDER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.AIROPS.TELEX.ACK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AIROPS.TELEX.ACK' -t queue -g airops +browse +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.MQSC.REPLY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AHQMVT.TELEX.ACK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AHQMVT.TELEX.ACK' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'WORLDTRA.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WORLDTRA.IBMMSG.TELEX' -t queue -g worldtra +put 
+setmqaut -m MQSP1A -n 'MQSP1A.IIBQMPD4' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'CIA.SHARE.MDATA.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CIA.SHARE.MDATA.QR' -t queue -g cia +put 
+setmqaut -m MQSP1A -n 'SYSTEM.CHANNEL.SYNCQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CUBIC.ELP.JDU' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CUBIC.ELP.JDU' -t queue -g cubic +browse +get +inq +put 
+setmqaut -m MQSP1A -n 'FACTSIN.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'SYSTEM.CLUSTER.REPOSITORY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.DEF.CLUSRCVR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.ASCS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.ASCS.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'IBMMSG.ESBMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.ESBMSG.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'MQTTYCOM.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'EAGLE.NBES.MAUDIT.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EAGLE.NBES.MAUDIT.QR' -t queue -g eagle +put 
+setmqaut -m MQSP1A -n 'BK70QMPD2.TO.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'ACP1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'ACP1' -t queue -g airops +put 
+setmqaut -m MQSP1A -n 'ACP1' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'MQSP1A.CUBIC' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.RTOW.MTELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.RTOW.MTELEX.QL' -t queue -g fop +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.SERVICE' -t service -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.PROCESS' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'DLD.FLC.UWSX.PSR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'DLD.FLC.UWSX.PSR' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.EBBKQMP1' -t channel -g nobody +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.EBBKQMP1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'DLD.WOS.DLMR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'DLD.WOS.DLMR' -t queue -g cubic +put 
+setmqaut -m MQSP1A -n 'SYSTEM.CLUSTER.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.FSIS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'APTSCSCX.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APTSCSCX.IBMMSG.TELEX' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'NBES.AIROPS.MDATA.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'NBES.AIROPS.MDATA.QL' -t queue -g airops +get +inq 
+setmqaut -m MQSP1A -n 'APTSCSKA.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APTSCSKA.IBMMSG.TELEX' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'EXCHGE.IBMMSG.TELEX' -t queue -g aslsup +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EXCHGE.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EXCHGE.IBMMSG.TELEX' -t queue -g grpwise +put 
+setmqaut -m MQSP1A -n 'WOS.DLD.DLMQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WOS.DLD.DLMQ' -t queue -g cubic +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.EMPACS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.EMPACS.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'PSSACTIN.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'IIBQMPD4' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IIBQMPD4.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IIBQMPD2.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'CUBIC.PUBSUB.NOTOC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.TRACE.ROUTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.HRMS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IIBQMPD3' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IIBQMPD3' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'SENDMAIL.IN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SENDMAIL.IN' -t queue -g cubic +put 
+setmqaut -m MQSP1A -n 'SENDMAIL.IN' -t queue -g schedadm +put 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCS.ATELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCS.ATELEX.QL' -t queue -g aptscs +browse +get +inq 
+setmqaut -m MQSP1A -n 'IIBQMPD1.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IIBQMPD3.MQSP1A' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP2A.VERIFY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP2B' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCS.MTELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCS.MTELEX.QL' -t queue -g aptscs +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQSP1A -n 'IBMMSG.GRPWISE.MFAX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.GRPWISE.MFAX.QL' -t queue -g grpwise +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.WOS.TELEX' -t queue -g aslsup +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.WOS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.DEF.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.FLC.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.FLC.TELEX' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'FBX.AIRPATH.FLA' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FBX.AIRPATH.FLA' -t queue -g eagle +browse +get +inq 
+setmqaut -m MQSP1A -n 'SYSTEM.DEF.SERVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'SYSTEM.PENDING.DATA.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APTSCS.AIROPS.BAYNGATE.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'APTSCS.AIROPS.BAYNGATE.QL' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'APTSCS.AIROPS.BAYNGATE.QL' -t queue -g airops +get +inq 
+setmqaut -m MQSP1A -n 'MW.WBS.JSB' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.JSB' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.AHQMVT.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AHQMVT.TELEX' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'FSS.AIROPS.MDATA.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FSS.AIROPS.MDATA.QL' -t queue -g airops +get +inq +put 
+setmqaut -m MQSP1A -n 'IBMMSG.RTOW.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.RTOW.TELEX' -t queue -g fop +browse +get +inq 
+setmqaut -m MQSP1A -n 'IBMMSG.RTOW.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'MW.WBS.ALL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.ALL' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'FSS.AIROPS.AFLAFLB.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FSS.AIROPS.AFLAFLB.QL' -t queue -g airops +get +inq 
+setmqaut -m MQSP1A -n 'BKQMP01' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.EXCHGE.TELEX.BACKOUT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.EXCHGE.TELEX.BACKOUT' -t queue -g grpwise +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.MQCONTEXT.ADMIN.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AIRPATH.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AIRPATH.TELEX' -t queue -g eagle +get +inq 
+setmqaut -m MQSP1A -n 'MQ70PD1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -t qmgr -g mqm +altusr +chg +connect +dlt +dsp +inq +set +setall +setid 
+setmqaut -m MQSP1A -t qmgr -g tuxmq +connect 
+setmqaut -m MQSP1A -t qmgr -g airops +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g cia +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g eagle +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g enii +connect 
+setmqaut -m MQSP1A -t qmgr -g fop +connect 
+setmqaut -m MQSP1A -t qmgr -g grpwise +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g meng +connect 
+setmqaut -m MQSP1A -t qmgr -g hrms +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g teffmq +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g ccd +connect 
+setmqaut -m MQSP1A -t qmgr -g aptscs +connect 
+setmqaut -m MQSP1A -t qmgr -g ecx +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g crs +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g ebuy +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g ibmmsg +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g cubic +altusr +chg +connect +dlt +dsp +inq +set +setall +setid 
+setmqaut -m MQSP1A -t qmgr -g ccs +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g mhbr +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g schedadm +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g fsis +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g worldtra +connect +inq 
+setmqaut -m MQSP1A -t qmgr -g staff +altusr +chg +connect +dlt +dsp +inq +set +setall +setid 
+setmqaut -m MQSP1A -t qmgr -g inframws +connect +dsp +inq 
+setmqaut -m MQSP1A -t qmgr -g eff +connect +inq 
+setmqaut -m MQSP1A -n 'CSS.FLC.NOTOC.FRT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'CSS.FLC.NOTOC.FRT' -t queue -g staff +browse +get +inq +put 
+setmqaut -m MQSP1A -n 'EMPACSIN.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'EBBKQMP2' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EBBKQMP2' -t queue -g aptscs +put 
+setmqaut -m MQSP1A -n 'EBBKQMP2' -t queue -g airops +put 
+setmqaut -m MQSP1A -n 'EBBKQMP2' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'EBBKQMP2' -t queue -g worldtra +put 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.ACTIVITY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EBBKQMP1' -t queue -g nobody +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'EBBKQMP1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n SYSTEM.DEF.CLNTCONN -t clntconn -g mqm +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEF.CLNTCONN -t clntconn -g staff +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEF.CLNTCONN -t clntconn -g cubic +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEF.CLNTCONN -t clntconn -g inframws +none 
+setmqaut -m MQSP1A -n 'MW.WBS.NOTOC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.NOTOC' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.RTOW' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.PLNAIX' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g mqm +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g airops +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g grpwise +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g eagle +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g cia +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g teffmq +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g fop +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g hrms +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g ecx +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g aptscs +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g crs +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g ebuy +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g ibmmsg +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g nobody +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g cubic +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g ccs +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g mhbr +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g schedadm +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g fsis +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g worldtra +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g staff +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g cpcs +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g aslsup +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g inframws +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g dld +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g flcusr +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LOCAL.QUEUE -t queue -g eff +none 
+setmqaut -m MQSP1A -n 'GRPWISE.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'GRPWISE.IBMMSG.TELEX' -t queue -g grpwise +put 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.EBBKQMP2.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.NAMELIST -t namelist -g mqm +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.NAMELIST -t namelist -g staff +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.NAMELIST -t namelist -g cubic +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.NAMELIST -t namelist -g inframws +none 
+setmqaut -m MQSP1A -n 'MQSP1A.EAGLE' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.EARS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.EARS.TELEX' -t queue -g ecx +browse +get +inq 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.PROCESS -t process -g mqm +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.PROCESS -t process -g nobody +none 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.PROCESS -t process -g staff +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.PROCESS -t process -g cubic +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.PROCESS -t process -g inframws +none 
+setmqaut -m MQSP1A -n 'WBS.MW.LP' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.LP' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCSCX.TELEX.ACK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.APTSCSCX.TELEX.ACK' -t queue -g aptscs +browse +get +inq 
+setmqaut -m MQSP1A -t qmgr -g mqm +crt 
+setmqaut -m MQSP1A -t qmgr -g tuxmq +none 
+setmqaut -m MQSP1A -t qmgr -g airops +none 
+setmqaut -m MQSP1A -t qmgr -g cia +none 
+setmqaut -m MQSP1A -t qmgr -g eagle +none 
+setmqaut -m MQSP1A -t qmgr -g enii +none 
+setmqaut -m MQSP1A -t qmgr -g fop +none 
+setmqaut -m MQSP1A -t qmgr -g grpwise +none 
+setmqaut -m MQSP1A -t qmgr -g meng +none 
+setmqaut -m MQSP1A -t qmgr -g hrms +none 
+setmqaut -m MQSP1A -t qmgr -g teffmq +none 
+setmqaut -m MQSP1A -t qmgr -g ccd +none 
+setmqaut -m MQSP1A -t qmgr -g aptscs +none 
+setmqaut -m MQSP1A -t qmgr -g ecx +none 
+setmqaut -m MQSP1A -t qmgr -g crs +none 
+setmqaut -m MQSP1A -t qmgr -g ebuy +none 
+setmqaut -m MQSP1A -t qmgr -g ibmmsg +none 
+setmqaut -m MQSP1A -t qmgr -g cubic +crt 
+setmqaut -m MQSP1A -t qmgr -g ccs +none 
+setmqaut -m MQSP1A -t qmgr -g mhbr +none 
+setmqaut -m MQSP1A -t qmgr -g schedadm +none 
+setmqaut -m MQSP1A -t qmgr -g fsis +none 
+setmqaut -m MQSP1A -t qmgr -g worldtra +none 
+setmqaut -m MQSP1A -t qmgr -g staff +crt 
+setmqaut -m MQSP1A -t qmgr -g inframws +none 
+setmqaut -m MQSP1A -t qmgr -g eff +none 
+setmqaut -m MQSP1A -n 'MQSP2B.MQSP1A.CH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n SYSTEM.DEF.SENDER -t channel -g mqm +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEF.SENDER -t channel -g nobody +none 
+setmqaut -m MQSP1A -n SYSTEM.DEF.SENDER -t channel -g staff +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEF.SENDER -t channel -g cubic +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEF.SENDER -t channel -g aslsup +none 
+setmqaut -m MQSP1A -n SYSTEM.DEF.SENDER -t channel -g inframws +none 
+setmqaut -m MQSP1A -n 'MQSP1A.MENG' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP2B.VERIFY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WOS.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.MPL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.MPL' -t queue -g staff +put 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.AUTHINFO.CRLLDAP -t authinfo -g mqm +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.AUTHINFO.CRLLDAP -t authinfo -g staff +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.AUTHINFO.CRLLDAP -t authinfo -g cubic +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.AUTHINFO.CRLLDAP -t authinfo -g inframws +none 
+setmqaut -m MQSP1A -n 'SYSTEM.DEF.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'SYSTEM.DEF.CLUSSDR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'MQSP1A.AIRPATH' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.GRPWISE.MTELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.GRPWISE.MTELEX.QL' -t queue -g grpwise +browse +get +inq 
+setmqaut -m MQSP1A -n 'VERIFICATION' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP1B.VERIFY' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.ACCOUNTING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'SYSTEM.ADMIN.QMGR.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FSSIN.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'WBS.MW.FFR_OUT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.FFR_OUT' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'WBS.MW.LSH' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.LSH' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'WBS.MW.POS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'WBS.MW.POS' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'MQSP1A.DLD' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'COMPONENT.FACTS.EMAILCHK.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LISTENER.TCP -t listener -g mqm +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LISTENER.TCP -t listener -g staff +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LISTENER.TCP -t listener -g cubic +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.LISTENER.TCP -t listener -g inframws +none 
+setmqaut -m MQSP1A -n 'IBMMSG.AIROPS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.AIROPS.TELEX' -t queue -g airops +browse +get +inq 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.SERVICE -t service -g mqm +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.SERVICE -t service -g staff +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.SERVICE -t service -g cubic +crt 
+setmqaut -m MQSP1A -n SYSTEM.DEFAULT.SERVICE -t service -g inframws +none 
+setmqaut -m MQSP1A -n 'SYSTEM.DEFAULT.ALIAS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.CAM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MW.WBS.CAM' -t queue -g staff +browse +get +inq 
+setmqaut -m MQSP1A -n 'MQSP1A.IBMMSG' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'IBMMSG.ACARS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'IBMMSG.ACARS.TELEX' -t queue -g ibmmsg +put 
+setmqaut -m MQSP1A -n 'MQSP1A.MQSP2A.PR' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQSP1A -n 'DLD.PUBSUB.UWSX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'DLD.PUBSUB.UWSX' -t queue -g staff +put 
+setmqaut -m MQSP1A -n 'AMADEUS.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'GRPWISE.IBMMSG.MTELEX.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'GRPWISE.IBMMSG.MTELEX.QR' -t queue -g grpwise +put 
+setmqaut -m MQSP1A -n 'IBMSG.OVFAX.MTELEX.QL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.BK70QMPD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'AIROPS.IBMMSG.MTELEX.QR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'AIROPS.IBMMSG.MTELEX.QR' -t queue -g airops +put 
+setmqaut -m MQSP1A -n 'MQSP1A.TO.BK70QMPD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQSP1A -n 'FLC.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQSP1A -n 'FLC.IBMMSG.TELEX' -t queue -g staff +put 
+setmqaut -m MQSP1A -n '**' -t clntconn -g inframws +dsp 
+setmqaut -m MQSP1A -n '**' -t queue -g inframws +browse +dsp 
+setmqaut -m MQSP1A -n '**' -t namelist -g inframws +dsp 
+setmqaut -m MQSP1A -n '**' -t process -g inframws +dsp 
+setmqaut -m MQSP1A -n '**' -t channel -g inframws +dsp 
+setmqaut -m MQSP1A -n '**' -t authinfo -g inframws +dsp 
+setmqaut -m MQSP1A -n '**' -t listener -g inframws +dsp 
+setmqaut -m MQSP1A -n '**' -t service -g inframws +dsp 

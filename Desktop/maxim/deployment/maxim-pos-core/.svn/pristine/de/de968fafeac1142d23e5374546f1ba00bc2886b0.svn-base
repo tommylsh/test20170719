@@ -1,0 +1,20 @@
+package com.maxim.pos.common.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.maxim.pos.common.entity.ConvertLog;
+import com.maxim.pos.common.persistence.ConvertLogDao;
+
+@Service("convertLogService")
+public class ConvertLogServiceImpl implements ConvertLogService{
+	
+	@Autowired
+	private ConvertLogDao convertLogDao;
+	
+	@Override
+	public void saveOrUpdateConvertLog(ConvertLog convertLog) {
+		convertLogDao.saveOrUpdateConvertLog(convertLog);
+	}
+
+}

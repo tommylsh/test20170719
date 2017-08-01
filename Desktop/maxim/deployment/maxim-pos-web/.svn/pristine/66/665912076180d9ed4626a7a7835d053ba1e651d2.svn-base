@@ -1,0 +1,38 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:cc="http://java.sun.com/jsf/composite/components"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	template="/templates/main.xhtml">
+
+	<ui:define name="title">
+		<cc:titleText title="Welcome" />
+	</ui:define>
+
+	<ui:define name="content">
+		<style>
+.ui-grid-row label {
+	display: inline-block;
+	width: 220px;
+}
+
+.main-grid {
+	padding: 10px
+}
+</style>
+		<script>
+		</script>
+
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row" >
+				<div class="ui-grid-col-10 main-grid" >
+					<h:outputText value="Welcome to MAXIM POS!~" />
+				</div>
+			</div>
+		</div>
+
+	</ui:define>
+</ui:composition>

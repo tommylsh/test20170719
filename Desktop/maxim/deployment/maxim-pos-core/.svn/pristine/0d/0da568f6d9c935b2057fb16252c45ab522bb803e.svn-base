@@ -1,0 +1,32 @@
+package com.maxim.pos.common.persistence;
+
+import com.maxim.dao.HibernateDAO;
+import com.maxim.pos.common.entity.BranchMaster;
+import org.springframework.stereotype.Repository;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Repository("branchMasterDao")
+public class BranchMasterDao extends HibernateDAO {
+
+    private static final String HQL_FIND_BRANCH_MASTER = "findBranchMaster";
+
+    public List<BranchMaster> getBranchMasterList() {
+        return getList(new PosDaoCmd(HQL_FIND_BRANCH_MASTER), BranchMaster.class);
+    }
+
+    public List<BranchMaster> getBranchMasterList(String branchType) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("branchType", branchType);
+        return getList(new PosDaoCmd(HQL_FIND_BRANCH_MASTER, params), BranchMaster.class);
+    }
+
+    public BranchMaster getBranchMaster(String branchCode) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("branchCode", branchCode);
+        return getSingle(new PosDaoCmd(HQL_FIND_BRANCH_MASTER, params), BranchMaster.class);
+    }
+
+}

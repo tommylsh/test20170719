@@ -1,0 +1,23 @@
+package com.maxim.pos.common.config;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.ConditionContext;
+import org.springframework.context.annotation.ConfigurationCondition;
+import org.springframework.core.type.AnnotatedTypeMetadata;
+
+
+public class LocalConfigurationCondition implements ConfigurationCondition {
+
+    	protected @Value("${local.configuration.enable}") boolean enableLocalConfiguraion ;
+
+        @Override
+        public ConfigurationPhase getConfigurationPhase() {
+            return ConfigurationPhase.PARSE_CONFIGURATION;
+        }
+        @Override
+        public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+            // only load context-fragment.xml if the system property is defined
+            return enableLocalConfiguraion  ;
+        }
+
+}

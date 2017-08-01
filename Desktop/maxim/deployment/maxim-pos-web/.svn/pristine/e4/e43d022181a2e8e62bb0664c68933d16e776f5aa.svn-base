@@ -1,0 +1,50 @@
+#parse ("macro.vm")
+package com.maxim.pos.core.service;
+
+import ${entityClassName};
+import com.maxim.pos.core.persistence.${entitySimpleName}Dao;
+import com.maxim.pos.common.value.CommonCriteria;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Transactional
+@Service(${entitySimpleName}Service.BEAN_NAME)
+public class ${entitySimpleName}ServiceImpl implements ${entitySimpleName}Service {
+
+    @Autowired
+    private ${entitySimpleName}Dao #toLowerCase(${entitySimpleName})Dao;
+
+    @Override
+    public void save(${entitySimpleName} #toLowerCase(${entitySimpleName})) {
+        if (#toLowerCase(${entitySimpleName}) == null) {
+        throw new RuntimeException("[Validation failed] - this argument [#toLowerCase(${entitySimpleName})] is required; it must not be null");
+        }
+        #toLowerCase(${entitySimpleName})Dao.save(#toLowerCase(${entitySimpleName}));
+    }
+
+    @Override
+    public void delete(Long #toLowerCase(${entitySimpleName})Id) {
+        if (#toLowerCase(${entitySimpleName})Id == null) {
+            throw new RuntimeException("[Validation failed] - this argument [#toLowerCase(${entitySimpleName})Id] is required; it must not be null");
+        }
+        ${entitySimpleName} scheduleJob = #toLowerCase(${entitySimpleName})Dao.getById(#toLowerCase(${entitySimpleName})Id);
+        if (scheduleJob == null) {
+            throw new RuntimeException("The record which #toLowerCase(${entitySimpleName})Id=" + #toLowerCase(${entitySimpleName})Id + " is not exist.");
+        }
+        #toLowerCase(${entitySimpleName})Dao.delete(scheduleJob);
+    }
+
+    @Override
+    public List<${entitySimpleName}> find${entitySimpleName}ByCriteria(CommonCriteria criteria) {
+        return #toLowerCase(${entitySimpleName})Dao.find${entitySimpleName}ByCriteria(criteria);
+    }
+    
+    @Override
+    public Long get${entitySimpleName}CountByCriteria(CommonCriteria criteria) {
+        return #toLowerCase(${entitySimpleName})Dao.get${entitySimpleName}CountByCriteria(criteria);
+    }
+
+}

@@ -1,0 +1,3 @@
+aesKey=90206f7a4fc149b592a14b7629caad5e
+security.encryptUsername=false
+security.encryptPassword=true

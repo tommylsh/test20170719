@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maxim.core.mapper.CouponSalesMapper" >
+  <insert id="insert" parameterType="com.maxim.api.model.CouponSales" >
+    insert into COUPON_SALES (BRANCH_CODE, ORDER_NO, ORDER_SEQ, 
+      ITEM_SEQ, SUBITEM_SEQ, COUPON_SEQ, 
+      RECALL, BUSINESS_DATE, EVENT_NO, 
+      TRANS_TYPE, TRANS_DATETIME, "UID", 
+      STATION_ID, COUPON_CODE, COUPON_CDESC, 
+      COUPON_EDESC, RANGE_REMARKS, COUPON_START_NO, 
+      COUPON_END_NO, COUPON_QTY, REFUND, 
+      VOID, RESERVED, "STATUS", 
+      LAST_UPDATE_TIME, ROWGUID)
+    values (#{branchCode,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, #{orderSeq,jdbcType=DECIMAL}, 
+      #{itemSeq,jdbcType=DECIMAL}, #{subitemSeq,jdbcType=DECIMAL}, #{couponSeq,jdbcType=DECIMAL}, 
+      #{recall,jdbcType=DECIMAL}, #{businessDate,jdbcType=TIMESTAMP}, #{eventNo,jdbcType=VARCHAR}, 
+      #{transType,jdbcType=VARCHAR}, #{transDatetime,jdbcType=TIMESTAMP}, #{uid,jdbcType=DECIMAL}, 
+      #{stationId,jdbcType=VARCHAR}, #{couponCode,jdbcType=VARCHAR}, #{couponCdesc,jdbcType=VARCHAR}, 
+      #{couponEdesc,jdbcType=VARCHAR}, #{rangeRemarks,jdbcType=VARCHAR}, #{couponStartNo,jdbcType=VARCHAR}, 
+      #{couponEndNo,jdbcType=VARCHAR}, #{couponQty,jdbcType=DECIMAL}, #{refund,jdbcType=CHAR}, 
+      #{voidVal,jdbcType=CHAR}, #{reserved,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{rowguid,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maxim.api.model.CouponSales" >
+    insert into COUPON_SALES
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="branchCode != null" >
+        BRANCH_CODE,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="orderSeq != null" >
+        ORDER_SEQ,
+      </if>
+      <if test="itemSeq != null" >
+        ITEM_SEQ,
+      </if>
+      <if test="subitemSeq != null" >
+        SUBITEM_SEQ,
+      </if>
+      <if test="couponSeq != null" >
+        COUPON_SEQ,
+      </if>
+      <if test="recall != null" >
+        RECALL,
+      </if>
+      <if test="businessDate != null" >
+        BUSINESS_DATE,
+      </if>
+      <if test="eventNo != null" >
+        EVENT_NO,
+      </if>
+      <if test="transType != null" >
+        TRANS_TYPE,
+      </if>
+      <if test="transDatetime != null" >
+        TRANS_DATETIME,
+      </if>
+      <if test="uid != null" >
+        "UID",
+      </if>
+      <if test="stationId != null" >
+        STATION_ID,
+      </if>
+      <if test="couponCode != null" >
+        COUPON_CODE,
+      </if>
+      <if test="couponCdesc != null" >
+        COUPON_CDESC,
+      </if>
+      <if test="couponEdesc != null" >
+        COUPON_EDESC,
+      </if>
+      <if test="rangeRemarks != null" >
+        RANGE_REMARKS,
+      </if>
+      <if test="couponStartNo != null" >
+        COUPON_START_NO,
+      </if>
+      <if test="couponEndNo != null" >
+        COUPON_END_NO,
+      </if>
+      <if test="couponQty != null" >
+        COUPON_QTY,
+      </if>
+      <if test="refund != null" >
+        REFUND,
+      </if>
+      <if test="voidVal != null" >
+        VOID,
+      </if>
+      <if test="reserved != null" >
+        RESERVED,
+      </if>
+      <if test="status != null" >
+        "STATUS",
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="rowguid != null" >
+        ROWGUID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="branchCode != null" >
+        #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderSeq != null" >
+        #{orderSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="itemSeq != null" >
+        #{itemSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="subitemSeq != null" >
+        #{subitemSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="couponSeq != null" >
+        #{couponSeq,jdbcType=DECIMAL},
+      </if>
+      <if test="recall != null" >
+        #{recall,jdbcType=DECIMAL},
+      </if>
+      <if test="businessDate != null" >
+        #{businessDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eventNo != null" >
+        #{eventNo,jdbcType=VARCHAR},
+      </if>
+      <if test="transType != null" >
+        #{transType,jdbcType=VARCHAR},
+      </if>
+      <if test="transDatetime != null" >
+        #{transDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=DECIMAL},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCode != null" >
+        #{couponCode,jdbcType=VARCHAR},
+      </if>
+      <if test="couponCdesc != null" >
+        #{couponCdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="couponEdesc != null" >
+        #{couponEdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="rangeRemarks != null" >
+        #{rangeRemarks,jdbcType=VARCHAR},
+      </if>
+      <if test="couponStartNo != null" >
+        #{couponStartNo,jdbcType=VARCHAR},
+      </if>
+      <if test="couponEndNo != null" >
+        #{couponEndNo,jdbcType=VARCHAR},
+      </if>
+      <if test="couponQty != null" >
+        #{couponQty,jdbcType=DECIMAL},
+      </if>
+      <if test="refund != null" >
+        #{refund,jdbcType=CHAR},
+      </if>
+      <if test="voidVal != null" >
+        #{voidVal,jdbcType=CHAR},
+      </if>
+      <if test="reserved != null" >
+        #{reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rowguid != null" >
+        #{rowguid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

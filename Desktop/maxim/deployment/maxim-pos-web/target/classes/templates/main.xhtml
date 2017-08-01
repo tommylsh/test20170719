@@ -1,0 +1,335 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<f:view contentType="text/html">
+
+	<h:head>
+		<f:facet name="first">
+			<meta http-equiv="X-UA-Compatible" content="EmulateIE8" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title><ui:insert name="title" /></title>
+		</f:facet>
+			
+		<h:outputStylesheet name="grid/grid.css" library="primefaces" />
+		
+		<style>
+#content {
+	width: 100%;
+}
+
+.mainLayout {
+	margin: 5px;
+}
+
+.operationClass {
+	display: block;
+	margin: 0px 10px 0px 0px;
+}
+
+.blockClass {
+	display: block;
+}
+
+.rightMarginClass {
+	margin-right: 10px;
+}
+
+.leftMarginClass {
+    margin-left: 10px;
+}
+
+a {
+	text-decoration: none;
+	color: #009ad6;
+}
+
+.ui-datatable, .ui-datatable-odd {
+	background: #FFF;
+}
+
+.ui-widget, .ui-widget .ui-widget {
+	font-size: 13px !important;
+}
+
+.ui-tooltip .ui-tooltip-text {
+	background-color: #FFFFFF;
+	color: inherit;
+}
+
+.ui-dialog .ui-widget-content {
+	overflow-y: auto;
+}
+
+.innerPanelGridClass .ui-widget-content {
+	border-width: 0px !important;
+    border-style: none !important;
+    padding: 0px !important;
+}
+
+.innerPanelGridClass .ui-widget-content .ui-panelgrid-cell {
+	border-width: 0px !important;
+    border-style: none !important;
+    padding: 0px !important;
+}
+.ui-grid-row {
+	padding-top: 5px;
+}
+
+.ui-grid-row label {
+	display: inline-block;
+	width: 110px;
+}
+
+.ui-state-default .ui-icon-add {
+	background-image: url(#{request.contextPath}/images/add16.png);
+}
+
+.ui-state-default .ui-icon-delete {
+	background-image: url(#{request.contextPath}/images/delete16.png);
+}
+
+.ui-state-default .ui-icon-edit {
+	background-image: url(#{request.contextPath}/images/edit16.png);
+}
+
+.ui-state-default .ui-icon-view {
+	background-image: url(#{request.contextPath}/images/view16.png);
+}
+
+.ui-state-default .ui-icon-save1 {
+	background-image: url(#{request.contextPath}/images/save16.png);
+}
+
+.ui-state-default .ui-icon-cancel {
+	background-image: url(#{request.contextPath}/images/cancel16.png);
+}
+
+.ui-state-default .ui-icon-confirm {
+	background-image: url(#{request.contextPath}/images/yes16.png);
+}
+
+.ui-state-default .ui-icon-yes {
+	background-image: url(#{request.contextPath}/images/yes16.png);
+}
+
+.ui-state-default .ui-icon-search1 {
+	background-image: url(#{request.contextPath}/images/search16.png);
+}
+
+.ui-state-default .ui-icon-user {
+	background-image: url(#{request.contextPath}/images/member16.png);
+}
+
+/** EasyStock **/
+.ui-state-default .ui-icon-category {
+	background-image:
+		url(#{request.contextPath}/images/easystock/category16.png);
+}
+
+.panel-grid-col1 {
+	/* vertical-align: top; */
+	width: 100px; 
+}
+
+.panel-grid-col2 {
+	/* vertical-align: top; */
+	
+}
+
+.panel-grid-col31 {
+    /* vertical-align: top; */
+    width: 45%; 
+}
+
+.panel-grid-col32 {
+    /* vertical-align: top; */
+}
+
+.panel-grid-col33 {
+   /*  vertical-align: top; */
+    width: 45%;
+}
+
+.hight-light-text {
+	font-weight: bold;
+}
+
+.ui-toolbar .ui-selectonemenu {
+	display: inline-flex;
+	margin-right: 5px;
+}
+
+</style>
+		<script type="text/javascript">
+		
+			$(document).ready(function() {
+				var auditLog = {};
+				auditLog.action = 'ACCESS';
+				auditLog.content = document.title + ' Open';
+
+				//requestInsertAuditLog(auditLog);
+				
+				if (!isValidaBrowser()) {
+					alert('Please use Google Chrome to ensure the system function unbroken and correct!');
+					window.opener = null;
+					window.open('', '_self');
+					window.close();
+					
+					$('body').css('display', 'none');	
+				}
+				
+			});
+			
+			function isValidaBrowser() {
+				var userAgent = navigator.userAgent;
+				console.log(userAgent);
+			    if (userAgent.indexOf("Firefox") > -1) {
+			     	return false;   
+			    }
+			    
+			    return true;
+			}
+			
+			window.onbeforeunload = function(e) {
+				var auditLog = {};
+				auditLog.action = 'ACCESS';
+				auditLog.content = document.title + ' Close';
+
+				//requestInsertAuditLog(auditLog);
+			};
+			
+			function requestInsertAuditLog(auditLog) {
+				$.ajax({
+					url: '#{request.contextPath}/spring/auditlog/insert-audit-log',
+					type: 'POST',
+					dataType: 'json',
+					contentType: 'application/json',
+					data: JSON.stringify(auditLog),
+					success: function (data) {
+						console.log('=========insert-audit-log==========');
+						
+						if (data.result) {
+							
+						} else {
+							console.log(data.errorMessage);
+							//alert(data.errorMessage);
+						}
+					}
+				});
+			}
+			
+			function onAjaxStatusStart() {
+				PF('statusDialog').show();
+			}
+			
+			function onAjaxStatusHide() {
+				PF('statusDialog').hide();
+			}
+			
+			function checkDatatableSelection(widgetVar) {
+				if (PF(widgetVar).selection.length == 0) {
+					alert('Please select any record!');
+					return false;
+				} else {
+					if (PF(widgetVar).selection.length > 1) {
+						alert('Please select one record!');
+						return false;						
+					} else {
+						return true;
+					}
+				}
+			}
+			
+			function checkDatatableSelectAnyRecord(widgetVar) {
+				if (PF(widgetVar).selection.length == 0) {
+					alert('Please select any record!');
+					return false;
+				} else {
+					return true;
+				}
+			}
+			
+			function confirmDeleteDatatableRecord(widgetVar) {
+				if (!checkDatatableSelectAnyRecord(widgetVar)) {
+					return false;
+				} else {
+					return confirm('Are you sure to delete?');
+				}
+			}
+			
+			function confirmProcess(text) {
+				return confirm(text || 'Confirm?');
+			}
+			
+			function timeout() {
+				alert('Timeout, please login again!');
+				
+				location.href = '#{request.contextPath}/spring/secure/j_spring_security_logout';
+			}
+			
+			function onPageComplete(dataTableVar) {
+			   console.log('onPageComplete');
+			   var dataTable = PF(dataTableVar);
+			   
+			   dataTable.unselectAllRows();
+		   }
+		</script>
+	</h:head>
+
+	<h:body>
+		<p:notificationBar position="top" effect="slide" styleClass="top" widgetVar="timeoutNotificationBar">
+		    <h:outputText value="Login timeout!" style="font-size:36px;" />
+		</p:notificationBar>
+	
+		<p:growl id="primefaceMessages" showDetail="true" escape="false"/>
+		<p:idleMonitor timeout="1800000" onidle="timeout();" />
+
+		<p:ajaxStatus onstart="onAjaxStatusStart();"
+			onsuccess="onAjaxStatusHide();" />
+
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false"
+			closable="false" resizable="false" showHeader="false">
+			<p:graphicImage value="/images/system/ajaxloadingbar.gif" />
+		</p:dialog>
+		
+		<p:dialog widgetVar="noSelectionDialog" width="180" resizable="false" hideEffect="clip" modal="true">
+			
+			<p:outputPanel style="width: 100%; height: 30px; padding: 5px; border: none; font-weight: bold; font-size: 14px;">
+				<h:outputText value="#{msg['common']['pleaseChoose']}" id="infoDialogMsgText" styleClass="infoDialogMsgText" />
+			</p:outputPanel>
+		    
+		</p:dialog>
+		
+		<p:dialog widgetVar="infoDialog" width="180" height="60" resizable="false" hideEffect="clip">
+		    
+		    <f:facet name="header">
+				<p:graphicImage value="/images/element16.png" />
+				<h:outputText value="#{mgs['common']['info']}" />
+			</f:facet>
+			
+			<p:outputPanel style="width: 100%; border: none; font-weight: bold; font-size: 14px;">
+				<h:outputText value="#{msg['common']['pleaseChoose']}" />
+			</p:outputPanel>
+		    
+		</p:dialog>
+
+		<div id="head" class="ui-widget">
+			<ui:include src="menu.xhtml" />
+		</div>
+		
+		<div id="content" class="ui-widget">
+			<ui:insert name="content" />
+		</div>
+
+		<div id="dialog" class="ui-widget">
+			<ui:insert name="dialog" />
+		</div>
+	</h:body>
+
+</f:view>
+
+</html>

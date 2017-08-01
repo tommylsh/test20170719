@@ -1,0 +1,211 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:c="http://java.sun.com/jsp/jstl/core"
+    xmlns:composite="http://java.sun.com/jsf/composite">
+
+<composite:interface>
+
+    <composite:attribute name="controller" required="true" />
+
+    <composite:attribute name="messagesId" required="true" />
+    <composite:attribute name="tableId" required="true" />
+    <composite:attribute name="entityDialog" required="false" />
+    <composite:attribute name="entityDialogVar" required="false" />
+
+    <composite:attribute name="paginator" required="true" />
+    <composite:attribute name="rows" default="15" />
+    <composite:attribute name="paginatorTemplate"
+        default="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" />
+    <composite:attribute name="rowsPerPageTemplate" default="15" />
+    <composite:attribute name="selection" required="true" />
+    <composite:attribute name="rowKey" default="#{element.id}" />
+
+    <composite:attribute name="lazy" default="true" required="false" />
+    <composite:attribute name="dynamic" default="false" />
+
+    <composite:attribute name="headerImage" default="/images/element24.png" />
+    <composite:attribute name="headerText" required="true" />
+
+    <composite:attribute name="rendered" default="true" required="false" />
+    <composite:attribute name="selectionMode" default="multiple"
+        required="false" />
+    <composite:attribute name="toolbarRequired" default="true" required="false" />
+
+    <composite:attribute name="extendedActionRequired" default="true"
+        required="false" />
+
+    <composite:attribute name="addRequired" default="true" required="false" />
+    <composite:attribute name="hasAddAuthority" default="true" required="false" />
+
+    <composite:attribute name="editRequired" default="true" required="false" />
+    <composite:attribute name="hasEditAuthority" default="true" required="false" />
+
+    <composite:attribute name="deleteRequired" default="true" required="false" />
+    <composite:attribute name="hasDeleteAuthority" default="true"
+        required="false" />
+
+    <composite:attribute name="addMethod" default="#{cc.attrs.controller.add}"
+        required="false" method-signature="void action()" />
+    <composite:attribute name="editMethod" default="#{cc.attrs.controller.edit}"
+        required="false" method-signature="void action()" />
+    <composite:attribute name="deleteMethod"
+        default="#{cc.attrs.controller.delete}" required="false"
+        method-signature="void action()" />
+
+    <composite:attribute name="exportRequired" default="false" required="false" />
+    <composite:attribute name="excludeColumns" default="0" required="false" />
+
+</composite:interface>
+
+<composite:implementation>
+    <script>
+	function checkSelected() {
+		var length = $('tr[aria-selected=true]').length;
+		if (length == 0) {
+			alert('please select record!');
+			return false;
+		}
+		return true;
+	}
+	
+	function exportAll(type) {
+		$("[id$='commonExportPanel']").find('a').each(function(index, element) {
+			if (this.id.indexOf(type) > -1) {
+				this.click();
+				return false;
+			}
+		});
+	}
+	</script>
+
+    <p:toolbar rendered="#{cc.attrs.toolbarRequired}">
+        <p:toolbarGroup align="left">
+            <p:commandButton value="#{msg['common']['add']}"
+                action="#{cc.attrs.addMethod}"
+                update=":#{cc.attrs.entityDialog}"
+                oncomplete="#{cc.attrs.entityDialogVar}.show();"
+                icon="ui-icon-add"
+                rendered="#{cc.attrs.addRequired and cc.attrs.hasAddAuthority}" />
+
+            <p:commandButton value="#{msg['common']['edit']}" process="@form"
+                action="#{cc.attrs.editMethod}"
+                update=":#{cc.attrs.entityDialog}"
+                rendered="#{cc.attrs.editRequired and cc.attrs.hasEditAuthority}"
+                oncomplete="#{cc.attrs.entityDialogVar}.show();"
+                icon="ui-icon-edit"
+                onclick="if (!checkSelected()) return false;" />
+
+            <p:commandButton value="#{msg['common']['delete']}" process="@form"
+                action="#{cc.attrs.deleteMethod}"
+                update="@form :#{cc.attrs.messagesId}" icon="ui-icon-delete"
+                rendered="#{cc.attrs.deleteRequired and cc.attrs.hasDeleteAuthority}"
+                onclick="javascript:if (!checkSelected()) {return false;} else {if(!confirm('#{msg['common']['confirmDelete']}')) return false;}" />
+
+            <c:if test="#{cc.attrs.extendedActionRequired}">
+                <composite:insertChildren name="extraOperation" />
+            </c:if>
+        </p:toolbarGroup>
+
+        <p:toolbarGroup align="right" rendered="#{cc.attrs.exportRequired}">
+            <p:menuButton value="#{msg['common']['export']}">
+                <p:menuitem value="#{msg['common']['xlsAll']}"
+                    onclick="exportAll('xls_all');" ajax="false">
+                </p:menuitem>
+                <p:menuitem value="#{msg['common']['xlsPage']}"
+                    onclick="exportAll('xls_page');" ajax="false">
+                </p:menuitem>
+                <!-- <p:menuitem value="#{msg['common']['pdfAll']}"
+					onclick="exportAll('pdf_all');" ajax="false">
+				</p:menuitem>
+				<p:menuitem value="#{msg['common']['pdfPage']}"
+					onclick="exportAll('pdf_page');" ajax="false">
+				</p:menuitem> -->
+            </p:menuButton>
+        </p:toolbarGroup>
+    </p:toolbar>
+
+    <p:dataTable id="#{cc.attrs.tableId}"
+        value="#{cc.attrs.controller.dataModel}" var="element"
+        paginator="#{cc.attrs.paginator}" rows="#{cc.attrs.rows}"
+        paginatorTemplate="#{cc.attrs.paginatorTemplate}"
+        rowsPerPageTemplate="#{cc.attrs.rowsPerPageTemplate}"
+        selection="#{cc.attrs.selection}" rowKey="#{cc.attrs.rowKey}"
+        lazy="#{cc.attrs.lazy}" dynamic="#{cc.attrs.dynamic}"
+        emptyMessage="#{msg['common']['noRecord']}"
+        rendered="#{cc.attrs.rendered}">
+
+        <f:facet name="header">
+            <p:graphicImage value="#{cc.attrs.headerImage}" />
+            <h:outputText value="#{cc.attrs.headerText}" />
+        </f:facet>
+
+        <p:column selectionMode="#{cc.attrs.selectionMode}" style="width:18px" />
+
+        <composite:insertChildren />
+
+    </p:dataTable>
+
+    <h:panelGrid style="display: none;" id="commonExportPanelGrid">
+
+        <p:panel id="commonExportPanel">
+
+            <h:commandLink id="xls_all">
+                <p:graphicImage value="/images/excel.png" />
+                <h:outputText value="#{msg['common']['excel']}" />
+                <p:dataExporter type="xls" target="#{cc.attrs.tableId}"
+                    fileName="allElements"
+                    excludeColumns="#{cc.attrs.excludeColumns}" />
+            </h:commandLink>
+
+            <p:spacer width="10" />
+
+            <h:commandLink id="xls_page">
+                <p:graphicImage value="/images/excel.png" />
+                <h:outputText value="#{msg['common']['xls']}" />
+                <p:dataExporter type="xls" target="#{cc.attrs.tableId}"
+                    fileName="pageElements" pageOnly="true"
+                    excludeColumns="#{cc.attrs.excludeColumns}" />
+            </h:commandLink>
+
+            <p:spacer width="10" />
+
+            <h:commandLink id="pdf_all">
+                <p:graphicImage value="/images/pdf.png" />
+                <h:outputText value="#{msg['common']['pdf']}" />
+                <p:dataExporter type="pdf" target="#{cc.attrs.tableId}"
+                    fileName="allElements"
+                    excludeColumns="#{cc.attrs.excludeColumns}" encoding="gbk" />
+            </h:commandLink>
+
+            <p:spacer width="10" />
+
+            <h:commandLink id="pdf_page">
+                <p:graphicImage value="/images/pdf.png" />
+                <h:outputText value="#{msg['common']['pdf']}" />
+                <p:dataExporter type="pdf" target="#{cc.attrs.tableId}"
+                    fileName="pageElements" pageOnly="true"
+                    excludeColumns="#{cc.attrs.excludeColumns}" encoding="gbk" />
+            </h:commandLink>
+
+        </p:panel>
+
+    </h:panelGrid>
+</composite:implementation>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

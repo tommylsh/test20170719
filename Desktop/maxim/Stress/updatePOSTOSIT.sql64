@@ -1,0 +1,446 @@
+
+
+SET IMPLICIT_TRANSACTIONS ON
+
+select * from dbo.POLL_APPLICATION_SETTING with (xlock)
+where code = 'EOD_START_BUSINESSDATE'
+
+
+
+commit
+
+
+
+
+insert into poll_eod_control 
+select CREATE_TIME             ,CREATE_USER                                        ,LAST_UPDATE_TIME        ,LAST_UPDATE_USER                                   ,
+new ,'2017-04-20'    ,STATUS 
+from  poll_eod_control a , (select BRANCH_CODE as new from dbo.POLL_BRANCH_MASTER) as  b
+where branch_code='1002' and business_date='2016-04-20'
+
+
+
+
+SET IMPLICIT_TRANSACTIONS OFF
+
+
+
+select * from dbo.POLL_BRANCH_INFO where poll_branch_info_id=45
+
+
+select * from dbo.POLL_BRANCH_INFO where poll_branch_info_id=23
+
+
+delete from poll_eod_control where business_date>='2017-04-07' and branch_code='4117'
+delete from poll_eod_control where business_date='2017-04-26' and branch_code='4117'
+
+
+select * from  poll_eod_control where  branch_code='4117'
+
+
+update dbo.POLL_BRANCH_INFO 
+set client_db='pos_uat' , client_host='10.104.17.66'
+where poll_branch_info_id=23
+
+
+update dbo.POLL_BRANCH_INFO 
+set client_db='pos' , client_host='10.104.17.70', login_password='Passw@rd'
+where poll_branch_info_id=24
+
+
+
+
+select * from POLL_BRANCH_SCHEME 
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code = '7001' )
+and poll_branch_info_id <> 30
+
+update  POLL_BRANCH_SCHEME 
+set poll_branch_info_id =23
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code = '7001' )
+and poll_branch_info_id <> 30
+
+
+
+select * from POLL_BRANCH_SCHEME 
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code = '7002' )
+and poll_branch_info_id <> 30
+
+update  POLL_BRANCH_SCHEME 
+set poll_branch_info_id =24
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code = '7002' )
+and poll_branch_info_id <> 30
+
+
+
+update POLL_BRANCH_SCHEME set is_enabled = 1
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code > '7000' and  branch_code <='7002' )
+
+
+
+select * from poll_eod_control  where branch_code > '7000' and  branch_code <='7002'
+ 
+ 
+ 
+delete from poll_eod_control where business_date='2017-05-05' and  branch_code ='7001';
+delete from poll_eod_control where business_date='2017-05-05' and  branch_code ='7002';
+ 
+  
+ 
+
+
+update dbo.POLL_BRANCH_INFO 
+set client_db='esb_sit' , client_host='10.10.31.73'
+where poll_branch_info_id=23
+
+update dbo.POLL_BRANCH_INFO 
+set client_db='pos4117' , client_host='10.104.17.66'
+where poll_branch_info_id=23
+
+update dbo.POLL_BRANCH_INFO 
+set client_db='pos4466' , client_host='10.104.17.66', login_password='P@ssw0rd'
+where poll_branch_info_id=24
+
+
+
+
+update dbo.POLL_BRANCH_INFO 
+set client_db='esb_sit' , client_host='10.10.31.73'
+where poll_branch_info_id=45
+	
+
+
+
+
+update dbo.POLL_BRANCH_INFO 
+set client_db='pos_uat' , client_host='10.104.17.66'
+where poll_branch_info_id=45
+
+
+pos_uat	10.104.17.66
+
+
+update POLL_BRANCH_SCHEME set is_enabled = 0
+
+
+select *  from poll_eod_control where business_date='2017-04-26' 
+delete from poll_eod_control where business_date='2017-04-26' 
+
+
+
+update POLL_BRANCH_SCHEME set is_enabled = 1
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code > '1000' and  branch_code <='1100' )
+
+
+delete from poll_eod_control where business_date>='2017-04-07' and branch_code > '1000' and  branch_code <='1100'
+
+select *  from poll_eod_control where   branch_code > '1000' and  branch_code <='1100'
+
+
+
+select * from POLL_BRANCH_SCHEME 
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code > '1000' and  branch_code <='1500' )
+
+select * from  dbo.POLL_BRANCH_MASTER where branch_code > '1000' and  branch_code <='2002' 
+order by branch_code
+
+
+update POLL_BRANCH_SCHEME set is_enabled = 1
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code > '1000' and  branch_code <='1002' )
+
+update POLL_BRANCH_SCHEME set is_enabled = 1
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code  ='4117' )
+
+
+
+select * from POLL_BRANCH_SCHEME 
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code  ='4117' )
+
+update POLL_BRANCH_SCHEME set is_enabled = 1
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code > '1001' and  branch_code <='1012' )
+
+
+
+
+update POLL_BRANCH_SCHEME set is_enabled = 1
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code > '1012' and  branch_code <='1042' )
+
+
+
+update POLL_BRANCH_SCHEME set is_enabled = 1
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code > '1042' and  branch_code <='1142' )
+
+
+
+
+update POLL_BRANCH_SCHEME set is_enabled = 1
+where 
+POLL_BRANCH_MASTER_ID
+in (
+select POLL_BRANCH_MASTER_ID from  dbo.POLL_BRANCH_MASTER where branch_code > '1000' and  branch_code <='1500' )
+
+
+
+
+
+select * from  dbo.POLL_BRANCH_MASTER where branch_code >= '1000' and  branch_code <'1200' 
+order by branch_code
+
+
+select CREATE_TIME             ,CREATE_USER                                        ,LAST_UPDATE_TIME        ,LAST_UPDATE_USER                                   ,
+BRANCH_CODE ,BUSINESS_DATE    ,STATUS 
+from poll_eod_control where business_date='2017-04-26' order by branch_code
+
+
+
+delete from poll_eod_control where business_date='2017-04-26' 
+
+ and  branch_code > '1012' and  branch_code <='1042'
+ 
+ 
+order by branch_code
+
+
+select * from poll_eod_control where branch_code='4117'
+ 
+ 
+update poll_eod_control 
+set  business_date='2017-04-06'
+where branch_code='4117'
+ 
+
+select * from poll_eod_control where business_date='2017-04-26' 
+
+ and  branch_code='1002'
+ 
+delete from poll_eod_control where business_date='2017-04-26' 
+
+ and  branch_code='1002'
+ 
+
+
+select * from poll_eod_control where business_date='2017-04-26' 
+
+ and  branch_code > '1000' and  branch_code <='1001'
+ 
+
+delete from poll_eod_control where business_date='2017-04-26' 
+
+ and  branch_code > '1001' and  branch_code <='1002'
+ 
+
+select * 
+
+
+
+insert into poll_eod_control 
+select CREATE_TIME             ,CREATE_USER                                        ,LAST_UPDATE_TIME        ,LAST_UPDATE_USER                                   ,
+new ,'2017-04-01'    ,STATUS 
+from  poll_eod_control a , (select BRANCH_CODE as new from dbo.POLL_BRANCH_MASTER) as  b
+where branch_code='1002' and business_date='2016-04-20'
+
+
+
+select * from  dbo.POLL_BRANCH_MASTER 
+
+
+update dbo.POLL_SCHEME_JOB_LOG 
+set STATUS='FAILED'
+where LAST_JOB_IND  ='Y'
+and status='PROGRESS'
+
+
+
+update dbo.TASK_JOB_LOG 
+set STATUS='FAILED'
+where LASTTEST_JOB_IND  ='Y'
+and STATUS='PROGRESS'
+
+
+
+update dbo.TASK_JOB_LOG 
+set STATUS='FAILED'
+where LASTTEST_JOB_IND  ='Y'
+and branch_code='1001'
+
+
+
+update dbo.TASK_JOB_LOG 
+set LASTTEST_JOB_IND  ='N'
+where LASTTEST_JOB_IND  ='Y'
+and branch_code='1001'
+
+
+
+update dbo.TASK_JOB_LOG 
+set STATUS='PROGRESS'
+where LASTTEST_JOB_IND  ='Y'
+and branch_code='1001'
+and poll_scheme_type='SALES_EOD'
+and direction='POS_TO_STG'
+
+select * from dbo.TASK_JOB_LOG 
+where LASTTEST_JOB_IND  ='Y'
+and branch_code='1001'
+
+
+
+select convert(varchar(5),branch_code), start_time, end_time, status
+from task_job_log
+where lasttest_job_ind = 'Y'
+and poll_scheme_type='SALES_EOD'
+and direction='POS_TO_STG'
+and start_time  > '2017-04-28 18:00:00'
+order by branch_code
+
+select * from TASK_JOB_LOG with (NOLOCK)
+
+
+
+select count(1) from TASK_JOB_LOG with (NOLOCK)
+
+
+
+select * from TASK_JOB_LOG where branch_code='1005'
+
+
+
+update dbo.TASK_JOB_LOG 
+set STATUS='FAILED'
+where STATUS='PROGRESS'
+
+
+update dbo.POLL_SCHEME_JOB_LOG 
+set STATUS='FAILED'
+where   status='PROGRESS'
+
+
+delete from TASK_JOB_EXECEPTION_DETAIL
+where task_job_log_id in 
+( select task_job_log_id
+FROM Task_Job_Log 
+           WHERE STATUS = 'NONE'
+)
+
+delete
+FROM Task_Job_Log 
+           WHERE STATUS = 'NONE'
+           and branch_code='1188'
+           
+
+select *
+FROM Task_Job_Log 
+           WHERE STATUS = 'NONE'
+           and branch_code='1050'
+    
+    
+    delete
+FROM Task_Job_Log 
+           WHERE STATUS = 'PENDING'
+           
+           
+    
+           
+           select TOP 10 * from POLL_SCHEME_JOB_LOG where schedule_job_id=30 order by last_update_Time desc
+           
+           
+           
+           
+                 
+        update  POLL_SCHEME_SCHEDULE_JOB  set is_enable='1' where schedule_job_id=33
+           
+           
+                 
+        update  POLL_SCHEME_SCHEDULE_JOB  set POLL_SCHEME_DIRECTION ='DAYEND_REPORT' where schedule_job_id=35
+           
+        
+selec        dbo.POLL_BRANCH_SCHEME
+        
+select * from        dbo.POLL_SCHEME_SCHEDULE_JOB
+
+insert into dbo.POLL_SCHEME_SCHEDULE_JOB values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','0 0 * * * ?', '1','every 1 hour to run', 'Report Job', 'Report Job','DAYEND_REPORT','REPORT');
+insert into dbo.POLL_SCHEME_SCHEDULE_JOB values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','0 0/10 * * * ?', '1','every 10 minutes to run', 'Octopus Job', 'JCR','OCT_JCR','OCT_TO_POS');
+insert into dbo.POLL_SCHEME_SCHEDULE_JOB values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','0 0/10 * * * ?', '1','every 10 minutes to run', 'Octopus Job', 'AROME','OCT_AROME','OCT_TO_POS');
+insert into dbo.POLL_SCHEME_SCHEDULE_JOB values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','0 0/10 * * * ?', '1','every 10 minutes to run', 'Octopus Job', 'OTHER','OCT_OTHER','OCT_TO_POS');
+
+
+
+Mail Job	Mail Job	STG_TO_SMTP	SMTP
+'Email Address For Report','tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk,ITDBA@maxims.com.hk');
+
+2017-05-02 10:40:35.000	ESB_SYSTEM	2017-05-02 10:40:36.000	ESB_SYSTEM	0 0 1 * * ?	1	 every 1 day to  run	HOUSE_KEEPING	HOUSE_KEEPING
+
+select * from dbo.POLL_APPLICATION_SETTING
+
+tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk,ITDBA@maxims.com.hk
+update POLL_APPLICATION_SETTING set code_value='tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk' where code in('ALERT_EMAIL','REPORT_EMAIL')
+
+
+
+insert into dbo.POLL_APPLICATION_SETTING values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','REPORT_EMAIL', 'Email Address For Report','tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk,ITDBA@maxims.com.hk');
+insert into dbo.POLL_APPLICATION_SETTING values(getdate(),'ESB_SYSTEM',getdate(),'ESB_SYSTEM','ALERT_EMAIL',  'Email Address For Email Alert','tommy.leung@buzz-it.com.hk;edward.leung@buzz-it.com.hk,ITDBA@maxims.com.hk');
+
+
+2017-04-06 00:00:00.000	ESB_SYSTEM	2017-04-26 11:16:40.190	admin	ALERT_EMAIL	SMTP	
+
+
+select '[' + mapping_branch_code + ']' from dbo.POLL_BRANCH_MASTER where branch_code ='5120'
+select '[' + branch_code + ']' from dbo.hist_orders where branch_code ='5120'
+
+
+
+
+
+select * from dbo.POLL_SCHEME_JOB_LOG
+where schedule_job_id=33
+
+
+update dbo.TASK_JOB_EXECEPTION_DETAIL
+set status='D'
+
+
+
+
+           
+           
+           
+           
+           

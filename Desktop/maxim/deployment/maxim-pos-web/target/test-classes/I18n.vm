@@ -1,0 +1,4 @@
+#parse ("macro.vm")
+#foreach($name in ${fieldList})
+pos.$name=$name
+#end

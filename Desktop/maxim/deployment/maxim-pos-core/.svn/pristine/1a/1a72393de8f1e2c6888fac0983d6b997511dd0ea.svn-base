@@ -1,0 +1,20 @@
+package com.maxim.pos.common.service;
+
+import java.util.Date;
+
+import org.slf4j.Logger;
+
+import com.maxim.pos.common.entity.BranchScheme;
+
+public interface PosSystemService {	
+	/**
+	 * check EOD is Complete
+	 *  select HIST_POS_SYSTEM by branchCode and businessDate= date
+	 * @param branchCode
+	 * @param date
+	 * @return if exist record return true  else return false
+	 */
+//	public boolean checkEodComplete(String branchCode,Date date);
+
+	public boolean checkEodComplete(BranchScheme branchScheme,Logger logger);
+}

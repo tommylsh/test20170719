@@ -1,0 +1,269 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core"
+                xmlns:cc="http://java.sun.com/jsf/composite/components"
+                xmlns:sec="http://www.springframework.org/security/tags"
+                template="/templates/main.xhtml">
+    <ui:define name="title">
+        <cc:titleText title="#{msg['pos']['schemeInfo']}"/>
+    </ui:define>
+    <ui:define name="content">
+        <style>
+            .schemeInfoDataTable table tbody td {
+                white-space: normal;
+                word-wrap: break-word;
+            }
+        </style>
+        <script>
+            function checkElementSelection() {
+                if (PF('schemeInfoDataTableVar').selection.length == 0) {
+                    PF('infoDialog').show();
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        </script>
+        <h:form id="schemeInfoDataTableForm">
+
+            <p:panel header="#{msg['common']['search']}" style="width: 100%;">
+                <h:panelGrid columns="12">
+                    <h:outputLabel for="name" value="#{msg['pos']['pollSchemeType']}"/>
+                    <p:selectOneMenu id="name"
+                                     value="#{schemeInfoController.dataModel.dataModelQuery.criteria.pollSchemeType}"
+                                     filter="false" required="true">
+                        <f:selectItem itemLabel="SALES_REALTIME" itemValue="SALES_REALTIME"/>
+                        <f:selectItem itemLabel="SALES_EOD" itemValue="SALES_EOD"/>
+                        <f:selectItem itemLabel="MASTER" itemValue="MASTER"/>
+                    </p:selectOneMenu>
+                    <p:commandButton id="searchButton" value="#{msg['common']['search']}"
+                                     update="schemeInfoDataTable" icon="ui-icon-search1"
+                                     style=" margin-left: 10px;"/>
+                </h:panelGrid>
+            </p:panel>
+
+            <cc:spacer/>
+            <p:toolbar id="toolbar">
+                <p:toolbarGroup align="left">
+                    <p:commandButton id="addBtn" value="#{msg['common']['add']}"
+                                     process="@this" action="#{schemeInfoController.add}"
+                                     update=":schemeInfoDialogForm"
+                                     oncomplete="PF('schemeInfoDialogVar').show();"
+                                     icon="ui-icon-add"/>
+                    <p:commandButton id="editBtn" value="#{msg['common']['edit']}"
+                                     process="@form"
+                                     update=":schemeInfoDialogForm"
+                                     oncomplete="PF('schemeInfoDialogVar').show();" icon="ui-icon-edit"
+                                     onclick="if (!checkDatatableSelection('schemeInfoDataTableVar')) return false;"/>
+                    <p:commandButton id="deleteBtn"
+                                     value="#{msg['common']['delete']}" process="@form"
+                                     action="#{schemeInfoController.delete}"
+                                     update=":schemeInfoDataTableForm:schemeInfoDataTable"
+                                     icon="ui-icon-delete"
+                                     onclick="if (!confirmDeleteDatatableRecord('schemeInfoDataTableVar')) return false;"
+                                     rendered="#{commonController.loginUser.isAdmin()}"/>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <cc:spacer height="3"/>
+
+            <p:dataTable id="schemeInfoDataTable" styleClass="schemeInfoDataTable"
+                         widgetVar="schemeInfoDataTableVar" var="element"
+                         value="#{schemeInfoController.dataModel}"
+                         selection="#{schemeInfoController.schemeInfo}"
+                         paginator="true"
+                         paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                         emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+                <f:facet name="header">
+                    <p:graphicImage value="/images/record16.png"/>
+                    <h:outputText value="#{msg['pos']['schemeInfo']}"/>
+                </f:facet>
+                <p:column selectionMode="single" style="width:16px; text-align:center"/>
+                <p:column style="width:32px; text-align: center;">
+                    <p:commandButton update=":schemeInfoDataTableForm:tableColumn"
+                                     oncomplete="PF('tableColumnDialogVar').show()"
+                                     icon="ui-icon-search" title="#{msg['pos']['tableColumn']}">
+                        <f:setPropertyActionListener value="#{element.id}"
+                                                     target="#{schemeTableColumnController.schemeInfoId}"/>
+                    </p:commandButton>
+                </p:column>
+                <p:column headerText="#{msg['pos']['pollSchemeType']}">
+                    <h:outputText value="#{element.pollSchemeType}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['clientType']}">
+                    <h:outputText value="#{element.clientType}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['source']}">
+                    <h:outputText value="#{element.source}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['destination']}">
+                    <h:outputText value="#{element.destination}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['destCheckSumCols']}">
+                    <h:outputText value="#{element.destCheckSumCols}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['destKeyColumns']}">
+                    <h:outputText value="#{element.destKeyColumns}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['srcCheckSumCols']}">
+                    <h:outputText value="#{element.srcCheckSumCols}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['srcKeyColumns']}">
+                    <h:outputText value="#{element.srcKeyColumns}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['delimiter']}">
+                    <h:outputText value="#{element.delimiter}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['consistentStructure']}">
+                    <h:outputText value="#{element.consistentStructure}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['isOverride']}">
+                    <h:outputText value="#{element.override}"/>
+                </p:column>
+                <p:column headerText="#{msg['pos']['splitDateRequired']}">
+                    <h:outputText value="#{element.splitDateRequired}"/>
+                </p:column>
+            </p:dataTable>
+
+            <p:dialog widgetVar="tableColumnDialogVar" width="80%"
+                      modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+                <p:outputPanel id="tableColumn" style="text-align:center;">
+                    <p:dataTable id="schemeTableColumnDataTable"
+                                 widgetVar="schemeTableColumnDataTableVar" var="element"
+                                 value="#{schemeTableColumnController.dataModel}"
+                                 selection="#{schemeTableColumnController.schemeTableColumn}"
+                                 paginator="true"
+                                 rowsPerPageTemplate="15" rows="15" lazy="true" dynamic="true"
+                                 emptyMessage="#{msg['common']['noRecord']}" rowKey="#{element.id}">
+                        <f:facet name="header">
+                            <p:graphicImage value="/images/record16.png"/>
+                            <h:outputText value="#{msg['pos']['schemeTableColumn']}"/>
+                        </f:facet>
+                        <!--<p:column selectionMode="single" style="width:16px; text-align:center"/>-->
+                        <p:column headerText="#{msg['pos']['seq']}">
+                            <h:outputText value="#{element.seq}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['fromColumn']}">
+                            <h:outputText value="#{element.fromColumn}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['fromColumnFormat']}">
+                            <h:outputText value="#{element.fromColumnFormat}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['fromColumnLength']}">
+                            <h:outputText value="#{element.fromColumnLength}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['toColumn']}">
+                            <h:outputText value="#{element.toColumn}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['toColumnFormat']}">
+                            <h:outputText value="#{element.toColumnFormat}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['toColumnLength']}">
+                            <h:outputText value="#{element.toColumnLength}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['fromColumnPrecision']}">
+                            <h:outputText value="#{element.fromColumnPrecision}"/>
+                        </p:column>
+                        <p:column headerText="#{msg['pos']['toColumnPrecision']}">
+                            <h:outputText value="#{element.toColumnPrecision}"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:outputPanel>
+            </p:dialog>
+
+        </h:form>
+    </ui:define>
+
+    <ui:define name="dialog">
+        <p:dialog id="schemeInfoDialog"
+                  widgetVar="schemeInfoDialogVar" modal="true" width="600"
+                  resizable="false">
+            <f:facet name="header">
+                <p:graphicImage value="/images/element16.png"/>
+                <h:outputText value="#{msg['pos']['schemeInfo']} #{msg['pos']['detail']}"/>
+            </f:facet>
+            <h:form id="schemeInfoDialogForm">
+                <h:panelGrid id="formPanel" columns="2"
+                             columnClasses="panel-grid-col1,panel-grid-col2" cellpadding="5" style="width: 100%;"
+                             rendered="#{schemeInfoController.schemeInfo != null}">
+                    <h:outputLabel for="pollSchemeType" value="#{msg['pos']['pollSchemeType']}"/>
+                    <p:selectOneListbox id="pollSchemeType" value="#{schemeInfoController.schemeInfo.pollSchemeType}"
+                                        filter="false" required="true" style="width: 50%">
+                        <f:selectItem itemLabel="SALES_REALTIME" itemValue="SALES_REALTIME"/>
+                        <f:selectItem itemLabel="SALES_EOD" itemValue="SALES_EOD"/>
+                        <f:selectItem itemLabel="MASTER" itemValue="MASTER"/>
+                    </p:selectOneListbox>
+                    <h:outputLabel for="clientType" value="#{msg['pos']['clientType']}"/>
+                    <p:selectOneListbox id="clientType" value="#{schemeInfoController.schemeInfo.clientType}"
+                                        filter="false" required="true" style="width: 50%">
+                        <f:selectItem itemLabel="SQLSERVER" itemValue="SQLSERVER"/>
+                        <f:selectItem itemLabel="SQLPOS" itemValue="SQLPOS"/>
+                        <f:selectItem itemLabel="ORACLE" itemValue="ORACLE"/>
+                        <f:selectItem itemLabel="DBF" itemValue="DBF"/>
+                        <f:selectItem itemLabel="CSV" itemValue="CSV"/>
+                        <f:selectItem itemLabel="TEXT" itemValue="TEXT"/>
+                    </p:selectOneListbox>
+                    <h:outputLabel for="source" value="#{msg['pos']['source']}"/>
+                    <p:inputText id="source" value="#{schemeInfoController.schemeInfo.source}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="destination" value="#{msg['pos']['destination']}"/>
+                    <p:inputText id="destination" value="#{schemeInfoController.schemeInfo.destination}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="destCheckSumCols" value="#{msg['pos']['destCheckSumCols']}"/>
+                    <p:inputText id="destCheckSumCols" value="#{schemeInfoController.schemeInfo.destCheckSumCols}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="destKeyColumns" value="#{msg['pos']['destKeyColumns']}"/>
+                    <p:inputText id="destKeyColumns" value="#{schemeInfoController.schemeInfo.destKeyColumns}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="srcCheckSumCols" value="#{msg['pos']['srcCheckSumCols']}"/>
+                    <p:inputText id="srcCheckSumCols" value="#{schemeInfoController.schemeInfo.srcCheckSumCols}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="srcKeyColumns" value="#{msg['pos']['srcKeyColumns']}"/>
+                    <p:inputText id="srcKeyColumns" value="#{schemeInfoController.schemeInfo.srcKeyColumns}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="delimiter" value="#{msg['pos']['delimiter']}"/>
+                    <p:inputText id="delimiter" value="#{schemeInfoController.schemeInfo.delimiter}"
+                                 style="width: 95%"/>
+                    <h:outputLabel for="consistentStructure" value="#{msg['pos']['consistentStructure']}"/>
+                    <p:inputSwitch id="consistentStructure"
+                                   value="#{schemeInfoController.schemeInfo.consistentStructure}"/>
+                    <h:outputLabel for="isOverride" value="#{msg['pos']['isOverride']}"/>
+                    <p:inputSwitch id="isOverride" value="#{schemeInfoController.schemeInfo.override}"/>
+                    <h:outputLabel for="splitDateRequired" value="#{msg['pos']['splitDateRequired']}"/>
+                    <p:inputSwitch id="splitDateRequired" value="#{schemeInfoController.schemeInfo.splitDateRequired}"/>
+                    <h:outputLabel for="autoMappingColumn" value="#{msg['pos']['autoMappingColumn']}"
+                                   rendered="#{schemeInfoController.schemeInfo.id == null}"/>
+                    <p:inputSwitch id="autoMappingColumn" value="#{schemeInfoController.autoMappingColumn}"
+                                   rendered="#{schemeInfoController.schemeInfo.id == null}"/>
+                    <p:spacer/>
+                    <h:panelGroup style="width: 95%; display: inline-block; text-align: right;">
+                        <p:commandButton id="submitButton" value="#{msg['common']['save']}"
+                                         actionListener="#{schemeInfoController.save}"
+                                         update="@form :schemeInfoDataTableForm :primefaceMessages"
+                                         oncomplete="handleComplete(xhr, status, args)"
+                                         icon="ui-icon-save1" style=" margin-right: -7px;"/>
+                    </h:panelGroup>
+                </h:panelGrid>
+            </h:form>
+        </p:dialog>
+        <script type="text/javascript">
+            function handleComplete(xhr, status, args) {
+                if (args.validationFailed) {
+                    PF('schemeInfoDialogVar').jq.effect("shake", {
+                        times: 3
+                    }, 100);
+                } else {
+                    PF('schemeInfoDialogVar').hide();
+                }
+            }
+            $(document).bind("keyup", function (evt) {
+                if (27 == evt.keyCode) {
+                    PF('schemeInfoDialogVar').hide();
+                }
+            });
+        </script>
+    </ui:define>
+</ui:composition>

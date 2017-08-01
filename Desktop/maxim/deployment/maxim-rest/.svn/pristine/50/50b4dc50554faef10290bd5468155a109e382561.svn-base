@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.maxim.core.mapper.OrdersPayMapper" >
+  <insert id="insert" parameterType="com.maxim.api.model.OrdersPay" >
+    insert into ORDERS_PAY (BRANCH_CODE, BUSINESS_DATE, ORDER_NO, 
+      PAY_SEQ, TRANS_DATETIME, UID_CD, 
+      STATION_ID, PAY_CODE, PAY_CDESC, 
+      PAY_EDESC, PRN_CDESC, PRN_EDESC, 
+      CURY_NO, TENDER, EXCH_RATE, 
+      PAY_QTY, PAY_AMT, TIPS, 
+      "CHANGE", CARD_TYPE, SUB_CARD_TYPE, 
+      ENTRY_MODE, CARD_NO, CARD_HOLDER_NAME, 
+      REQUEST_CODE, RESPONSE_CODE, BATCH_NO, 
+      TRACE_NO, APPROVAL_CODE, PRV_VAL, 
+      NEW_VAL, CURY_PRV_VAL, CURY_NEW_VAL, 
+      RECALL, REFUND, VOID_CD, 
+      PENDING, RESERVED, "STATUS", 
+      LAST_UPDATE_TIME, ROWGUID)
+    values (#{branchCode,jdbcType=VARCHAR}, #{businessDate,jdbcType=TIMESTAMP}, #{orderNo,jdbcType=VARCHAR}, 
+      #{paySeq,jdbcType=DECIMAL}, #{transDatetime,jdbcType=TIMESTAMP}, #{uid,jdbcType=DECIMAL}, 
+      #{stationId,jdbcType=VARCHAR}, #{payCode,jdbcType=VARCHAR}, #{payCdesc,jdbcType=OTHER}, 
+      #{payEdesc,jdbcType=OTHER}, #{prnCdesc,jdbcType=OTHER}, #{prnEdesc,jdbcType=OTHER}, 
+      #{curyNo,jdbcType=CHAR}, #{tender,jdbcType=DECIMAL}, #{exchRate,jdbcType=DECIMAL}, 
+      #{payQty,jdbcType=DECIMAL}, #{payAmt,jdbcType=DECIMAL}, #{tips,jdbcType=DECIMAL}, 
+      #{change,jdbcType=DECIMAL}, #{cardType,jdbcType=VARCHAR}, #{subCardType,jdbcType=VARCHAR}, 
+      #{entryMode,jdbcType=VARCHAR}, #{cardNo,jdbcType=VARCHAR}, #{cardHolderName,jdbcType=VARCHAR}, 
+      #{requestCode,jdbcType=VARCHAR}, #{responseCode,jdbcType=VARCHAR}, #{batchNo,jdbcType=VARCHAR}, 
+      #{traceNo,jdbcType=VARCHAR}, #{approvalCode,jdbcType=VARCHAR}, #{prvVal,jdbcType=DECIMAL}, 
+      #{newVal,jdbcType=DECIMAL}, #{curyPrvVal,jdbcType=DECIMAL}, #{curyNewVal,jdbcType=DECIMAL}, 
+      #{recall,jdbcType=DECIMAL}, #{refund,jdbcType=CHAR}, #{voidVal,jdbcType=CHAR}, 
+      #{pending,jdbcType=DECIMAL}, #{reserved,jdbcType=VARCHAR}, #{status,jdbcType=CHAR}, 
+      #{lastUpdateTime,jdbcType=TIMESTAMP}, #{rowguid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.maxim.api.model.OrdersPay" >
+    insert into ORDERS_PAY
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="branchCode != null" >
+        BRANCH_CODE,
+      </if>
+      <if test="businessDate != null" >
+        BUSINESS_DATE,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="paySeq != null" >
+        PAY_SEQ,
+      </if>
+      <if test="transDatetime != null" >
+        TRANS_DATETIME,
+      </if>
+      <if test="uid != null" >
+        "UID",
+      </if>
+      <if test="stationId != null" >
+        STATION_ID,
+      </if>
+      <if test="payCode != null" >
+        PAY_CODE,
+      </if>
+      <if test="payCdesc != null" >
+        PAY_CDESC,
+      </if>
+      <if test="payEdesc != null" >
+        PAY_EDESC,
+      </if>
+      <if test="prnCdesc != null" >
+        PRN_CDESC,
+      </if>
+      <if test="prnEdesc != null" >
+        PRN_EDESC,
+      </if>
+      <if test="curyNo != null" >
+        CURY_NO,
+      </if>
+      <if test="tender != null" >
+        TENDER,
+      </if>
+      <if test="exchRate != null" >
+        EXCH_RATE,
+      </if>
+      <if test="payQty != null" >
+        PAY_QTY,
+      </if>
+      <if test="payAmt != null" >
+        PAY_AMT,
+      </if>
+      <if test="tips != null" >
+        TIPS,
+      </if>
+      <if test="change != null" >
+        "CHANGE",
+      </if>
+      <if test="cardType != null" >
+        CARD_TYPE,
+      </if>
+      <if test="subCardType != null" >
+        SUB_CARD_TYPE,
+      </if>
+      <if test="entryMode != null" >
+        ENTRY_MODE,
+      </if>
+      <if test="cardNo != null" >
+        CARD_NO,
+      </if>
+      <if test="cardHolderName != null" >
+        CARD_HOLDER_NAME,
+      </if>
+      <if test="requestCode != null" >
+        REQUEST_CODE,
+      </if>
+      <if test="responseCode != null" >
+        RESPONSE_CODE,
+      </if>
+      <if test="batchNo != null" >
+        BATCH_NO,
+      </if>
+      <if test="traceNo != null" >
+        TRACE_NO,
+      </if>
+      <if test="approvalCode != null" >
+        APPROVAL_CODE,
+      </if>
+      <if test="prvVal != null" >
+        PRV_VAL,
+      </if>
+      <if test="newVal != null" >
+        NEW_VAL,
+      </if>
+      <if test="curyPrvVal != null" >
+        CURY_PRV_VAL,
+      </if>
+      <if test="curyNewVal != null" >
+        CURY_NEW_VAL,
+      </if>
+      <if test="recall != null" >
+        RECALL,
+      </if>
+      <if test="refund != null" >
+        REFUND,
+      </if>
+      <if test="voidVal != null" >
+        VOID,
+      </if>
+      <if test="pending != null" >
+        PENDING,
+      </if>
+      <if test="reserved != null" >
+        RESERVED,
+      </if>
+      <if test="status != null" >
+        "STATUS",
+      </if>
+      <if test="lastUpdateTime != null" >
+        LAST_UPDATE_TIME,
+      </if>
+      <if test="rowguid != null" >
+        ROWGUID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="branchCode != null" >
+        #{branchCode,jdbcType=VARCHAR},
+      </if>
+      <if test="businessDate != null" >
+        #{businessDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paySeq != null" >
+        #{paySeq,jdbcType=DECIMAL},
+      </if>
+      <if test="transDatetime != null" >
+        #{transDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=DECIMAL},
+      </if>
+      <if test="stationId != null" >
+        #{stationId,jdbcType=VARCHAR},
+      </if>
+      <if test="payCode != null" >
+        #{payCode,jdbcType=VARCHAR},
+      </if>
+      <if test="payCdesc != null" >
+        #{payCdesc,jdbcType=OTHER},
+      </if>
+      <if test="payEdesc != null" >
+        #{payEdesc,jdbcType=OTHER},
+      </if>
+      <if test="prnCdesc != null" >
+        #{prnCdesc,jdbcType=OTHER},
+      </if>
+      <if test="prnEdesc != null" >
+        #{prnEdesc,jdbcType=OTHER},
+      </if>
+      <if test="curyNo != null" >
+        #{curyNo,jdbcType=CHAR},
+      </if>
+      <if test="tender != null" >
+        #{tender,jdbcType=DECIMAL},
+      </if>
+      <if test="exchRate != null" >
+        #{exchRate,jdbcType=DECIMAL},
+      </if>
+      <if test="payQty != null" >
+        #{payQty,jdbcType=DECIMAL},
+      </if>
+      <if test="payAmt != null" >
+        #{payAmt,jdbcType=DECIMAL},
+      </if>
+      <if test="tips != null" >
+        #{tips,jdbcType=DECIMAL},
+      </if>
+      <if test="change != null" >
+        #{change,jdbcType=DECIMAL},
+      </if>
+      <if test="cardType != null" >
+        #{cardType,jdbcType=VARCHAR},
+      </if>
+      <if test="subCardType != null" >
+        #{subCardType,jdbcType=VARCHAR},
+      </if>
+      <if test="entryMode != null" >
+        #{entryMode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null" >
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cardHolderName != null" >
+        #{cardHolderName,jdbcType=VARCHAR},
+      </if>
+      <if test="requestCode != null" >
+        #{requestCode,jdbcType=VARCHAR},
+      </if>
+      <if test="responseCode != null" >
+        #{responseCode,jdbcType=VARCHAR},
+      </if>
+      <if test="batchNo != null" >
+        #{batchNo,jdbcType=VARCHAR},
+      </if>
+      <if test="traceNo != null" >
+        #{traceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="approvalCode != null" >
+        #{approvalCode,jdbcType=VARCHAR},
+      </if>
+      <if test="prvVal != null" >
+        #{prvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="newVal != null" >
+        #{newVal,jdbcType=DECIMAL},
+      </if>
+      <if test="curyPrvVal != null" >
+        #{curyPrvVal,jdbcType=DECIMAL},
+      </if>
+      <if test="curyNewVal != null" >
+        #{curyNewVal,jdbcType=DECIMAL},
+      </if>
+      <if test="recall != null" >
+        #{recall,jdbcType=DECIMAL},
+      </if>
+      <if test="refund != null" >
+        #{refund,jdbcType=CHAR},
+      </if>
+      <if test="voidVal != null" >
+        #{voidVal,jdbcType=CHAR},
+      </if>
+      <if test="pending != null" >
+        #{pending,jdbcType=DECIMAL},
+      </if>
+      <if test="reserved != null" >
+        #{reserved,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="lastUpdateTime != null" >
+        #{lastUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rowguid != null" >
+        #{rowguid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

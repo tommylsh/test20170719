@@ -1,0 +1,130 @@
+package com.maxim.pos.test.common.service;
+
+import java.lang.reflect.InvocationTargetException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.maxim.dao.QueryFileHandler;
+import com.maxim.pos.common.entity.SchemeInfo;
+import com.maxim.pos.common.entity.SchemeTableColumn;
+import com.maxim.pos.common.enumeration.ClientType;
+import com.maxim.pos.common.enumeration.PollSchemeType;
+import com.maxim.pos.common.service.ApplicationSettingService;
+import com.maxim.pos.common.service.PollSchemeInfoService;
+import com.maxim.pos.common.service.SchemeTableColumnService;
+import com.maxim.pos.common.value.CommonCriteria;
+import com.maxim.pos.sales.service.BranchInfoService;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = { "classpath*:pos-core-context.xml" })
+@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = true)
+public class SchemeTableColumnGenerationTest {
+
+    @Autowired
+    private PollSchemeInfoService pollSchemeInfoService;
+    
+    @Autowired
+    private SchemeTableColumnService schemeTableColumnService;
+    
+    @Autowired
+    private BranchInfoService branchInfoService;
+    
+    @Autowired
+    private QueryFileHandler queryFileHandler;
+    
+    @Autowired
+    private ApplicationSettingService applicationSettingService;
+    
+    public Logger logger;
+    
+    @Before
+    public void setup() {
+        logger = LoggerFactory.getLogger(getClass());
+        logger.info("setup at : {}", new Date());
+    }
+    
+    @Test
+    @Transactional
+    public void getTableColumnInfoTest() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException{
+    	
+
+		List<SchemeInfo> schemeInfoList = pollSchemeInfoService.findSchemeInfoBySchemeTypeAndClientType(PollSchemeType.SALES_EOD, ClientType.DBF);
+		
+		System.out.println("getTableColumnInfoTest size : " +schemeInfoList.size());
+		for (SchemeInfo schemeInfo : schemeInfoList){
+
+			
+			System.out.println("schemeInfo : " + BeanUtils.describe(schemeInfo).toString() ) ;
+
+			if(schemeInfo.getClientType().equals(ClientType.DBF)
+					&& schemeInfo.getPollSchemeType().equals(PollSchemeType.SALES_EOD)
+					&& schemeInfo.getDestination().equalsIgnoreCase("hist_orders")){
+				System.out.println("Poll Scheme Info ID = " + schemeInfo.getId() + "; table = " + schemeInfo.getDestination());
+				List<SchemeTableColumn> schemeTableColumnList = pollSchemeInfoService.generateSchemeTableColumnData(schemeInfo);
+		    	System.out.println("Scheme Table Column List Size = " + schemeTableColumnList.size());
+		    	schemeTableColumnService.saveSchemeTableColumns(schemeTableColumnList);
+			}
+		}
+
+    }
+    
+    public  static void main(String[] arg) throws ParseException
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMdd");
+        System.out.println(dateFormat.parse("170908"));
+    	String[] dates = new String[] {"111","222"};
+    	int idx = 0;
+    	StringBuffer dateStrBuf = new StringBuffer("(");
+    	for (String date : dates)
+    	{
+    		System.out.println(idx);
+    		System.out.println(dates.length);
+    		System.out.println(date);
+    		dateStrBuf.append("'").append(date);
+    		if (++idx == dates.length)
+    		{
+    			dateStrBuf.append("')");
+    		}
+    		else
+    		{
+    			dateStrBuf.append("',");
+    		}
+    	}
+    	
+    	System.out.println(dateStrBuf.toString());
+    	
+    	return ;
+    }
+    
+//    @Test
+//    @Transactional
+//    public void addPollSchmeInfoTest(){
+//
+//    }
+//    
+//    @Test
+//    @Transactional
+//    public void batchSizeValidationTest(){
+//    	Integer batchSize = new Integer(1000);
+//    	System.out.println(batchSize > 900);
+//    	
+//    	String str = "1001";
+//    	Integer newBatchSize = Integer.valueOf(str);
+//    	System.out.println(newBatchSize.compareTo(batchSize));
+//    	System.out.println(newBatchSize);
+//    }
+}

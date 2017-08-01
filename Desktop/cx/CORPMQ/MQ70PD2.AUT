@@ -1,0 +1,251 @@
+setmqaut -m MQ70PD2 -n 'IBMMSG.CIP.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'IBMMSG.CIP.TELEX' -t queue -g cgocip +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.BASE.TOPIC' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD2 -n 'CSR.IBMMSG.TELEX' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSR.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSR.IBMMSG.TELEX' -t queue -g cgocsr +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.IBMMSG.TELEX' -t queue -g staff +inq +put 
+setmqaut -m MQ70PD2 -n 'CIP.IBMMSG.TELEX' -t queue -g cgocip +inq +put 
+setmqaut -m MQ70PD2 -n 'TO.MQ70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.STATISTICS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.CLUSTER.HISTORY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.LOGGING.EMIT.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.MQEXPLORER.REPLY.MODEL' -t queue -g inframws +dsp +get +inq 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.ETL' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.REQUESTER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.CHANNEL.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.SESSION.MGMT.ERROR' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.SESSION.MGMT.ERROR' -t queue -g cep +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'CSR.WOS.ASM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSR.WOS.ASM' -t queue -g staff +inq +put 
+setmqaut -m MQ70PD2 -n 'WBC.MMB.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.MMB.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'CSS.CRMS.BOOKSYNC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.CSR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEAD.LETTER.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.BROKER.CONTROL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.WSI.1A.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.WSI.1A.QUEUE' -t queue -g cep +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.CICS.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.BROKER.DEFAULT.SUBPOINT' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD2 -n 'SYSTEM.QPUBSUB.QUEUE.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD2 -n 'WBC.CIS.EVENT.LOG.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.CIS.EVENT.LOG.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.CIP' -t channel -g mqbrkrs +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.CIP' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.CLUSTER.TRANSMIT.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSS.CIP.ALLOTSYNC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSS.CIP.ALLOTSYNC' -t queue -g cgocip +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'CSS.PUBSUB.NOTOC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'ETECHLOG.GMB.LOGBOOK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'ETECHLOG.GMB.LOGBOOK' -t queue -g staff +put 
+setmqaut -m MQ70PD2 -n 'ETECHLOG.GMB.LOGBOOK' -t queue -g etechlog +put 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.HURDLERATE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.HURDLERATE' -t queue -g cgocip +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.SELECTION.EVALUATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'BK70QMPD2' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.CIS.KA.EVENT.LOG.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.CIS.KA.EVENT.LOG.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.REMOTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.SELECTION.VALIDATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.COMMAND.QUEUE' -t queue -g inframws +dsp +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.TOPIC' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.INTER.QMGR.FANREQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.BROKER.INTER.BROKER.COMMUNICATIONS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CSR.FLA' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CSR.FLA' -t queue -g staff +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.MASTERALLOT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.MASTERALLOT' -t queue -g cgocip +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.AUTH.DATA.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.BROKER.DEFAULT.STREAM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'IBMMSG.CARGOSPOT.ALT.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DURABLE.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.AUTO.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'FABRICX.ERROR.LOGGING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.ERROR.LOGGING.QUEUE' -t queue -g cep +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g mqm +chg +dlt +dsp 
+setmqaut -m MQ70PD2 -n 'CUSHUB.ETL.CUSPROFUPD.EN' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CUSHUB.ETL.CUSPROFUPD.EN' -t queue -g etl +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'CUSHUB.ETL.CUSPROFUPD.EN' -t queue -g cushub +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.RETAINED.PUB.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.CUSHUB' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.IIBQMPD4' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.BROKER.DEFAULT.STREAM' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.PERFM.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.IIBQMPD3' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.LOGGER.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.MAIL.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.CHANNEL.INITQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.TO.MQ70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.AUTO.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'IIBQMPD4.MQ70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'IIBQMPD3.MQ70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.QPUBSUB.SUBPOINT.NAMELIST' -t namelist -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DURABLE.SUBSCRIBER.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.SMS.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.SMS.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.SENDER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.MQSC.REPLY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.CIS.EVENT.LOG.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.CIS.EVENT.LOG.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.CHANNEL.SYNCQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'TO.MQ70PD1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.CLUSTER.REPOSITORY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.CLUSRCVR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'WBC.MAIL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.MAIL.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.COMMAND.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CSR.FLA.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CSR.FLA.BACKOUTQ' -t queue -g staff +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.INITIATION.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.CRMS' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.SERVICE' -t service -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.PROCESS' -t process -g mqm +chg +dlt +dsp +inq +set 
+setmqaut -m MQ70PD2 -n 'SYSTEM.HIERARCHY.STATE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.SMS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.SMS.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.CLUSTER.COMMAND.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CARGOSPOT.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CSR.FLA.MASTER' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CSR.FLA.MASTER' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CSR.FLA.MASTER' -t queue -g cgocsr +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'WBC.IBE.EVENT.LOG.QUEUE' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.IBE.EVENT.LOG.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.IBE.EVENT.LOG.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'IIBQMPD4' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.TRACE.ROUTE.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'IIBQMPD3' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CIP.FLA.MASTER' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CIP.FLA.MASTER' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.CIP.FLA.MASTER' -t queue -g cgocip +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'WBC.MMB.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.MMB.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'IBMMSG.WOS.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSS.CRMS.ALLOTSYNC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSS.CRMS.ALLOTSYNC' -t queue -g cgocip +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'CSS.CRMS.ALLOTSYNC' -t queue -g cgo +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.RECEIVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'WBC.CIS.KA.EVENT.LOG.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.CIS.KA.EVENT.LOG.BACKOUTQ' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.SERVER' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.PENDING.DATA.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.BROKER.ADMIN.STREAM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.ALLOTUTIL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.ALLOTUTIL' -t queue -g cgocip +inq +put 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.ETECHLOG' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqbrkrs +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cep +none 
+setmqaut -m MQ70PD2 -n 'MQ71DMZP1' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -t qmgr -g mqm +altusr +chg +connect +dlt +dsp +inq +set +setall +setid +system 
+setmqaut -m MQ70PD2 -t qmgr -g inframws +connect +dsp +inq 
+setmqaut -m MQ70PD2 -t qmgr -g olgm +connect +inq 
+setmqaut -m MQ70PD2 -t qmgr -g staff +connect +dsp +inq 
+setmqaut -m MQ70PD2 -t qmgr -g etl +connect +inq 
+setmqaut -m MQ70PD2 -t qmgr -g cushub +connect 
+setmqaut -m MQ70PD2 -t qmgr -g cgocip +connect +dsp +inq 
+setmqaut -m MQ70PD2 -t qmgr -g cgocsr +connect +dsp +inq 
+setmqaut -m MQ70PD2 -t qmgr -g etechlog +connect +inq 
+setmqaut -m MQ70PD2 -n 'FABRICX.GLOBAL.LOGGING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.GLOBAL.LOGGING.QUEUE' -t queue -g cep +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'FABRICX.GLOBAL.LOGGING.QUEUE' -t queue -g olgm +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n 'FABRICX.WSI.NON1A.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.WSI.NON1A.QUEUE' -t queue -g cep +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.BROKER.ADMIN.STREAM' -t topic -g mqm +chg +clr +dlt +dsp +passall +passid +setall +setid +ctrl +pub +sub +resume 
+setmqaut -m MQ70PD2 -n 'IBMMSG.EODS.SSM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'IBMMSG.EODS.SSM' -t queue -g etl +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.ACTIVITY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.CONFIG.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.CLNTCONN' -t clntconn -g inframws +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.INTER.QMGR.CONTROL' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FSS.PUBSUB.ASM' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSS.CRMS.REALTIMESYNC' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.FREESALE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.FREESALE' -t queue -g cgocip +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g mqbrkrs +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cep +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g inframws +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g olgm +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g staff +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g etl +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cushub +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cgocip +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cgocsr +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g etechlog +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LOCAL.QUEUE' -t queue -g cgo +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.AUTHINFO.OCSP' -t authinfo -g mqm +chg +dlt +dsp +inq 
+setmqaut -m MQ70PD2 -n 'MQ71DMZP1.MQ70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.NAMELIST' -t namelist -g inframws +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.PROCESS' -t process -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.PROCESS' -t process -g inframws +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.INTERNAL.REPLY.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'GMB.ETECHLOG.LOGBOOK' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.BINDWGT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CIP.CSS.BINDWGT' -t queue -g cgocip +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g mqm +chg +dlt +dsp +ctrl 
+setmqaut -m MQ70PD2 -n 'CBFI.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CBFI.IBMMSG.TELEX' -t queue -g staff +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.NDURABLE.MODEL.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -t qmgr -g mqm +crt 
+setmqaut -m MQ70PD2 -t qmgr -g inframws +none 
+setmqaut -m MQ70PD2 -t qmgr -g olgm +none 
+setmqaut -m MQ70PD2 -t qmgr -g staff +none 
+setmqaut -m MQ70PD2 -t qmgr -g etl +none 
+setmqaut -m MQ70PD2 -t qmgr -g cushub +none 
+setmqaut -m MQ70PD2 -t qmgr -g cgocip +none 
+setmqaut -m MQ70PD2 -t qmgr -g cgocsr +none 
+setmqaut -m MQ70PD2 -t qmgr -g etechlog +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.SENDER' -t channel -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.SENDER' -t channel -g inframws +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.SENDER' -t channel -g mqbrkrs +none 
+setmqaut -m MQ70PD2 -n 'WOS.IBMMSG.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.SESSION.MGMT.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.SESSION.MGMT.BACKOUTQ' -t queue -g cep +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.AUTHINFO.CRLLDAP' -t authinfo -g inframws +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.SVRCONN' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEF.CLUSSDR' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.FABRICX' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'WBC.IBE.EVENT.LOG.BACKOUTQ' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.IBE.EVENT.LOG.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'WBC.IBE.EVENT.LOG.BACKOUTQ' -t queue -g cep +inq +put 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.ACCOUNTING.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.TOPIC' -t topic -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.ADMIN.QMGR.EVENT' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'IBMMSG.CARGOSPOT.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.SESSION.MGMT.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.SESSION.MGMT.QUEUE' -t queue -g cep +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.LISTENER.TCP' -t listener -g inframws +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.SERVICE' -t service -g mqm +crt 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.SERVICE' -t service -g inframws +none 
+setmqaut -m MQ70PD2 -n 'SYSTEM.DEFAULT.ALIAS.QUEUE' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.MQ71DMZP1' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'MQ70PD2.BK70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'BK70PD2.MQ70PD2' -t channel -g mqm +chg +dlt +dsp +ctrl +ctrlx 
+setmqaut -m MQ70PD2 -n 'FABRICX.GLOBAL.LOGGING.BACKOUTQ' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'FABRICX.GLOBAL.LOGGING.BACKOUTQ' -t queue -g cep +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'SYSTEM.INTER.QMGR.PUBS' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSS.CIP.REPLENISH' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'CSS.CIP.REPLENISH' -t queue -g cgocip +browse +get +inq 
+setmqaut -m MQ70PD2 -n 'IBMMSG.CSR.TELEX' -t queue -g mqbrkrs +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'IBMMSG.CSR.TELEX' -t queue -g mqm +browse +chg +clr +dlt +dsp +get +inq +put +passall +passid +set +setall +setid 
+setmqaut -m MQ70PD2 -n 'IBMMSG.CSR.TELEX' -t queue -g cgocsr +browse +get +inq +put 
+setmqaut -m MQ70PD2 -n '**' -t clntconn -g inframws +dsp 
+setmqaut -m MQ70PD2 -n '**' -t queue -g inframws +browse +dsp 
+setmqaut -m MQ70PD2 -n '**' -t namelist -g inframws +dsp 
+setmqaut -m MQ70PD2 -n '**' -t process -g inframws +dsp 
+setmqaut -m MQ70PD2 -n '**' -t channel -g inframws +dsp 
+setmqaut -m MQ70PD2 -n '**' -t authinfo -g inframws +dsp 
+setmqaut -m MQ70PD2 -n '**' -t listener -g inframws +dsp 
+setmqaut -m MQ70PD2 -n '**' -t service -g inframws +dsp 

@@ -1,0 +1,424 @@
+truncate table dbo.TASK_JOB_LOG_DETAIL
+
+truncate table dbo.TASK_JOB_LOG
+
+truncate table  dbo.TASK_JOB_EXECEPTION_DETAIL
+
+delete  dbo.TASK_JOB_LOG where  1 =1
+
+select * from dbo.TASK_JOB_LOG where POLL_BRANCH_ID =41
+
+delete from dbo.POLL_SCHEME_JOB_LOG 
+ 
+select * from   dbo.TASK_JOB_LOG where branch_code='6101'
+ 
+select * from   dbo.TASK_JOB_EXECEPTION_DETAIL where TASK_JOB_LOG_ID  =26184
+ 
+26184                 
+ 
+delete from dbo.POLL_SCHEME_SCHEDULE_JOB where 1=1
+
+dbo.POLL_SCHEME_SCHEDULE_JOB
+
+insert  into dbo.POLL_SCHEME_SCHEDULE_JOB values(
+    
+     '2017-02-14 12:09:53.000', 'lotic', '2017-02-14 12:09:59.000', 'lotic', '0 0/1 * * * ?', 0, ' every 1minute to  run', 'SALES JOB', 'Sales RealTime Job', 'POS_TO_STG', 'SALES_REALTIME'                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+    );
+ 
+
+insert  into dbo.POLL_SCHEME_SCHEDULE_JOB values(   
+'2017-02-15 10:39:10.000', 'lotic', '2017-02-15 10:39:15.000', 'lotic', '0 0/2 * * * ?', 0, 'every 2 minute to run', 'SALES JOB', 'Sales EOD Job', 'POS_TO_STG', 'SALES_EOD'                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+);
+
+
+
+insert  into dbo.POLL_SCHEME_SCHEDULE_JOB values(
+'2017-02-21 12:07:12.000', 'Joy', '2017-02-21 12:07:18.000', 'Joy', '0 0/3 * * * ?', 1, 'every 2 minute to run', 'MASTER JOB', 'MASTER Job', 'MST_TO_STG', 'MASTER'                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
+)   ; 
+
+update dbo.POLL_SCHEME_SCHEDULE_JOB set IS_ENABLE  = '1'
+
+select * from dbo.convert_log
+
+
+select * from dbo.POLL_APPLICATION_SETTING where code='REAL_TIME_RS'
+select * from dbo.POLL_SCHEME_SCHEDULE_JOB
+
+update dbo.POLL_SCHEME_SCHEDULE_JOB set IS_ENABLE  = '1'
+
+select * from dbo.POLL_BRANCH_INFO
+
+select * from dbo.hist_orders where branch_code ='1284'
+
+truncate table 
+
+select convert(time, trans_datetime), convert(time,'03:00:00'), trans_datetime  , 
+case when trans_datetime >= '2017-04-03' then '2017-04-03'
+ when trans_datetime <= '2017-03-31'  then '2017-03-31'
+ when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) )
+else convert(date, trans_datetime) end 
+
+from dbo.hist_orders where branch_code ='1284'
+
+
+update  dbo.hist_orders  set business_date = 
+case when trans_datetime >= '2017-04-03' then '2017-04-03'
+when trans_datetime < '2017-03-31'  then '2017-03-31'
+when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) )
+else convert(date, trans_datetime) end 
+where branch_code ='1284' and
+
+business_date <>
+case when trans_datetime >= '2017-04-03' then '2017-04-03'
+when trans_datetime < '2017-03-31'  then '2017-03-31'
+when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) )
+else convert(date, trans_datetime) end 
+and  business_date not in ()
+
+                         case when trans_datetime < '2017-03-28' 
+
+
+select * from dbo.POLL_APPLICATION_SETTING
+
+select * from dbo.POLL_SCHEME_JOB_LOG WHERE SCHEDULE_JOB_ID =1
+
+DELETE from dbo.POLL_SCHEME_JOB_LOG
+
+--update dbo.POLL_APPLICATION_SETTING set code_value='http://10.10.33.25:9003/maxim-rest/webapi/realTime/' where code='REAL_TIME_RS'
+
+
+select * from dbo.HIST_POS_SYSTEM
+select * from dbo.POLL_BRANCH_INFO
+select * from dbo.POLL_BRANCH_SCHEME where POLL_BRANCH_INFO_ID   = 1
+select * from dbo.POLL_BRANCH_SCHEME where POLL_BRANCH_INFO_ID   = 3
+
+
+select * from dbo.POLL_BRANCH_MASTER
+
+
+
+select * from dbo.POLL_SCHEME_INFO where destination = 'orders_pay'
+
+
+
+select * from dbo.POLL_SCHEME_INFO where destination = 'hist_orders'
+
+
+select * from dbo.POLL_SCHEME_TABLE_COLUMN where POLL_SCHEME_INFO_ID  = 1576
+
+ FROM [esb_sit].[dbo].[POLL_SCHEME_INFO] WHERE CLIENT_TYPE = 'DBF' and POLL_SCHEME_INFO_ID in ( 1667,1668,1669 ) 
+
+select * from dbo.hist_possystem
+
+delete from dbo.POLL_EOD_CONTROL where branch_code='1284' and convert(date, business_date) = '2017-03-31'
+
+SELECT count(*) as ss FROM HIST_ORDERS  WHERE CONVERT(date,business_date) in ('2017-03-31','2017-03-31','2017-04-01','2017-04-02','2017-04-03') AND  branch_code  = '4117'
+
+    select * from dbo.POLL_EOD_CONTROL where branch_code='6101' 
+    select * from dbo.POLL_EOD_CONTROL where branch_code='4117' 
+    
+        select * from dbo.TASK_JOB_LOG where branch_code='4117' 
+        
+        delete from dbo.TASK_JOB_LOG where branch_code='4117' 
+    
+    
+select * from POLL_SCHEME_INFO where poll_Scheme_Type = 'SALES_REALTIME' and client_Type = 'ORACLE' and  destination in ('ORDERS', 'ORDERS_PAY','ORDERS_EXTRA','COUPON_SALES');
+    
+   
+update  POLL_SCHEME_INFO 
+set client_Type = 'WEBSERVICE'
+where poll_Scheme_Type = 'SALES_REALTIME' and client_Type = 'ORACLE' and  destination in ('ORDERS', 'ORDERS_PAY','ORDERS_EXTRA','COUPON_SALES');
+
+   
+        SELECT * FROM ORDERS  WHERE  branch_code  = '1284'
+  
+        SELECT * FROM SUPP  WHERE  branch_code  = '1284'  
+        
+        select count(1) from dbo.hist_orders
+        
+        SELECT count(*) as ss FROM HIST_ORDERS  WHERE CONVERT(date,business_date) in ('2017-04-05') AND  branch_code  = '4117'
+        SELECT count(*) as ss FROM hist_orders_pay  WHERE CONVERT(date,business_date) in ('2017-04-05') AND  branch_code  = '4117'
+    
+       update dbo.POLL_EOD_CONTROL set STATUS  = 'F' where branch_code='4117' and convert(date, business_date) = '2017-04-05'
+       update dbo.POLL_EOD_CONTROL set STATUS  = 'F' where branch_code='6101' and convert(date, business_date) > '2017-03-30'
+       update dbo.POLL_EOD_CONTROL set branch_code='4117', business_date = '2017-03-30'
+       update dbo.POLL_EOD_CONTROL set STATUS  = 'F' , business_date = '2017-03-30' where branch_code='6101'
+ 
+select * from dbo.POLL_EOD_CONTROL where branch_code='4117'
+select * from dbo.POLL_EOD_CONTROL where branch_code='6101'
+select * from dbo.POLL_EOD_CONTROL where branch_code='1284' and convert(date, business_date) = '2017-03-31' ;
+delete from dbo.POLL_EOD_CONTROL where branch_code='1284' and convert(date, business_date) = '2017-03-31' ;
+
+
+SELECT * FROM HIST_ORDERS  WHERE business_date = '2017-04-05' AND  branch_code  = '4117'
+
+
+select * from dbo.POLL_EOD_CONTROL where branch_code='1284' and convert(date, business_date) = '2017-03-31' ;
+
+select * from dbo.POLL_EOD_CONTROL where branch_code='6101' and convert(date, business_date) = '2017-03-31' ;
+
+select * from dbo.POLL_BRANCH_SCHEME where POLL_BRANCH_MASTER_ID =16
+
+
+select * from dbo.POLL_BRANCH_SCHEME where POLL_BRANCH_SCHEME_ID=27
+select * from dbo.POLL_BRANCH_SCHEME where POLL_BRANCH_SCHEME_ID=1
+select * from dbo.POLL_SCHEME_INFO where CLIENT_TYPE='DBF'
+select * from dbo.POLL_SCHEME_INFO where destination='hist_orders'
+
+
+insert into POLL_SCHEME_INFO
+select CREATE_TIME             ,CREATE_USER,
+LAST_UPDATE_TIME        ,LAST_UPDATE_USER,
+CLIENT_TYPE,      DELIMITER,  'coupon_sales' ,IS_OVERRIDE, POLL_SCHEME_TYPE,
+SOURCE,   IS_CONSISTENT_STRUCTURE ,DEST_CHECK_SUM_COLS ,   
+DEST_KEY_COLUMNS, SRC_CHECK_SUM_COLS, SRC_KEY_COLUMNS , 
+CHECK_SUM_COLUMNS                                  ,SPLIT_DATE_REQUIRED 
+from dbo.POLL_SCHEME_INFO where upper(DESTINATION) = 'ORDERS' and CLIENT_TYPE  ='ORACLE'
+      
+      select * from  dbo.POLL_SCHEME_INFO 
+       where upper(DESTINATION) = 'ORDERS' and CLIENT_TYPE  ='ORACLE'
+      order by POLL_SCHEME_INFO_ID         
+
+select * from dbo.POLL_SCHEME_INFO where upper(DESTINATION) = 'COUPON_SALES'
+
+update dbo.POLL_BRANCH_SCHEME SET IS_ENABLED=1 where POLL_BRANCH_SCHEME_ID=27
+update dbo.POLL_BRANCH_SCHEME SET IS_ENABLED=1 where POLL_BRANCH_SCHEME_ID=1
+update dbo.POLL_BRANCH_SCHEME SET IS_ENABLED=1 where POLL_BRANCH_SCHEME_ID=15
+
+update dbo.POLL_BRANCH_SCHEME SET IS_ENABLED=0 where POLL_BRANCH_SCHEME_ID=29
+
+
+select * from poll_branch_master
+
+
+select * from dbo.orders where branch_code = '1284'
+
+SELECT * FROM hist_orders  WHERE  branch_code  = '4117' 
+
+
+delete  from dbo.orders where branch_code = '1284'
+
+select * from dbo.orders_pay;
+
+select * from dbo.orders_extra;
+
+
+select * from dbo.hist_orders where branch_code = '6101'
+
+
+
+select * from dbo.POLL_BRANCH_SCHEME where POLL_BRANCH_MASTER_ID =16
+select * from dbo.POLL_BRANCH_SCHEME where POLL_BRANCH_MASTER_ID =11
+
+
+select business_date from hist_possystem where branch_code = '4117' and business_date > '2017-04-01'
+
+
+SELECT * FROM hist_orders  WHERE  branch_code  = '4117' AND CONVERT(varchar(16),business_date,23) in ('2017-04-03')
+
+
+select * from dbo.POLL_BRANCH_SCHEME where DIRECTION ='STG_TO_EDW'
+
+
+update dbo.POLL_BRANCH_SCHEME set POLL_BRANCH_INFO_ID =30 where DIRECTION ='STG_TO_EDW'
+
+
+    select
+        top 2 branchsche0_.POLL_BRANCH_SCHEME_ID as POLL1_4_,
+        branchsche0_.CREATE_TIME as CREATE2_4_,
+        branchsche0_.CREATE_USER as CREATE3_4_,
+        branchsche0_.LAST_UPDATE_TIME as LAST4_4_,
+        branchsche0_.LAST_UPDATE_USER as LAST5_4_,
+        branchsche0_.POLL_BRANCH_INFO_ID as POLL13_4_,
+        branchsche0_.POLL_BRANCH_MASTER_ID as POLL14_4_,
+        branchsche0_.DIRECTION as DIRECTION4_,
+        branchsche0_.IS_ENABLED as IS7_4_,
+        branchsche0_.END_TIME as END8_4_,
+        branchsche0_.POLL_SCHEME_DESC as POLL9_4_,
+        branchsche0_.POLL_SCHEME_NAME as POLL10_4_,
+        branchsche0_.POLL_SCHEME_TYPE as POLL11_4_,
+        branchsche0_.START_TIME as START12_4_ 
+    from
+        POLL_BRANCH_SCHEME branchsche0_ cross 
+    join
+        POLL_BRANCH_INFO branchinfo1_ cross 
+    join
+        POLL_BRANCH_MASTER  branchmast2_ 
+    where
+        branchsche0_.POLL_BRANCH_INFO_ID=branchinfo1_.POLL_BRANCH_INFO_ID 
+        and branchsche0_.POLL_BRANCH_MASTER_ID=branchmast2_.POLL_BRANCH_MASTER_ID 
+        and 1=1 
+        and branchsche0_.POLL_SCHEME_TYPE='SALES_EOD'
+        and branchsche0_.DIRECTION='STG_TO_EDW'
+        and branchmast2_.BRANCH_CODE='6101'
+        and branchinfo1_.CLIENT_TYPE='ORACLE' 
+
+        
+        and branchsche0_.IS_ENABLED=?
+
+
+
+update hist_orders 
+set business_date = 
+case when trans_datetime > '2017-04-02' then '2017-04-02' 
+when trans_datetime <= '2017-04-02'  then '2017-04-02' 
+when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) ) 
+else convert(date, trans_datetime) end 
+where LTRIM(RTRIM(status)) <> 'C' AND branch_code  = '4117' 
+and convert(date,business_date) in ('2017-04-03') and business_date <> case when trans_datetime > '2017-04-02' then '2017-04-02' 
+when trans_datetime <= '2017-04-02'  then '2017-04-02' 
+when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) ) else convert(date, trans_datetime) end 
+and  business_date not in ('2017-04-03')
+
+update hist_orders
+
+select  business_date ,
+case when trans_datetime > '2017-04-02' then '2017-04-02' 
+when trans_datetime <= '2017-04-02'  then '2017-04-02' 
+when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) ) else convert(date, trans_datetime) end where LTRIM(RTRIM(status)) <> 'C' AND branch_code  = '4117' and convert(date,business_date) in ('2017-04-03') and business_date <> case when trans_datetime > '2017-04-02' then '2017-04-02' when trans_datetime <= '2017-04-02'  then '2017-04-02' when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) ) else convert(date, trans_datetime) end and  business_date not in ('2017-04-03')
+
+
+   select
+        top 1 polleodcon0_.POLL_EOD_CONTROL_ID as POLL1_5_,
+        polleodcon0_.CREATE_TIME as CREATE2_5_,
+        polleodcon0_.CREATE_USER as CREATE3_5_,
+        polleodcon0_.LAST_UPDATE_TIME as LAST4_5_,
+        polleodcon0_.LAST_UPDATE_USER as LAST5_5_,
+        polleodcon0_.BRANCH_CODE as BRANCH6_5_,
+        polleodcon0_.BUSINESS_DATE as BUSINESS7_5_,
+        polleodcon0_.STATUS as STATUS5_ 
+    from
+        POLL_EOD_CONTROL polleodcon0_ 
+    where
+        1=1 
+        and polleodcon0_.BRANCH_CODE='4117'
+        and polleodcon0_.STATUS='C'
+    order by
+        polleodcon0_.BUSINESS_DATE,
+        polleodcon0_.LAST_UPDATE_TIME desc
+        
+       select * 
+              from hist_orders
+       where  branch_code  = '4117'
+       
+       select LTRIM(RTRIM(status)), business_date ,trans_datetime, 
+       convert(varchar(5), trans_datetime,108),convert(varchar(5),'03:00:00',108),  convert(date,trans_datetime),DATEADD(day ,-1 , convert(date,trans_datetime) ) ,
+       case when convert(date,trans_datetime) > '2017-04-02' then '2017-04-09'
+       when convert(date,trans_datetime) <= convert(date,'2017-04-01')  then convert(date,'2017-04-01')
+       when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) ) 
+       else convert(date, trans_datetime) end 
+       from hist_orders
+       where  branch_code  = '4117'
+        and convert(time, trans_datetime) < convert(time,'03:00:00')
+        
+        and convert(varchar(5), trans_datetime,108) < convert(varchar(5),'03:00:00',108)
+        
+        
+        and convert(date,business_date) in ('2017-04-03') 
+        
+        
+        and business_date <> case when trans_datetime > '2017-04-02' then '2017-04-02' 
+        when trans_datetime <= '2017-04-01'  then '2017-04-01' 
+        when convert(time, trans_datetime) < convert(time,'03:00:00') then DATEADD(day ,-1 , convert(date,trans_datetime) )
+         else convert(date, trans_datetime) end 
+         
+         and  business_date not in ('2017-04-03')
+
+select * from
+        convert_log 
+    where  CREATE_TIME   < '2017-03-02'
+    
+    BRNO      =2301
+
+select * from
+        TASK_JOB_LOG 
+    where
+    POLL_BRANCH_ID = 14
+        TASK_JOB_LOG_ID= 23530
+        
+        
+select * from
+        dbo.TASK_JOB_LOG_DETAIL
+    where
+        TASK_JOB_LOG_ID= 23530
+        
+    select
+        BRANCH_TYPE,
+        sum(FAIL_COUNT) AS FAIL_COUNT      
+    FROM
+        (      select
+            PBS1.POLL_BRANCH_MASTER_ID ,
+            PBS1.POLL_BRANCH_SCHEME_ID,
+            (      select
+                count(distinct  1) 
+            from
+                dbo.TASK_JOB_LOG TJL 
+            where
+                TJL.POLL_SCHEME_TYPE = 'SALES_EOD'      
+                and  CONVERT(date, TJL.CREATE_TIME  ) = '2017-4-5'     
+                and  TJL.POLL_SCHEME_ID  = PBS2.POLL_BRANCH_SCHEME_ID       
+                and TJL.STATUS ='COMPLETE' )AS FAIL_COUNT      
+        from
+            dbo.POLL_BRANCH_SCHEME PBS1       
+        left join
+            dbo.POLL_BRANCH_SCHEME PBS2       
+                on PBS2.DIRECTION = 'STG_TO_EDW' 
+                and PBS2.POLL_SCHEME_TYPE = 'SALES_EOD'      
+                    and PBS2.POLL_BRANCH_INFO_ID  = PBS1.POLL_BRANCH_INFO_ID    
+        where
+            PBS1.IS_ENABLED ='1'      
+            and PBS1.DIRECTION = 'POS_TO_STG' 
+            and PBS1.POLL_SCHEME_TYPE = 'SALES_EOD'            
+        ) AS FS       
+    join
+        dbo.POLL_BRANCH_MASTER PBM 
+            on PBM.POLL_BRANCH_MASTER_ID = FS.POLL_BRANCH_MASTER_ID      
+    group by
+        BRANCH_TYPE
+        
+select * from         dbo.POLL_BRANCH_MASTER G
+
+
+
+    select
+        BRANCH_TYPE,
+        sum(FAIL_COUNT) AS FAIL_COUNT      
+    FROM
+        (      select
+            PBM.BRANCH_TYPE,
+            PBM.BRANCH_CODE,
+            PBS1.POLL_BRANCH_MASTER_ID ,
+            PBS1.POLL_BRANCH_SCHEME_ID,
+            1 - (      select
+                count(distinct  1) from dbo.POLL_EOD_CONTROL PEC       
+            where
+                BUSINESS_DATE = '2017-04-05'
+                and PEC.BRANCH_CODE  = PBM.BRANCH_CODE )AS FAIL_COUNT      
+        from
+            dbo.POLL_BRANCH_SCHEME PBS1       
+        left join
+            dbo.POLL_BRANCH_SCHEME PBS2       
+                on PBS2.DIRECTION = 'STG_TO_EDW' 
+                and PBS2.POLL_SCHEME_TYPE = 'SALES_EOD'                     
+                and PBS2.IS_ENABLED ='1' 
+                and PBS2.POLL_BRANCH_INFO_ID  = PBS1.POLL_BRANCH_INFO_ID                     
+        join
+            dbo.POLL_BRANCH_INFO PBI                          
+                on PBI.POLL_BRANCH_INFO_ID = PBS1.POLL_BRANCH_INFO_ID                     
+                and ENABLE='1'                      
+        join
+            dbo.POLL_BRANCH_MASTER PBM                             
+                on PBM.POLL_BRANCH_MASTER_ID = PBS1.POLL_BRANCH_MASTER_ID         
+        where
+            PBS1.IS_ENABLED ='1'      
+            and PBS1.DIRECTION = 'POS_TO_STG' 
+            and PBS1.POLL_SCHEME_TYPE = 'SALES_EOD'            
+        ) AS FS       
+    group by
+        BRANCH_TYPE
+        
+        
+        
+        
+        
+        

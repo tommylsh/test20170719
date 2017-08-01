@@ -1,0 +1,11 @@
+package com.maxim.pos.common.config;
+
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.ImportResource;
+
+@Configuration
+@Conditional(LocalConfigurationCondition.class)
+@ImportResource("file:c:\\UserData\\weblogic\\pos-core-local.xml")
+public class LocalConfiguration {
+}

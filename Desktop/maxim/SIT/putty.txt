@@ -1,0 +1,15 @@
+10.10.33.25
+
+
+HKGESBAPPD01
+root
+Passw0rd
+
+oracle
+Passw0rd
+
+/home/oracle/config/domains/standalone_domain/servers/ESB_Dev_AdminServer/upload
+
+/home/oracle
+webLogicStop.sh
+webLogicStart.sh

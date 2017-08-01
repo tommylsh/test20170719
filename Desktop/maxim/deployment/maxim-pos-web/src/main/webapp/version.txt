@@ -1,0 +1,13 @@
+Maxim Sales service
+
+Amendment History
+Version Name                    Modified on   Comment
+------- ----------------------  ------------  ----------------------------------------
+1.0.0	Leung Shiu Hong Tommy   6  Jun, 2017  Version 1.0.0
+1.0.3	Leung Shiu Hong Tommy   8  Jun, 2017  Version 1.0.3
+1.0.4	Leung Shiu Hong Tommy   14 Jun, 2017  Version 1.0.4 - Handle Multiple Scheme Name 
+1.0.5	Leung Shiu Hong Tommy   28 Jun, 2017  Version 1.0.5 - Enhance Archive / Real Time File 
+1.0.6	Leung Shiu Hong Tommy   04 Jul, 2017  Version 1.0.5 - Enhance EOD Process 
+1.0.7	Leung Shiu Hong Tommy   11 Jul, 2017  Version 1.0.5 - Enhance Master and EOD Process 
+1.0.8	Leung Shiu Hong Tommy   17 Jul, 2017  Version 1.0.5 - Fix the Rerun / Email / Split Date Issue 
+

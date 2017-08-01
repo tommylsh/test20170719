@@ -1,0 +1,86 @@
+package com.maxim.dao;
+
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.springframework.transaction.annotation.Transactional;
+
+@Transactional
+public class HibernateEntityDAO<T,K> extends HibernateBaseDAO implements BaseEntityDAO<T,K> {
+
+	protected Class<T> dtoClass = null ;
+	protected Class<K> keyClass = null ;
+	
+    protected HibernateEntityDAO(Class<T> dtoClass, Class<K> keyClass) {
+        this.dtoClass = dtoClass;
+        this.keyClass = keyClass;
+    }	
+    
+	@SuppressWarnings("unchecked")
+	protected HibernateEntityDAO() {
+    	Type genericSuperclass = this.getClass().getGenericSuperclass();
+
+        if (genericSuperclass instanceof ParameterizedType) {
+            ParameterizedType pt = (ParameterizedType) genericSuperclass;
+            Type type = pt.getActualTypeArguments()[0];
+            dtoClass = (Class<T>) type;
+            type = pt.getActualTypeArguments()[1];
+            keyClass = (Class<K>) type;
+        }
+//        this.typeParameterClass = typeParameterClass;
+    }  
+	
+	@SuppressWarnings("unchecked")
+	protected Class<T> getDataClass()
+	{
+		Class<T> dataClass = null;
+    	Type genericSuperclass = this.getClass().getGenericSuperclass();
+
+        if (genericSuperclass instanceof ParameterizedType) {
+            ParameterizedType pt = (ParameterizedType) genericSuperclass;
+            Type type = pt.getActualTypeArguments()[0];
+            dataClass = (Class<T>) type;
+        }
+        
+        return dataClass;
+    }
+    
+    
+    public Object save(T obj) {
+        return entityManager.merge(obj);
+    }
+
+
+	@Override
+    public void update(T obj) {
+        entityManager.merge(obj);
+    }
+	@Override
+    public void insert(T obj) {
+        entityManager.merge(obj);
+        entityManager.remove(obj);
+    }
+	@Override
+    public void delete(T obj) {
+        entityManager.remove(obj);
+    }
+    
+	@Override
+	public T findByKey(K obj) {
+        return entityManager.find(dtoClass, obj);
+	}
+	
+	
+	
+	@Override
+	@SuppressWarnings("unchecked")
+	public List<T> findAll() {
+		
+		Session session = entityManager.unwrap(org.hibernate.Session.class);
+		//Session session = (Session) entityManager.getDelegate();
+    	return session.createCriteria(dtoClass).list();
+	}
+
+}

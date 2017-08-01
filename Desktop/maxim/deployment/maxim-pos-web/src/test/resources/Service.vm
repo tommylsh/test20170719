@@ -1,0 +1,21 @@
+#parse ("macro.vm")
+package com.maxim.pos.core.service;
+
+import ${entityClassName};
+import com.maxim.pos.common.value.CommonCriteria;
+
+import java.util.List;
+
+public interface ${entitySimpleName}Service {
+
+    String BEAN_NAME = "#toLowerCase(${entitySimpleName})Service";
+
+    void save(${entitySimpleName} #toLowerCase(${entitySimpleName}));
+
+    void delete(Long #toLowerCase(${entitySimpleName})Id);
+
+    List<${entitySimpleName}> find${entitySimpleName}ByCriteria(CommonCriteria criteria);
+
+    Long get${entitySimpleName}CountByCriteria(CommonCriteria criteria);
+
+}
